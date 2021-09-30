@@ -1,0 +1,18 @@
+title: account
+description: Account
+x-group-m: Models
+type: object
+required:
+  - address
+properties:
+  address:
+    type: string
+    description: The address that was created on the ledger.
+    x-go-custom-tag: "bson:\"address\""
+  name:
+    type: string
+    description: A name to identify this account.
+    x-go-custom-tag: "bson:\"name\""
+externalDocs:
+  url: '#/definitions/account'
+x-go-name: Account

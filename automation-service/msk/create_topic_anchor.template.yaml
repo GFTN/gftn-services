@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ PARTICIPANT_ID }}-create-topic-anchor
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: {{ PARTICIPANT_ID }}-create-topic-anchor
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: create-topic-anchor-{{ PARTICIPANT_ID }}
+        image: {{ DOCKER_REGISTRY_URL }}/gftn/msk-cli:{{ VERSION }}
+        command: ["sh",  "create_anchor_topic_acl.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: PARTITIONS
+          value: "3"
+        - name: PARTICIPANT_ID
+          value: {{ PARTICIPANT_ID }}
+        - name: REPLICATION_FACTOR
+          value: "2"
+        - name: ZOOKEEPER
+          value: {{ ZOOKEEPER }}
+        - name: DN
+          value: {{ DN }}

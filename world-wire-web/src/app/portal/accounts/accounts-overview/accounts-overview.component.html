@@ -1,0 +1,133 @@
+<div class="margin-width" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+	<div fxLayout="column" fxLayoutGap="20px" class="side-column" [class.full-width]="isAnchor">
+		<!-- spacer to keep column aligned with the title of main content -->
+		<div fxHide.lt-md>
+			<h3 class="bx--type-gamma">&nbsp;</h3>
+		</div>
+
+		<div [fxLayout]="isAnchor ? 'row': 'column'" fxLayout.lt-md="row" fxLayoutGap="20px">
+			<button ibmButton="primary" class="account-tools" [class.row]="isAnchor"
+				[routerLink]="'/portal/' + sessionService.institution.info.slug + '/accounts/trustlines'"
+				[disabled]="!isAnchor && !issuingAccount">
+				<svg class="bx--btn__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+					<title>Request Icon</title>
+					<path
+						d="M25,23v3H7V16.83l3.59,3.58L12,19,6,13,0,19l1.41,1.41L5,16.83V26a2,2,0,0,0,2,2H25a2,2,0,0,0,2-2V23Z" />
+					<path d="M27,7v9.17l3.59-3.58L32,14l-6,6-6-6,1.41-1.41L25,16.17V7H13V5H25A2,2,0,0,1,27,7Z" />
+					<path d="M8,10H4A2,2,0,0,1,2,8V4A2,2,0,0,1,4,2H8a2,2,0,0,1,2,2V8A2,2,0,0,1,8,10ZM4,4V8H8V4Z" />
+				</svg>
+				Trustline Requests
+			</button>
+			<button ibmButton="primary" class="account-tools"
+				[routerLink]="'/portal/' + sessionService.institution.info.slug + '/accounts/whitelist'"
+				[disabled]="!isAnchor && !issuingAccount">
+				<svg class="bx--btn__icon" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg"
+					xmlns:xlink="http://www.w3.org/1999/xlink">
+					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<g id="aggregations(graph)" transform="translate(1.000000, 0.000000)" stroke="#FFFFFF"
+							stroke-width="0.866">
+							<path
+								d="M14.8363636,12.06 C13.9784847,12.0007015 13.1616679,12.4704831 12.7164056,13.2792664 C12.2711432,14.0880498 12.2711432,15.1019502 12.7164056,15.9107336 C13.1616679,16.7195169 13.9784847,17.1892985 14.8363636,17.13 C16.0530099,17.0459027 17.0006406,15.9359506 17.0006406,14.595 C17.0006406,13.2540494 16.0530099,12.1440973 14.8363636,12.06 L14.8363636,12.06 Z M26.9363636,12.06 C26.0784847,12.0007015 25.2616679,12.4704831 24.8164056,13.2792664 C24.3711432,14.0880498 24.3711432,15.1019502 24.8164056,15.9107336 C25.2616679,16.7195169 26.0784847,17.1892985 26.9363636,17.13 C28.1530099,17.0459027 29.1006406,15.9359506 29.1006406,14.595 C29.1006406,13.2540494 28.1530099,12.1440973 26.9363636,12.06 L26.9363636,12.06 Z M2.71818182,12.06 C1.86030289,12.0007015 1.04348613,12.4704831 0.598223758,13.2792664 C0.152961386,14.0880498 0.152961386,15.1019502 0.598223758,15.9107336 C1.04348613,16.7195169 1.86030289,17.1892985 2.71818182,17.13 C3.93482812,17.0459027 4.8824588,15.9359506 4.8824588,14.595 C4.8824588,13.2540494 3.93482812,12.1440973 2.71818182,12.06 L2.71818182,12.06 Z M18.8909091,1.79 C18.4376555,2.57850818 18.4138374,3.57687528 18.8288699,4.39044838 C19.2439024,5.20402147 20.030983,5.70184998 20.8789801,5.68714308 C21.7269771,5.67243618 22.4993992,5.14756105 22.8909091,4.32 C23.4622057,3.11241148 23.0664445,1.62409496 21.9935935,0.945516707 C20.9207425,0.266938453 19.552303,0.639397975 18.8909091,1.79 L18.8909091,1.79 Z M6.78181818,24.86 C6.31177134,25.6471847 6.27627871,26.6558441 6.68960328,27.4806405 C7.10292786,28.3054368 7.89720992,28.8109548 8.75326091,28.7940481 C9.60931189,28.7771413 10.3865852,28.2405856 10.7727273,27.4 C11.1852066,26.6140157 11.1851554,25.6456756 10.772593,24.8597441 C10.3600305,24.0738126 9.5976348,23.5896913 8.77259297,23.5897441 C7.94755113,23.5897969 7.18520664,24.0740157 6.77272727,24.86 L6.78181818,24.86 Z M6.78181818,4.32 C7.15858545,5.17608722 7.93858659,5.72889116 8.80298546,5.75244564 C9.66738433,5.77600013 10.4713121,5.26635755 10.8861522,4.43184129 C11.3009924,3.59732502 11.2572199,2.57779574 10.7727273,1.79 C10.1113334,0.639397975 8.74289382,0.266938453 7.67004282,0.945516707 C6.59719183,1.62409496 6.20143063,3.11241148 6.77272727,4.32 L6.78181818,4.32 Z M18.8909091,27.4 C19.2770512,28.2405856 20.0543245,28.7771413 20.9103755,28.7940481 C21.7664264,28.8109548 22.5607085,28.3054368 22.9740331,27.4806405 C23.3873577,26.6558441 23.351865,25.6471847 22.8818182,24.86 C22.2441803,23.6449736 20.8318422,23.2285984 19.7272728,23.9300001 C18.6227033,24.6314017 18.2441804,26.1849736 18.8818182,27.4 L18.8909091,27.4 Z"
+								id="Shape"></path>
+							<path
+								d="M24.6363636,14.6 L17.1363636,14.6 M12.5181818,14.6 L5.01818182,14.6 M19.7363636,5.25 L16.3090909,12.18 M9.90909091,5.25 L13.3272727,12.18 M19.7363636,23.72 L16.3090909,16.79 M9.90909091,23.72 L13.3272727,16.79"
+								id="Shape" stroke-linecap="round" stroke-linejoin="round"></path>
+						</g>
+					</g>
+				</svg>
+				Manage Whitelist
+			</button>
+		</div>
+
+		<div class="margin-height"></div>
+
+		<!-- Only show issued assets if default issuing account exists. -->
+		<div *ngIf="issuingAccount && !isAnchor" class="bx--tile issuing-account-tile" fxLayout="column"
+			fxLayoutGap="30px">
+			<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start space-between">
+				<h3 class="bx--type-gamma">Issued Digital Obligations</h3>
+				<p class="bx--type-delta number">
+					{{ accountService.issuedAssets ? accountService.issuedAssets.length : 0 }}
+				</p>
+			</div>
+			<div *ngIf="!issuedAssetsLoaded" class="bx--structured-list" fxLayout="row" fxLayoutGap="10px">
+				<p class="loading"></p>
+				<p class="loading"></p>
+				<p class="loading"></p>
+			</div>
+			<div *ngIf="issuedAssetsLoaded && accountService.issuedAssets && accountService.issuedAssets.length > 0">
+				<div fxLayoutGap="10px">
+					<span *ngFor="let asset of accountService.issuedAssets"
+						class="bx--tag bx--tag--ibm">{{asset.asset_code}}</span>
+				</div>
+			</div>
+
+			<div *ngIf="issuedAssetsLoaded && !(accountService.issuedAssets && accountService.issuedAssets.length > 0)"
+				class="center italic tall" fxLayout="column" fxLayoutAlign="center center">
+				<p *ngIf="participantAuthorized">No issued assets.</p>
+				<p *ngIf="!participantAuthorized">Unauthorized to view.</p>
+			</div>
+
+			<button *ngIf="participantAuthorized" ibmButton="secondary" [routerLink]="'/portal/' + sessionService.institution.info.slug + '/assets/overview'">
+				Manage Issued Assets
+			</button>
+		</div>
+
+		<!-- TODO: This is temporary. Pending redesign of accounts page as more functionality becomes available through the Anchor API. -->
+		<div *ngIf="isAnchor" class="column">
+			<app-anchor-assets [issuedAssetsLoaded]="issuedAssetsLoaded" [error]="issuedAssetsError"></app-anchor-assets>
+		</div>
+	</div>
+
+	<section *ngIf="!isAnchor" fxLayout="column" fxFlex fxLayoutGap="15px">
+		<div fxLayout="row" fxLayoutAlign="space-between center">
+			<h3 class="bx--type-gamma">Accounts</h3>
+
+			<!-- TODO: ADMIN ONLY. Participants will have this ability in the future, but for now, this will be an Admin/Operations task. -->
+			<button *ngIf="superAuthorized" ibmButton="primary" size="sm" (click)="openAccountModal()">
+			<span>Add New Account</span>
+				<svg class="bx--btn__icon"  width="16" height="16" viewBox="0 0 16 16"><path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Notifications for pending account requests -->
+		<div *ngIf="superAuthorized" fxLayout="column" fxLayoutGap="15px">
+			<ng-container *ngFor="let request of pendingAccountRequests">
+				<app-notification-tile type="warning" title="Pending" [content]="requestTemplate" [hasAction]="true"
+					(click)="openAccountModal(request)">
+				</app-notification-tile>
+
+				<ng-template #requestTemplate>
+					<p><label class="bx--label">New Account Request</label></p>
+					<p>A request to issue a new account: <span class="bx--label">{{ request.name }}</span> is pending
+						admin
+						approval.</p>
+				</ng-template>
+			</ng-container>
+		</div>
+
+		<!-- Accounts data are loading -->
+		<ibm-loading *ngIf="!accountsLoaded" [overlay]="false"></ibm-loading>
+
+		<!-- Display detail for issuing account -->
+		<app-participant-account *ngIf="accountsLoaded && issuingAccount" [account]="issuingAccount">
+		</app-participant-account>
+
+		<!-- Default view for no issuing account. -->
+		<div *ngIf="accountsLoaded && !issuingAccount">
+			<p class="italic">No issuing account found for this participant.</p>
+		</div>
+
+		<!-- Display list of all Operating Accounts and trusted assets -->
+		<app-participant-account *ngFor="let account of operatingAccounts" [account]="account">
+		</app-participant-account>
+
+		<div *ngIf="accountsLoaded && (!operatingAccounts || operatingAccounts.length == 0)">
+			<p class="italic">No operating accounts found for this participant.</p>
+		</div>
+	</section>
+
+	<!-- spacer -->
+	<div class="margin-height"></div>
+</div>

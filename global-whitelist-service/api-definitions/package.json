@@ -1,0 +1,18 @@
+{
+  "name": "global-whitelist-service-api-definition",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "md-docs-global-whitelist-service-api": "swagger-markdown -i global-whitelist-service-api.json -o generated/global-whitelist-service-api.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GFTN/gftn-services/global-whitelist-service"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "swagger-markdown": "^1.1.2"
+  }
+}

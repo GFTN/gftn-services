@@ -1,0 +1,23 @@
+
+title: actor
+description: Actor
+x-group-m: Models
+type: object
+required:
+  - institution
+properties:
+  customer:
+    type: object
+    description: The customer.
+    $ref: 'customer.yaml'
+  payout_location:
+    type: object
+    description: The account information of the actor at their institution.
+    $ref: 'payoutLocation.yaml'
+  institution:
+    type: object
+    description: The institution that the actor has an account at.
+    $ref: 'institution.yaml'
+externalDocs:
+  url: '#/definitions/actor'
+x-go-name: PaymentActor

@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  ww-gas:
+    image: gftn/gas-service:latest
+    env_file: 
+    - "./configMap.env"
+    container_name: ww-gas
+    ports: 
+    - "8099:8099"
+    restart: unless-stopped 
+    environment: 
+    - SERVICE_NAME=gas-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}

@@ -1,0 +1,19 @@
+{
+  "name": "gftn-anchor-service-anchor-definition",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "md-docs-client-api": "swagger-markdown -i client-api.json -o generated/client-api.md",
+    "md-docs-onboarding-api": "swagger-markdown -i onboarding-api.json -o generated/onboarding-api.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GFTN/gftn-services/anchor-service"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "swagger-markdown": "^1.1.2"
+  }
+}

@@ -1,0 +1,137 @@
+swagger: "2.0"
+info:
+  title: World Wire Anchor onboarding Service API
+  description: >
+    Onboarding admin API for Anchor service setup
+    World Wire.
+  version: 1.0.0
+host: anchor.worldwire.io
+basePath: /v1/anchor
+schemes:
+  - https
+paths:
+
+  /admin/anchor/{anchor_id}/onboard/assets:
+    post:
+      tags:
+        - anchor_id
+        - register
+        - asset
+      summary: Registers asset issued by an anchor on world wire
+      description: Creates trust line with IBM admin account
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: anchor_id
+          required: true
+          type: string
+          description: anchor id 
+        - in: query
+          required: true
+          name: asset_code
+          type: string
+          description: Asset code of the Digital Asset, should be a 3-letter ISO currency code
+        - in: query
+          required: true
+          name: asset_type
+          type: string
+          enum:
+            - DA
+          description: Asset type can only be a digital obligation (DA) since issued by a anchor participant
+      responses:
+          200:
+            description: The asset has been issued
+            schema:
+              $ref: '../../gftn-models/models/asset.yaml'
+          400:
+            description: Missing or invalid parameters in the request
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+          404:
+            description: The asset could NOT be issued due to error retrieving Issuing Account
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+          500:
+            description: The asset could NOT be issued due to error communicating with ledger
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+
+  /admin/anchor/{anchor_id}/register:
+    post:
+      tags:
+        - anchor_id
+        - register
+      summary: Registers anchor domain to ww
+      description: Registers anchor domain on WW participant registry with given issuing account address and generates and returns authentication token, used to generate JWT token to access apis
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: anchor_id
+          required: true
+          type: string
+          description: anchor domain name
+        - in: body
+          required: true
+          name: registerAnchorRequest
+          description: Anchor regsitration request
+          schema:
+            $ref: '../../gftn-models/models/registerAnchorRequest.yaml'
+          x-go-name: RegisterAnchorRequest
+      responses:
+          200:
+            description: achor domain is registered
+            schema:
+              $ref: '../../gftn-models/models/operatingAccount.yaml'
+          400:
+            description: Missing or invalid parameters in the request
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+          404:
+            description: The registration failed due to error communicating with ledger
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+          409:
+            description: The registration failed due to conflict with ledger
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+
+  /admin/anchor/assets/issued/{anchor_id}:
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /anchor
+      x-group-e: Assets
+      tags:
+        - all
+        - assets
+      summary: List your issued assets
+      description: >
+        Returns a list of all your issued assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      parameters:
+        - in: path
+          name: anchor_id
+          description: >
+            Identifier of a World Wire Anchor. To get a list of all participants, make a GET request to /participants.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: All assets issued on World Wire by this anchor participant
+          schema:
+            type: array
+            items:
+              $ref: '../../gftn-models/models/asset.yaml'
+        404:
+          description: No assets issued on World Wire by this anchor participant
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+

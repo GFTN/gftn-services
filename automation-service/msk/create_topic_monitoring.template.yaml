@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-topic-monitoring
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: create-topic-monitoring
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: create-topic-monitoring
+        image: {{ DOCKER_REGISTRY_URL }}/gftn/msk-cli:{{ VERSION }}
+        command: ["sh",  "create_monitoring_topic_acl.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: ZOOKEEPER
+          value: {{ ZOOKEEPER }}
+        - name: DN
+          value: {{ DN }}

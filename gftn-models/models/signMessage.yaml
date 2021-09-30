@@ -1,0 +1,18 @@
+title: signMessage
+description: Sign a message using paticipant account
+x-group-m: Models
+type: object
+required:
+  - account_name
+  - payload
+properties:
+  account_name:
+    type: string
+    description: Account identifier used for signing
+  payload:
+    type: string
+    format: byte
+    description: Payload to be signed
+externalDocs:
+  url: '#/definitions/signMessage'
+x-go-name: SignMessage

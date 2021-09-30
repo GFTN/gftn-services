@@ -1,0 +1,8 @@
+@import "~sass/grid";
+@import "~sass/ibm-style-override";
+
+.bx--tag {
+	background-color: $brand-01;
+	color: $text-03;
+	cursor: pointer;
+}

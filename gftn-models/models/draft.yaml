@@ -1,0 +1,32 @@
+
+title: draft
+description: draft
+x-group-m: Models
+type: object
+required:
+  - account_name
+  - id_unsigned
+  - id_signed
+  - transaction_unsigned
+properties:
+  account_name:
+    type: string
+    description: The name of the account with which the transactions needs to be signed
+  id_unsigned:
+    type: string
+    format: byte
+    description: This will be unsigned reference envelope to verify against partcipant's signature for authenticity.
+  id_signed:
+    type: string
+    format: byte
+    description: This will be signed reference envelope to verify against partcipant's signature for authenticity.
+  transaction_unsigned:
+    type: string
+    format: byte
+    description: The unsigned transaction envelope to be signed by the participant.
+  transaction_id:
+    type: string
+    description: Identifier for transaction.
+externalDocs:
+  url: '#/definitions/draft'
+x-go-name: Draft

@@ -1,0 +1,20 @@
+
+title: compliance
+description: Compliance
+x-group-m: Models
+type: object
+required:
+  - pending_send
+  - compliance
+properties:
+  pending_send:
+    type: object
+    description: An entire one-way Send (payment) bundle.
+    $ref: 'send.yaml'
+    x-go-name: Send
+  compliance:
+    type: string
+    description: The hash of the entire one-way Send (payment) bundle that is stored in the txn memo field on the ledger.
+externalDocs:
+  url: '#/definitions/compliance'
+x-go-name: compliance

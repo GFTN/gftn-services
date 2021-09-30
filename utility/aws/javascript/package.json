@@ -1,0 +1,29 @@
+{
+    "name": "poc",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run build:live",
+        "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- src/test.ts",
+        "build": "rimraf ./build && tsc"
+    },
+    "license": "Apache-2.0",
+    "devDependencies": {
+        "@types/es6-promise": "^3.3.0",
+        "@types/node": "^12.7.12",
+        "anymatch": "^3.1.1",
+        "aws-sdk": "^2.549.0",
+        "babel-preset-env": "^1.7.0",
+        "braces": "^3.0.2",
+        "chokidar": "^3.2.1",
+        "fstream": "^1.0.12",
+        "micromatch": "^4.0.2",
+        "nodemon": "^1.19.3",
+        "rimraf": "^3.0.0",
+        "ts-node": "^8.4.1",
+        "typescript": "^3.6.4",
+        "@babel/cli": "^7.6.4",
+        "@babel/core": "^7.6.4"
+    }
+}

@@ -1,0 +1,72 @@
+{
+  "participants": [
+    {
+      "api_service_url": "https://test-nz.worldwire-ibm.com:8080",
+      "compliance_service_url": "https://test-nz.worldwire-ibm.com:11003",
+      "country_code": "NZ",
+      "distribution_accounts": [
+        {
+          "account_name": "default",
+          "stellar_network_address": "GA4BK457SSMZKSXIBBKNPHN5JX3MGM4F46M6FLLA7XBT2N5G6CCWBJT4"
+        }
+      ],
+      "federation_service_url": "https://test-nz.worldwire-ibm.com:11001",
+      "issuing_account": "GA7Z4F45IDUPK4BJTJC4XOVMT6VNYAQ6TUK35VHCBDVORKZHKA5LR5ZZ",
+      "participant_domain": "nz.one.payments.gftn.io",
+      "quote_service_url": "https://test-nz.worldwire-ibm.com:11002",
+      "rdo_service_url": "https://test-nz.worldwire-ibm.com:7070",
+      "status": "active"
+    },
+    {
+      "api_service_url": "https://test-fj.worldwire-ibm.com:8080",
+      "compliance_service_url": "https://test-fj.worldwire-ibm.com:11003",
+      "country_code": "FJ",
+      "distribution_accounts": [
+        {
+          "account_name": "default",
+          "stellar_network_address": "GA3RHIWOCTCNGO4JAHHBH3FNPH75T3ZMSQWPJ7Z3WBCT4BFZYE6STBLM"
+        }
+      ],
+      "federation_service_url": "https://test-fj.worldwire-ibm.com:11001",
+      "issuing_account": "GAD2KI6FKPOYF774IFS5WCRHNPGC2KAQRT4SNTOW62QQHXWYF5T4DBDA",
+      "participant_domain": "fj.one.payments.gftn.io",
+      "quote_service_url": "https://test-fj.worldwire-ibm.com:11002",
+      "rdo_service_url": "https://test-fj.worldwire-ibm.com:7070",
+      "status": "active"
+    },
+    {
+      "api_service_url": "https://test-au.worldwire-ibm.com:8080",
+      "compliance_service_url": "https://test-au.worldwire-ibm.com:11003",
+      "country_code": "AU",
+      "distribution_accounts": [
+        {
+          "account_name": "default",
+          "stellar_network_address": "GB74HQPNXKDS4UQMZ7LGJGX2IUC2CFVOE23XKTFAZKTMEF2DKSVMQMTX"
+        }
+      ],
+      "federation_service_url": "https://test-au.worldwire-ibm.com:11001",
+      "issuing_account": "GBEHP6CEHGKQCPPWHFLZIQ6YUZXVJUV4XQREM6ZDA4EJB6XKM6HTY75N",
+      "participant_domain": "au.one.payments.gftn.io",
+      "quote_service_url": "https://test-au.worldwire-ibm.com:11002",
+      "rdo_service_url": "https://test-au.worldwire-ibm.com:7070",
+      "status": "active"
+    },
+    {
+      "api_service_url": "https://test-sg.worldwire-ibm.com:8080",
+      "compliance_service_url": "https://test-sg.worldwire-ibm.com:11003",
+      "country_code": "SG",
+      "distribution_accounts": [
+        {
+          "account_name": "default",
+          "stellar_network_address": "GATLS4CESL4WHE4U5BVKJGMCDCUVAMCXSCM7GVQVVY5KPWHUQ6727AGB"
+        }
+      ],
+      "federation_service_url": "https://test-sg.worldwire-ibm.com:11001",
+      "issuing_account": "GDHXGSIRKN5BMRFXQG7F2YHFPO5JV5UC4F6MEITCE2IXJNUAIDVEOP5Y",
+      "participant_domain": "sg.one.payments.gftn.io",
+      "quote_service_url": "https://test-sg.worldwire-ibm.com:11002",
+      "rdo_service_url": "https://test-sg.worldwire-ibm.com:7070",
+      "status": "active"
+    }
+  ]
+}

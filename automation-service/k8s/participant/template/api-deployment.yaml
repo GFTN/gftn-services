@@ -1,0 +1,66 @@
+# Api Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: participant_id_variable-api
+  labels:
+    app: participant_id_variable-api
+spec:
+  replicas: replica_variable
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: participant_id_variable-api
+  template:
+    metadata:
+      labels:
+        app: participant_id_variable-api
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - env:
+        - name: SERVICE_NAME
+          value: "api-service"
+        - name: HOME_DOMAIN_NAME
+          value: "participant_id_variable"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: participant_id_variable-api-service-aws-iam-key
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: participant_id_variable-api-service-aws-iam-key
+              key: aws-secret-access-key
+        - name: FIREBASE_CREDENTIALS
+          valueFrom:
+            secretKeyRef:
+              name: next-firebase-credential
+              key: next-firebase-credential
+        - name: WW_JWT_PEPPER_OBJ
+          valueFrom:
+            secretKeyRef:
+              name: jwtpepperobject
+              key: pepper-object
+        image: docker_registry_url/gftn/api-service:docker_tag_variable
+        imagePullPolicy: Always
+        name: participant_id_variable-api
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "0.1"
+          limits:
+            memory: "128Mi"
+            cpu: "0.25"
+        ports:
+        - containerPort: 11000
+        - containerPort: 12000
+        envFrom:
+        - configMapRef:
+            name: env-config-global
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred

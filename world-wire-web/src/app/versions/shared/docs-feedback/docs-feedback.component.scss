@@ -1,0 +1,13 @@
+#feedback {
+	position: fixed;
+	bottom: 30%;
+	// bottom: 280px;
+	// right: -1.3rem;
+	right: 40px;
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	transform-origin: top right;
+}

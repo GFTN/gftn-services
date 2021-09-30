@@ -1,0 +1,25 @@
+title: stellarComplianceData
+description: StellarComplianceData
+required:
+  - sender
+  - need_info
+  - tx
+  - attachment
+properties:
+  sender:
+    type: string
+    description: The payment address of the customer that is initiating the send. Ex. 100110193832*uk.bank.payments.gftn.io
+  need_info:
+    type: boolean
+    description: If the caller needs the recipient’s AML info in order to send the payment. Should ALWAYS be set to true
+  tx:
+    type: string
+    description: The transaction that the sender would like to send in XDR format. This transaction is unsigned and it’s sequence number should be equal 0.
+  attachment:
+    type: string
+    description: The full text of the attachment. The hash of this attachment is included as a memo in the transaction. The attachment field follows the Stellar Attachment Convention and should contain at least enough information of the sender to allow the receiving FI to do their sanction check.
+externalDocs:
+  url: '#/definitions/stellarComplianceData'
+x-go-name: StellarComplianceData
+
+

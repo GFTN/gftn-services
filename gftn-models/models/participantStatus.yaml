@@ -1,0 +1,17 @@
+title: participantStatus
+description: ParticipantStatus
+type: object
+required:
+  - status
+properties:
+  status:
+    type: string
+    enum:
+      - inactive
+      - active
+      - suspended
+    description: Participant active status on WW network, inactive, active, suspended
+externalDocs:
+  url: '#/definitions/participantStatus'
+x-go-name: ParticipantStatus
+

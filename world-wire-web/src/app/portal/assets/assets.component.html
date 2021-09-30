@@ -1,0 +1,21 @@
+<!-- Breadcrumb Navigation -->
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+	<div fxFlex class="margin-height restrict-width" fxLayout="column" ngClass.gt-xs="margin-width">
+		<nav class="bx--breadcrumb bx--breadcrumb--no-trailing-slash margin-width" aria-label="breadcrumb">
+			<div class="bx--breadcrumb-item">
+				<a [routerLink]="'overview'" class="bx--link">Manage Assets</a>
+			</div>
+			<div class="bx--breadcrumb-item" *ngFor="let segment of urlSegments; let i = index">
+				<a [routerLink]="constructUrl(i)" class="bx--link" *ngIf="(i + 1) < urlSegments.length">{{getBreadcrumbTitle(segment.path, i)}}</a>
+				<span *ngIf="(i + 1) === urlSegments.length">{{getBreadcrumbTitle(segment.path, i)}}</span>
+			</div>
+		</nav>
+
+		<!-- Display Dropdown to switch between nodes if more than 1 available -->
+		<app-node-select class="margin-width"></app-node-select>
+		<router-outlet></router-outlet>
+	</div>
+</div>
+
+<!-- Used for modals in the entire template -->
+<ibm-placeholder></ibm-placeholder>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:worldwire">
+    <AppHdr >
+        <Fr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+            <FIId>
+                <FinInstnId>
+                    <BICFI>USAPTCPT001</BICFI>
+                    <Othr>
+                        <Id>ptcpt1</Id>
+                    </Othr>
+                </FinInstnId>
+            </FIId>
+        </Fr>
+        <To xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+            <FIId>
+                <FinInstnId>
+                    <BICFI>WORLDWIRE00</BICFI>
+                    <Othr>
+                        <Id>WW</Id>
+                    </Othr>
+                </FinInstnId>
+            </FIId>
+        </To>
+        <BizMsgIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">B20191119USAPTCPT001BAA3476205</BizMsgIdr>
+        <MsgDefIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">ibwf.002.001.01</MsgDefIdr>
+        <CreDt xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">2019-11-19T10:41:53Z</CreDt>
+    </AppHdr>
+    <DigOblSetNotif>
+        <GrpHdr xmlns="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01">
+            <MsgId>USDDO20191119USAPTCPT001B1111110001</MsgId>
+            <CreDtTm>2019-11-19T10:41:53</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>WWDO</SttlmMtd>
+                <SttlmAcct>
+                    <Id>
+                        <Othr>
+                            <Id>ptcpt1</Id>
+                        </Othr>
+                    </Id>
+                    <Nm>issuing</Nm>
+                </SttlmAcct>
+            </SttlmInf>
+            <PmtTpInf>
+                <SvcLvl>
+                    <Prtry>ptcpt1</Prtry>
+                </SvcLvl>
+            </PmtTpInf>
+            <InstgAgt>
+                <FinInstnId>
+                    <BICFI>USAPTCPT001</BICFI>
+                    <Othr>
+                        <Id>ptcpt1</Id>
+                    </Othr>
+                </FinInstnId>
+            </InstgAgt>
+            <InstdAgt>
+                <FinInstnId>
+                    <BICFI>USAPTCPT002</BICFI>
+                    <Othr>
+                        <Id>ptcpt2</Id>
+                    </Othr>
+                </FinInstnId>
+            </InstdAgt>
+        </GrpHdr>
+        <SttlOblInf xmlns="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01">
+            <OrgnlGrpInf>
+                <OrgnlMsgId>USDDO19112019USAPTCPT00111111110001</OrgnlMsgId>
+                <OrgnlMsgNmId>pacs.008.001.07</OrgnlMsgNmId>
+                <OrgnlCreDtTm>2019-11-19T10:40:28</OrgnlCreDtTm>
+            </OrgnlGrpInf>
+            <TxInf>
+                <NtfId>USDDO20191119USAPTCPT001B1111110001</NtfId>
+                <OrgnlInstrId>USDDO20191119USAPTCPT001B1111110001</OrgnlInstrId>
+                <OrgnlEndToEndId>USDDO19112019USAPTCPT00111111110001</OrgnlEndToEndId>
+                <OrgnlTxId>USDDO19112019USAPTCPT00111111110001</OrgnlTxId>
+                <ActSttldAmt Ccy="USDDO">2</ActSttldAmt>
+                <OrgnlTxRef>
+                    <IntrBkSttlmAmt Ccy="USDDO">2</IntrBkSttlmAmt>
+                    <Dbtr>
+                        <Nm>ABC Corporation</Nm>
+                        <PstlAdr>
+                            <StrtNm>Times Square</StrtNm>
+                            <BldgNb>7</BldgNb>
+                            <PstCd>168977</PstCd>
+                            <TwnNm>New York</TwnNm>
+                            <Ctry>US</Ctry>
+                        </PstlAdr>
+                    </Dbtr>
+                    <Cdtr>
+                        <Nm>DEF Electronics</Nm>
+                        <PstlAdr>
+                            <StrtNm>Mark Lane</StrtNm>
+                            <BldgNb>55</BldgNb>
+                            <PstCd>115876</PstCd>
+                            <TwnNm>London</TwnNm>
+                            <Ctry>SG</Ctry>
+                        </PstlAdr>
+                    </Cdtr>
+                </OrgnlTxRef>
+            </TxInf>
+        </SttlOblInf>
+    </DigOblSetNotif>
+</Message>

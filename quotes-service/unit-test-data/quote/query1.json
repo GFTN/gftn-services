@@ -1,0 +1,28 @@
+{
+    "time_expire_rfi": {
+        "operator": "gt", 
+        "threshold":"2025-01-02T15:04:05.999Z"
+        },
+    "ofi_id": "hk.one.payments.worldwire.io",
+    "exchange_rate": {
+        "operator": "eq", 
+        "threshold":1.51
+        },
+    "status_quote": {
+        "operator": "eq", 
+        "threshold":99
+        },
+    "rfi_id": "ie.one.payments.worldwire.io",
+    "address_receive_rfi": "rfi_receiving_account_address",
+    "address_send_rfi": "rfi_sending_account_address",
+    "source_asset": {
+        "asset_code": "GBPDO",
+        "asset_issuer": "GBPD3QEYU5E6ORGOY54WS2BQIFSJBM3GUQQOEPPYB4DZ2B5GQ7QHUVAV",
+        "asset_type": "DO"
+    },
+    "target_asset": {
+        "asset_code": "HKDDO",
+        "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+        "asset_type": "DO"
+    }
+}

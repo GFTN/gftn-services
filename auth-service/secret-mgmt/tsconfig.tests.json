@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "test_lib",
+    "sourceMap": true,
+    "strict": true,
+    "types":[
+      "node", 
+      "mocha",
+      "chai",
+      "chai-fs"
+    ],
+    "target": "es2015",
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "allowUnreachableCode": false,
+    "alwaysStrict": true,
+    "pretty": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": false,
+    "rootDir": "src",
+    "skipLibCheck": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "../node_modules"
+  ]
+}

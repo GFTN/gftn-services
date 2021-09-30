@@ -1,0 +1,68 @@
+{
+	"functions": {
+		"predeploy": [
+      "npm --prefix ./functions/ run lint",
+      "npm --prefix ./functions/ run build"
+    ],
+		"source": "functions"
+	},
+	"hosting": {
+		"headers": [
+			{
+				"source": "**",
+				"headers": [
+					{
+						"key": "Content-Security-Policy",
+						"value": "default-src 'self' https://securetoken.googleapis.com; script-src 'self' https://*.firebaseio.com; connect-src 'self' https://securetoken.googleapis.com https://www.googleapis.com/identitytoolkit/v3/relyingparty/ https://*.worldwire-pen.io https://*.firebaseio.com wss://*.firebaseio.com; frame-src https://*.firebaseio.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://unpkg.com https://fonts.gstatic.com; upgrade-insecure-requests"
+          },
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+          },
+					{
+						"key": "X-Download-Options",
+						"value": "noopen"
+          },
+					{
+						"key": "X-Frame-Options",
+						"value": "deny"
+          },
+					{
+						"key": "X-Xss-Protection",
+						"value": "1"
+          },
+					{
+						"key": "X-Content-Type-Options",
+						"value": "nosniff"
+          }
+        ]
+      }
+    ],
+		"public": "dist",
+		"ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+		"rewrites": [
+			{
+				"source": "/api/**",
+				"function": "api"
+      },
+			{
+				"source": "**",
+				"destination": "/index.html"
+      }
+    ]
+	},
+	"database": {
+		"rules": "database.rules.json"
+	},
+	"firestore": {
+		"rules": "firestore.rules",
+		"indexes": "firestore.indexes.json"
+	},
+	"storage": {
+		"rules": "storage.rules"
+	}
+}

@@ -1,0 +1,21 @@
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+	<div fxFlex class="margin-height restrict-width" fxLayout="column" ngClass.gt-xs="margin-width">
+		<nav class="bx--breadcrumb bx--breadcrumb--no-trailing-slash margin-width" aria-label="breadcrumb">
+			<div class="bx--breadcrumb-item">
+				<a [routerLink]="'/office/accounts'" class="bx--link">Accounts</a>
+			</div>
+			<div class="bx--breadcrumb-item">
+				<a [routerLink]="'/office/account/' + getCurrentSlug()" class="bx--link">{{ getCurrentSlug() || '...' }}</a>
+			</div>
+			<div class="bx--breadcrumb-item" *ngFor="let segment of urlSegments; let i = index">
+				<a [routerLink]="constructUrl(i)" class="bx--link" *ngIf="(i + 1) < urlSegments.length">{{getBreadcrumbTitle(segment.path, i)}}</a>
+				<span *ngIf="(i + 1) === urlSegments.length">{{getBreadcrumbTitle(segment.path, i)}}</span>
+			</div>
+
+			<div class="bx--breadcrumb-item" *ngIf="urlSegments.length === 0">
+				<span>{{getBreadcrumbTitle('')}}</span>
+			</div>
+		</nav>
+		<router-outlet></router-outlet>
+	</div>
+</div>

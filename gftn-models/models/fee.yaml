@@ -1,0 +1,26 @@
+
+title: fee
+description: Fee
+x-group-m: Models
+type: object
+required:
+  - cost
+  - costasset
+properties:
+  costasset:
+    type: object
+    description: Native or credit
+    $ref: 'asset.yaml'
+    externalDocs:
+      url: '#/definitions/asset'
+    x-go-custom-tag: "bson:\"costasset\""
+  cost:
+    type: number
+    multipleOf: 0.0000001
+    description: The fee amount, should be a float64 number
+externalDocs:
+  url: '#/definitions/fee'
+x-go-name: Fee
+# x-desc-fee|fee_creditor: The fee charged by the creditor (RFI)
+# x-desc-fee|fee_debtor: The fee charged by the debtor (OFI)
+# x-desc-fee|fee_admin: The cheap fee charged by IBM.

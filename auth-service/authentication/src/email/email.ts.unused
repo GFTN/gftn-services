@@ -1,0 +1,255 @@
+// PURPOSE: This contoller can be used to send notifications using Send-in-blue (https://www.sendinblue.com/)
+
+import { SMTPApi, ApiClient } from 'sib-api-v3-sdk';
+import { HTMLEmailTemplates } from './html-templates';
+import { PlainEmailTemplates } from './plain-templates';
+import { IGlobalEnvs } from '../environment';
+
+interface IEmailContact {
+    name: string;
+    email: string;
+}
+
+export interface ITransactionalEmail {
+    sender: IEmailContact;
+    to: IEmailContact[];
+    cc?: IEmailContact[];
+    bcc?: IEmailContact[];
+    htmlContent: string;
+    textContent: string;
+    subject: string;
+    replyTo?: {
+        name: string;
+        email: string
+    };
+}
+
+export class Email {
+
+    plainTemplates: PlainEmailTemplates;
+    htmlTemplates: HTMLEmailTemplates;
+    private smtpApi: any;
+    // private db: admin.database.Database = admin.database();
+    // private db: admin.firestore.Firestore = admin.firestore();
+    private env: IGlobalEnvs = global['envs'];
+
+    constructor() {
+
+        this.plainTemplates = new PlainEmailTemplates();
+        this.htmlTemplates = new HTMLEmailTemplates();
+
+        // send email notification to site admin
+        const defaultClient = ApiClient.instance;
+
+        // Configure API key authorization: api-key
+        const apiKey = defaultClient.authentications['api-key'];
+        apiKey.apiKey = this.env.send_in_blue_api_key;
+
+        // const sibApi = new SibApiV3Sdk.AccountApi();
+        this.smtpApi = new SMTPApi();
+
+    }
+
+    /**
+     * Checks if user has unsubscribed from mailing list before sending email message
+     * 
+     * @param {ITransactionalEmail} email 
+     * @param {string} [emailList] 
+     * @returns {Promise<{ success: boolean, data: any }>} 
+     * @memberof Email
+     */
+    sendEmail(email: ITransactionalEmail, emailList?: string): Promise<{ success: boolean, data: any }> {
+
+        return new Promise((resolve, reject) => {
+
+            // // check if mailing list provided 
+            // if (emailList) {
+
+            //     // check if user has unsubscribed from this mailing list
+            //     this.isSubscribed(email.to[0].email, emailList)
+            //         .then((isSubscribed: boolean) => {
+            //             if (isSubscribed) {
+            //                 resolve(this.sendTransactionalEmail(email));
+            //             } else {
+            //                 resolve({ success: true, data: 'User is not subscribed to this mailing list' });
+            //             }
+            //         }); resolve(this.sendTransactionalEmail(email));
+
+            // } else {
+            //     // if mailing list not provided, then send anyways.
+            //     // This should be used for one off transactional emails, 
+            //     // such as a welcome email, or password recovery
+            //     resolve(this.sendTransactionalEmail(email));
+            // }
+
+            resolve(this.sendTransactionalEmail(email));
+
+        });
+
+    }
+
+    // isSubscribed(emailAddress: string, mailingList: string): Promise<boolean> {
+
+    //     return new Promise((resolve, reject) => {
+
+    //         const hash = this.htmlTemplates.hashEmail(emailAddress);
+
+    //         // check if user has previously unsubscribed from related mailing list
+    //         this.db.collection('mailings').doc(hash).get()
+    //             .then(doc => {
+    //                 if (!doc.exists) {
+    //                     // console.log('No such document!');
+    //                     reject('unable to find firestore doc - no mailing lists associated with email address provided');
+    //                 } else {
+    //                     // console.log('Document data:', doc.data());
+    //                     const lists = doc.data();
+
+    //                     if (_.isUndefined(lists[mailingList]) === false && _.isError(lists[mailingList]) === false) {
+    //                         // check if 'mailingList' is defined and not error 
+    //                         if (lists[mailingList] === true) {
+    //                             // check if 'mailingList' set to true 
+
+    //                             resolve(true);
+
+    //                         } else {
+    //                             // 'mailingList' should never have a value of 'false'
+    //                             // rather the field should be deleted all together
+    //                             // calling this.optOut will delete this value 
+    //                             this.unsubscribe(hash, [mailingList]);
+
+    //                             resolve(false);
+    //                         }
+    //                     } else {
+    //                         resolve(false);
+    //                     }
+
+    //                 }
+    //             })
+    //             .catch(err => {
+    //                 console.log('Error getting document', err);
+    //                 // can't find subscriptions so resolve false
+    //                 resolve(false);
+    //             });
+
+    //     });
+
+    // }
+
+    /**
+     * Generates an HTML email with html header and footer branding 
+     * which can be sent given a html formated string for the body 
+     * 
+     * @private
+     * @param {string} body 
+     * @memberof Email
+     */
+    htmlEmail(htmlBody: string, ): string {
+        return this.htmlTemplates.emptyEmail.replace('[BODY]', htmlBody);
+    }
+
+    /**
+     * Generates a plain text email that can be sent given a plain text body
+     * 
+     * @private
+     * @param {string} body 
+     * @memberof Email
+     */
+    textEmail(body: string): string {
+        return this.plainTemplates.emptyEmail.replace('[BODY]', body);
+    }
+
+    // subscribe(emailAddress: string, subscribeToMailingLists: string[]): Promise<{ 'success': boolean, 'msg': string }> {
+
+    //     return new Promise((resolve, reject) => {
+
+    //         // convert email address to hash so that the hash can be a root ref of subscribe 
+    //         // note: hashing the email converts it into a string excluding forbidden characters such as the '@'
+    //         // add info to firebase firestore, also hash is easier to pass as a query param in URL
+
+    //         const subscriptions = {};
+
+    //         // set key name for subscriptions to true to denote that this email 
+    //         // address has subscribed to a specific mailing list
+    //         for (const item of subscribeToMailingLists) {
+    //             subscriptions[item] = true;
+    //         }
+
+    //         this.db.collection('mailings')
+    //             .doc(this.htmlTemplates.hashEmail(emailAddress))
+    //             .set(subscriptions, { merge: true })
+    //             .then((docRef) => {
+    //                 // console.log("New "+ req.body.firestorePath +" - Document ID: ", docRef.id);
+    //                 resolve({ 'success': true, 'msg': 'Recorded record to firebase.' });
+    //             }).catch((error) => {
+    //                 console.error("Error adding document: ", error);
+    //                 resolve({ 'success': false, 'msg': 'Unable to write to firebase.' });
+    //             });
+
+    //     });
+
+    // }
+
+    // unsubscribe(emailHash: string, unsubscribeFromMailingLists: string[], all?: boolean) {
+
+    //     return new Promise((resolve, reject) => {
+
+    //         const ref = this.db.collection('mailings')
+    //             .doc(emailHash);
+
+    //         let write: Promise<FirebaseFirestore.WriteResult> = null;
+
+
+    //         if (!all) {
+
+    //             // Get the `FieldValue` object
+    //             const FieldValue = require('firebase-admin').firestore.FieldValue;
+
+    //             const subscriptions = {};
+
+    //             // unsubscribe from 'specific' email lists
+    //             for (const item of unsubscribeFromMailingLists) {
+    //                 // Remove individual specific fields from the document
+    //                 subscriptions[item] = FieldValue.delete();
+    //             }
+
+    //             // remove fields from doc in firestore
+
+    //             write = ref.update(subscriptions);
+
+
+    //         } else {
+
+    //             // unsubscribe from 'all' email lists
+
+    //             write = ref.set({}); // empty object since no mailings
+
+    //         }
+
+    //         write.then((docRef) => {
+    //             resolve({ 'success': true, 'msg': 'Updated firebase record.' });
+    //         }).catch((error) => {
+    //             console.error("Error adding document: ", error);
+    //             resolve({ 'success': false, 'msg': 'Unable to write to firebase.' });
+    //         });
+
+    //     });
+
+    // }
+
+    private sendTransactionalEmail(email: ITransactionalEmail): Promise<{ success: boolean, data: any }> {
+
+        return new Promise((resolve, reject) => {
+
+            // use sendInBlue.com to send transactional email
+            this.smtpApi.sendTransacEmail(email)
+                .then((emailData: any) => {
+                    resolve({ success: true, data: emailData });
+                }, (error) => {
+                    reject({ success: false, data: 'Error, unable to send email: ' + error });
+                });
+
+        });
+
+    }
+
+}

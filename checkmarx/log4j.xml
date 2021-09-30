@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' debug="false">
+
+    <appender name="CA" class="org.apache.log4j.ConsoleAppender">
+        <param name="Threshold" value="INFO"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{ISO8601} %-5p] %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="FA" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="TRACE"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="maxFileSize" value="10MB"/>
+        <param name="append" value="true"/>
+        <param name="file" value="./logs/cx_console.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%t] (%F:%L) %-5p - %m%n"/>
+        </layout>
+    </appender>
+
+
+    <category name="org.apache.http">
+        <priority value="WARN"/>
+    </category>
+
+    <category name="org.apache.cxf">
+        <priority value="ERROR"/>
+    </category>
+
+    <category name="org.springframework">
+        <priority value="ERROR"/>
+    </category>
+
+    <category name="org.whitesource.agent">
+        <priority value="ERROR"/>
+    </category>
+
+    <root>
+        <level value="TRACE"/>
+        <appender-ref ref="FA"/>
+        <appender-ref ref="CA"/>
+    </root>
+
+</log4j:configuration>

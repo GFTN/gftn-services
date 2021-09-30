@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Message xmlns="urn:worldwire" xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:pr="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09">
+   <AppHdr>
+      <head:Fr>
+         <head:FIId>
+            <head:FinInstnId>
+               <head:BICFI>SGPTTEST004</head:BICFI>
+               <head:Othr>
+                  <head:Id>testparticipant4dev</head:Id>
+               </head:Othr>
+            </head:FinInstnId>
+         </head:FIId>
+      </head:Fr>
+      <head:To>
+         <head:FIId>
+            <head:FinInstnId>
+               <head:BICFI>WORLDWIRE00</head:BICFI>
+               <head:Othr>
+                  <head:Id>WW</head:Id>
+               </head:Othr>
+            </head:FinInstnId>
+         </head:FIId>
+      </head:To>
+      <head:BizMsgIdr>B20190404WORLDWIRE00BHU0928374</head:BizMsgIdr>
+      <head:MsgDefIdr>pacs.004.001.09</head:MsgDefIdr>
+      <head:CreDt>2019-05-02T16:00:00Z</head:CreDt>
+      <head:Sgntr>
+         <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+               <CanonicalizationMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+               <SignatureMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2009/xmldsig11#rsa-sha256" />
+               <Reference xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <Transforms xmlns="http://www.w3.org/2000/09/xmldsig#">
+                     <Transform xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                     <Transform xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                  </Transforms>
+                  <DigestMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                  <DigestValue xmlns="http://www.w3.org/2000/09/xmldsig#">x7YmpO5KUw0WxQiS0DDKxK/d7AGa83Ute2L8bJjpp74=</DigestValue>
+               </Reference>
+            </SignedInfo>
+            <SignatureValue xmlns="http://www.w3.org/2000/09/xmldsig#">g4VOfpIp5t6SqKt2htW0sc+5Nxugu8wU+AmHbnCJ4EYliY/yQmaPITebX5bWHeZMc/lJwkCDH069M/UdEAl/BA==</SignatureValue>
+            <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+               <X509Data xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <X509Certificate xmlns="http://www.w3.org/2000/09/xmldsig#">GCT5LR2C5IA35WIBF43KESB2426XMPYMQ6IEMS6WV7LDRCCJ5R7LOPWX</X509Certificate>
+               </X509Data>
+            </KeyInfo>
+         </Signature>
+      </head:Sgntr>
+   </AppHdr>
+   <PmtRtr>
+      <pr:GrpHdr>
+         <pr:MsgId>SGDDO20190819SGPTTEST003B3889747116</pr:MsgId>
+         <pr:CreDtTm>2019-05-24T07:23:32</pr:CreDtTm>
+         <pr:NbOfTxs>1</pr:NbOfTxs>
+         <pr:SttlmInf>
+            <pr:SttlmMtd>WWDO</pr:SttlmMtd>
+            <pr:SttlmAcct>
+               <pr:Id>
+                  <pr:Othr>
+                     <pr:Id>testparticipant4dev</pr:Id>
+                  </pr:Othr>
+               </pr:Id>
+               <pr:Nm>issuing</pr:Nm>
+            </pr:SttlmAcct>
+         </pr:SttlmInf>
+         <pr:InstgAgt>
+            <pr:FinInstnId>
+               <pr:BICFI>SGPTTEST004</pr:BICFI>
+               <pr:Othr>
+                  <pr:Id>testparticipant4dev</pr:Id>
+               </pr:Othr>
+            </pr:FinInstnId>
+         </pr:InstgAgt>
+         <pr:InstdAgt>
+            <pr:FinInstnId>
+               <pr:BICFI>SGPTTEST003</pr:BICFI>
+               <pr:Othr>
+                  <pr:Id>testparticipant3dev</pr:Id>
+               </pr:Othr>
+            </pr:FinInstnId>
+         </pr:InstdAgt>
+      </pr:GrpHdr>
+      <pr:OrgnlGrpInf>
+         <pr:OrgnlMsgId>SGDDO18072019IBMIBMQA00125653848396</pr:OrgnlMsgId>
+         <pr:OrgnlMsgNmId>camt.056.001.08</pr:OrgnlMsgNmId>
+         <pr:OrgnlCreDtTm>2019-03-26T16:00:00</pr:OrgnlCreDtTm>
+         <pr:RtrRsnInf>
+            <pr:Rsn>
+               <pr:Cd>1000</pr:Cd>
+            </pr:Rsn>
+            <pr:AddtlInf>payment cancel settled</pr:AddtlInf>
+         </pr:RtrRsnInf>
+      </pr:OrgnlGrpInf>
+      <pr:TxInf>
+         <pr:RtrId>SGDDO20190819SGPTTEST003B3889747116</pr:RtrId>
+         <pr:OrgnlInstrId>SGDDO20190819SGPTTEST003B3889747111</pr:OrgnlInstrId>
+         <pr:OrgnlEndToEndId>SGDDO20190819SGPTTEST003B3889747111</pr:OrgnlEndToEndId>
+         <pr:OrgnlTxId>SGDDO20190819SGPTTEST003B3889747111</pr:OrgnlTxId>
+         <pr:OrgnlIntrBkSttlmAmt Ccy="SGDDO">0.001</pr:OrgnlIntrBkSttlmAmt>
+         <pr:RtrdIntrBkSttlmAmt Ccy="SGDDO">0.001</pr:RtrdIntrBkSttlmAmt>
+         <pr:IntrBkSttlmDt>2015-11-22</pr:IntrBkSttlmDt>
+         <pr:RtrdInstdAmt Ccy="SGDDO">0.001</pr:RtrdInstdAmt>
+         <pr:ChrgBr>CRED</pr:ChrgBr>
+         <pr:ChrgsInf>
+            <pr:Amt Ccy="SGDDO">0</pr:Amt>
+            <pr:Agt>
+               <pr:FinInstnId>
+                  <pr:BICFI>CCCCIE2D</pr:BICFI>
+                  <pr:Othr>
+                     <pr:Id>testparticipant3dev</pr:Id>
+                  </pr:Othr>
+               </pr:FinInstnId>
+            </pr:Agt>
+         </pr:ChrgsInf>
+         <pr:RtrRsnInf>
+            <pr:Orgtr>
+               <pr:Nm>DEF Electronics</pr:Nm>
+            </pr:Orgtr>
+            <pr:Rsn>
+               <pr:Prtry>Beneficiary information is wrong</pr:Prtry>
+            </pr:Rsn>
+            <pr:AddtlInf>RETURN AFTER ACCEPTED PAYMENT CANCELLATION REQUEST</pr:AddtlInf>
+         </pr:RtrRsnInf>
+         <pr:OrgnlTxRef>
+            <pr:SttlmInf>
+               <pr:SttlmMtd>WWDO</pr:SttlmMtd>
+               <pr:SttlmAcct>
+                  <pr:Id>
+                     <pr:Othr>
+                        <pr:Id>testparticipant4dev</pr:Id>
+                     </pr:Othr>
+                  </pr:Id>
+                  <pr:Nm>issuing</pr:Nm>
+               </pr:SttlmAcct>
+            </pr:SttlmInf>
+            <pr:PmtTpInf>
+               <pr:SvcLvl>
+                  <pr:Prtry>testparticipant3dev</pr:Prtry>
+               </pr:SvcLvl>
+            </pr:PmtTpInf>
+         </pr:OrgnlTxRef>
+      </pr:TxInf>
+   </PmtRtr>
+</Message>

@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ PARTICIPANT_ID }}-query-topic
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: {{ PARTICIPANT_ID }}-query-topic
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: {{ PARTICIPANT_ID }}-query-topic
+        image: {{ DOCKER_REGISTRY_URL }}/gftn/msk-cli:{{ VERSION }}
+        command: ["sh",  "query_topic.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: PARTICIPANT_ID
+          value: {{ PARTICIPANT_ID }}
+        - name: BROKER
+          value: {{ BROKER }}

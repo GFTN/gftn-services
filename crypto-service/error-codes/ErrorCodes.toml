@@ -1,0 +1,58 @@
+[WW_ERROR]
+    [WW_ERROR.CYRPTO-0001]
+        SHORT_MESSAGE = "Error parsing request body"
+        DETAILS = "Invalid request parameters: "
+    [WW_ERROR.CYRPTO-0002]
+        SHORT_MESSAGE = "Error creating signed transaction"
+        DETAILS = "Error: "
+    [WW_ERROR.CYRPTO-0003]
+        SHORT_MESSAGE = "Account already exists"
+        DETAILS = "Error: "
+    [WW_ERROR.CYRPTO-0004]
+        SHORT_MESSAGE = "Account creation failed"
+        DETAILS = "Error: "
+    [WW_ERROR.CYRPTO-0005]
+        SHORT_MESSAGE = "Account retrieval failed"
+        DETAILS = "Error: "
+    [WW_ERROR.CYRPTO-0006]
+        SHORT_MESSAGE = "Encounter error while signing transactions"
+        DETAILS = "Error: "
+    [WW_ERROR.CYRPTO-0007]
+        SHORT_MESSAGE = "Encounter error while building transactions"
+        DETAILS = "Error: "
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

@@ -1,0 +1,557 @@
+// Build rules  -> $ firebase-bolt database.rules.bolt
+// Deploy rules -> $ firebase deploy --only database
+
+// https://github.com/firebase/bolt/blob/master/docs/language.md
+
+
+// ENABLE ALL READ & WRITE FOR TESTING PURPOSES
+// {
+//   "rules": {
+//     ".read": "auth.uid != null == true",
+//     ".write": "auth.uid != null == true"
+//   }
+// }
+
+
+// ===================== FUNCTIONS - CORE PERMISSIONS (START) =====================
+
+// logged in user is associated with a super account with specifed role
+// super admin is an IBM System Administrator with an @ibm.com email (provisioned via auth-service)
+function isSuper(roleType) {
+    // for "prior(root)" usage, see https://github.com/firebase/bolt/issues/87
+    return prior(root).child('super_permissions').child(auth.uid).child('roles').child(roleType).val();
+}
+
+// logged in user is associated with a participant with specifed role
+function isParticipant(institutionId, roleType) {
+    // for "prior(root)" usage, see https://github.com/firebase/bolt/issues/87
+    return prior(root).child('participant_permissions').child(auth.uid).child(institutionId).child('roles').child(roleType).val();
+}
+
+// requires that a user has already successfully registered via 2FA
+function isRegistered2fa() {
+    // for "prior(root)" usage, see https://github.com/firebase/bolt/issues/87
+     return prior(root).child('totp').child(auth.uid).child('registered').val();
+}
+
+// can add and remove users related to a specific participant
+function isUser(userId) {
+    return auth.uid === userId;
+}
+
+// any logged in user
+function isLoggedin() {
+    return auth.uid != null;
+}
+
+// check if participantId is associated with an institution that the user is associated with
+function getInstitutionIdForNode(participantId) {
+    // val() = institutionId
+    return prior(root).child('nodes').child(participantId).val();
+}
+
+// // check if participantId is associated with an institution that the user is associated with
+// function canAccessNode(env, participantId, roleType) {
+//     return isParticipant(
+
+//         // val() = institutionId
+//         prior(root).child('nodes').child(env).child(participantId).val(),
+
+//         // the role type that the user must have to access the resource (ie: admin, manager, readonly)
+//         roleType
+
+//     );
+// }
+
+// ===================== FUNCTIONS - CORE PERMISSIONS (End) =====================
+
+
+// ===================== FUNCTIONS - RUSUABLE PERMISSIONS (START) =====================
+
+function superAdminOrHigher() {
+    return isRegistered2fa() == true && isSuper('admin') == true;
+}
+
+function superManagerOrHigher() {
+    return isRegistered2fa() == true && isSuper('admin') == true || isSuper('manager') == true;
+}
+
+function superReadOnlyOrHigher() {
+    return isRegistered2fa() == true && isSuper('admin') == true || isSuper('manager') == true || isSuper('viewer') == true;
+}
+
+function participantAdminOrHigher(institutionId) {
+    return isRegistered2fa() == true && (isParticipant(institutionId, 'admin') == true || isSuper('admin') == true || isSuper('manager') == true);
+}
+
+function participantManagerOrHigher(institutionId) {
+    return isRegistered2fa() == true && (isParticipant(institutionId, 'admin') == true || isParticipant(institutionId, 'manager') == true || isSuper('admin') == true || isSuper('manager') == true);
+}
+
+function participantReadOnlyOrHigher(institutionId) {
+    return isRegistered2fa() == true && (isParticipant(institutionId, 'admin') == true || isParticipant(institutionId, 'manager') == true || isParticipant(institutionId, 'viewer') == true || isSuper('admin') == true || isSuper('manager') == true || isSuper('viewer') == true);
+}
+
+// ===================== FUNCTIONS - RUSUABLE PERMISSIONS (End) =====================
+
+// ===================== TYPES AND PERMISSIONS (Start) =====================
+
+type IPermissionsModel_role {
+  roles: Object
+}
+
+type IPermissionsModel_mustBeTrue {
+    validate() {
+        // value must always be value of true (not false)
+        // because this structure allows us to check a series
+        // of more granular permisisons/roles that we can define
+        // in the future as this gets built out. This is structured in
+        // firebase as an "object" so that the lookup is fast and granular
+        // enought to be expanded upon in the future.  Alternatives
+        // considered includes numbering and array of permissions/rules
+        // but these have limitations (numbers are progressive - meaning
+        // incremental, and not specific, and arrays require additional
+        // computational power to lookup values)
+        this == true;
+    }
+}
+
+type IPermissionsModel_permissionTypes_particpant extends IPermissionsModel_mustBeTrue {
+
+    // could be different roles than super_permissions
+    validate() {
+        // key must be either admin, manager, or readyonly
+        key() == "manager" ||
+        key() == "admin" ||
+        key() == "viewer";
+    }
+
+}
+
+type IPermissionsModel_permissionTypes_super extends IPermissionsModel_mustBeTrue {
+
+    // could be different roles than participant_permissions
+    validate() {
+        // key must be either admin, manager, or readyonly
+        key() == "manager" ||
+        key() == "admin" ||
+        key() == "viewer";
+    }
+
+}
+
+type IInstitutionInfo {
+
+    name: String;
+    geo_lat: Number | Null;
+    geo_lon: Number | Null;
+    country: String;
+    address1: String | Null;
+    address2: String | Null;
+    city: String | Null
+    state: String | Null;
+    zip: String | Null;
+    logo_url: String | Null;
+    site_url: String | Null;
+    kind: String;
+
+    institutionId: String;
+    slug: String;
+    phase: String;
+    status: String;
+}
+
+type IProfile {
+    email: String;
+}
+
+// ======================= PATHS (Start) =======================
+
+path /2fa/{uid} {
+
+     // no user can write or remove
+     // only the admin sdk can read and write
+     // to /authentication and it's children
+     write() { return false; }
+
+     path /registered {
+        read() {  return isUser(uid) == true; }
+     }
+
+     path /temp {
+        read() { return false; }
+     }
+
+     path /secure {
+        read() { return false; }
+     }
+
+}
+
+path /asset_requests/{participantId} {
+    read() {
+        // must be associated with a participant to read
+        return participantReadOnlyOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+    write() {
+        // must be associated with a participant to write
+        return participantManagerOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+}
+
+path /account_requests/{participantId} {
+    read() {
+        // must be associated with a participant to read
+        return superManagerOrHigher() == true;
+    }
+    write() {
+        // must be associated with a participant to write
+        return superManagerOrHigher() == true;
+    }
+}
+
+path /blocklist_requests {
+    read() { return superManagerOrHigher() == true; }
+    write() { return superManagerOrHigher() == true; }
+}
+
+path /jwt_info/{institutionId} {
+    // needed to read for the ui
+     read() { return participantManagerOrHigher(institutionId) == true; }
+    // only can be written from backend auth service
+     write() { return false; }
+}
+
+path /jwt_secure {
+    // keep this data hidden "AT ALL TIMES" (only ready from admin sdk)
+    // only can be read or written from backend auth service
+     read() { return false; }
+     write() { return false; }
+}
+
+path /nodes/{participantId} {
+
+    // only written by the auth-service, see automation.controller.ts
+    write() { return false; }
+
+    // any logged-in user can read
+    read() { return isLoggedin(); }
+
+}
+
+// only super users and particpant users with 'admin' permissions write to this
+// this db node is **WATCHED** by a trigger at:
+// https://github.com/GFTN/gftn-web/blob/master/functions/src/triggers/permissions.ts
+path /participant_permissions is Object {
+
+    // create occurs from auth-service
+    create() {
+        return false;
+    }
+
+    // create occurs from auth-service
+    update() {
+        return false;
+    }
+
+    delete() {
+        return false;
+    }
+
+    // anyone with an account that they can login to can read
+    read() {
+        return isLoggedin() == true;
+    }
+
+    // validation
+    path /{userId} is Object {
+        path /{institutionId} is IPermissionsModel_role {
+
+            delete() {
+                return participantAdminOrHigher(institutionId)
+            }
+
+            path /roles is Object {
+                path /{permission} is IPermissionsModel_permissionTypes_particpant;
+            }
+        }
+    }
+
+}
+
+path /participant_approvals {
+    read() {
+        return isRegistered2fa() == true;
+    }
+
+    create() {
+        return false;
+    }
+
+    update() {
+        return isRegistered2fa() == true;
+    }
+}
+
+path /participants  {
+
+    read() {
+        // // any permissioned user associated with institution
+        // return participantReadOnlyOrHigher(institutionId);
+
+        // any permissoined user who can access the portal (not associated with this specific institution)
+        return isRegistered2fa() == true;
+    }
+
+    path /{institutionId} {
+
+        path /info is Object | Null {
+
+            create() {
+                // only super manager or above can create
+                return superManagerOrHigher() == true;
+            }
+
+            update() {
+                // only participant managers and above can update
+                return participantManagerOrHigher(institutionId) == true;
+            }
+
+            delete() {
+                // since blockchain we should not be able to fully delete a institution
+                return false;
+            }
+
+        }
+
+        // users -> this db node is **UPDATED** by a trigger at:
+        // https://github.com/GFTN/gftn-web/blob/master/functions/src/triggers/permissions.ts
+        path /users is Object | Null {
+
+            write() {
+                // fully managed by trigger via admin sdk, therefore cannont directly create, update or delete
+                return false;
+            }
+
+            read() {
+                // must be associated with a participant to read
+                return participantReadOnlyOrHigher(institutionId) == true;
+            }
+
+        }
+
+        path /nodes is Object | Null {
+
+            write() {
+                // must be super user manager or higher
+                return superManagerOrHigher() == true;
+            }
+
+            read() {
+                // must be associated with a participant to read
+                return participantReadOnlyOrHigher(institutionId) == true;
+            }
+
+        }
+
+    }
+
+}
+
+path /slugs {
+    read() { return isLoggedin() == true; }
+    write() { return false; }
+}
+
+path /super_approvals {
+    read() {
+        return superReadOnlyOrHigher() == true;
+    }
+
+    create() {
+        return false;
+    }
+
+    update() {
+        return superAdminOrHigher() == true;
+    }
+}
+
+// only super users with 'admin' permissions write to this
+// this db node is **WATCHED** by a trigger at:
+// https://github.com/GFTN/gftn-web/blob/master/functions/src/triggers/permissions.ts
+path /super_permissions is Object {
+
+    // write occurs from auth-service
+    write() {
+        return false;
+    }
+
+    // anyone with an account that they can login to can read
+    read() {
+        return isLoggedin() == true;
+    }
+
+    // validation
+    path /{userId} is Object {
+        delete() {
+            return superAdminOrHigher()
+        }
+        path /roles is Object {
+            path /{permission} is IPermissionsModel_permissionTypes_super;
+        }
+    }
+
+}
+
+path /trust_requests {
+    read(){
+        return isLoggedin() == true;
+    }
+    write() {
+        return isLoggedin() == true && isRegistered2fa() == true;
+    }
+
+    index() { [ "requestor_id", "issuer_id" ] }
+}
+
+// used to display user profile info
+// this db node is **UPDATED** by a trigger at:
+// https://github.com/GFTN/gftn-web/blob/master/functions/src/triggers/permissions.ts
+path /users/{userId} {
+
+    read(){
+        // used in view to determine route permissions
+        return isLoggedin() == true && isRegistered2fa() == true;
+    }
+
+    path /participant_permissions is Object {
+        write() {
+            // written via trigger
+            return false;
+        }
+    }
+
+    path /super_permissions is Object {
+        write() {
+            // written via trigger
+            return false;
+        }
+    }
+
+    path /profile is IProfile {
+        read(){
+            return isUser(userId) == true;
+        }
+        write() {
+            // can only update profile if the user is the logged in user
+            return isRegistered2fa() == true && isUser(userId) == true;
+        }
+    }
+
+}
+
+path /v1 {
+
+    write() {
+        // written directly from micro-services
+        return false;
+    }
+
+    path /txn {
+
+        read() {
+            return isRegistered2fa() == true;
+        }
+
+        write() {
+            // written directly from micro-services
+            return false;
+        }
+
+        path /exchange/{participantId} {
+
+            read() {
+                return participantReadOnlyOrHigher(getInstitutionIdForNode(participantId)) == true;
+            }
+
+        }
+
+        path /logs/{participantId} {
+
+             read() {
+                return participantReadOnlyOrHigher(getInstitutionIdForNode(participantId)) == true;
+            }
+
+        }
+
+        path /transfer/{participantId} {
+
+             read() {
+                return participantReadOnlyOrHigher(getInstitutionIdForNode(participantId)) == true;
+            }
+
+        }
+
+    }
+
+}
+
+path /whitelist_requests/{participantId} {
+
+    read() {
+        // must be associated with a participant to read
+        return participantReadOnlyOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+    write() {
+        // must be associated with a participant to write
+        return participantManagerOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+}
+
+path /killswitch_requests/{participantId} {
+
+    read() {
+        // must be associated with a participant to read
+        return participantReadOnlyOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+    write() {
+        // must be associated with a participant to write
+        return participantManagerOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+}
+
+path /asset_requests/{participantId} {
+
+    read() {
+        // must be associated with a participant to read
+        return participantReadOnlyOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+    write() {
+        // must be associated with a participant to write
+        return participantManagerOrHigher(getInstitutionIdForNode(participantId)) == true;
+    }
+}
+
+// ======================= PATHS (End) =======================
+
+// // indexing that carmen implemented for v1
+// {
+//   "rules": {
+//   ".read": "auth.uid != null",
+//   ".write": "auth.uid != null",
+//   "participants": {
+//     ".indexOn": ["slug"]
+//     },
+//   "v1": {
+//     "txn": {
+//       "logs": {
+//         	".indexOn": ["time_stamp", "participant_id"]
+//       	},
+//       "fitoficct": {
+//         ".indexOn": ["ParticipantID"]
+//       	}
+//       }
+//     }
+//   }
+// }

@@ -1,0 +1,147 @@
+@import "~sass/ibm-style-override";
+
+$nav-color: rgba(255, 255, 255, 0.95);
+
+// limits the page's maximum width
+$max-width: 1440px;
+
+// min-padding for mobile device viewing
+$min-padding: 10px;
+
+.outer {
+	min-height: 100vh;
+	&.fixed-nav {
+		overflow-x: hidden; // overflow:hidden prevent scrollbar on small screen
+		// padding-top: 50px; // padding to move down page text below fixed toolbar
+		nav {
+			z-index: 1000;
+			height: 50px;
+			padding: $min-padding; // left and right min-padding (for mobile viewing)
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			max-width: 100% // max-width: 100% - overrides min-width and prevents distorting nav on very large screens
+		}
+	}
+
+	nav {
+		border-bottom: 0.5px solid $ui-02;
+		background-color: $nav-color;
+		padding: $min-padding 0; // set top and bottom min-padding
+		-webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		-moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+	}
+}
+
+.side-nav {
+	width: 250px; // filler for fixed position side-nav
+	.side-nav-inner {
+		z-index: 4; // keep in-front of spinner
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 250px;
+		height: 100vh;
+		background-color: $ui-01;
+		border-right: 1px solid $ui-02;
+		-webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		-moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		.side-nav-filler-top {
+			height: 50px;
+		}
+		.side-nav-content {
+			height: 100%;
+			max-height: 100%;
+			overflow-y: auto;
+			padding: 12px 0;
+		}
+	}
+	a {
+		color: $text-01
+	}
+}
+
+// Modifying modal to behave like a side nav
+//==========================================
+#modal-side-nav {
+	.bx--modal-header {
+		// padding-top creates space below x (close) modal button
+		padding-top: $min-padding;
+	}
+	.bx--modal-container {
+		top: 0;
+		left: 0;
+		position: absolute;
+		height: 100vh;
+		padding: 0;
+		width: 100%;
+		max-width: 300px;
+		min-width: 150px;
+		max-height: 100vh;
+		min-height: 100vh;
+	}
+
+	// slide animation for side modal
+	&.bx--modal {
+		left: -300px;
+		opacity: 1;
+		&.is-visible {
+			transition: 200ms;
+			left: 0;
+		}
+	}
+}
+
+.bx--modal-content {
+	margin-bottom: 0;
+}
+
+.bx--modal-header {
+	margin-bottom: 0;
+	padding-top: 0 !important;
+}
+
+.bx--modal-close {
+	top: 5px;
+	right: 21px;
+}
+
+.main {
+	.main-inner {
+
+		right: 0;
+		top: 0;
+		height: 100vh;
+
+		.main-content {
+			height: 100%;
+			max-height: 100%;
+			overflow: auto;
+			padding: 12px 0;
+		}
+	}
+}
+
+.filler-header {
+	height: 50px; // background-color: blue
+}
+
+.filler-footer {
+	height: 58px; // background-color: red
+}
+
+.footer {
+	z-index: 5; // z-index:2 is in-front of api-component overlay
+	width: 100%;
+	min-width: 100vw;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: #fff;
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,65 @@
+
+title: quote
+description: Quote
+x-group-m: Models
+type: object
+required:
+  - exchange_rate
+  - quote_id
+  - rfi_id
+  - account_name_send
+  - account_name_receive
+  - time_start
+  - time_expire
+  - limit_max
+  - quote_request
+  - status
+properties:
+  exchange_rate:
+    type: number
+    description: The source-asset price of the target asset
+  quote_id:
+    type: string
+    description: Unique id for this quote as set by the quote service
+  rfi_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: >
+      The ID that identifies the RFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).
+  account_name_send:
+    type: string
+    description: rfi operating or issuing account to send back target asset
+  account_name_receive:
+    type: string
+    description: rfi operating or issuing account to receive source asset
+  time_start:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: Start time for this quote to be valid.
+  time_expire:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: End-time for this quote to be valid.
+  limit_min:
+    type: number
+    minimum: 1
+    description: Minimum units for which this quote is valid
+    x-nullable: true
+  limit_max:
+    type: number
+    minimum: 1
+    description: Maximum units for which this quote is valid
+  quote_request:
+    type: object
+    description: The original quote request.
+    $ref: 'quoteRequest.yaml'
+    externalDocs:
+      url: '#/definitions/quoteRequest'
+    x-go-name: QuoteRequest
+externalDocs:
+  url: '#/definitions/quote'
+x-go-name: Quote

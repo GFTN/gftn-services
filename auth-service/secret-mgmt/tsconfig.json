@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2015",
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "allowUnreachableCode": false,
+    "alwaysStrict": true,
+    "pretty": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": false,
+    "rootDir": "src",
+    "skipLibCheck": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "../node_modules"
+  ]
+}

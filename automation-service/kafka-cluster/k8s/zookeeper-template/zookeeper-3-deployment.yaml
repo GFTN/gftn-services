@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-3zk-3b-ssl.yaml
+    kompose.version: 1.17.0 ()
+  creationTimestamp: null
+  labels:
+    app: zookeeper-3
+  name: zookeeper-3
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: zookeeper-3
+    spec:
+      nodeSelector:
+        failure-domain.beta.kubernetes.io/zone: {{ AWS_AZ_ZONE }}b
+      hostname: zookeeper-3
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - env:
+        - name: ZOOKEEPER_CLIENT_PORT
+          value: "32181"
+        - name: ZOOKEEPER_INIT_LIMIT
+          value: "5"
+        - name: ZOOKEEPER_SERVERS
+          value: zookeeper-1:2888:3888;zookeeper-2:2888:3888;0.0.0.0:2888:3888
+        - name: ZOOKEEPER_SERVER_ID
+          value: "3"
+        - name: ZOOKEEPER_SYNC_LIMIT
+          value: "2"
+        - name: ZOOKEEPER_TICK_TIME
+          value: "2000"
+        image: docker_registry_url/gftn/cp-zookeeper:latest
+        name: zookeeper-3
+        ports:
+        - containerPort: 32181
+          name: client
+          protocol: TCP
+        - containerPort: 3888
+          name: election
+          protocol: TCP
+        - containerPort: 2888
+          name: server
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/zookeeper/data
+          name: zookeeper-3-claim0
+        - mountPath: /var/lib/zookeeper/log
+          name: zookeeper-3-claim1
+      restartPolicy: Always
+      volumes:
+      - name: zookeeper-3-claim0
+        persistentVolumeClaim:
+          claimName: zookeeper-3-claim0
+      - name: zookeeper-3-claim1
+        persistentVolumeClaim:
+          claimName: zookeeper-3-claim1
+status: {}

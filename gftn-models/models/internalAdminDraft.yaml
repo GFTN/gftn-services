@@ -1,0 +1,14 @@
+
+title: internalAdminDraft
+description: draft
+type: object
+required:
+  - transaction_unsigned
+properties:
+  transaction_unsigned:
+    type: string
+    format: byte
+    description: The unsigned transaction envelope to be signed by IBM account.
+externalDocs:
+  url: '#/definitions/InternalAdminDraft'
+x-go-name: InternalAdminDraft

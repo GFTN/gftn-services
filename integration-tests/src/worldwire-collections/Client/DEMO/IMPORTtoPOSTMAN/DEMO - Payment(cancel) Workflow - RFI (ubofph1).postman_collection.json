@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "025aac4b-c76a-49e1-8c22-ba35a162df0d",
+		"name": "DEMO - Payment(cancel) Workflow - RFI (ubofph1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 1 - receive request for fees for a specific payment from OFI",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ubofph1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ubofph1.worldwire-qa.io/local/gateway/v1/client/message?type=fee",
+									"host": [
+										"ubofph1",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "fee"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 1.1 - response fee a specific payment from OFI",
+					"item": [
+						{
+							"name": "/client/fees/response/{{participant1_id}}",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ubofph1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount_fee\": 1,\n    \"amount_payout\": 200,\n    \"amount_settlement\": 200,\n    \"asset_code_payout\": \"USD\",\n    \"details_asset_settlement\": {\n        \"asset_code\": \"USD\",\n        \"asset_type\": \"DA\",\n        \"issuer_id\": \"{{anchor_id}}\"\n    },\n    \"request_id\": \"{{fee_request_id}}\"\n}"
+								},
+								"url": {
+									"raw": "ubofph1.worldwire-st.io/global/fee/v1/client/fees/response/{{qwikwire1-id}}",
+									"host": [
+										"ubofph1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"fee",
+										"v1",
+										"client",
+										"fees",
+										"response",
+										"{{qwikwire1-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 2 - receive incoming payment request",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ubofph1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ubofph1.worldwire-st.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"ubofph1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "(run before step 3 - prepare IBWF001 xml message)",
+					"item": [
+						{
+							"name": "Generate IBWF001",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ed29efa-3cf5-4ebf-8210-0f6781a4ab29",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"savedData = JSON.stringify(jsonData.message);",
+											"",
+											"pm.environment.set(\"reply-payload\", savedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message\": {{send-payload}},\n\t\"settlement_account_name\": \"default\",\n\t\"fed_status\": \"ACTC\",\n\t\"comp_info_status\": \"ACTC\",\n\t\"comp_tx_status\": \"ACTC\"\n}"
+								},
+								"url": {
+									"raw": "http://send-payload-generator.worldwire-st.io:6666/v1/client/generate/ibwf001",
+									"protocol": "http",
+									"host": [
+										"send-payload-generator",
+										"worldwire-st",
+										"io"
+									],
+									"port": "6666",
+									"path": [
+										"v1",
+										"client",
+										"generate",
+										"ibwf001"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 3 - submit KYC/AML reply to OFI",
+					"item": [
+						{
+							"name": "/transactions/reply",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ubofph1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message_type\": \"iso20022:ibwf.001.001.01\",\n\t\"message\": {{reply-payload}}\n}"
+								},
+								"url": {
+									"raw": "ubofph1.worldwire-st.io/local/send/v1/client/transactions/reply",
+									"host": [
+										"ubofph1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"reply"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 4 - receive stellar hash payment result",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ubofph1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ubofph1.worldwire-st.io/local/gateway/v1/client/message?type=payment",
+									"host": [
+										"ubofph1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "payment"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 5 - receive incoming payment cancel request",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ubofph1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ubofph1.worldwire-st.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"ubofph1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 6 - submit cancel agree/reject reply to OFI",
+					"item": [
+						{
+							"name": "agree",
+							"item": [
+								{
+									"name": "/transactions/reply",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{ubofph1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"message_type\": \"iso20022:pacs.004.001.09\",\n\t\"message\": {{reply-cencel-agree-payload}}\n}"
+										},
+										"url": {
+											"raw": "ubofph1.worldwire-st.io/local/send/v1/client/transactions/reply",
+											"host": [
+												"ubofph1",
+												"worldwire-st",
+												"io"
+											],
+											"path": [
+												"local",
+												"send",
+												"v1",
+												"client",
+												"transactions",
+												"reply"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "reject",
+							"item": [
+								{
+									"name": "/transactions/reply",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{ubofph1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"message_type\": \"iso20022:camt.029.001.09\",\n\t\"message\": {{reply-cencel-reject-payload}}\n}"
+										},
+										"url": {
+											"raw": "ubofph1.worldwire-st.io/local/send/v1/client/transactions/reply",
+											"host": [
+												"ubofph1",
+												"worldwire-st",
+												"io"
+											],
+											"path": [
+												"local",
+												"send",
+												"v1",
+												"client",
+												"transactions",
+												"reply"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

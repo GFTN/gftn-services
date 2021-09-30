@@ -1,0 +1,49 @@
+title: Automation
+description: Automation deployment model
+type: object
+required:
+- institutionId
+- participantId
+- countryCode
+- role
+- bic
+- status
+- initialized
+properties:
+  institutionId:
+    type: string
+  participantId:
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The participant id for the participant
+    type: string
+  countryCode:
+    maxLength: 3
+    minLength: 3
+    description: Participant's country of residence, country code in ISO 3166-1 format
+    type: string
+  role:
+    type: string
+    maxLength: 2
+    minLength: 2
+    enum: [MM, IS]
+  bic:
+    type: string
+    maxLength: 11
+    minLength: 11
+    pattern: '^[A-Z]{3}[A-Z]{3}[A-Z2-9]{1}[A-NP-Z0-9]{1}[A-Z0-9]{3}$'
+    description: The business identifier code of each participant
+  replica:
+    type: string
+  status:
+    type: array
+    items:
+      type: string
+      enum: [pending, configuring, configuration_failed, complete, create_participant_entry_failed, create_iam_policy_failed, create_kafka_topic_failed, create_aws_secret_failed, create_aws_api_gateway_failed, create_aws_domain_custom_domain_name_failed, create_aws_route53_domain_failed, create_aws_dynamodb_failed, create_micro_services_failed, create_issuing_account_failed, create_operating_account_failed, deleted]
+  initialized:
+    type: boolean
+
+externalDocs:
+  url: '#/definitions/automation'
+x-go-name: Automation

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kafka-topics
+  name: msk-burrow-dashboard
+  labels:
+    app: msk-burrow-dashboard
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: msk-burrow-dashboard
+  template:
+    metadata:
+      labels:
+        app: msk-burrow-dashboard
+    spec:
+      containers:
+      - name: msk-burrow-dashboard
+        image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/msk-burrow-ui:latest
+        env:
+        - name: BURROW_HOME
+          value: http://msk-burrow.kafka-topics:8000/v3/kafka
+        ports:
+        - containerPort: 3000
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred

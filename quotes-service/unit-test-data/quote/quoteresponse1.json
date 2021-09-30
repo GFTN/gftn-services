@@ -1,0 +1,24 @@
+{
+  "quote": {
+    "time_expire_rfi": "2018-07-26T09:19:19.551-07:00",
+    "limit": 1000,
+    "ofi_id": "nz.one.payments.gftn.io",
+    "exchange_rate": 1.456,
+    "quote_id": "ABCD1234",
+    "rfi_id": "nzl.klickex.payments.gftn.io",
+    "rfi_sc_address": "GAM5QC6M26ZWMOZZL6SANRZ6RGYAWRQJDEWBALHYZWWGIUCVAGAJD4ZF",
+    "rfi_tc_address": "GAM5QC6M26ZWMOZZL6SANRZ6RGYAWRQJDEWBALHYZWWGIUCVAGAJD4ZF",
+    "source_token": {
+      "asset_code": "NZDDO",
+      "asset_issuer": "GA3UQQ7HQC4JJZCQO5IWZDZRJV2UHY5SS6MOU36H2QSIBNATZAXJZSMK",
+      "asset_type": "DO"
+    },
+    "target_token": {
+      "asset_code": "FJDDO",
+      "asset_issuer": "GCXIOM6WFRHMRX72HB54POEVZ5VIVP4WFLO33BHJU6CWIOP5N5XLYIUF",
+      "asset_type": "DO"
+    },
+    "time_start_rfi": "2018-07-26T09:09:19.551-07:00"
+  },
+  "quote_hash": "hashedQuote"
+}

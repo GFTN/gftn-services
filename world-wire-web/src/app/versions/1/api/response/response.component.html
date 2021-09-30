@@ -1,0 +1,19 @@
+<div class="bx--structured-list-row">
+	<div class="bx--structured-list-td tight" [innerHtml]="responseCode">200</div>
+	<div class="bx--structured-list-td expand">
+
+		<div [innerHtml]="responseDef.description"></div>
+
+		<p *ngIf="(responseDef?.schema?.items && responseDef?.schema?.items['$ref']) || (responseDef?.schema && responseDef?.schema['$ref']) ">
+			Returns
+
+			<!-- is object -->
+			<a class="no-line" *ngIf="responseDef?.schema?.$ref" (click)="swaggerService.jumpTo('model', '', responseDef?.model?.title)" [innerHtml]="responseDef?.model?.title"></a>
+
+			<!-- is array -->
+			<a class="no-line" *ngIf="responseDef?.schema?.items?.$ref" (click)="swaggerService.jumpTo('model', '', responseDef?.model?.title)"
+			[innerHtml]="'array [' + responseDef?.model?.title + ']'"></a>
+		</p>
+
+	</div>
+</div>

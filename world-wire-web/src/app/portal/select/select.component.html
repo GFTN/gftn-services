@@ -1,0 +1,5 @@
+<div class="margin-height">
+	<p *ngFor="let p of participant_permissions | keyvalue">
+		<a [routerLink]="'/portal/' + p.value.slug">{{p.value.name}}</a>
+	</p>
+</div>

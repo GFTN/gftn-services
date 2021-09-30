@@ -1,0 +1,20 @@
+<div class="margin-height" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+	<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+		<span>Viewing for:</span>
+		<!-- No nodes available -->
+		<span *ngIf="!this.sessionService.currentNode" class="bx--type-epsilon">N/A</span>
+		<!-- Only one node available -->
+		<span *ngIf="currentNodes.length == 1" class="bx--type-epsilon">{{sessionService.currentNode.participantId}}</span>
+		<!-- Show dropdown only if there are more than one available to toggle between -->
+		<ibm-dropdown *ngIf="this.sessionService.currentNode && currentNodes.length > 1" id="nodeDropdown" name="node"
+			placeholder="Node" [(ngModel)]="this.currentNodeId" value="content" [appendInline]="true"
+			(selected)="selectNode($event)">
+			<ibm-dropdown-list [items]="currentNodes"></ibm-dropdown-list>
+		</ibm-dropdown>
+	</div>
+
+	<div *ngIf="showVersion">
+		Version:
+		<span class="bx--type-epsilon">{{sessionService.currentNode ? getVersionName(this.sessionService.currentNode.version): 'N/A'}}</span>
+	</div>
+</div>

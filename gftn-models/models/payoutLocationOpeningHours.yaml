@@ -1,0 +1,24 @@
+title: payoutLocationOpeningHours
+description: The opening hours of each payout location. Based on https://schema.org/OpeningHoursSpecification
+type: object
+required:
+  - day_of_week
+  - opens
+  - closes
+properties:
+  day_of_week:
+    type: array
+    x-go-custom-tag: "bson:\"day_of_week\""
+    items:
+      type: string
+    description: The day of the week for which these opening hours are valid
+  opens:
+    type: string
+    description: The opening hour of the payout location on the given day(s) of the week
+  closes:
+    type: string
+    description: The closing hour of the payout location on the given day(s) of the week
+
+externalDocs:
+  url: '#/definitions/payoutLocationOpeningHours'
+x-go-name: PayoutLocationOpeningHour

@@ -1,0 +1,47 @@
+[
+  {
+    "api_service_url": "http://nzl.klickex.api.payments.gftn.io:11000",
+    "compliance_service_url": "http://nzl.klickex.compliance.payments.gftn.io:11003",
+    "country_code": "NZ",
+    "federation_service_url": "http://nzl.klickex.federation.payments.gftn.io:11001",
+    "issuing_account": "GB3JTT3R76OJKK4L53D7RU32NWQH7LPVSLF5ETWMUZZBWR6M4IGNOERW",
+    "operating_accounts": [
+      {
+        "account_name": "default",
+        "stellar_network_address": "GDNDLMEQ4VXZWH7QRN7Z2Y4VDQPPTGZ7RLB47C436RSNI4T23ANM5ANG"
+      }
+    ],
+    "participant_domain": "nz.one.payments.gftn.io",
+    "quote_service_url": "http://nzl.klickex.quotes.payments.gftn.io:11002",
+    "rdo_service_url": "http://nzl.klickex.rdo.payments.gftn.io:11004",
+    "status": "active"
+  },
+  {
+    "api_service_url": "http://fiji.klickex.api.payments.gftn.io:21000",
+    "compliance_service_url": "http://fiji.klickex.compliance.payments.gftn.io:21003",
+    "country_code": "FJ",
+    "federation_service_url": "http://fiji.klickex.federation.payments.gftn.io:21001",
+    "issuing_account": "GCOAH4TAXEPQ75OBJBUYWXSLS4SQFWMW654JFMFIMNEDUCUGTK47SR5L",
+    "operating_accounts": [
+      {
+        "account_name": "default",
+        "stellar_network_address": "GCKTOL3XSDPMHXNCP32FSKGIBMWMUNYP6JLB27IGIGQKL33AGLW7ZDRD"
+      }
+    ],
+    "participant_domain": "fj.one.payments.gftn.io",
+    "quote_service_url": "http://fiji.klickex.quotes.payments.gftn.io:21002",
+    "rdo_service_url": "http://fiji.klickex.rdo.payments.gftn.io:21004",
+    "status": "active"
+  },
+  {
+    "api_service_url": "https://sandbox.stronghold.co/v1/venues",
+    "compliance_service_url": "",
+    "country_code": "US",
+    "federation_service_url": "",
+    "operating_accounts": [],
+    "participant_domain": "usd.stronghold.co",
+    "quote_service_url": "",
+    "rdo_service_url": "",
+    "status": "active"
+  }
+]

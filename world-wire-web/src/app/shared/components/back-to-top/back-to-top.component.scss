@@ -1,0 +1,42 @@
+@import "~sass/ibm-style-override";
+
+.back-to-top-bar {
+	position: fixed;
+	bottom: 20px;
+	right: 30px;
+}
+
+.btn-back-to-top {
+	display: block;
+	border-width: 2px;
+	border-style: solid;
+	border-color: $ui-05;
+	color: $ui-05;
+	border-radius: 50%;
+	position: relative;
+	padding: 10px 18px;
+
+	&:focus {
+		outline: none;
+	}
+
+	.bx--btn__icon,
+	svg {
+		fill: $ui-05;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+	}
+
+	&:hover {
+		background-color: $ui-05;
+
+		.bx--btn__icon,
+		svg {
+			fill: $inverse-01
+		}
+	}
+}

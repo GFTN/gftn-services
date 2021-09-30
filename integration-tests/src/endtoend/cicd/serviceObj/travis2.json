@@ -1,0 +1,36 @@
+{
+    "participantID": "travis2",
+    "serviceObjArray": [{
+            "serviceName": "api-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/api-service",
+            "serviceUrl": "-api",
+            "serviceEPort": "21000:12000"
+        },
+        {
+            "serviceName": "crypto-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/crypto-service",
+            "serviceUrl": "-crypto",
+            "serviceEPort": "19999:9999",
+            "serviceIPort": "20042:10042"
+        },
+        {
+            "serviceName": "payment-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/payment-listener",
+            "serviceUrl": "-listener",
+            "serviceEPort": "31005:11005",
+            "serviceIPort": "41005:21005"
+        },
+        {
+            "serviceName": "send-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/send-service",
+            "serviceUrl": "-send",
+            "serviceEPort": "18888:8888"
+        },
+        {
+            "serviceName": "ww-gateway",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/ww-gateway",
+            "serviceUrl": "-ww-gateway",
+            "serviceEPort": "9001:9000"
+        }
+    ]
+}

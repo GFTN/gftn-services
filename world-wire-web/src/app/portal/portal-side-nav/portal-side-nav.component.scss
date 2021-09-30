@@ -1,0 +1,11 @@
+@import "~sass/helpers";
+@import "~sass/side-nav";
+
+ibm-dropdown {
+    border-top: 1px solid #dfe6eb;
+}
+
+// override for ibm-dropdown component styling
+:host ::ng-deep .bx--list-box {
+    box-shadow: 0 1px 0 0 #dfe6eb;
+}

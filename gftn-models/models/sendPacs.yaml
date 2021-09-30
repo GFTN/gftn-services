@@ -1,0 +1,17 @@
+title: sendPacs
+description: Send Pacs format
+x-group-m: Models
+type: object
+required:
+- message_type
+- message
+properties:
+  message_type:
+    type: string
+    description: This will be the type of the xml message. There are three types of message. First, pacs.008 for sending a transaction request. Second, ibwf.001 for reacting on a received transaction request. Finally, any response from the service will be a pacs.002 message.
+  message:
+    type: string
+    description: This will be the encoded base 64 format xml message. Sending a transaction request will need to encode a pacs.008 xml message. Reacting on a received transaction request will need to encode an ibwf.001 xml message.
+externalDocs:
+  url: '#/definitions/sendPacs'
+x-go-name: SendPacs

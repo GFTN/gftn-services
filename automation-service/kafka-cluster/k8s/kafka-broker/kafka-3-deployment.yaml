@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-3zk-3b-ssl.yaml
+    kompose.version: 1.17.0 ()
+  creationTimestamp: null
+  labels:
+    app: kafka-3
+  name: kafka-3
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kafka-3
+    spec:
+      nodeSelector:
+        failure-domain.beta.kubernetes.io/zone: ap-southeast-1a
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - env:
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: INTERNAL://kafka-3:19092,EXTERNAL://kafka-3:9093
+        - name: KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND
+          value: "true"
+        - name: KAFKA_AUTHORIZER_CLASS_NAME
+          value: kafka.security.auth.SimpleAclAuthorizer
+        - name: KAFKA_BROKER_ID
+          value: "3"
+        - name: KAFKA_INTER_BROKER_LISTENER_NAME
+          value: INTERNAL
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: INTERNAL:SSL,EXTERNAL:SSL
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "2"
+        - name: KAFKA_SSL_CLIENT_AUTH
+          value: required
+        - name: KAFKA_SSL_KEYSTORE_LOCATION
+          value: /var/private/ssl/kafka.kafka-3.keystore.jks
+        - name: KAFKA_SSL_KEYSTORE_PASSWORD
+          value: Worldwire-teststore
+        - name: KAFKA_SSL_KEY_PASSWORD
+          value: Worldwire-teststore
+        - name: KAFKA_SSL_TRUSTSTORE_LOCATION
+          value: /var/private/ssl/kafka.kafka-3.truststore.jks
+        - name: KAFKA_SSL_TRUSTSTORE_PASSWORD
+          value: Worldwire-teststore
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: zookeeper-1:32181,zookeeper-2:32181,zookeeper-3:32181
+        image: gftn/cp-kafka:latest
+        name: kafka-3
+        ports:
+        - containerPort: 9093
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/private/ssl
+          name: kafka-3-claim0
+        - mountPath: /var/lib/kafka
+          name: kafka-3-claim1
+      restartPolicy: Always
+      volumes:
+      - name: kafka-3-claim0
+        persistentVolumeClaim:
+          claimName: kafka-3-claim0
+      - name: kafka-3-claim1
+        persistentVolumeClaim:
+          claimName: kafka-3-claim1
+status: {}

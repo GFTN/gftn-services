@@ -1,0 +1,148 @@
+@import "~sass/ibm-style-override";
+@import "~sass/mixins";
+
+$nav-color: rgba(255,255,255,0.95);
+
+// limits the page's maximum width
+$max-width: 1440px;
+
+// min-padding for mobile device viewing
+$min-padding: 10px;
+
+$header-height: 50px;
+
+$page-header-height: 150px;
+
+// Modifying modal to behave like a side nav
+//==========================================
+#modal-side-nav {
+	.bx--modal-header {
+		// padding-top creates space below x (close) modal button
+		padding-top: $min-padding;
+	}
+	.bx--modal-container {
+		top: 0;
+		left: 0;
+		position: absolute;
+		height: 100vh;
+		padding: 0;
+		width: 100%;
+		max-width: 300px;
+		min-width: 150px;
+		max-height: 100vh;
+		min-height: 100vh;
+	}
+
+	// slide animation for side modal
+	&.bx--modal {
+		left: -300px;
+		opacity: 1;
+		&.is-visible {
+			transition: 200ms;
+			left: 0;
+		}
+	}
+}
+
+.outer {
+	width: calc(100% - 20px);
+	&.fixed-nav {
+		padding-top: 60px; // padding to move down page text below fixed toolbar
+		nav {
+			z-index: 1000;
+			height: $header-height;
+			padding: $min-padding; // left and right min-padding (for mobile viewing)
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			max-width: 100% // max-width: 100% - overrides min-width and prevents distorting nav on very large screens
+		}
+	}
+
+	nav {
+		background-color: $nav-color;
+		padding: $min-padding 0; // set top and bottom min-padding
+	}
+}
+
+.side-nav {
+	width: 250px;
+	// 100% of window height - header - page-header
+	min-height: calc(100vh - #{$header-height} - #{$page-header-height});
+	position: relative;
+	.side-nav-inner {
+		z-index: 4; // keep in-front of spinner
+		//left: 0;
+		//top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: $ui-01;
+		border-right: 1px solid $ui-02;
+		-webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		-moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		.side-nav-filler-top {
+			height: $header-height;
+		}
+		.side-nav-content {
+			height: 100%;
+			max-height: 100%;
+			overflow-y: auto;
+			padding: 12px 0;
+		}
+	}
+	a {
+		color: $text-01
+	}
+}
+
+.filler-header {
+	min-height: 50px; // background-color: blue
+}
+
+.filler-footer {
+	height: 58px; // background-color: red
+}
+
+.page-header {
+	position: relative;
+	height: auto;
+	color: white;
+	@include linearGradient($brand-01, $brand-04);
+	.spacer {
+		width: 15%;
+		max-width: 230px;
+	}
+	.page-title {
+		width: 70%;
+	}
+	&.gt-xs {
+		min-height: $page-header-height;
+	}
+
+	.grid-container-left {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		width: 20%;
+		max-width: 230px;
+		.grid-1 {
+			width: 100%;
+			padding-bottom: 68%; // 200/136 ratio
+			background: url('/assets/branding/portal-grid-1.svg') top center / contain no-repeat;
+		}
+	}
+	.grid-container-right {
+		position: absolute;
+		right: 5px;
+		bottom: 5px;
+		width: 30%;
+		max-width: 354px;
+		.grid-2 {
+			width: 100%;
+			padding-bottom: 38%; // 354/136 ratio
+			background: url('/assets/branding/portal-grid-2.svg') top center / contain no-repeat;
+		}
+	}
+}

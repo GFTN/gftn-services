@@ -1,0 +1,144 @@
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+	<div fxFlex class="margin-width margin-height restrict-width" fxLayout="column">
+		<app-node-select (changed)="updateView()"></app-node-select>
+
+		<div fxLayout="row" fxLayoutAlign="start center">
+
+			<div class="bx--form-item">
+				<input class="bx--toggle"
+			id="toggle"
+			type="checkbox"
+			name="toggle"
+			(change)="viewAll = !viewAll; updateView()"
+			[checked]="viewAll">
+				<label class="bx--toggle__label" for="toggle">
+			<span class="bx--toggle__text--left">Focused</span>
+			<span class="bx--toggle__appearance"></span>
+			<span class="bx--toggle__text--right">All</span>
+		</label>
+			</div>
+
+			<span fxFlex></span>
+
+			<div>
+				<button (click)="request()" class="bx--btn bx--btn--primary" type="button">
+					<span>Add New</span>
+					<svg class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" fill-rule="evenodd" />
+					</svg>
+				</button>
+			</div>
+
+		</div>
+
+		<div class="table-responsive-wrapper">
+			<section class="bx--structured-list bx--structured-list--border bx--structured-list--selection"
+				data-structured-list>
+
+				<div class="bx--structured-list-thead">
+					<div class="bx--structured-list-row bx--structured-list-row--header-row">
+						<div class="bx--structured-list-th">Active</div>
+						<div class="bx--structured-list-th">Description</div>
+						<div class="bx--structured-list-th">Refreshed</div>
+						<div class="bx--structured-list-th">Stage</div>
+						<div class="bx--structured-list-th">IP</div>
+						<div class="bx--structured-list-th">Endpoints</div>
+						<div class="bx--structured-list-th">Accounts</div>
+						<div class="bx--structured-list-th">Updates</div>
+						<div class="bx--structured-list-th">Action</div>
+					</div>
+				</div>
+
+				<!-- Loading Animation -->
+				<div class="caption" *ngIf="!loaded">
+					<div class="loader-row">
+						<p class="loading"></p>
+					</div>
+					<div class="loader-row">
+						<p class="loading"></p>
+					</div>
+					<div class="loader-row">
+						<p class="loading"></p>
+					</div>
+				</div>
+
+				<div class="caption" *ngIf="loaded && !(jwt_infos && jwt_infos.length)">
+					<div class="loader-row">
+						<div class="center italic tall" fxLayout="column" fxLayoutAlign="center center">
+							<p>No tokens have been generated for this
+								<span *ngIf="sessionService.institutionNodes && sessionService.institutionNodes.length > 0">participant node for this </span>
+								environment.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="bx--structured-list-tbody" *ngIf="loaded && (jwt_infos && jwt_infos.length)">
+					<label aria-label="apache spark" class="bx--structured-list-row" tabindex="0"  *ngFor="let i of jwt_infos">
+			<input tabindex="-1" class="bx--structured-list-input" value="active" type="radio" name="services" title="active" checked />
+			<div class="bx--structured-list-td">
+				<svg *ngIf="i.active" class="bx--structured-list-svg" width="16" height="16" viewBox="0 0 16 16">
+					<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm3.646-10.854L6.75 10.043 4.354 7.646l-.708.708 3.104 3.103 5.604-5.603-.708-.708z"
+					fill-rule="evenodd" />
+				</svg>
+			</div>
+			<div class="bx--structured-list-td"><div class="restrict-width break-word description">{{i.description ? i.description: 'N/A'}}</div></div>
+			<div class="bx--structured-list-td">
+				<span>{{ i.refreshedAt ? i.refreshedAt : 'N/A' }}</span>
+			</div>
+			<div class="bx--structured-list-td">
+				<span class="cap">{{i.stage ? i.stage : 'N/A'}}</span>
+			</div>
+			<div class="bx--structured-list-td new-lines">
+				<span [class.italic]="!userCanView(i.createdBy)">{{ userCanView(i.createdBy) ? utils.convertCSVtoNewLine(i.ips) : 'No permissions to view.' }}</span>
+			</div>
+			<div class="bx--structured-list-td new-lines">
+				<span [class.italic]="!userCanView(i.createdBy)">{{ userCanView(i.createdBy) ? utils.convertCSVtoNewLine(i.enp) : 'No permissions to view.' }}</span>
+			</div>
+			<div class="bx--structured-list-td new-lines">
+				<span [class.italic]="!userCanView(i.createdBy)">{{ userCanView(i.createdBy) ? utils.convertCSVtoNewLine(i.acc) : 'No permissions to view.' }}</span>
+			</div>
+			<div class="bx--structured-list-td new-lines">
+					<div>{{'Created ' + utils.toLocaleDateTime(i.createdAt) + ' \n' + i.createdBy}}</div>
+					<hr *ngIf="i.approvedAt">
+					<div *ngIf="i.approvedAt">{{'Approved ' + utils.toLocaleDateTime(i.approvedAt) + ' \n' + i.approvedBy}}</div>
+					<hr *ngIf="i.revokedAt">
+					<div *ngIf="i.revokedAt">{{'Revoked ' + utils.toLocaleDateTime(i.revokedAt) + ' \n' + i.revokedBy}}</div>
+				</div>
+			<div class="bx--structured-list-td" fxLayout="column" fxLayoutGap="10px">
+
+				<!-- Approve - user has to be participant ADMIN action only AND cannot be creator of the token -->
+				<button *ngIf="i.stage === 'review'"
+					[title]="i.createdBy === authService.auth.auth.currentUser.email ? 'Approver must not be same as creator' : 'Approve'"
+					[disabled]="!isValidApprover(i.createdBy)" class="bx--btn bx--btn--primary bx--btn--sm" type="button" (click)="approve(i)">
+					<span>Approve</span>
+					<svg class="bx--btn__icon" width="10" height="8" viewBox="0 0 10 8"><path d="M8.498 0L10 1.502 3.672 7.83 0 4.158l1.502-1.502 2.17 2.17z"></path></svg>
+				</button>
+
+				<!-- Reject - CREATOR or Participant ADMIN action only -->
+				<button *ngIf="i.stage === 'review'" class="bx--btn bx--btn--danger--primary bx--btn--sm"  aria-label="danger" type="button" [disabled]="!userCanView(i.createdBy)" (click)="reject(i)">
+					<span>Reject</span>
+					<svg class="bx--btn__icon" width="10" height="10" viewBox="0 0 10 10"><path d="M6.32 5L10 8.68 8.68 10 5 6.32 1.32 10 0 8.68 3.68 5 0 1.32 1.32 0 5 3.68 8.68 0 10 1.32 6.32 5z"></path></svg>
+				</button>
+
+				<!-- generate -->
+				<button *ngIf="i.stage === 'approved'"
+					[title]="i.createdBy !== authService.auth.auth.currentUser.email ? 'Must be the user who requested the token' : 'Generate'"
+					[disabled]="i.createdBy !== authService.auth.auth.currentUser.email" class="bx--btn bx--btn--primary bx--btn--sm" type="button" (click)="generate(i)">
+					<span>Generate</span>
+					<svg class="bx--btn__icon" viewBox="0 0 32 32"><path d="M12 10H6.78A11 11 0 0 1 27 16h2A13 13 0 0 0 6 7.68V4H4v8h8zm8 12h5.22A11 11 0 0 1 5 16H3a13 13 0 0 0 23 8.32V28h2v-8h-8z"/></svg>
+				</button>
+
+				<!-- revoke. Participant ADMIN action only -->
+				<button *ngIf="i.stage === 'ready' || i.stage === 'initialized'" class="bx--btn bx--btn--danger--primary bx--btn--sm"  aria-label="danger" type="button" [disabled]="!userCanView(i.createdBy)" (click)="revoke(i)">
+					<span>Revoke</span>
+					<svg class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM4 7v2h8V7H4z"></path></svg>
+				</button>
+
+			</div>
+ 		</label>
+				</div>
+			</section>
+		</div>
+
+	</div>
+</div>

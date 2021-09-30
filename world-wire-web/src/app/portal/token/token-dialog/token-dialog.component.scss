@@ -1,0 +1,20 @@
+.restrict-width {
+	max-width: 600px
+}
+
+ibm-code-snippet {
+	word-wrap: break-word;
+}
+
+.bx--form__helper-text {
+	&.static {
+		order: 0
+	}
+}
+
+.pathsColumn {
+	.bx--checkbox-label {
+		// -ms-word-break: break-word;
+		word-break: break-word;
+	}
+}

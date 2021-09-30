@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+    xmlns="urn:worldwire"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01"
+    xmlns:cct="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.07"
+    xmlns:psr="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.09"
+    xmlns:pr="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09"
+    xmlns:pmtcxl="urn:iso:std:iso:20022:tech:xsd:camt.056.001.08"
+    xmlns:fcr="urn:iso:std:iso:20022:tech:xsd:ibwf.001.001.01"
+    xmlns:dosn="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01"
+    xmlns:roi="urn:iso:std:iso:20022:tech:xsd:camt.029.001.09"
+    xmlns:noca="urn:iso:std:iso:20022:tech:xsd:camt.030.001.05"
+    xmlns:ct="urn:iso:std:iso:20022:tech:xsd:pacs.009.001.08"
+    xmlns:uta="urn:iso:std:iso:20022:tech:xsd:camt.026.001.07"
+    xmlns:rtmp="urn:iso:std:iso:20022:tech:xsd:camt.087.001.06"
+    elementFormDefault="qualified"
+    targetNamespace="urn:worldwire">
+
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:head.001.001.01"
+        schemaLocation="/opt/configuration/head.001.001.01.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.07"
+        schemaLocation="/opt/configuration/pacs.008.001.07.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.09"
+        schemaLocation="/opt/configuration/pacs.002.001.09.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:pacs.004.001.09"
+        schemaLocation="/opt/configuration/pacs.004.001.09.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:camt.056.001.08"
+        schemaLocation="/opt/configuration/camt.056.001.08.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:ibwf.001.001.01"
+        schemaLocation="/opt/configuration/ibwf.001.001.01.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01"
+        schemaLocation="/opt/configuration/ibwf.002.001.01.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:camt.029.001.09"
+        schemaLocation="/opt/configuration/camt.029.001.09.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:camt.030.001.05"
+        schemaLocation="/opt/configuration/camt.030.001.05.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:pacs.009.001.08"
+        schemaLocation="/opt/configuration/pacs.009.001.08.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:camt.026.001.07"
+        schemaLocation="/opt/configuration/camt.026.001.07.xsd"/>
+    <xsd:import namespace="urn:iso:std:iso:20022:tech:xsd:camt.087.001.06"
+        schemaLocation="/opt/configuration/camt.087.001.06.xsd"/>
+
+    <xsd:complexType name="HdrAndData">
+        <xsd:sequence>
+            <xsd:element name="AppHdr" type="head:BusinessApplicationHeaderV01"/>
+            <xsd:choice>
+                <xsd:element name="FIToFICstmrCdtTrf" type="cct:FIToFICustomerCreditTransferV07"/>
+                <xsd:element name="FIToFIPmtCxlReq" type="pmtcxl:FIToFIPaymentCancellationRequestV08"/>
+                <xsd:element name="FedCompRes" type="fcr:FederationComplianceResponse1"/>
+                <xsd:element name="RsltnOfInvstgtn" type="roi:ResolutionOfInvestigationV09"/>
+                <xsd:element name="NtfctnOfCaseAssgnmt" type="noca:NotificationOfCaseAssignmentV05"/>
+                <xsd:element name="FIToFIPmtStsRpt" type="psr:FIToFIPaymentStatusReportV09"/>
+                <xsd:element name="PmtRtr" type="pr:PaymentReturnV09"/>
+                <xsd:element name="FICdtTrf" type="ct:FinancialInstitutionCreditTransferV08"/>
+                <xsd:element name="DigOblSetNotif" type="dosn:DigitalObligationSettledNotification1"/>
+                <xsd:element name="UblToApply" type="uta:UnableToApplyV07"/>
+                <xsd:element name="ReqToModfyPmt" type="rtmp:RequestToModifyPaymentV06"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="Message" type="HdrAndData"/>
+
+</xsd:schema>

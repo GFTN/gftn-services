@@ -1,0 +1,132 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Private API for inter-component communication within the participant's GFTN instance.",
+    "title": "GFTN API Service Internal; API",
+    "version": "1.0.0"
+  },
+  "host": "api.gftn.io",
+  "basePath": "/v1/internal",
+  "paths": {
+    "/accounts/{account_name}": {
+      "get": {
+        "description": "retrieve the operating or issuing account for a participant\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Operating Account",
+          "Issuing Account"
+        ],
+        "summary": "retrieve a operating or issuing account",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "a name to identify this account, use \"issuing\" as account_name for issuing account",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account found",
+            "schema": {
+              "$ref": "#/definitions/operatingAccount"
+            }
+          },
+          "400": {
+            "description": "missing or invalid parameters in the request"
+          },
+          "404": {
+            "description": "The operating account could not be found"
+          }
+        }
+      },
+      "post": {
+        "description": "During client onboarding, each client will require one issuing account. this API creates the issuing account\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Issuing Account Creation"
+        ],
+        "summary": "Called when an originator wants to create a new issuing account",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "a name to identify this account",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "208": {
+            "description": "Issuing Account created or already exists",
+            "schema": {
+              "$ref": "#/definitions/operatingAccount"
+            }
+          },
+          "400": {
+            "description": "missing or invalid parameters in the request"
+          },
+          "404": {
+            "description": "The issuing account could not be created"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "account": {
+      "description": "Account",
+      "type": "object",
+      "title": "account",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "description": "The address that was created on the ledger.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"address\""
+        },
+        "name": {
+          "description": "A name to identify this account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"name\""
+        }
+      },
+      "x-go-name": "Account",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    },
+    "operatingAccount": {
+      "description": "Account with the token",
+      "type": "object",
+      "title": "authAccount",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/account"
+        },
+        "token": {
+          "description": "auth token",
+          "type": "string"
+        }
+      },
+      "x-go-name": "AuthAccount",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    }
+  }
+}

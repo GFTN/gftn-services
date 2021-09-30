@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ca-cert-generation
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: ca-cert-generation
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: ca-cert-generation
+        image: docker_registry_url/gftn/aws-cli
+        command: ["sh",  "generate_push_cert_ca.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: CN
+          value: WorldWire
+        - name: OU
+          value: IBMBlockchain
+        - name: O
+          value: IBM
+        - name: L
+          value: SG
+        - name: C
+          value: SG
+        - name: ENVIRONMENT
+          value: {{ ENVIRONMENT }}
+        - name: DOMAIN
+          value: {{ DOMAIN }}
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: awssecret-global
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: awssecret-global
+              key: aws-secret-access-key
+        - name:  AWS_REGION
+          value: ap-southeast-1

@@ -1,0 +1,89 @@
+@import '~sass/ibm-style-override';
+@import '~sass/mixins';
+
+
+:host ::ng-deep .bx--data-table-v2 {
+
+	th,
+	td {
+		width: auto !important;
+	}
+
+	td:last-of-type {
+		padding-right: 1rem;
+	}
+
+	.bx--overflow-menu {
+		opacity: 1;
+		transform: initial
+	}
+}
+
+.break-word {
+	min-width: 150px;
+}
+
+.max-data-width {
+	display: block;
+	max-width: 250px;
+}
+
+.sub-table {
+	width: 100%;
+
+	.bx--label {
+		width: 100%;
+		color: $brand-01;
+
+		.bx--tooltip--icon {
+			svg {
+				fill: $brand-01
+			}
+		}
+	}
+
+	tbody,
+	tr,
+	td {
+		border: none !important;
+		background: transparent;
+	}
+}
+
+.status-details-container {
+	max-width: 150px;
+
+	span:not(.label) {
+		width: 100%;
+		display: block;
+	}
+}
+
+.bx--tooltip--icon {
+	.bx--tooltip__trigger {
+		svg {
+			&.gray {
+				outline: none;
+				fill: $inverse-02;
+			}
+		}
+	}
+
+	.bx--tooltip--icon__top:after,
+	.bx--tooltip--icon__bottom:after  {
+		max-width: 250px;
+	}
+}
+
+// overwrite toolbar action icon that is also a "tooltip"
+.bx--tooltip__trigger {
+	svg.bx--toolbar-action__icon path {
+		fill: $ui-05
+	}
+}
+
+// Override default margins to fit in table toolbar
+ibm-search {
+	margin-top: 0;
+	margin-bottom: 0;
+}

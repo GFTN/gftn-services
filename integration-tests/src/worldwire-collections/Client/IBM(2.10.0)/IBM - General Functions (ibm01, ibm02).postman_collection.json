@@ -1,0 +1,1228 @@
+{
+	"info": {
+		"_postman_id": "23654ffe-c1ab-4c85-b290-558946265dbb",
+		"name": "IBM - General Functions (ibm01, ibm02)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "list all participants",
+			"item": [
+				{
+					"name": "list all participants",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ibm01-jwt-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "ibm01.worldwire-st.io/local/api/v1/client/participants",
+							"host": [
+								"ibm01",
+								"worldwire-st",
+								"io"
+							],
+							"path": [
+								"local",
+								"api",
+								"v1",
+								"client",
+								"participants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "whitelist participants",
+			"item": [
+				{
+					"name": "ibm01",
+					"item": [
+						{
+							"name": "list participants on whitelist",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "file",
+									"file": {
+										"src": ""
+									}
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add anchor to whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{anchor_id}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add ibm02 to whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{ibm02-id}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove ibm02 from whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{ibm02-id}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ibm02",
+					"item": [
+						{
+							"name": "list participants on whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm02.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add anchor to whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{anchor_id}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add ibm01 to whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{ibm01-id}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove ibm01 from whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{ibm01-id}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "request account trust lines",
+			"item": [
+				{
+					"name": "ibm01",
+					"item": [
+						{
+							"name": "request USD trust from anchor issuing account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"permission\":\"request\",\n    \"asset_code\":\"USD\",\n    \"limit\": 4000\n}"
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/trust",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"trust"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "request USD trust from anchor default operating account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"permission\":\"request\",\n    \"asset_code\":\"USD\",\n    \"limit\": 4000\n}"
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/trust",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"trust"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "54befa03-0deb-46f0-884d-1b67073a7404",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f94958a7-45c3-43e0-872a-7dda08d4afde",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ibm02",
+					"item": [
+						{
+							"name": "request USD trust from anchor issuing account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\":\"issuing\",\n    \"participant_id\":\"{{anchor_id}}\",\n    \"permission\":\"request\",\n    \"asset_code\":\"USD\",\n    \"limit\":4000\n}"
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/api/v1/client/trust",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"trust"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "request USD trust from anchor default operating account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\":\"default\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"permission\":\"request\",\n    \"asset_code\":\"USD\",\n    \"limit\":4000\n}"
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/api/v1/client/trust",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"trust"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "verify trusted assets",
+			"item": [
+				{
+					"name": "ibm01",
+					"item": [
+						{
+							"name": "list trusted assets on issuing account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/assets/accounts/issuing",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets",
+										"accounts",
+										"issuing"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list trusted assets on default operating account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/assets/accounts/default",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets",
+										"accounts",
+										"default"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ibm02",
+					"item": [
+						{
+							"name": "list trusted assets on issuing account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/api/v1/client/assets/accounts/issuing",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets",
+										"accounts",
+										"issuing"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list trusted assets on default operating account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/api/v1/client/assets/accounts/default",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets",
+										"accounts",
+										"default"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "check account balances",
+			"item": [
+				{
+					"name": "ibm01",
+					"item": [
+						{
+							"name": "check USD balance of default operating account",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/balances/accounts/default?asset_code=USD&issuer_id={{anchor_id}}",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"accounts",
+										"default"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "USD"
+										},
+										{
+											"key": "issuer_id",
+											"value": "{{anchor_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "check USD balance of issuing account",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/balances/accounts/issuing?asset_code=USD&issuer_id={{anchor_id}}",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"accounts",
+										"issuing"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "USD"
+										},
+										{
+											"key": "issuer_id",
+											"value": "{{anchor_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "check issued USDDO balance of issuing account",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/balances/accounts/issuing?asset_code=USD&issuer_id={{anchor_id}}",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"accounts",
+										"issuing"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "USD"
+										},
+										{
+											"key": "issuer_id",
+											"value": "{{anchor_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ibm02",
+					"item": [
+						{
+							"name": "check USD balance of default operating account",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/api/v1/client/balances/accounts/default?asset_code=USD&issuer_id={{anchor_id}}",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"accounts",
+										"default"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "USD"
+										},
+										{
+											"key": "issuer_id",
+											"value": "{{anchor_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "check USD balance of issuing account",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/api/v1/client/balances/accounts/issuing?asset_code=USD&issuer_id={{anchor_id}}",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"accounts",
+										"issuing"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "USD"
+										},
+										{
+											"key": "issuer_id",
+											"value": "{{anchor_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "retrieve your digital obligation balance",
+			"item": [
+				{
+					"name": "ibm01",
+					"item": [
+						{
+							"name": "/client/balances/do",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/api/v1/client/balances/do?asset_code=USDDO",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"do"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "USDDO"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ibm02",
+					"item": [
+						{
+							"name": "/client/balances/do",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/api/v1/client/balances/do?asset_code=USDDO",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"do"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "USDDO"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "65ba9e7e-bc04-4940-9364-5b3a6094592f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "608b2f98-de1b-4e77-8847-1dea5c35e11a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

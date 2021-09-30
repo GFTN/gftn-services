@@ -1,0 +1,17 @@
+{
+  "api_service_url": "https://test-sg.worldwire-ibm.com:8080",
+  "compliance_service_url": "http://test-sg.worldwire-ibm.com:11003",
+  "country_code": "SG",
+  "distribution_accounts": [
+    {
+      "account_name": "default",
+      "stellar_network_address": "GCUIXHQV3VOVGBKJLOMI5NBHDBTNQ6A5IQXCSENVZ3OU63FSTMFRZ2H2"
+    }
+  ],
+  "federation_service_url": "http://test-sg.worldwire-ibm.com:11001",
+  "issuing_account": "GDHN4EOLOYSOZXGZK2LALH4FXFI33OAOP5XHIRNF65EIJPY7KAWOULH6",
+  "participant_domain": "sg.one.payments.gftn.io",
+  "quote_service_url": "http://test-sg.worldwire-ibm.com:11002",
+  "rdo_service_url": "https://test-sg.worldwire-ibm.com:7070",
+  "status": "active"
+}

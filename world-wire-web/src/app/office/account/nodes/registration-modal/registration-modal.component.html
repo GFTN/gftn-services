@@ -1,0 +1,106 @@
+<ibm-modal *ngIf="node">
+	<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+		Account Registration
+	</ibm-modal-header>
+
+	<form #accountRegisterForm="ngForm">
+		<section class="bx--modal-content">
+			<div class="margin-height margin-width" fxLayout="row" fxLayoutGap="10px">
+				<div *ngIf="loaded" class="bx--form-item bx--text-input-wrapper">
+					<label class="bx--label">Account Address</label>
+					<!--
+						Disable edit:
+						- already officially registered.
+						- registration is submitted and is in process of approval/rejection
+						- could not find this participant in the PR (dependeny for account registration)
+					 -->
+					<input ibmText #addressModel="ngModel" id="account-address" name="account-address" type="text" [(ngModel)]="accountAddress" placeholder="ABCDEFGHIJK1234567890" [attr.data-invalid]="!(addressModel.valid || addressModel.untouched) ? true: null" [disabled]="isRegistered() || (latestApproval && latestApproval.requestInitiatedBy) || !officialParticipant" required />
+
+					<div *ngIf="addressModel.errors?.required" class="bx--form-requirement">
+						Account Address is required
+					</div>
+				</div>
+
+				<div *ngIf="!loaded" fxFlex>
+					<p class="loading"></p>
+				</div>
+
+				<div *ngIf="loaded" class="bx--form-item">
+					<!-- empty space to align with input -->
+					<label class="bx--label">&nbsp;</label>
+
+					<!-- Request to PR MUST be successful for account registration -->
+					<p *ngIf="!officialParticipant" class="status-label text-danger" fxLayout="row" fxLayoutGap="8px"
+						fxLayoutAlign="start center">
+						<svg width="16" height="16" viewBox="0 0 16 16">
+							<path d="M7.25 6h1.5v5h-1.5z"></path>
+							<path
+								d="M.75 16a.75.75 0 0 1-.67-1.085L7.33.415a.75.75 0 0 1 1.34 0l7.25 14.5A.75.75 0 0 1 15.25 16H.75zm1.214-1.5h12.072L8 2.427 1.964 14.5z">
+							</path>
+							<path d="M7 12.75a1 1 0 1 1 2 0 1 1 0 1 1-2 0"></path>
+						</svg>
+						<span>Request Error</span>
+					</p>
+
+					<p *ngIf="officialParticipant && !isRegistered()" class="status-label text-danger" fxLayout="row"
+						fxLayoutGap="8px" fxLayoutAlign="start center">
+						<svg width="16" height="16" viewBox="0 0 16 16">
+							<path d="M7.25 6h1.5v5h-1.5z"></path>
+							<path
+								d="M.75 16a.75.75 0 0 1-.67-1.085L7.33.415a.75.75 0 0 1 1.34 0l7.25 14.5A.75.75 0 0 1 15.25 16H.75zm1.214-1.5h12.072L8 2.427 1.964 14.5z">
+							</path>
+							<path d="M7 12.75a1 1 0 1 1 2 0 1 1 0 1 1-2 0"></path>
+						</svg>
+						<span>Unregistered</span>
+					</p>
+
+					<p *ngIf="officialParticipant && isRegistered()" class="status-label text-ok" fxLayout="row"
+						fxLayoutGap="8px" fxLayoutAlign="start center">
+						<svg width="16" height="16" viewBox="0 0 16 16">
+							<path
+								d="M8 14.5c3.6 0 6.5-2.9 6.5-6.5S11.6 1.5 8 1.5 1.5 4.4 1.5 8s2.9 6.5 6.5 6.5zM8 16c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z">
+							</path>
+							<path d="M11.3 4.7l1.4 1.4L6.8 12 3.3 8.6l1.4-1.4 2.1 2z"></path>
+						</svg>
+						<span>Registered</span>
+					</p>
+				</div>
+			</div>
+
+			<div *ngIf="latestApproval">
+				<p *ngIf="latestApproval.requestedBy">
+					<label class="bx--label">Requested By:&nbsp;</label>
+				</p>
+
+				<!-- Show latest approval -->
+				<p *ngIf="latestApproval.requestInitiatedBy">
+					<label class="bx--label">Requested By:&nbsp;</label><span>{{ latestApproval.requestInitiatedBy }}</span>
+				</p>
+				<p *ngIf="latestApproval.requestApprovedBy">
+					<label class="bx--label">Approved By:&nbsp;</label><span>{{ latestApproval.requestApprovedBy }}</span>
+				</p>
+			</div>
+
+			<div class="margin-width">
+				<div id="notification"></div>
+			</div>
+		</section>
+		<ibm-modal-footer *ngIf="!isRegistered() && !latestApproval">
+			<ng-template [ngTemplateOutlet]="loadingTemplate"></ng-template>
+			<button ibmButton="secondary" type="button" (click)="closeModal()">Cancel</button>
+			<button ibmButton type="submit" [disabled]="!validForm(accountRegisterForm) || saving" (click)="submitForm(accountRegisterForm, 'request')">Request</button>
+		</ibm-modal-footer>
+		<ibm-modal-footer *ngIf="!isRegistered() && latestApproval">
+			<ng-template [ngTemplateOutlet]="loadingTemplate"></ng-template>
+			<button ibmButton="secondary" type="button" [disabled]="latestApproval.requestInitiatedBy === authService.userProfile.profile.email" (click)="rejectRegistration()">Reject</button>
+			<button ibmButton type="button" [disabled]="!accountAddress || saving || latestApproval.requestInitiatedBy === authService.userProfile.profile.email" (click)="submitForm(accountRegisterForm, 'approve')">Approve</button>
+		</ibm-modal-footer>
+	</form>
+
+</ibm-modal>
+
+<!-- Inline loader for visual feedback -->
+<ng-template #loadingTemplate>
+	<ibm-inline-loading *ngIf="showLoader" #loading loadingText="Saving registration..." successText="Success!"
+		[success]="success" (onSuccess)="onSuccess()"></ibm-inline-loading>
+</ng-template>

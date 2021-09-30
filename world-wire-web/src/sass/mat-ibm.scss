@@ -1,0 +1,175 @@
+// This file aggregates style modifications to angular-material
+// components so these components can be used and conform to carbon design
+// ===============================================================
+//-------------------------------------------
+// 🌌 Carbon Spacing
+// ------------------------------------------
+//
+//   Size in px based on 16px base
+//
+//   Spacing Scale
+//   ==========================================
+//   3xs  ||  2px
+//   2xs  ||  4px
+//   xs   ||  8px
+//   sm   ||  12px
+//   md   ||  16px
+//   lg   ||  24px
+//   xl   ||  32px
+//   2xl  ||  40px
+//   3xl  ||  48px
+//   ==========================================
+//
+//   Layout Scale
+//   ==========================================
+//   2xs  ||  16px
+//   xs   ||  24px
+//   sm   ||  32px
+//   md   ||  48px
+//   lg   ||  64px
+//   xl   ||  96px
+//   2xl  ||  160px
+//   ==========================================
+$spacing-baseline: 1rem !default;
+
+// $spacing-3xs: $spacing-baseline * 0.125 !default;
+// $spacing-2xs: $spacing-baseline * 0.25 !default;
+// $spacing-xs: $spacing-baseline * 0.5 !default;
+// $spacing-sm: $spacing-baseline * 0.75 !default;
+// $spacing-md: $spacing-baseline !default;
+// $spacing-lg: $spacing-baseline * 1.5 !default;
+$spacing-xl: $spacing-baseline * 2 !default;
+$spacing-2xl: $spacing-baseline * 2.5 !default;
+$spacing-3xl: $spacing-baseline * 3 !default;
+
+// $layout-2xs: $spacing-baseline !default;
+// $layout-xs: $spacing-baseline * 1.5 !default;
+// $layout-sm: $spacing-baseline * 2 !default;
+// $layout-md: $spacing-baseline * 3 !default;
+// $layout-lg: $spacing-baseline * 4 !default;
+// $layout-xl: $spacing-baseline * 6 !default;
+// $layout-2xl: $spacing-baseline * 10 !default;
+// =============== mat-dialog => carbon modal =================
+
+// remove padding so that ibm modal takes up the entire space of the mat-dialog
+// and scales accordingly to carbon modal, see: node_modules\carbon-components\scss\components\modal\_modal.scss
+.cdk-overlay-pane {
+
+	// default full-screen to full width
+	// IMPORTANT: do not use 'width: 100vw'
+	// otherwise dialogs without '.full-screen-dialogs'
+	// class will appear to be full width.
+	max-width: 100vw !important;
+
+	// // only on small screen make modal full width
+	// @media (max-width: 600px) {
+	// 	max-width: 100vw !important;
+	// }
+
+}
+
+// override MatDialog with Carbon Style
+.cdk-overlay-dark-backdrop {
+	background-color: rgba(223, 227, 230, .5);
+}
+
+// removes right most scroll bar when
+// full screen modal/dialog appears
+.cdk-global-scrollblock {
+	overflow-y: hidden !important;
+}
+
+// default container style for non-fullscreen dialogs
+.mat-dialog-container {
+	// remove default padding
+	padding: 0 !important;
+	border-radius: 0px !important;
+	// override default box shadow
+	box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1) !important;
+
+	// centers modal in middle of screen
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+
+	.bx--modal-container {
+		// overrides default Carbon width to take
+		// the .mat-dialog-container's instead
+		// this sucks but is necessary for now
+		// until we can use Carbon Components for everything
+		max-width: 100%;
+	}
+
+	.bx--modal-content {
+		// overrides default Carbon overflow to account for .mat-dialog-container
+		overflow-y: visible;
+	}
+}
+
+
+.full-screen-dialog {
+
+	// per material design
+	.mat-dialog-container {
+		position: relative;
+		width: 100vw;
+		max-width: none !important;
+		min-width: 100vw !important;
+		height: 100vh;
+		max-height: 100vh;
+		min-height: 100vh;
+		border-radius: 0px !important;
+	}
+
+	.bx--modal-container,
+	.bx--modal-footer {
+		// remove default padding and margin and take up full mat-dialog width
+		margin: 0;
+		width: 100%;
+		max-width: 100%;
+		min-width: 100%;
+	}
+
+	// per ibm
+	.bx--modal-container {
+		height: 100vh;
+		max-height: 100vh;
+		min-height: 100vh;
+		width: 100%;
+		// removing default padding
+		padding: 0;
+		padding-top: $spacing-xl;
+		overflow-y: auto;
+	}
+
+	.bx--modal-content {
+		flex: 1 1 auto;
+
+		// need to add minimum padding so that
+		// overflow scroll bar does not appear
+		// on large screen
+		padding-top: 5px;
+		// carbon spec
+		padding-bottom: 48px;
+		margin: 0;
+
+		// on full-screen makes center content
+		// scrollable
+		overflow-y: scroll !important;
+	}
+
+	.bx--modal-header,
+	.bx--modal-content,
+	.bx--modal-footer {
+		// set default left and right padding on inner modal containers rather than outer
+		// padding: $spacing-xl 3% 0rem 3%;
+		padding-left: 3%;
+		padding-right: 3%;
+
+		@media (min-width: 600px) {
+			// padding: $spacing-2xl $spacing-3xl 0 $spacing-3xl;
+			padding-left: $spacing-3xl;
+			padding-right: $spacing-3xl;
+		}
+	}
+}

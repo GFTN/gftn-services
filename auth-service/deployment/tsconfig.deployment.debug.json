@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2015",
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "allowUnreachableCode": false,
+    "alwaysStrict": true,
+    "pretty": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": false,
+    "rootDir": "src"
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

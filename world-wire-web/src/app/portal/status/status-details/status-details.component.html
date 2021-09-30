@@ -1,0 +1,14 @@
+<div *ngIf="detailsObj.errors.length > 0" fxLayout="column" fxLayoutGap="20px">
+	<div *ngFor="let error of detailsObj.errors" class="bx--tile">
+		<p class="semibold" fxLayout="row" fxLayoutAlign="space-between">
+			<span>{{ error.code }} - {{ error.type }}</span>
+			<span>{{ error.time_stamp | date:'h:mm a' }}</span>
+		</p>
+		<br/><br/>
+		<p><label class="bx--label">Url:</label>&nbsp;<span class="break-word">{{ error.url }}</span></p>
+		<p><label class="bx--label">Message:</label> {{ error.message }}</p>
+		<p><label class="bx--label">Details:</label> {{ error.details }}</p>
+	</div>
+</div>
+
+<p *ngIf="detailsObj.errors.length == 0">No downtime!</p>

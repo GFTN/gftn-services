@@ -1,0 +1,103 @@
+[WW_ERROR]
+    [WW_ERROR.ADMIN-0001]
+        SHORT_MESSAGE = "Admin Service Status Check Failed"
+        DETAILS = "Admin Service Status Check Failed: "
+    [WW_ERROR.ADMIN-0002]
+        SHORT_MESSAGE = "Unable to parse FITOFICCTMEMO in request"
+        DETAILS = "Unable to parse FITOFICCTMEMO in request: "
+    [WW_ERROR.ADMIN-0003]
+        SHORT_MESSAGE = "Unable to insert FITOFICCTMEMO in database"
+        DETAILS = "Unable to insert FITOFICCTMEMO in database: "
+    [WW_ERROR.ADMIN-0004]
+        SHORT_MESSAGE = "Unable to parse"
+        DETAILS = "Unable parse the request recieved via REST service: "
+    [WW_ERROR.ADMIN-0005]
+        SHORT_MESSAGE = "Unable to find transaction in database"
+        DETAILS = "Unable to find the transaction by given identification: "
+    [WW_ERROR.ADMIN-0006]
+        SHORT_MESSAGE = "Invalid data from database"
+        DETAILS = "Unable to parse the data fetched from database: "
+    [WW_ERROR.ADMIN-0007]
+        SHORT_MESSAGE = "Unautherized request"
+        DETAILS = "Transaction details request received from a third party, who did not participated in the transaction."
+    [WW_ERROR.ADMIN-0008]
+        SHORT_MESSAGE = "Internal Server Error"
+        DETAILS = "Unable to create transaction for Kill Switch activity."
+    [WW_ERROR.ADMIN-0009]
+        SHORT_MESSAGE = "Parameter validation failed"
+        DETAILS = "One or more parameters passed are not according to requirement."
+    [WW_ERROR.ADMIN-0010]
+        SHORT_MESSAGE = "error occurred while getting issuing account of participant domain"
+        DETAILS = "error occurred while getting issuing account of participant domain :"
+    [WW_ERROR.ADMIN-0011]
+        SHORT_MESSAGE = "error occurred while getting ibm account"
+        DETAILS = "error occurred while getting ibm account :"
+    [WW_ERROR.ADMIN-0012]
+        SHORT_MESSAGE = "native amount funding is not successful"
+        DETAILS = "native amount funding is not successful :"
+    [WW_ERROR.ADMIN-0013]
+        SHORT_MESSAGE = "blocklist query payload error"
+        DETAILS = "Error decoding request payload"
+    [WW_ERROR.ADMIN-0014]
+        SHORT_MESSAGE = "blocklist query payload error"
+        DETAILS = "Some fields are missing in the request payload"
+    [WW_ERROR.ADMIN-0015]
+        SHORT_MESSAGE = "DB error"
+        DETAILS = "Encounter error when doing db operations"
+    [WW_ERROR.ADMIN-0016]
+        SHORT_MESSAGE = "Record not found"
+        DETAILS = "Query value does not exists"
+    [WW_ERROR.ADMIN-0017]
+        SHORT_MESSAGE = "Record already exists"
+        DETAILS = "The record in the payload already exists in blocklist"
+    [WW_ERROR.ADMIN-0018]
+        SHORT_MESSAGE = "Encounter error while connecting to AWS"
+        DETAILS = "Cannot accessing killswitch secret phrase from AWS"
+    [WW_ERROR.ADMIN-0019]
+        SHORT_MESSAGE = "Encounter error while accessing gas service"
+        DETAILS = "Something goes wrong when submitting transaction to gas service"
+    [WW_ERROR.ADMIN-0020]
+        SHORT_MESSAGE = "Encounter error while creating stellar transaction"
+        DETAILS = "Something goes wrong when creating stellar transaction"
+    [WW_ERROR.ADMIN-0021]
+        SHORT_MESSAGE = "Encounter error while accessing gas service"
+        DETAILS = "Something goes wrong when retrieving gas account from gas service"
+    [WW_ERROR.ADMIN-0022]
+        SHORT_MESSAGE = "Encounter error while parsing Mongo DB data"
+        DETAILS = "Failed parsing mongo data"
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]   
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

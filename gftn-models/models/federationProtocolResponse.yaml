@@ -1,0 +1,28 @@
+
+title: federationProtocolResponse
+description: Federation protocol response
+type: object
+required:
+  - stellar_address
+  - account_id
+  - memo_type
+  - memo
+properties:
+  receiving_account_address:
+    type: string
+    description: The stellar address of account which, once compliance checks are complete, is expected to be the receiving address for this transaction
+  account_id:
+    type: string
+    description: The account ID of the receiver.  Should be the same as the account identifier for GFTN
+  memo_type:
+    type: string
+    enum:
+      - text
+    description: Should always be "text" for GFTN
+  memo:
+    type: string
+    description: Optional, should be used for the compliance and payment operation
+externalDocs:
+  url: '#/definitions/federationProtocolResponse'
+x-go-name: FederationProtocolResponse
+

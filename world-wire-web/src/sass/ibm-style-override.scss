@@ -1,0 +1,36 @@
+// override theme
+
+// TODO: per chase -> need to have an option for light and dark theme (use latest Carbon v10)
+// 1) ui-n does not have a dark option
+// 2) text-n does not have a light text (#fff)
+
+$edited: true;
+
+$brand-01: #0869ff;
+$brand-02: #272727;
+$brand-03: #5fc8f1;
+$brand-04: #001689;
+$ui-01: #ffffff;
+$ui-02: #f5f7fa;
+$ui-03: #dfe6eb;
+$ui-04: #c5deff;
+$ui-05: #8c9ba5;
+$text-01: #152934;
+$text-02: #5a6872;
+$text-03: #fff; // dark theme
+$inverse-01: #ffffff;
+$inverse-02: #464646;
+$inverse-03: #626262; // dark theme
+$field-01: #ebf0f7;
+$support-01: #e71d32;
+$support-02: #5aa700;
+$support-03: #efc100;
+$support-04: $ui-04;
+
+$link: $brand-01;
+
+$hover-primary: $brand-04;
+$hover-danger: #bd1427;
+$hover-primary-text:#3d70b2;
+
+$padding: 10px;

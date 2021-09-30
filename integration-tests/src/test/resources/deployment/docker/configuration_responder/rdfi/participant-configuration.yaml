@@ -1,0 +1,9 @@
+ParticipantDomain: rdfi.payments.gftn.io
+Federation:
+  FederationServerPublicUrl: http://federation.rdfi.payments.gftn.io
+Compliance:
+  ComplianceServerPublicUrl: http://compliance.rdfi.payments.gftn.io
+ParticipantPublicKeys:
+  ComplianceSigningPublicKey: GDLWH34EAGJSKMWXNKACRRB5SSYJK4MP3TNGXX776ED5POA6JK7UNPO4
+ParticipantSecretKeys:
+  ComplianceSecretKey: SBAYF5XJ2F4GBILU2IOY2AQQGYBJJOOVYOIM4H36IKRYVPPX7MJ5AAJT

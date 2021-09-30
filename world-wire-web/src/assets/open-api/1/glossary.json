@@ -1,0 +1,104 @@
+[
+	{
+		"name": "API Service",
+		"definition": "Client-facing API responsible for orchestrating the complex calls to the World Wire micro-services that allow the client to interact with other participants on the World Wire network to clear and settle cross-border payments."
+	},
+	{
+		"name": "Clearing",
+		"definition": "The acceptance of a transaction between two or more parties in which they accept the terms of the transaction and commitment to subsequent settlement. This involves federation and the identification of all ultimate originators and ultimate beneficiaries under existing compliance rules."
+	},
+	{
+		"name": "Digital Asset",
+		"abbreviation": "(DA)",
+		"definition": "Digital Assets represent real-world value which can be traded or used with transparency over a blockchain-enabled network.  Transactions involving swaps of digital assets can be atomic and settled instantly.  They can also be used as a bridge asset for FX pairs where off-chain direct crosses are not quoted.  Using this clearing and settlement model allows participants to use any asset for payment in a legal, safe and compliant manner in near real-time."
+	},
+	{
+		"name": "Digital Obligation",
+		"abbreviation": "(DO)",
+		"definition": "A digital ‘IOU’ indicating a promise to pay at a later date. This method may require settlement off the network."
+	},
+	{
+		"name": "Distribution Account",
+		"definition": "Each participant will be provided one or more Distribution Accounts with which they can use to send and receive payments from other Participants on World Wire."
+	},
+	{
+		"name": "Issuing Account",
+		"definition": "Each participant will be provided only 1 (one) Issuing Account with which they can issue new assets on the network and open and fund new distribution accounts."
+	},
+	{
+		"name": "Ledger",
+		"definition": "World Wire transactions are recorded on a set of ledgers supported by Stellar Development Foundation’s blockchain software. These ledgers represent the state of the World Wire network at a given point in time."
+	},
+	{
+		"name": "Lumens",
+		"abbreviation": "(XLM)",
+		"definition": "One lumen (XLM) is a unit of digital currency (similar to Bitcoin, Ether, or Ripple, etc.) issued by the Stellar Development Foundation. Lumens are the native asset of the Stellar network and contribute to the ability to conduct transactions on the network. XLM can be used as a settlement asset for cleared transactions on the network."
+	},
+	{
+		"name": "Network Account",
+		"definition": "Transactions are performed using Network Accounts, and Network Accounts control the access rights to balances. Each participant is provided with an issuing and distribution accounts to transact with other participants on the World Wire network."
+	},
+	{
+		"name": "Network Participant",
+		"definition": "Any entity with access to World Wire services allowing them to interact and exchange value with other participants on the network. The level of a Network Participant’s interactions on World Wire depend upon the level of integration into the Network."
+	},
+	{
+		"name": "Payment",
+		"definition": "The transfer of value by an Originating Financial Institution on behalf of an originating customer to a Receiving Financial Institution on behalf of an ultimate beneficiary."
+	},
+	{
+		"name": "Trust Line",
+		"definition": "A declaration by a participant that they are willing to hold a particular non-native asset, Digital Asset (DA), or Digital Obligation (DO) in one of their distribution or issuing accounts. Accounts create a trust line with an asset issuer to accept or indicate they are willing to hold up to a certain amount of the asset. Trust line entries define the rules around the use of this currency. Rules can be defined by the user–e.g., setting a balance limit to limit risk–or by the issuer–e.g., an authorization or revocation flag."
+	},
+	{
+		"name": "Quote",
+		"definition": "An agreement issued by the Receiving Financial Institution (RFI) to exchange the target asset held by the RFI for the source asset held by the requesting Participant known as the Originating Financial Institution (OFI). The OFI requests the quote from Participants on World Wire and the response to the request is a quote detailing the rate at which the RFI is willing to exchange assets, an expiration time detailing how long the quote is valid, and the limit amount they are willing to exchange at that specified rate."
+	},
+	{
+		"name": "Participant Registry",
+		"definition": "A centralized service containing information pertaining to all active World Wire network participants. An entry to the Participant Registry is added for every Direct Participant during the onboarding process. This service is called during the execution of a transaction to retrieve information relevant and necessary to facilitating transactions (e.g. REST endpoint URLs, currencies accepted, etc.)."
+	},
+	{
+		"name": "Pay-In Asset",
+		"definition": "The asset an OFI receives from their originating customer to send on their behalf.  This may or may not differ from the settlement or pay-out assets."
+	},
+	{
+		"name": "Pay-Out Asset",
+		"definition": "The asset an RFI discharges to the ultimate beneficiary following the payment instructions.  This may or may not differ from the settlement or pay-out assets."
+	},
+	{
+		"name": "Production Environment",
+		"definition": "Refers to a participant’s production nodes deployed to the cloud that enables the API communication across the distributed World Wire network."
+	},
+	{
+		"name": "Sandbox Environment",
+		"definition": "Refers to the set of mock API endpoints used for testing World Wire functionality without the need for any system integration"
+	},
+	{
+		"name": "Test Network Environment",
+		"definition": "Refers to a participant’s test nodes deployed to the cloud that enables API communication across the distributed World Wire test network. Test Network nodes are nearly identical to Production Network nodes, except the value transferred is fake and leverages the Stellar TestNet."
+	},
+	{
+		"name": "Originating Financial Institution",
+		"abbreviation": "(OFI)",
+		"definition": "The Financial Institution that uses World Wire to initiate a payment on behalf of the ultimate sender."
+	},
+	{
+		"name": "Receiving Financial Institution",
+		"abbreviation": "(RFI)",
+		"definition": "The Financial Institution that uses World Wire to receive a payment request and subsequent payment on behalf of the ultimate beneficiary."
+	},
+	{
+		"name": "Stellar Development Foundation",
+		"abbreviation": "(SDF)",
+		"definition": "Stellar is a non-profit software development foundation that oversees the development of the Stellar blockchain software, as well as provides the policy for the issuance of Lumens (XLM), Stellar’s native cryptocurrency."
+	},
+	{
+		"name": "Settlement",
+		"definition": "The completion of a transaction, wherein the sender transfers money to the receiver."
+	},
+	{
+		"name": "Settlement Asset",
+		"definition": "The asset used in the transfer of value on the World Wire Network. This may or may not differ from the pay-in or pay-out assets."
+	}
+]

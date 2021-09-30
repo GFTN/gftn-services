@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<Message xmlns="urn:worldwire">
+		<AppHdr>
+            <Fr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+                <FIId>
+                    <FinInstnId>
+                        <BICFI>IBMQATWN001</BICFI>
+                        <Othr>
+                            <Id>ibmtaiwan1</Id>
+                        </Othr>
+                    </FinInstnId>
+                </FIId>
+            </Fr>
+            <To xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+                <FIId>
+                    <FinInstnId>
+                        <BICFI>WORLDWIRE00</BICFI>
+                        <Othr>
+                            <Id>WW</Id>
+                        </Othr>
+                    </FinInstnId>
+                </FIId>
+            </To>
+			<BizMsgIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">B20190404WORLDWIRE00BHU0928374</BizMsgIdr>
+			<MsgDefIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">pacs.002.001.09</MsgDefIdr>
+			<CreDt xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">2019-11-20T16:00:00Z</CreDt>
+		</AppHdr>
+		<FIToFIPmtStsRpt>
+			<GrpHdr xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.09">
+				<MsgId>USDDA20191120IBMQATWN001B1111110001</MsgId>
+				<CreDtTm>2019-05-24T07:23:32</CreDtTm>
+				<InstgAgt>
+					<FinInstnId>
+						<BICFI>IBMQATWN001</BICFI>
+						<Othr>
+							<Id>ibmtaiwan1</Id>
+						</Othr>
+					</FinInstnId>
+				</InstgAgt>
+				<InstdAgt>
+					<FinInstnId>
+						<BICFI>USAPTCPT001</BICFI>
+						<Othr>
+							<Id>ptcpt1</Id>
+						</Othr>
+					</FinInstnId>
+				</InstdAgt>
+			</GrpHdr>
+			<TxInfAndSts xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.09">
+				<OrgnlInstrId>USDDA20191120USAPTCPT001B1111110002</OrgnlInstrId>
+				<OrgnlEndToEndId>USDDA20112019SGPLAUSE00000000000002</OrgnlEndToEndId>
+				<OrgnlTxId>USDDA20112019SGPLAUSE00000000000002</OrgnlTxId>
+				<TxSts>ACTC</TxSts>
+				<ChrgsInf>
+					<Amt Ccy="USD">2</Amt>
+					<Agt>
+						<FinInstnId>
+							<BICFI>IBMQATWN001</BICFI>
+							<Othr>
+								<Id>ibmtaiwan1</Id>
+							</Othr>
+						</FinInstnId>
+					</Agt>
+				</ChrgsInf>
+				<OrgnlTxRef>
+					<IntrBkSttlmAmt Ccy="USD">2</IntrBkSttlmAmt>
+				</OrgnlTxRef>
+				<SplmtryData>
+					<PlcAndNm>/Message/FIToFIPmtStsRpt/TxInfAndSts/Issr</PlcAndNm>
+					<Envlp>
+						<Id>ibmtaiwan1</Id>
+					</Envlp>
+				</SplmtryData>
+				<SplmtryData>
+					<PlcAndNm>/Message/FIToFIPmtStsRpt/TxInfAndSts/SttlmAcctAddr</PlcAndNm>
+					<Envlp>
+						<Id>GBTXB7B2VCHNHIVXMB7MUZ5V5RC4NSV65OTRPHXKKA6VWFI6BPKABJHJ</Id>
+					</Envlp>
+				</SplmtryData>
+				<SplmtryData>
+					<PlcAndNm>/Message/FIToFIPmtStsRpt/TxInfAndSts/PayToRef</PlcAndNm>
+					<Envlp>
+						<Id>7777</Id>
+					</Envlp>
+				</SplmtryData>
+			</TxInfAndSts>
+		</FIToFIPmtStsRpt>
+	</Message>

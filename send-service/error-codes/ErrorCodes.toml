@@ -1,0 +1,88 @@
+[WW_ERROR]
+    [WW_ERROR.SEND-1000]
+        SHORT_MESSAGE = "HTTP request failed"
+        DETAILS = "HTTP request failed:  "
+    [WW_ERROR.SEND-1001]
+        SHORT_MESSAGE = "user request validation failed"
+        DETAILS = "mandatory request parameters are missing: "
+    [WW_ERROR.SEND-1002]
+        SHORT_MESSAGE = "Unable to parse body of REST call"
+        DETAILS = "Error parsing the request parameters: "
+    [WW_ERROR.SEND-1003]
+        SHORT_MESSAGE = "Unable to parse received HTTP response"
+        DETAILS = "Error parsing the response parameters: "
+    [WW_ERROR.SEND-1006]
+        SHORT_MESSAGE = "Participant registry operation Failed"
+        DETAILS = "Error performing following operation: "
+    [WW_ERROR.SEND-1007]
+        SHORT_MESSAGE = "Message format is not correct"
+        DETAILS = "Message was not encoded in base 64 format: "
+    [WW_ERROR.SEND-1008]
+        SHORT_MESSAGE = "Failed to set XML message"
+        DETAILS = "XML message is empty: "
+    [WW_ERROR.SEND-1009]
+        SHORT_MESSAGE = "XML validation failed"
+        DETAILS = "XML is not in correct corresponding XSD format: "
+    [WW_ERROR.QUOTE-1010]
+        SHORT_MESSAGE = "Participant domain is not whitelisted"
+        DETAILS = "Please whitelist given domain to send transfer request: "
+    [WW_ERROR.SEND-1011]
+        SHORT_MESSAGE = "Signature Verification Failed"
+        DETAILS = "Signature Verification returned : "
+    [WW_ERROR.SEND-1012]
+        SHORT_MESSAGE = "Parsing failed"
+        DETAILS = "Unable parse XML to proto buffer: "
+    [WW_ERROR.SEND-1013]
+        SHORT_MESSAGE = "Stellar Submit Transaction Error"
+        DETAILS = "Stellar Submit Transaction returned : "
+    [WW_ERROR.SEND-1014]
+        SHORT_MESSAGE = "Send request to kafka failed"
+        DETAILS = "Unable send request message to kafka broker: "
+    [WW_ERROR.SEND-1015]
+        SHORT_MESSAGE = "Cache failed"
+        DETAILS = "Unable to store or get value from cache: "
+    [WW_ERROR.SEND-1016]
+        SHORT_MESSAGE = "Parse signed payload failed"
+        DETAILS = "Unable to parse the signed payload into object: "
+    [WW_ERROR.COMMON-1001]
+        SHORT_MESSAGE = "jwt identity authorization failed"
+        DETAILS = "jwt identity authorization failed: "
+    [WW_ERROR.COMMON-1002]
+        SHORT_MESSAGE = "Error fetching whitelist service"
+        DETAILS = "Error fetching whitelist service: "
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

@@ -1,0 +1,71 @@
+{
+    "id":"5c4d2af907b0c12ea214669f",
+	"updated_payload": {
+    "type": "FinancialInstitute",
+    "name": "CIMB Bank",
+    "currencies_accepted":["TWD"],
+    "image": "https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg",
+    "url": "",
+    "telephone": "07-418 6258 / 6276",
+    "member_of": ["BankC", "BankD", "BankA"],
+    "address": {
+      "street_address": "Macpherson road",
+      "address_locality": "chinatown",
+      "address_region": "downtown",
+      "postal_code": "83133",
+      "address_country": "SG"
+    },
+    "geo": {
+      "latitude": 1.8482097,
+      "longitude": 102.93248110000002
+    },
+    "categories": [
+         {
+              "name": "mobile",
+              "options": [
+                  {
+                    "description": "Deliver PHP to home address",
+                     "terms": "Limit of 52,000 PHP"
+           
+                  },
+                  {
+                    "description": "Deliver USD to home address",
+                    "terms": "Limit of 1,000 USD"
+                  }
+              ]
+          },
+          {
+              "name": "cash_pickup",
+              "options": [
+                  {
+                    "description": "Pick-up PHP from Taipei",
+                    "terms": "Limit of 52,000 PHP per day per identity verified"
+                    
+                  },
+                  {
+                    "description": "Pick-up USD from Tainan",
+                    "terms": "Limit of 1,000 USD per day per identity verified"
+                  }
+              ]
+          }
+     ],
+    
+    "opening_hours": [{
+      "day_of_week": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
+      "opens": "09:15",
+      "closes": "16:30"
+    },{
+      "day_of_week": ["Friday"],
+      "opens": "09:15",
+      "closes": "16:00"
+    }]
+  }
+	
+}
+
+

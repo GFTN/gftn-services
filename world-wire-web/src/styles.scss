@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/theming";
+
+// to use custom theme "colors" on an element:
+// 1) import the scss file into the component's scss file
+//    (note that using the component's scss file will
+//    encapsulate styles to that component only, use the
+//    global styles.scss to use them globally)
+// 2) Then use the sass mapping function "map-get($map, $value)"
+//    to retrieve the colors, example:
+//    "background-color: map-get($primary-drk, darker );"
+// only need to import mat-core() once globally
+@include mat-core;
+
+@import "~sass/font-awesome/scss/fontawesome";
+@import "~sass/font-awesome/scss/fa-brands";
+
+// import helpers and typography sass
+@import "~sass/helpers";
+@import "~sass/typography";
+@import "~sass/ibm";
+
+// angular material light theme is global default
+// @import "~sass/mat-light-theme.scss";
+// to use the dark theme add ".dark-theme" class to the
+// containing element and the stock material components
+// placed within that class will use the dark-theme
+// @import "~sass/mat-dark-theme.scss";
+
+// custom styling to conform angular-material components to carbon components
+@import "~sass/mat-ibm";
+
+.flex-fill {
+	// Work-around since @HostBinding will "NOT" compile fxLayout directive (eg: @HostBinding('attr.fxLayout') fxlayout = 'row';)
+	// used with host binding (ie: @HostBinding('attr.class') cls = 'flex-fill';) to fill host component (ng-component)
+	// see, https://github.com/angular/flex-layout/issues/76
+	// the following is equivalent to "fxFlex fxLayout="column"
+	flex: 1 1 auto;
+	box-sizing: border-box;
+	flex-direction: column;
+	display: flex;
+	width: 100%;
+}
+
+body::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb {
+	background-color: #777;
+	// outline: 1px solid #777;
+}

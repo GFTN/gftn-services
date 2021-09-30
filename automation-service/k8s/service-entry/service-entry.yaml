@@ -1,0 +1,28 @@
+#apiVersion: networking.istio.io/v1alpha3
+#kind: ServiceEntry
+#metadata:
+#  name: aws-secret-manager
+#spec:
+#  hosts:
+#  - secretsmanager.ap-southeast-1.amazonaws.com
+#  ports:
+#  - number: 443
+#    name: https
+#    protocol: HTTPS
+#  resolution: DNS
+#  location: MESH_EXTERNAL
+#---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: aws-dynamodb
+spec:
+  hosts:
+  - dynamodb.us-east-1.amazonaws.com
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
+---

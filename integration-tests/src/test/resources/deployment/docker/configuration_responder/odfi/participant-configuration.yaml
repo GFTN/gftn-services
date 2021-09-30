@@ -1,0 +1,9 @@
+ParticipantDomain: odfi.payments.gftn.io
+Federation:
+  FederationServerPublicUrl: http://federation.odfi.payments.gftn.io
+Compliance:
+  ComplianceServerPublicUrl: http://compliance.odfi.payments.gftn.io
+ParticipantPublicKeys:
+  ComplianceSigningPublicKey: GAWAMFCEGOHPPJINB4XVJWKEAE4F2TWXIO3VWMD2TL2USMLYR3E2WZWW
+ParticipantSecretKeys:
+  ComplianceSecretKey: SBR66ZGNKJCFVEGNEBP4OD2BMGOQND54CXVR2JVR6YMFZEVACLX7JC56

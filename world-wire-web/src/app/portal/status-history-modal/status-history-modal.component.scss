@@ -1,0 +1,11 @@
+.bx--structured-list-row {
+	.bx--structured-list-td {
+		min-width: 150px;
+
+		&:first-of-type {
+			min-width: 100px;
+			width: 30%;
+			max-width: 200px;
+		}
+	}
+}

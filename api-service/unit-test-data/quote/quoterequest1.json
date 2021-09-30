@@ -1,0 +1,13 @@
+{
+  "expiration_time": "2020-06-30T15:04:05.999999999Z",
+  "limit": 20,
+  "source_asset": {"asset_code":"NZD",
+    "asset_issuer": "nz.one.payments.gftn.io",
+    "asset_type": "DA"
+  },
+  "target_asset": {"asset_code":"FJD",
+    "asset_issuer": "fj.one.payments.gftn.io",
+    "asset_type": "DA"
+  },
+  "ofi_domain": "nz.one.payments.gftn.io"
+}

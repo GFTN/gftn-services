@@ -1,0 +1,96 @@
+<ibm-modal>
+
+	<div *ngIf="!currentAssetRequest">
+		<!-- issue new DO request -->
+		<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+			<div class="bx--modal-header__label bx--type-delta">Add New</div>
+			<span>{{assetTypes[currentAssetType].label}} Request</span>
+		</ibm-modal-header>
+
+		<form #assetForm="ngForm" (ngSubmit)="requestAssetRequest(assetForm)">
+			<section class="bx--modal-content">
+				<div class="margin-height margin-width bx--form-item bx--text-input-wrapper">
+					<label class="bx--label">Asset Code <span class="text-danger">*</span></label>
+					<div class="bx--form__helper-text">
+						Asset Code for digital obligation must be appended with 'DO'.
+					</div>
+					<input ibmText theme="dark" #assetCodeModel="ngModel" name="asset-code"
+						[(ngModel)]="formData.assetCode" class="uppercase"
+						[attr.data-invalid]="!(assetCodeModel.valid || assetCodeModel.untouched) ? true : null"
+						placeholder="Asset Code" appValidAsset [pattern]="getAssetRegex().pattern" required>
+					<div *ngIf="formData.assetCode && !assetCodeModel.errors?.invalidAsset"
+						class="bx--type-caption">
+						{{ getAssetCodeName() }}
+					</div>
+					<div *ngIf="assetCodeModel.errors?.required" class="bx--form-requirement">
+						Asset Code is required
+					</div>
+					<div *ngIf="assetCodeModel.errors?.invalidAsset" class="bx--form-requirement">
+						Asset Code is not valid
+					</div>
+					<div *ngIf="assetCodeModel.errors?.pattern" class="bx--form-requirement">
+						{{ getAssetRegex().validationText }}
+					</div>
+				</div>
+
+				<div class="margin-height margin-width bx--form-item bx--text-input-wrapper">
+					<label class="bx--label">Asset Type <span class="text-danger">*</span></label>
+					<!-- DISABLE dropdown if DO, since no other option is available -->
+					<ibm-dropdown #assetTypeModel="ngModel" name="asset-type" placeholder="Asset Type"
+						[(ngModel)]="formData.assetType" value="value" theme="dark" [appendInline]="true"
+						[disabled]="!assetTypeOptions || currentAssetType === 'DO'" required>
+						<ibm-dropdown-list [items]="assetTypeOptions"></ibm-dropdown-list>
+					</ibm-dropdown>
+					<div *ngIf="assetTypeModel && assetTypeModel.errors?.required" class="bx--form-requirement">
+						Asset Type is required
+					</div>
+				</div>
+
+				<div id="assets-error-notication"></div>
+			</section>
+			<ibm-modal-footer>
+				<button ibmButton="secondary" type="button" (click)="closeModal()">Cancel</button>
+				<button ibmButton="primary" type="submit" [disabled]="!assetForm.valid">Add</button>
+			</ibm-modal-footer>
+		</form>
+	</div>
+
+	<!-- approve/reject asset request -->
+	<div *ngIf="currentAssetRequest">
+		<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+			<div class="bx--modal-header__label bx--type-delta">Review</div>
+			<span>{{assetTypes[currentAssetType].label}}</span> Request
+		</ibm-modal-header>
+
+
+		<section class="bx--modal-content">
+			<div *ngIf="assetDataLoaded">
+				<p><label class="bx--label">Asset Code:&nbsp;</label>{{ currentAssetRequest.asset_code }}</p>
+				<p><label class="bx--label">Asset Type:&nbsp;</label>{{ currentAssetRequest.asset_type }}</p>
+				<br/>
+				<p *ngIf="latestApproval && latestApproval.requestInitiatedBy">
+					<label class="bx--label">Requested By:&nbsp;</label>{{ latestApproval.requestInitiatedBy }}</p>
+				<p *ngIf="latestApproval && latestApproval.requestApprovedBy">
+					<label class="bx--label">Approved By:&nbsp;</label>{{ latestApproval.requestApprovedBy }}</p>
+
+
+				<p *ngIf="registered && (!latestApproval || (latestApproval && !latestApproval.requestApprovedBy))">
+					Registered through API</p>
+			</div>
+
+			<div *ngIf="!assetDataLoaded" fxLayout="column" fxLayoutGap="10px">
+				<p class="loading"></p>
+				<p class="loading"></p>
+				<p class="loading"></p>
+			</div>
+
+			<div id="assets-error-notication"></div>
+		</section>
+		<ibm-modal-footer *ngIf="!registered && assetDataLoaded">
+			<button ibmButton="secondary" type="button" [disabled]="latestApproval && latestApproval.requestInitiatedBy === authService.userProfile.profile.email" (click)="rejectAssetRequest()">Reject</button>
+			<button ibmButton="primary" type="button" [disabled]="latestApproval && latestApproval.requestInitiatedBy === authService.userProfile.profile.email" (click)="approveAssetRequest()">Approve</button>
+		</ibm-modal-footer>
+	</div>
+</ibm-modal>
+
+<ibm-loading *ngIf="loadingRequest" [overlay]="true"></ibm-loading>

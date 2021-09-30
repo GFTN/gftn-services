@@ -1,0 +1,137 @@
+<!-- Spacing -->
+<div class="margin-height"></div>
+
+<div class="margin-height margin-width" ngClass.gt-sm="row" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+	<div fxFlex fxLayout="column" ngClass.lt-md="" ngClass.gt-sm="column">
+		<!-- Header for Your Whitelist section -->
+		<div fxLayout="row" class="row title" fxLayoutAlign="space-between center">
+			<h3 class="bx--type-gamma">Your Whitelist</h3>
+			<button ibmButton="primary" size="sm" (click)="addToWhitelist()">
+            <span>Add New</span>
+              <svg class="bx--btn__icon"  width="16" height="16" viewBox="0 0 16 16">
+            <path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+            </svg>
+          </button>
+		</div>
+
+		<!-- List of participants on your whitlelist -->
+		<div class="row table-responsive-wrapper">
+			<section class="bx--structured-list bx--structured-list--border" data-structured-list>
+				<div class="bx--structured-list-thead">
+					<div class="bx--structured-list-row bx--structured-list-row--header-row">
+						<div class="bx--structured-list-th"></div>
+						<div class="bx--structured-list-th">Whitelisted Participant</div>
+						<div class="bx--structured-list-th">Updates</div>
+						<div class="bx--structured-list-th">Date Updated</div>
+						<div class="bx--structured-list-th">Status</div>
+						<div class="bx--structured-list-th">Actions</div>
+					</div>
+				</div>
+				<div class="bx--structured-list-tbody"
+					*ngIf="loaded && whitelistRequests && whitelistRequests.length > 0">
+					<ng-container *ngFor="let request of whitelistRequests">
+						<label *ngIf="request.status !== 'deleted'" aria-label="apache spark" class="bx--structured-list-row" tabindex="0" [class.bx--structured-list-row--selected]="request.whitelistedId === selectedParticipant" (click)="selectParticipant(request.whitelistedId)">
+							<input tabindex="-1" class="bx--structured-list-input" value="apache spark" type="radio" name="services" title="apache spark" [checked]="request.whitelistedId === selectedParticipant" />
+							<div class="bx--structured-list-td">
+								<svg class="bx--structured-list-svg" width="16" height="16" viewBox="0 0 16 16">
+									<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm3.646-10.854L6.75 10.043 4.354 7.646l-.708.708 3.104 3.103 5.604-5.603-.708-.708z"
+									fill-rule="evenodd" />
+								</svg>
+							</div>
+
+							<div class="bx--structured-list-td">{{request.whitelistedId}}</div>
+							<div class="bx--structured-list-td">
+								<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+									<div *ngIf="request.requestedBy">
+										<label class="bx--label">Requested By:&nbsp;</label><span>{{request.requestedBy}}</span>&nbsp;
+									</div>
+							</div>
+							<div *ngIf="request.status === 'approved'" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+								<div *ngIf="request.approvedBy">
+									<label class="bx--label">Approved By:&nbsp;</label><span>{{request.approvedBy}}</span>&nbsp;
+								</div>
+							</div>
+							<div *ngIf="request.status === 'rejected'" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="15px">
+								<div *ngIf="request.rejectedBy">
+									<label class="bx--label">Rejected By:&nbsp;</label><span>{{request.rejectedBy}}</span>&nbsp;
+								</div>
+							</div>
+						</div>
+						<div class="bx--structured-list-td">{{request.timeUpdated ? utils.toLocaleDateTime(request.timeUpdated) : 'N/A'}}
+						</div>
+						<div class="bx--structured-list-td">
+							<span [class]="getTextColor(request.status)">{{request.status}}</span></div>
+						<div class="bx--structured-list-td">
+							<div *ngIf="request.status === 'pending' && request.approvalIds.length === 1" class="actions" fxLayout="row" fxLayoutGap="10px">
+								<!-- approve add -->
+								<span class="bx--tooltip__trigger bx--tooltip--icon__top" aria-label="Approve">
+								<button ibmButton="secondary" type="button" [disabled]="request.requestedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="approveWhitelistRequest(request)">
+									<svg class="bx--btn__icon" width="10" height="8" viewBox="0 0 10 8"><path d="M8.498 0L10 1.502 3.672 7.83 0 4.158l1.502-1.502 2.17 2.17z"></path></svg>
+								</button>
+								</span>
+								<!-- reject add -->
+								<span class="bx--tooltip__trigger bx--tooltip--icon__top" aria-label="Reject">
+								<button ibmButton="danger" type="button" [disabled]="request.requestedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="rejectWhitelistRequest(request)">
+									<svg class="bx--btn__icon" width="10" height="10" viewBox="0 0 10 10"><path d="M6.32 5L10 8.68 8.68 10 5 6.32 1.32 10 0 8.68 3.68 5 0 1.32 1.32 0 5 3.68 8.68 0 10 1.32 6.32 5z"></path></svg>
+									</button>
+								</span>
+							</div>
+
+							<!-- Delete -->
+							<!-- <div *ngIf="request.status === 'approved'" class="actions" fxLayout="row" fxLayoutGap="10px">
+									<span *ngIf="(request.whitelistedId === selectedParticipant)"  class="bx--tooltip__trigger bx--tooltip--icon__top" aria-label="Delete">
+									<button ibmButton="danger" type="button" [disabled]="!this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="initiateDeleteWhitelistRequest(request)">
+										<svg class="bx--btn__icon" width="10" height="10" viewBox="0 0 10 10"><path d="M6.32 5L10 8.68 8.68 10 5 6.32 1.32 10 0 8.68 3.68 5 0 1.32 1.32 0 5 3.68 8.68 0 10 1.32 6.32 5z"></path></svg>
+										</button>
+									</span>
+							</div> -->
+
+							<!-- approve delete -->
+							<!-- <div *ngIf="request.status === 'pending' && request.approvalIds.length > 1" class="actions" fxLayout="row" fxLayoutGap="10px">
+								<span class="bx--tooltip__trigger bx--tooltip--icon__top" aria-label="Approve">
+								<button ibmButton="secondary" type="button" [disabled]="request.deleteRequestedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="approveDeleteWhitelistRequest(request)">
+									<svg class="bx--btn__icon" width="10" height="8" viewBox="0 0 10 8"><path d="M8.498 0L10 1.502 3.672 7.83 0 4.158l1.502-1.502 2.17 2.17z"></path></svg>
+								</button>
+								</span>
+							</div> -->
+							</div>
+						</label>
+					</ng-container>
+			</div>
+
+			<!-- Loading Rows -->
+			<div class="caption" *ngIf="!loaded">
+				<div class="loader-row">
+					<p class="loading"></p>
+				</div>
+				<div class="loader-row">
+					<p class="loading"></p>
+				</div>
+				<div class="loader-row">
+					<p class="loading"></p>
+				</div>
+			</div>
+
+			<!-- No participants on whitelist. -->
+			<div class="caption" *ngIf="loaded && !(whitelistRequests && whitelistRequests.length)">
+				<div class="loader-row">
+					<div class="center italic tall" fxLayout="column" fxLayoutAlign="center center">
+						<p>No participants have been added to your whitelist.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		</div>
+	</div>
+
+	<div fxLayout="column" ngClass.lt-md="" ngClass.gt-sm="column side-column">
+		<div class="row title">
+			<h3 class="bx--type-gamma">Whitelisted You</h3>
+		</div>
+		<div class="row">
+			<p class="italic">Information unavailable.</p>
+		</div>
+	</div>
+</div>
+
+<ibm-loading *ngIf="loadingRequest" [overlay]="true"></ibm-loading>

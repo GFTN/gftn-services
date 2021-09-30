@@ -1,0 +1,24 @@
+title: internalComplianceCheckResponse
+description: InternalComplianceCheckResponse
+required:
+  - disposition
+  - compliance_identification
+  - aml_kyc_info
+properties:
+  disposition:
+    type: string
+    enum:
+      - OK
+      - Denied
+    description:  OK or Denied
+  compliance_identification:
+    type: string
+    description: The unique identifier for the compliance check done prior to this payment
+  aml_kyc_info:
+    type: string
+    description: AML/KYC/Sanctions info of the recipient
+externalDocs:
+  url: '#/definitions/internalComplianceCheckResponse'
+x-go-name: InternalComplianceCheckResponse
+
+

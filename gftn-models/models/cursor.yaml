@@ -1,0 +1,13 @@
+
+title: cursor
+description: Cursor
+x-group-m: Models
+type: object
+properties:
+  cursor:
+    type: string
+    description: >
+      Cursor location of the last payment received on a given account.
+externalDocs:
+  url: '#/definitions/cursor'
+x-go-name: Cursor

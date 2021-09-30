@@ -1,0 +1,27 @@
+title: balance
+description: Balance
+x-group-m: Models
+type: object
+required:
+  - asset_code
+  - balance
+  - account_name
+properties:
+  account_name:
+    type: string
+    description: The name of the account, operting account name or "issuing" for issuing account
+  asset_code:
+    type: string
+    description: A name to identify the asset
+  issuer_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: Participant id to identify the issuer for this asset
+  balance:
+    type: string
+    description: Balance for a given asset
+externalDocs:
+  url: '#/definitions/balance'
+x-go-name: AssetBalance

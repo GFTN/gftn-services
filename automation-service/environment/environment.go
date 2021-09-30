@@ -1,0 +1,16 @@
+// © Copyright IBM Corporation 2020. All rights reserved.
+// SPDX-License-Identifier: Apache2.0
+// 
+package environment
+
+var (
+	ENV_KEY_DOCKER_REGISTRY_URL = "DOCKER_REGISTRY_URL"
+	ENV_KEY_DOCKER_USER         = "DOCKER_USER"
+	ENV_KEY_DOCKER_PW           = "DOCKER_PW"
+	ENV_KEY_KAFKA_KEY_PW        = "KAFKA_KEY_PW"
+	ENV_KEY_DB_TABLE_NAME       = "DB_TABLE_NAME"
+	ENV_KEY_AUTH_SERVICE_URL    = "AUTH_SERVICE_URL"
+	ENV_KEY_AWS_ORG_ID          = "AWS_ORG_ID"
+	ENV_KEY_DYNAMO_DB_REGION    = "DYNAMO_DB_REGION"
+	ENV_DOCKER_IMAGE_VERSION    = "DOCKER_IMAGE_VERSION"
+)

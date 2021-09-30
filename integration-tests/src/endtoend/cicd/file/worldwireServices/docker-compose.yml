@@ -1,0 +1,364 @@
+version: '3.5'
+networks:
+  wwcicdnet:
+    external: 
+      name: wwcicdnet
+services:
+  ww-pr:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/participant-registry:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-pr
+    container_name: ww-pr
+    ports: 
+    - "8080:8080"
+    - "18080:18080"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=pr-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  ww-admin:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/administration-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-admin
+    container_name: ww-admin
+    ports: 
+    - "8090:8090"
+    - "18090:18090"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=admin-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  ww-whitelist:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/global-whitelist-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-whitelist
+    container_name: ww-whitelist
+    ports: 
+    - "11234:11234"
+    - "21234:21234"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=whitelist-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  ww-fee:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/fee-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-fee
+    container_name: ww-fee
+    ports: 
+    - "8082:8082"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=fee-service-local
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  ww-gas:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/gas-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-gas
+    container_name: ww-gas
+    ports: 
+    - "8099:8099"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=gas-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis1-api:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/api-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis1-api
+    container_name: travis1-api
+    ports: 
+    - "11000:12000"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=api-service
+    - HOME_DOMAIN_NAME=travis1
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis1-crypto:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/crypto-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis1-crypto
+    container_name: travis1-crypto
+    ports: 
+    - "9999:9999"
+    - "10042:10042"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=crypto-service
+    - HOME_DOMAIN_NAME=travis1
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis1-listener:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/payment-listener:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis1-listener
+    container_name: travis1-listener
+    ports: 
+    - "11005:11005"
+    - "21005:21005"
+    restart: unless-stopped 
+    depends_on: 
+    - ww-pr
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=payment-service
+    - HOME_DOMAIN_NAME=travis1
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis1-send:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/send-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis1-send
+    container_name: travis1-send
+    ports: 
+    - "8888:8888"
+    restart: unless-stopped 
+    depends_on: 
+    - ww-pr
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=send-service
+    - HOME_DOMAIN_NAME=travis1
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis1-ww-gateway:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/ww-gateway:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis1-ww-gateway
+    container_name: travis1-ww-gateway
+    ports: 
+    - "9000:9000"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=ww-gateway
+    - HOME_DOMAIN_NAME=travis1
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  ww-quotes:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/quotes-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-quotes
+    container_name: ww-quotes
+    ports: 
+    - "8083:8083"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=quotes-service-local
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  ww-payout:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/payout-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-payout
+    container_name: ww-payout
+    ports: 
+    - "8084:8084"
+    - "18084:18084"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=payout-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis2-send:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/send-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis2-send
+    container_name: travis2-send
+    ports: 
+    - "18888:8888"
+    restart: unless-stopped 
+    depends_on: 
+    - ww-pr
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=send-service
+    - HOME_DOMAIN_NAME=travis2
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis2-ww-gateway:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/ww-gateway:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis2-ww-gateway
+    container_name: travis2-ww-gateway
+    ports: 
+    - "9001:9000"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=ww-gateway
+    - HOME_DOMAIN_NAME=travis2
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  ww-anchor:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/anchor-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: ww-anchor
+    container_name: ww-anchor
+    ports: 
+    - "6080:6080"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=anchor-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis2-api:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/api-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis2-api
+    container_name: travis2-api
+    ports: 
+    - "21000:12000"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=api-service
+    - HOME_DOMAIN_NAME=travis2
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis2-crypto:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/crypto-service:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis2-crypto
+    container_name: travis2-crypto
+    ports: 
+    - "19999:9999"
+    - "20042:10042"
+    restart: unless-stopped 
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=crypto-service
+    - HOME_DOMAIN_NAME=travis2
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+
+  travis2-listener:
+    image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/payment-listener:latest
+    env_file: 
+    - "./configMap.env"
+    hostname: travis2-listener
+    container_name: travis2-listener
+    ports: 
+    - "31005:11005"
+    - "41005:21005"
+    restart: unless-stopped 
+    depends_on: 
+    - ww-pr
+    networks: 
+    - wwcicdnet
+    environment: 
+    - SERVICE_NAME=payment-service
+    - HOME_DOMAIN_NAME=travis2
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - WW_JWT_PEPPER_OBJ=${WW_JWT_PEPPER_OBJ}
+    - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+

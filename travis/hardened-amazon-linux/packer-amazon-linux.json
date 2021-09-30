@@ -1,0 +1,77 @@
+{
+    "variables": {
+        "aws_access_key":"{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key":"{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_region": "us-east-2",
+        "ami_name_base": "gftn"
+    },
+    "builders": [{
+        "name": "amazon-linux-ami",
+        "ami_name": "{{user `ami_name_base`}}-amazon-linux-hardened-{{timestamp}}",
+        "ami_description": "Create a custom AMI with Amazon Linux 2",
+        "tags": {
+            "Name": "{{user `ami_name_base`}}-amazon-linux-hardened-{{timestamp}}"
+        },
+        "type": "amazon-ebs",
+        "instance_type": "t3.large",
+        "launch_block_device_mappings": [
+            {
+                "device_name": "/dev/xvda",
+                "volume_size": 10,
+                "volume_type": "gp2",
+                "delete_on_termination": true
+            }
+        ],
+        "ami_block_device_mappings": [
+            {
+                "device_name": "/dev/xvda",
+                "volume_size": 10,
+                "volume_type": "gp2",
+                "delete_on_termination": true
+            }
+        ],
+        "access_key": "{{user `aws_access_key`}}",
+        "secret_key": "{{user `aws_secret_key`}}",
+        "region": "{{user `aws_region`}}",
+        "source_ami_filter": {
+            "filters": {
+                "virtualization-type": "hvm",
+                "architecture": "x86_64",
+                "name": "amzn2-ami-hvm*",
+                "block-device-mapping.volume-type": "gp2",
+                "root-device-type": "ebs"
+            },
+            "owners": ["amazon"],
+            "most_recent": true
+        },
+        "ssh_username": "ec2-user",
+        "encrypt_boot": true
+    }],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "echo 'Sleeping for a few seconds to give Linux time to boot up'",
+                "sleep 60"
+            ],
+            "only": ["amazon-linux-ami"]
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "echo 'Rebooting to update kernel'",
+                "sudo yum update kernel -y",
+                "sudo reboot"
+            ],
+            "expect_disconnect": true,
+            "only": ["amazon-linux-ami"]
+        },
+        {
+            "type": "shell",
+            "scripts": [ "scripts/install_software.sh" ],
+            "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+            "expect_disconnect": true,
+            "pause_before": "10s"
+        }
+    ]
+}

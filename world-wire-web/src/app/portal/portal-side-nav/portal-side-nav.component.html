@@ -1,0 +1,41 @@
+<div ngClass.lt-md="margin-height">
+
+	<div fxLayout="column">
+
+		<!-- <a class="nav-link" routerLink="overview" routerLinkActive="active-link">Overview</a> -->
+
+		<a class="nav-link" routerLink="transactions" routerLinkActive="active-link">Transactions</a>
+
+		<!-- <a class="nav-link" routerLink="billing" routerLinkActive="active-link">Billing</a> -->
+
+		<a *ngIf="show(institution.info.institutionId, ['admin', 'manager'], ['admin', 'manager'])" class="nav-link" routerLink="accounts"
+		routerLinkActive="active-link">Manage Accounts</a>
+
+		<a *ngIf="show(institution.info.institutionId, [], ['admin', 'manager'])" class="nav-link" routerLink="assets" routerLinkActive="active-link">Manage Assets</a>
+
+		<!-- Show Settings only if user is admin or manager of participant/institution-->
+		<ul data-accordion class="bx--accordion"
+			*ngIf="show(institution.info.institutionId, ['admin', 'manager'], ['admin', 'manager'])">
+
+			<li data-accordion-item class="bx--accordion__item" routerLinkActive="bx--accordion__item--active">
+				<button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane1" fxLayout="row">
+				<a class="nav-link bx--accordion__title">Settings</a>
+				<span fxFlex></span>
+				<svg class="bx--accordion__arrow" width="7" height="12" viewBox="0 0 7 12"><path d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z"></path></svg>
+				</button>
+				<div id="pane1" class="bx--accordion__content">
+
+					<!-- <li *ngIf="show(institution.info.institutionId, ['admin', 'manager'], ['admin'])" routerLinkActive="active-link"><a class="nav-link" routerLink="settings/nodes">Configure Nodes</a></li> -->
+
+			<li *ngIf="show(institution.info.institutionId, ['admin', 'manager'], ['admin'])"
+				routerLinkActive="active-link"><a class="nav-link" routerLink="users">Manage Users</a></li>
+
+			<li *ngIf="show(institution.info.institutionId, ['admin', 'manager'], ['admin', 'manager'])"
+				routerLinkActive="active-link"><a class="nav-link" routerLink="token">Tokens</a></li>
+
+	</div>
+
+	</li>
+	</ul>
+</div>
+</div>

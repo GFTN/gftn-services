@@ -1,0 +1,32 @@
+
+title: wwResponse
+description: wwResponse
+x-group-m: Models
+type: object
+required:
+  - Msg
+properties:
+  service:
+    type: string
+    description: name of micro service
+  build_version:
+    type: string
+    description: build version string of micro service
+  url:
+    type: string
+    description: Url of endpoint that failed.
+  msg:
+    type: string
+    description: Response message in string.
+  time_stamp:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: The timestamp of the occurance.
+  participant_id:
+    type: string
+    description: participant id, same as home domain as set by environment variables
+#TODO: will to add description
+externalDocs:
+  url: '#/definitions/wwResponse'
+x-go-name: WorldWireMessage

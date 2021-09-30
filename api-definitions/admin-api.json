@@ -1,0 +1,316 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "This is admin api endpoints protected by jwt tokens",
+    "title": "Admin API",
+    "version": "1.0.0"
+  },
+  "basePath": "/v1/admin",
+  "paths": {
+    "/pr": {
+      "get": {
+        "description": "Get list of all participants on WW\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Participant Registry API"
+        ],
+        "summary": "Get list of all participants on WW",
+        "operationId": "getParticipants",
+        "responses": {
+          "200": {
+            "description": "all Participants on World Wire",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/participant"
+              }
+            }
+          },
+          "404": {
+            "description": "there is no participant for this country"
+          }
+        }
+      },
+      "post": {
+        "description": "Sends a request to the Participant Registry to create an participant\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Participant Registry API"
+        ],
+        "summary": "Create a new participant",
+        "operationId": "createParticipant",
+        "parameters": [
+          {
+            "description": "The participant data",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/participant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant created successfully"
+          },
+          "404": {
+            "description": "Participant could not be created"
+          }
+        }
+      }
+    },
+    "/pr/domain/{participant_id}": {
+      "get": {
+        "description": "Get the configuration details for the participant idenfied by his participant domain",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Participant Registry API"
+        ],
+        "summary": "Get the configuration details for the participant idenfied by his participant domain",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "the participant domain for this participant",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found participant for this domain",
+            "schema": {
+              "$ref": "#/definitions/participant"
+            }
+          },
+          "404": {
+            "description": "there is no participant for this participant_id"
+          }
+        }
+      }
+    },
+    "/pr/{participant_id}": {
+      "put": {
+        "description": "Sends a request to the Participant Registry to to update an existing participant\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Participant Registry API"
+        ],
+        "summary": "Update an existing participant",
+        "operationId": "updateParticipant",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "participant domain for the participant",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The participant data",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/participant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "participant successfully updated"
+          },
+          "404": {
+            "description": "Participant not found"
+          }
+        }
+      }
+    },
+    "/pr/{participant_id}/status": {
+      "put": {
+        "description": "Saves Participant WW network status\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Participant Registry API"
+        ],
+        "summary": "Save Participant WW network status, using this admin api",
+        "operationId": "updateStatus",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "participant domain for the participant",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The participant status",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/participantStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant network status updated successfully"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "account": {
+      "description": "Account",
+      "type": "object",
+      "title": "account",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "description": "The address that was created on the ledger.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"address\""
+        },
+        "name": {
+          "description": "A name to identify this account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"name\""
+        }
+      },
+      "x-go-name": "Account",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    },
+    "participant": {
+      "description": "Participant",
+      "type": "object",
+      "title": "participant",
+      "required": [
+        "id",
+        "country_code",
+        "role",
+        "bic"
+      ],
+      "properties": {
+        "bic": {
+          "description": "The business identifier code of each participant",
+          "type": "string",
+          "maxLength": 11,
+          "minLength": 11,
+          "pattern": "^[A-Z]{3}[A-Z]{3}[A-Z2-9]{1}[A-NP-Z0-9]{1}[A-Z0-9]{3}$",
+          "x-go-custom-tag": "bson:\"bic\""
+        },
+        "country_code": {
+          "description": "Participant's country of residence, country code in ISO 3166-1 format",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 3,
+          "x-go-custom-tag": "bson:\"country_code\""
+        },
+        "id": {
+          "description": "The participant id for the participant",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"id\""
+        },
+        "issuing_account": {
+          "description": "The ledger address belonging to the issuing account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"issuing_account\""
+        },
+        "operating_accounts": {
+          "description": "Accounts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/account"
+          },
+          "x-go-custom-tag": "bson:\"operating_accounts\""
+        },
+        "role": {
+          "description": "The Role of this registered participant, it can be MM for Market Maker and IS for Issuer or anchor",
+          "type": "string",
+          "maxLength": 2,
+          "minLength": 2,
+          "enum": [
+            "MM",
+            "IS"
+          ],
+          "x-go-custom-tag": "bson:\"role\""
+        },
+        "status": {
+          "description": "Participant active status on WW network, inactive, active, suspended",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"status\""
+        }
+      },
+      "x-go-name": "Participant",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/participant"
+      }
+    },
+    "participantStatus": {
+      "description": "ParticipantStatus",
+      "type": "object",
+      "title": "participantStatus",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "description": "Participant active status on WW network, inactive, active, suspended",
+          "type": "string",
+          "enum": [
+            "inactive",
+            "active",
+            "suspended"
+          ]
+        }
+      },
+      "x-go-name": "ParticipantStatus",
+      "externalDocs": {
+        "url": "#/definitions/participantStatus"
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "APIs for registering and getting config details for participants",
+      "name": "Admin API"
+    }
+  ]
+}

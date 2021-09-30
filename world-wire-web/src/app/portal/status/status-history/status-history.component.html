@@ -1,0 +1,55 @@
+<div>
+	<nav class="bx--breadcrumb bx--breadcrumb--no-trailing-slash margin-width margin-height" aria-label="breadcrumb">
+		<div class="bx--breadcrumb-item">
+			<a [routerLink]="'/portal/' + sessionService.institution.info.slug + '/status'" class="bx--link">Status Overview</a>
+		</div>
+		<div class="bx--breadcrumb-item" *ngIf="serviceName">
+			History for {{ displayName }}
+		</div>
+	</nav>
+</div>
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center">
+	<div fxFlex class="margin-width margin-height restrict-width" fxLayout="column" fxLayoutGap="20px">
+		<ng-container *ngIf="currentService && existingErrors.length > 0">
+			<div *ngFor="let day of existingErrors">
+				<h2 class="bx--type-beta">{{day.date}}</h2>
+
+				<div class="margin-width" fxLayout="column" fxLayoutGap="20px">
+					<div class="bx--tile split" ngClass.gt-sm="row" *ngFor="let error of day.errors" fxLayout="column"  fxLayout.gt-sm="row">
+						<p fxLayout="row" fxLayout.gt-sm="column" class="bx--tile-header" fxLayoutAlign="space-between" fxLayoutAlign.gt-sm="center center" fxFlex="none" fxFlex.gt-sm="30">
+							<span class="bx--type-gamma" ngClass.gt-sm="text-center"> {{ error.code }} - {{ error.type }}</span>
+							<span fxShow.gt-sm><br/></span>
+							<span class="time bx--type-epsilon" ngClass.gt-sm="text-center">{{ error.time_stamp | date:'h:mm a' }}</span>
+						</p>
+						<div class="bx--tile-content">
+							<table class="bx--data-table-v2">
+								<tbody>
+									<tr>
+										<td><span class="bx--label">Url</span></td>
+										<td class="break-word">{{ error.url }}</td>
+									</tr>
+									<tr>
+										<td><span class="bx--label">Message</span></td>
+										<td>{{ error.message }}</td>
+									</tr>
+									<tr>
+										<td><span class="bx--label">Details</span></td>
+										<td>{{ error.details }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+
+		<div *ngIf="currentService && existingErrors.length == 0" class="bx--tile margin-height" id="not-found">
+			<p class="margin-height">No errors found for the last {{ logService.numDays }} days.</p>
+		</div>
+
+		<div *ngIf="!currentService" class="bx--tile margin-height" id="not-found">
+			<p class="margin-height">The selected service was not found.</p>
+		</div>
+	</div>
+</div>

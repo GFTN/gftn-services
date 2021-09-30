@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"lib": ["es2017"],
+		"module": "commonjs",
+		"target": "es2015",
+		"noImplicitReturns": true,
+		// "noImplicitAny": true,
+		"outDir": "spec",
+		"experimentalDecorators": true,
+		"allowUnreachableCode": false,
+		"alwaysStrict": true,
+		"baseUrl": "functions",
+		"pretty": true,
+		"forceConsistentCasingInFileNames": true,
+		"listEmittedFiles": true
+	},
+	"compileOnSave": true,
+	"include": [
+		"**/*.spec.ts",
+  	],
+	"exclude": [
+    "node_modules",
+	]
+}

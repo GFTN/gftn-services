@@ -1,0 +1,23 @@
+<ibm-modal>
+	<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">Status History
+	</ibm-modal-header>
+	<section class="bx--modal-content">
+		<section class="bx--structured-list">
+			<div class="bx--structured-list-thead">
+				<div class="bx--structured-list-row bx--structured-list-row--header-row">
+					<div class="bx--structured-list-th">Status Code</div>
+					<div class="bx--structured-list-th">Details</div>
+					<div class="bx--structured-list-th">Timestamp</div>
+				</div>
+			</div>
+			<div class="bx--structured-list-tbody">
+				<div class="bx--structured-list-row" *ngFor="let status of statuses">
+					<div class="bx--structured-list-td break-word">{{status.transactionstatus}}</div>
+					<div class="bx--structured-list-td">
+						{{transactionService.getStatusDetail(status.transactionstatus, message_type)}}</div>
+					<div class="bx--structured-list-td">{{utils.toLocaleDateTime(status.timestamp)}}</div>
+				</div>
+			</div>
+		</section>
+	</section>
+</ibm-modal>

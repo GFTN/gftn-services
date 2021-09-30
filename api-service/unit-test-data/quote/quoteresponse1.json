@@ -1,0 +1,24 @@
+{
+  "quote": {
+    "expiration_time": "2018-07-26T09:19:19.551-07:00",
+    "limit": 1000,
+    "ofi_domain": "nz.one.payments.gftn.io",
+    "price_rate": 1.456,
+    "quote_id": "ABCD1234",
+    "rfi_domain": "nzl.klickex.payments.gftn.io",
+    "rfi_receiving_account_address": "GAM5QC6M26ZWMOZZL6SANRZ6RGYAWRQJDEWBALHYZWWGIUCVAGAJD4ZF",
+    "rfi_sending_account_address": "GAM5QC6M26ZWMOZZL6SANRZ6RGYAWRQJDEWBALHYZWWGIUCVAGAJD4ZF",
+    "source_asset": {
+      "asset_code": "NZD",
+      "asset_issuer": "nz.one.payments.gftn.io",
+      "asset_type": "DA"
+    },
+    "target_asset": {
+      "asset_code": "FJD",
+      "asset_issuer": "fj.one.payments.gftn.io",
+      "asset_type": "DA"
+    },
+    "time_stamp": "2018-07-26T09:09:19.551-07:00"
+  },
+  "quote_hash": "hashedQuote"
+}

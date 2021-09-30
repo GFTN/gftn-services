@@ -1,0 +1,22 @@
+
+title: internalComplianceCheckRequest
+description: InternalComplianceCheckRequest
+required:
+  - clearing_message
+  - sender
+properties:
+  sender:
+    type: string
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The sending account and participant id (i.e. 101010101*odfi.payments.worldwire.io)
+  stellar_transaction:
+    type: string
+    description:  The XDR of the transaction (unsigned) which will be initiated as soon as compliance check is complete
+  clearing_message:
+    type: string
+    description: The JSON string of the full ISO-20022 message containing the details of the transaction
+externalDocs:
+  url: '#/definitions/internalComplianceCheckRequest'
+x-go-name: InternalComplianceCheckRequest
+
+

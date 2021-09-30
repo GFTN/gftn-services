@@ -1,0 +1,17 @@
+title: authAccount
+description:  Account with the token
+type: object
+required:
+  - address
+properties:
+  account:
+    type: object
+    description: Account
+    $ref: 'account.yaml'
+  token:
+  #TODO: THIS MODEL SHOULD BE REMOVED IN v3.0.0.0 per Seema, slack 2/25/19 @ 4:22pm
+    type: string
+    description: auth token
+externalDocs:
+  url: '#/definitions/account'
+x-go-name: AuthAccount

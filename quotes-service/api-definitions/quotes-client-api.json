@@ -1,0 +1,191 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "API endpoints clients are expected to implement in order to receive notifications of transactions",
+    "title": "World Wire API Service Callbacks",
+    "version": "1.0.0"
+  },
+  "host": "api.gftn.io",
+  "basePath": "/v1/client",
+  "paths": {
+    "/quote": {
+      "post": {
+        "description": "Provides a quote in response to requests for a given target asset in exchange for a source asset, using the source asset as its price.\n",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Create a quote",
+        "parameters": [
+          {
+            "x-go-name": "QuoteRequestToRFI",
+            "description": "Quote request to RFI detailing quoteID target asset, source asset, and amount desired to exchange.\n",
+            "name": "QuoteRequestNotification",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/quoteRequestNotification"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully receive a valid quote request.\n"
+          },
+          "404": {
+            "description": "Unsuccessfully receive a valid quote request."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "quoteRequestNotification": {
+      "description": "Quote Request",
+      "type": "object",
+      "title": "quoteRequestNotification",
+      "required": [
+        "quote_id",
+        "quote_request"
+      ],
+      "properties": {
+        "quote_id": {
+          "description": "Unique id for this quote as set by the quote service",
+          "type": "string"
+        },
+        "quote_request": {
+          "description": "Quote Request",
+          "type": "object",
+          "title": "quoteRequest",
+          "required": [
+            "asset_source",
+            "asset_target",
+            "time_expire",
+            "ofi_id",
+            "limit_max"
+          ],
+          "properties": {
+            "limit_max": {
+              "description": "Maximum units of the target asset for which this quote is valid",
+              "type": "number"
+            },
+            "limit_min": {
+              "description": "Minimum units of the target asset for which this quote is valid",
+              "type": "number",
+              "x-nullable": true
+            },
+            "ofi_id": {
+              "description": "The ID that identifies the OFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).",
+              "type": "string",
+              "maxLength": 32,
+              "minLength": 5,
+              "pattern": "^[a-zA-Z0-9-]{5,32}$"
+            },
+            "source_asset": {
+              "description": "Details of the asset being transacted",
+              "type": "object",
+              "title": "asset",
+              "required": [
+                "asset_type",
+                "asset_code"
+              ],
+              "properties": {
+                "asset_code": {
+                  "description": "Alphanumeric code for the asset - USD, XLM, etc",
+                  "type": "string",
+                  "x-go-custom-tag": "bson:\"asset_code\""
+                },
+                "asset_type": {
+                  "description": "The type of asset. Options include digital obligation, \"DO\", digital asset \"DA\", or a cryptocurrency \"native\".",
+                  "type": "string",
+                  "enum": [
+                    "DO",
+                    "DA",
+                    "native"
+                  ],
+                  "x-go-custom-tag": "bson:\"asset_type\""
+                },
+                "issuer_id": {
+                  "description": "The asset issuer's participant id.",
+                  "type": "string",
+                  "maxLength": 32,
+                  "minLength": 5,
+                  "pattern": "^[a-zA-Z0-9-]{5,32}$",
+                  "x-go-custom-tag": "bson:\"issuer_id\""
+                }
+              },
+              "x-go-name": "Asset",
+              "x-group-m": "Models",
+              "externalDocs": {
+                "url": "#/definitions/asset"
+              }
+            },
+            "target_asset": {
+              "description": "Details of the asset being transacted",
+              "type": "object",
+              "title": "asset",
+              "required": [
+                "asset_type",
+                "asset_code"
+              ],
+              "properties": {
+                "asset_code": {
+                  "description": "Alphanumeric code for the asset - USD, XLM, etc",
+                  "type": "string",
+                  "x-go-custom-tag": "bson:\"asset_code\""
+                },
+                "asset_type": {
+                  "description": "The type of asset. Options include digital obligation, \"DO\", digital asset \"DA\", or a cryptocurrency \"native\".",
+                  "type": "string",
+                  "enum": [
+                    "DO",
+                    "DA",
+                    "native"
+                  ],
+                  "x-go-custom-tag": "bson:\"asset_type\""
+                },
+                "issuer_id": {
+                  "description": "The asset issuer's participant id.",
+                  "type": "string",
+                  "maxLength": 32,
+                  "minLength": 5,
+                  "pattern": "^[a-zA-Z0-9-]{5,32}$",
+                  "x-go-custom-tag": "bson:\"issuer_id\""
+                }
+              },
+              "x-go-name": "Asset",
+              "x-group-m": "Models",
+              "externalDocs": {
+                "url": "#/definitions/asset"
+              }
+            },
+            "time_expire": {
+              "description": "End-time for this quote request to be valid",
+              "type": "number",
+              "format": "int64",
+              "example": 1547092408123
+            }
+          },
+          "x-go-name": "QuoteRequest",
+          "x-group-m": "Models",
+          "externalDocs": {
+            "url": "#/definitions/quoteRequest"
+          }
+        }
+      },
+      "x-go-name": "QuoteRequestNotification",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/quoteRequestNotification"
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "Callback APIs related to handling of quote request",
+      "name": "Quote"
+    }
+  ]
+}

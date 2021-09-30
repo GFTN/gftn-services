@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "noUnusedLocals": true,
+      "outDir": "deployment/gcp_endpoints/lib",
+      "sourceMap": true,
+      "strict": true,
+      "target": "es2015",
+      "removeComments": true,
+      "noImplicitReturns": true,
+      "noImplicitAny": false,
+      "experimentalDecorators": true,
+      "allowUnreachableCode": false,
+      "alwaysStrict": true,
+      "pretty": true,
+      "forceConsistentCasingInFileNames": true,
+      "strictNullChecks": false,
+      "listEmittedFiles": true,
+      "rootDir": "deployment/gcp_endpoints/src"
+    },
+    "compileOnSave": true,
+    "include": [
+      "deployment/gcp_endpoints/src"
+    ],
+    "exclude": [
+      "node_modules",
+      "**/*.spec.ts",
+      "**/*.test.ts"
+    ]
+  }
+  

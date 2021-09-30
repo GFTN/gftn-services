@@ -1,0 +1,64 @@
+<div fxFlexFill fxLayout="row" fxLayoutAlign="start">
+	<div fxFlex class="margin-width margin-height" fxLayout="row" fxLayoutAlign="center">
+		<div class="restrict-width" fxLayout="column" fxLayoutGap="20px">
+			<!-- Display Dropdown to switch between nodes if available -->
+			<app-node-select [showVersion]="true" (changed)="updateServicesOverview()"></app-node-select>
+			<div id="notification"></div>
+			<ng-container *ngIf="logService.services">
+				<section class="bx--tile" *ngFor="let service of logService.services; let serviceIndex = index">
+					<div [class]="'status ' + getOverallStatusByDate(service).name" fxLayout="row"
+						fxLayoutAlign="space-between">
+						<span class="bx--type-delta">{{service.displayName}}</span>
+
+						<!-- Displays current status of service for today -->
+						<svg width="16" height="16" viewBox="0 0 16 16">
+							<use [attr.xlink:href]="iconPath + getOverallStatusByDate(service).icon"></use>
+						</svg>
+
+					</div>
+					<div class="margin-height"></div>
+
+					<div id="date-statuses" class="bx--tile-content margin-height" fxLayoutAlign="row"
+						fxLayoutAlign="space-between" fxLayoutGap="2px">
+						<ng-container *ngFor="let error of service.errorHistory; let errIndex = index">
+							<app-icon-tooltip #linkRef *ngIf="media.isActive('gt-sm')" fxFlex
+								[class]="'date-status ' + getStatusName(error.status)"
+								[tooltipContent]="error.date + '<br>' + getStatusMessage(error.status)" [icon]="null"
+								(click)="toggleDetailsPane(linkRef, error)"></app-icon-tooltip>
+
+							<app-icon-tooltip #linkRef *ngIf="media.isActive('lt-md')" fxFlex
+								[class]="'date-status ' + getStatusName(error.status)"
+								[tooltipContent]="error.date + '<br>' + getStatusMessage(error.status)" [icon]="null"
+								(click)="openModal(linkRef, error)"></app-icon-tooltip>
+						</ng-container>
+					</div>
+					<div fxLayout="row" fxLayoutAlign="end">
+						<!-- TODO: Add links to view full error history for service -->
+						<a [routerLink]="'history/' + service.name" class="bx--link">Full Error History</a>
+					</div>
+				</section>
+			</ng-container>
+		</div>
+	</div>
+
+	<!-- This pane displays any error details for the selected date -->
+	<div *ngIf="detailsPaneOpened && media.isActive('gt-sm')" class="detailsPane bx--tile split" fxFlex="100"
+		fxFlex.gt-sm="40" [@slideAnimation] fxLayout="column">
+		<div class="bx--tile-header">
+			<!-- Close/Slide-in button -->
+			<button class="bx--inline-notification__close-button" type="button" (click)="toggleDetailsPane(null)">
+          <svg class="bx--inline-notification__close-icon" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <use xlink:href="/assets/icons/ibm/carbon-icons.svg#icon--chevron--right"></use>
+          </svg>
+        </button>
+		</div>
+		<!-- Error Details -->
+		<div class="bx--tile-content">
+			<h2 class="bx--type-beta">{{detailsObject.date}}</h2>
+			<app-status-details [detailsObj]="detailsObject"></app-status-details>
+		</div>
+	</div>
+</div>
+
+<!-- necessary placeholder for modal -->
+<ibm-placeholder></ibm-placeholder>

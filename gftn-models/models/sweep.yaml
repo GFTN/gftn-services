@@ -1,0 +1,22 @@
+title: sweep
+description: Sweep
+type: object
+required:
+  - account_name
+  - amount
+  - asset
+properties:
+  account_name:
+    type: string
+    description: A name to identify this source account.
+  amount:
+    type: number
+    format: decimal
+    description: Amount of the asset.
+  asset:
+    type: object
+    description: Details of the asset whose balance we're checking.
+    $ref: 'asset.yaml'
+externalDocs:
+  url: '#/definitions/sweep'
+x-go-name: Sweep

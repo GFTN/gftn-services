@@ -1,0 +1,626 @@
+<div fxLayout="row" class="title-container full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width">
+		<h1 id="Guides" class="bx--type-beta page-title">Guides</h1>
+	</div>
+</div>
+
+<div fxLayout="row" class="full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width" fxLayout="column">
+		<div>
+			<p>
+				Below we will step through how to send a one-way transfer of value to another Participant on the World Wire payments network.
+			</p>
+			<br>
+
+			<h3 class="bx--type-beta">Requesting Fees</h3>
+			<p>
+				<br>
+				As a Participant on World Wire, you also have the ability to make requests for bulk exchanges between two assets offered on the network.  You may do this when you are running low on a certain asset and want to increase your holdings or if you want to get rid of some of your excess holdings in lieu of another asset.
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">1 - OFI submits a request for fees:</span>
+				<br>
+				<br>
+				To start the payment process, the Originating Financial Institution (OFI) will first select a payout point serviced by a Recipient Financial Institution (RFI) on the World Wire network, and combine it with other information related to the payment in a
+				<a
+			[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+			[queryParams]="{jump:'model__feesRequest'}">feesRequest</a>
+				object. This request will be submitted to the
+				<a
+			[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+			[queryParams]="{jump:'path_post__fees_request__participant_id_'}">/fees/request/participant_id</a>
+				endpoint in the participant-api.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/fees-step1.png" />
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">2 - RFI retrieves any fee requests waiting for their response:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the OFI's request for fees available to the RFI through their Gateway Server. The RFI will retrieve any fee requests waiting for their attention from the
+				<a
+			[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+			[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "fee" filter, and immediately receive the response from World Wire containing the OFI's request.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/fees-step2.png" />
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">3 - RFI submits their fee to World Wire:</span>
+				<br>
+				<br>
+				Based on their business logic, the RFI will automatically calculate the fee they would charge the OFI to process their payment, and assemble it into a
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'model__transactionFees'}">transactionFees</a>
+				object. The RFI will then submit this response to World Wire at the
+				<a
+				[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+				[queryParams]="{jump:'path_post__fees_response__participant_id_'}">/fees/response/participant_id</a>
+				endpoint in the participant-api.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/fees-step3.png" />
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">4 - OFI retrieves any submitted fees available for them:</span>
+				<br>
+				<br>
+				World Wire will have already received the RFI's fee response and made it available to the OFI through their Gateway Server. The OFI will request any fee responses waiting for their attention from the
+				<a
+			[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+			[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "fee" filter, and immediately receive the fee sent by the RFI.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/fees-step4.png" />
+				<br>
+				<br>
+				At this point the OFI will have the option to send the payment, which is covered next.
+			</p>
+
+			<h3 class="bx--type-beta">Sending Payments</h3>
+			<p>
+				<br>
+				Now that you've found out how much the Receiving Financial Institution (RFI) will charge you to fullfil your payment, it's time to send the payment request to them. Here at World Wire, we like industry standards. When it comes to sending payments we support the
+				<a href="https://www.iso20022.org/payments_messages.page" target="_blank" [innerHtml]="'ISO20022'"></a>
+				message set - we specifically use the
+				<a href="https://www.iso20022.org/sites/default/files/documents/messages/pacs/schemas/pacs.002.001.10.zip" target="_blank" [innerHtml]="'PACS002'"></a>
+				and
+				<a href="https://www.iso20022.org/sites/default/files/documents/messages/pacs/schemas/pacs.008.001.08.zip" target="_blank" [innerHtml]="'PACS008'"></a>
+				definitions. In this workflow, information about the payment is passed back and forth in a
+				<a
+				[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+				[queryParams]="{jump:'model__sendPacs'}">sendPacs</a>
+				model.
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">1 - OFI signs a payment request:</span>
+				<br>
+				<br>
+				To start, the backend of the Originating Financial Institution will construct a PACS008 message containing details of the proposed payment (including the fee information previously received), and after base64 encoding it, supply it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWpayments-step1.png" />
+				<br>
+				<br>
+
+				<span class="bx--type-delta">2 - OFI submits a payment request:</span>
+				<br>
+				<br>
+				After receiving the signature as a response, the OFI will submit the payment request to the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__transactions_send'}">/transactions/send</a>
+				endpoint (in the participant-api), in a
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'model__sendPacs'}">sendPacs</a>
+				model.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWpayments-step2.png" />
+				<br>
+				<br>
+				After receiving the payment request, World Wire will verify both Participants are mutually whitelisted, and that the signature of the PACS008 message matches the OFI’s public key. As long as everything checks out, the OFI will immediately receive a confirmation (in the form of a base64 encoded PACS002 message) that the payment request was submitted properly to World Wire.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">3 - RFI retrieves any payment requests waiting for their response:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the OFI's payment request available to the RFI through their Gateway Server. The RFI will retrieve any payment requests waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "payments" filter, and immediately receive the response from World Wire containing the OFI's request.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/payments-step2.png" />
+				<br>
+				<br>
+
+				<span class="bx--type-delta">4 - RFI signs their payment response:</span>
+				<br>
+				<br>
+				To ensure the sender and receiver comply with international and domestic laws, the Receiving Financial Institution (RFI) will conduct the necessary federation and compliance steps on the OFI's payment. Once the existence of the RFI's customer account is verified, all other necessary AML/KYC checks will occur, and upon completion, the RFI will either accept or reject the payment. Their backend will assemble a base64 encoded IBWF001 xml file containing the relevant acceptance or rejection details and submit their payment response to the 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWpayments-step4.png" />
+				<br>
+				<br>
+
+				<span class="bx--type-delta">5 - RFI submits their payment response:</span>
+				<br>
+				<br>
+				After receiving the signature as a response, the RFI will submit the payment response to the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__transactions_reply'}">/transactions/reply</a>
+				endpoint (in the participant-api), in a
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'model__sendPacs'}">sendPacs</a>
+				model.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/payments-step3.png" />
+				<br>
+				<br>
+				After the RFI's send service (in their participant-api) receives the payment response, World Wire will immediately return a confirmation to the RFI in the form of a base64 encoded PACS002 message, and simultaneously make the response available to the OFI.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">6 - OFI retrieves payment confirmation:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the RFI's payment response available to the OFI through their Gateway Server. The OFI will retrieve any payment responses waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "payments" filter, and receive a base64 encoded PACS002 xml message.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/payments-step4.png" />
+				<br>
+				<br>
+				At this point, the OFI will decode the PACS002 response to determine if the transaction was recorded successfully to the ledger, or if there were issues relating to KYC/AML from the RFI.
+				<br>
+				<br>
+
+			</p>
+
+			<h3 class="bx--type-beta">OFI Cancelling Payments</h3>
+			<p>
+				<br>
+				So you've sent a payment, but now, you've realized you need to cancel it. The process to accomplish this is very similar to what we just did previously when sending the payment. Let's dive in.
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">1 - OFI signs a payment cancellation request:</span>
+				<br>
+				<br>
+				To start, the backend of the Originating Financial Institution will construct a CAMT056 message containing details of the original payment, and after base64 encoding it, supply it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWcancel-step1.png" />
+				<br>
+				<br>
+				
+				<span class="bx--type-delta">2 - OFI submits a payment cancellation request:</span>
+				<br>
+				<br>
+				To start, the backend of the Originating Financial Institution will construct a CAMT056 message containing details of the original payment, and after base64 encoding it, supply it in the body of a POST request to the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__transactions_send'}">/transactions/send</a>
+				endpoint (in the participant-api).
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/cancel-step1.png" />
+				<br>
+				<br>
+				After receiving the cancellation request, World Wire will verify both Participants are mutually whitelisted, and that the signature of the CAMT056 message matches the OFI’s public key. As long as everything checks out, the OFI will immediately receive a confirmation (in the form of a base64 encoded CAMT030 message) that their request was submitted properly to World Wire.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">3 - RFI retrieves any payment cancellation requests waiting for their response:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the OFI's payment cancellation request available to the RFI through their Gateway Server. The RFI will retrieve any cancellation requests waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "transactions" filter.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/cancel-step2.png" />
+				<br>
+				<br>
+				endpoint in the participant-api, and immediately receive the response from World Wire containing the
+				OFI's request.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">4 - RFI signs a payment cancellation response:</span>
+				<br>
+				<br>
+				The RFI will decide to either accept or reject the payment cancellation. Their backend will assemble either a base64 encoded PACS004 xml file if they decide to accept, or a base64 encoded CAMT029 xml file if they choose to reject the request, and supply it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWcancel-step4.png" />
+				<br>
+				<br>
+
+				<span class="bx--type-delta">5 - RFI submits their payment cancellation response to World Wire:</span>
+				<br>
+				<br>
+				After receiving the signature as a response, the RFI will submit the payment cancellation response to the
+				<a
+				[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+				[queryParams]="{jump:'path_post__transactions_reply'}">/transactions/reply</a>
+				endpoint (in the participant-api).
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/cancel-step3a.png" />
+				<br>
+				<img width="50%" src="assets/images/1/cancel-step3b.png" />
+				<br>
+				<br>
+				After the RFI's send service (in the participant-api) receives the payment cancellation response, World Wire will immediately return a confirmation to the RFI in the form of a base64 encoded message, and simultaneously make the response available to the OFI. If the RFI rejected the cancellation request, they will immediately receive a CAMT030 message, but if the cancellation is accepted, a PACS002 message will be received.
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">6 - OFI retrieves payment cancellation confirmation:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the RFI's payment response available to the OFI through their Gateway Server. The OFI will retrieve any payment cancellation responses waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "transactions" filter, and receive a base64 encoded message. If the RFI rejected their original cancellation request, they'll receive a CAMT029 xml message, but if the request was accepted, the OFI will receive nothing. Instead, the payment will have already settled on the blockchain. OFI's will need to make a separate request to the same 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint, this time supplying a "payment" filter, and the response will contain details of the blockchain address as well as a transaction history.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/cancel-step4.png" />
+				<br>
+				<br>
+				At this point, the OFI will decode the PACS002 response to determine if the transaction was recorded successfully to the ledger, or if there were issues relating to KYC/AML from the RFI.
+				<br>
+				<br>
+			</p>
+
+			<h3 class="bx--type-beta">RFI Cancelling Payments</h3>
+			<p>
+				<br>
+				So you've received a payment, but now, you've realized you can't deliver it to the beneficiary and need to cancel it. Let's dive in.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">1 - RFI signs a payment cancellation request:</span>
+				<br>
+				<br>
+				To start, the backend of the Receiving Financial Institution will construct a CAMT026 message containing details of the original payment, and after base64 encoding it, supply it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWrficancel-step1.png" />
+				<br>
+				<br>
+				
+				<span class="bx--type-delta">2 - RFI submits a payment cancellation request:</span>
+				<br>
+				<br>
+				After receiving the signature as a response, the RFI will submit the payment cancellation request to the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__transactions_send'}">/transactions/send</a>
+				endpoint (in the participant-api), in a
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'model__sendPacs'}">sendPacs</a>
+				model.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWrficancel-step2.png" />
+				<br>
+				<br>				
+				
+				<span class="bx--type-delta">3 - OFI retrieves any payment cancellation requests waiting for their response:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the RFI's payment cancellation request available to the OFI through their Gateway Server. The OFI will retrieve any cancellation requests waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "transactions" filter.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWrficancel-step3.png" />
+				<br>
+				<br>
+
+				<span class="bx--type-delta">4 - OFI decision:</span>
+				<br>
+				<br>
+				The OFI will decide to either accept or reject the payment cancellation. If they decide to accept the request, please skip back to the OFI Cancellation guide. If the OFI decides to reject the cancellation, but alter the pickup information in the payment, please continue below.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">5 - OFI signs a payment modification request:</span>
+				<br>
+				<br>
+				To start, the backend of the Originating Financial Institution will construct a CANT087 message containing details of the new payment location, and after base64 encoding it, supply it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWmodify-step1.png" />
+				<br>
+				<br>
+				
+				<span class="bx--type-delta">6 - OFI submits a payment modification request:</span>
+				<br>
+				<br>
+				After receiving the signature as a response, the OFI will submit the payment modification response to the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__transactions_send'}">/transactions/send</a>
+				endpoint (in the participant-api).
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWmodify-step2.png" />
+				<br>
+				<br>
+				
+				<span class="bx--type-delta">7 - RFI retrieves any payment modification requests waiting for their response:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the OFI's payment modification request available to the RFI through their Gateway Server. The RFI will retrieve any cancellation requests waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "transactions" filter.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/cancel-step2.png" />
+				<br>
+				<br>
+			</p>
+
+		<h3 class="bx--type-beta">Requesting Quotes</h3>
+			<p>
+				<br>
+				You'll likely run into situations when you are running low on a certain asset and want to increase your holdings, so next, we'll go over how to request competitive quotes from other eligible Participants on the network, and ultimately select one to exchange with.
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">1 - OFI submits a request for quotes:</span>
+				<br>
+				<br>
+				As the Originating Financial Institution (OFI) you’ll first decide on the terms of the asset exchange. After specifying the asset you hold and the asset you’re looking to obtain, specify the minimum and maximum amounts of the asset you are looking to obtain in a single swap as well as the expiration time for the request. Submit this information within the 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'model__feesRequest'}">quoteRequest</a>
+				object to the 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__fees__request__participant_id_'}">/quotes/request</a>
+				endpoint in the participant-api.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/quotes-step1.png" />
+				<br>
+				<br>
+				After the OFI submits their request for quotes from other World Wire Participants, a confirmation receipt indicating that the request was successfully submitted (containing an identifier of their request) is returned by World Wire to the OFI.
+				<br>
+				<br>
+				
+				
+				<span class="bx--type-delta">2 - RFI retrieves any quote requests waiting for their response:</span>
+				<br>
+				<br>
+				World Wire receives and makes the OFI's request for quotes available to the RFI through their Gateway Server. The RFI will retrieve any fee requests waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, by applying the “quotes” filter, and in this case, receive the OFI's request from World Wire.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/quotes-step2.png" />
+				<br>
+				<br>
+
+
+				<span class="bx--type-delta">3 - RFI submits their quote to World Wire:</span>
+				<br>
+				<br>
+				RFIs, at this point, decide whether or not to respond to quote requests. If an RFI chooses to respond, they assemble and base64 encode the details of the 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'model__quote'}">quote</a>
+				object they will submit to the OFI, and supply it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint in order to receive the cryptographically signed version back, effectively validating the quote's legitimacy. After receiving this signature, the RFI submits it along with their quote to World Wire at the 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__quotes__quote_id_'}">/quotes/quote_id</a>
+				endpoint, which instructs World Wire to make the quote available to the requesting OFI.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/quotes-step3.png" />
+				<br>
+				<br>
+				Once the RFI successfully posts a valid quote, World Wire will issue a confirmation receipt to them.
+				<br>
+				<br>
+				
+
+				<span class="bx--type-delta">4 - OFI retrieves any submitted quotes available for them:</span>
+				<br>
+				<br>
+				World Wire receives and makes the RFI's quote response  available to the OFI through their Gateway Server. The OFI will retrieve any quote requests waiting for their attention from the 
+				<a
+			[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+			[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, by applying the “quotes” filter, and in this case, receive potentially multiple RFI's responses from World Wire.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/quotes-step4.png" />
+				<br>
+				<br>
+				At this point the OFI will have the option to act on a quote they find acceptable, which is covered next.
+			</p>
+			
+			<h3 class="bx--type-beta">Exchanging Assets</h3>
+			<p>
+				<br>
+				We already covered how Originating Financial Institutions (OFI) will request quotes from other Participants on World Wire. Now it’s time to act on the quote to execute an atomic swap.
+				<br>
+				<br>
+
+				
+				<span class="bx--type-delta">OFI signs an exchange:</span>
+				<br>
+				<br>
+				At this point the RFI has provided a quote and the OFI has decided to act upon it. The OFI doesn't need the RFI to interact at all to execute the asset exchange. To start, the OFI assembles the details of the exchange, base64 encode it, and supplies it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/exchange-step1.png" />
+				<br>
+				<br>
+				Now that the OFI has the signature, they can finalize the transaction.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">OFI submits an exchange:</span>
+				<br>
+				<br>
+				After receiving the signature response, the OFI combines it with the exchange object and submits it to the 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__exchange'}">/exchange</a>
+				endpoint. Once World Wire receives it, an XDR is generated and signed by both the OFI and RFI, and is then submitted to Stellar which executes an atomic swap, simultaneously settling two transactions according to the terms of the exchange.
+				<br>
+				<br>
+				<img width="60%" src="assets/images/1/exchange-step2.png" />
+				<br>
+				<br>
+				Pat yourself on the back, you've just exchanged digital assets on the blockchain. By the time you finish reading this line the transaction will have probably settled on the Stellar ledger, and you'll be able to retrieve the hash payment result!
+			</p>
+
+			<h3 class="bx--type-beta">Redeeming Assets</h3>
+			<p>
+				<br>
+				From time to time, as a Participant on World Wire, you'll likely want to "cash out" from Issuers on the World Wire network. Let's dive in.
+				<br>
+				<br>
+
+				<span class="bx--type-delta">1 - OFI signs a redemption request:</span>
+				<br>
+				<br>
+				To start, the backend of the Originating Financial Institution will construct a PACS009 message containing details of the original payment, and after base64 encoding it, supply it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__sign'}">/sign</a>
+				endpoint.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWredeem-step1.png" />
+				<br>
+				<br>
+				
+				<span class="bx--type-delta">2 - OFI submits a redemption request:</span>
+				<br>
+				<br>
+				After receiving the signature as a response, the OFI will submit the redemption response to the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_post__transactions_redeem'}">/transactions/redeem</a>
+				endpoint (in the participant-api).
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWredeem-step2.png" />
+				<br>
+				<br>
+
+				<span class="bx--type-delta">3 - Issuer retrieves redemption requests waiting for their response:</span>
+				<br>
+				<br>
+				World Wire will have already received and made the OFI's payment cancellation request available to the Issuer through their Gateway Server. The RFI will retrieve any redemption requests waiting for their attention from the
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/participant-api'"
+					[queryParams]="{jump:'path_get__message'}">/message</a>
+				endpoint in the participant-api, while also supplying the "transactions" filter.
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWredeem-step3.png" />
+				<br>
+				<br>
+				endpoint in the participant-api, and immediately receive the response from World Wire containing the
+				OFI's request.
+				<br>
+				<br>
+				
+				<span class="bx--type-delta">4 - Issuer signs and sends redemption response:</span>
+				<br>
+				<br>
+				The Issuer will construct a PACS002 xml message containing details of the redemption, and after signing it outside of World Wire, base64 encoding it, they'll submit it to their 
+				<a
+					[routerLink]="'/docs/' + versionService.current.version + '/api/anchor-api'"
+					[queryParams]="{jump:'path_post__assets_redeem'}">/assets/redeem</a>
+				endpoint (in the anchor-api).
+				<br>
+				<br>
+				<img width="50%" src="assets/images/1/NEWredeem-step4.png" />
+				<br>
+				<br>
+		</div>
+		<div class="margin-height"></div>
+	</div>
+</div>

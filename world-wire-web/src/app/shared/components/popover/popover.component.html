@@ -1,0 +1,10 @@
+<div #dialog [id]="dialogConfig.compID" role="tooltip" class="popover bx--overflow-menu-options restrict-width"
+ [class.overflow]="showOverflow" ngClass.lt-md="mobile" fxFlex>
+	<div #dialogContent *ngIf="show" class="content" [@slideDownAnimation]>
+		<!-- Custom Arrow for dropdown. Can position independently of dialog when necessary. -->
+		<div #arrow class="arrow"></div>
+		<ng-template *ngIf="hasContentTemplate" [ngTemplateOutlet]="dialogConfig.content" [ngTemplateOutletContext]="{tooltip: this}">
+		</ng-template>
+		<p *ngIf="!hasContentTemplate">{{dialogConfig.content}}</p>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<div fxLayout="column" class="margin-width margin-height" fxLayoutGap="20px">
+
+	<div>
+		<div>
+			<strong>Your user id is</strong>
+		</div>
+		<div>
+			<ibm-code-snippet display="multi">{{authService.auth.auth.currentUser.uid}}</ibm-code-snippet>
+		</div>
+	</div>
+
+	<div>
+		<div>
+			<strong>Your x-fid header is</strong>
+		</div>
+		<div>
+			<ibm-code-snippet display="multi">{{fid}}</ibm-code-snippet>
+		</div>
+	</div>
+
+</div>

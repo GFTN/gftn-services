@@ -1,0 +1,178 @@
+[WW_ERROR]
+    [WW_ERROR.ANCHOR-0001]
+        SHORT_MESSAGE = "Discover Participant request had a missing param"
+        DETAILS = "Discover Participant request had a missing param"
+    [WW_ERROR.ANCHOR-0002]
+        SHORT_MESSAGE = "Invalid Separator. Separator must be *"
+        DETAILS = "Invalid Separator. Separator must be *"
+    [WW_ERROR.ANCHOR-0003]
+        SHORT_MESSAGE = "Unable to parse given federation name"
+        DETAILS = "Unable to parse given federation name"
+    [WW_ERROR.ANCHOR-0004]
+        SHORT_MESSAGE = "Account Identifier cannot be empty"
+        DETAILS = "Account Identifier cannot be empty"
+    [WW_ERROR.ANCHOR-0005]
+        SHORT_MESSAGE = "Unable to parse given federation name"
+        DETAILS = "Unable to parse given federation name"
+    [WW_ERROR.ANCHOR-0006]
+        SHORT_MESSAGE = "Participant ID not found in Participant Registry"
+        DETAILS = "Participant ID not found in Participant Registry"
+    [WW_ERROR.ANCHOR-0007]
+        SHORT_MESSAGE = "Unable to create Participant Registry Client"
+        DETAILS = "Unable to create Participant Registry Client"
+    [WW_ERROR.ANCHOR-0008]
+        SHORT_MESSAGE = "Participant ID cannot be empty"
+        DETAILS = "Participant ID cannot be empty"
+    [WW_ERROR.ANCHOR-0009]
+        SHORT_MESSAGE = "Participant ID does not exist"
+        DETAILS = "Participant ID does not exist"
+    [WW_ERROR.ANCHOR-0010]
+        SHORT_MESSAGE = "Account Identifier does not exist for this participant"
+        DETAILS = "Account Identifier does not exist for this participant"
+    [WW_ERROR.ANCHOR-0011]
+        SHORT_MESSAGE = "permission query parameter is required"
+        DETAILS = "permission query parameter is required, it can be allow or revoke"
+    [WW_ERROR.ANCHOR-0012]
+        SHORT_MESSAGE = "anchor id is required"
+        DETAILS = "anchor_id query parameter is required"
+    [WW_ERROR.ANCHOR-0013]
+        SHORT_MESSAGE = "Trust payload is invalid"
+        DETAILS = "Trust payload is invalid: error decoding payload"
+    [WW_ERROR.ANCHOR-0014]
+        SHORT_MESSAGE = "Trust payload is invalid"
+        DETAILS = "Trust payload is invalid: error validating trust payload"
+    [WW_ERROR.ANCHOR-0015]
+        SHORT_MESSAGE = "Asset Code query parameter is required"
+        DETAILS = "Asset Code query parameter is required"
+    [WW_ERROR.ANCHOR-0017]
+        SHORT_MESSAGE = "Asset must be a digital asset"
+        DETAILS = "Asset Code must be a digital asset"
+    [WW_ERROR.ANCHOR-0018]
+        SHORT_MESSAGE = "Anchor ID query parameter is required"
+        DETAILS = "Anchor IDquery parameter is required"
+    [WW_ERROR.ANCHOR-0019]
+        SHORT_MESSAGE = "Anchor ID value cannot be empty"
+        DETAILS = "Anchor ID value cannot be empty"
+    [WW_ERROR.ANCHOR-0020]
+        SHORT_MESSAGE = "Anchor ID does not exist"
+        DETAILS = "Anchor ID does not exist"
+    [WW_ERROR.ANCHOR-0021]
+        SHORT_MESSAGE = "Allow Trust Operation Failed"
+        DETAILS = "Allow Trust Operation Failed"
+    [WW_ERROR.ANCHOR-0022]
+        SHORT_MESSAGE = "Unable to validate register anchor request"
+        DETAILS = "validation Failed: "
+    [WW_ERROR.ANCHOR-0023]
+        SHORT_MESSAGE = "Unable to look up account address provided on the ledger"
+        DETAILS = "account lookup failed: "
+    [WW_ERROR.ANCHOR-0024]
+        SHORT_MESSAGE = "Unable to validate IBM signer on the ledger"
+        DETAILS = "account lookup failed: "
+    [WW_ERROR.ANCHOR-0025]
+        SHORT_MESSAGE = "Error updating participant registry"
+        DETAILS = "Update failed: "
+    [WW_ERROR.ANCHOR-0026]
+        SHORT_MESSAGE = "Error saving to anchor config "
+        DETAILS = "error: "
+    [WW_ERROR.ANCHOR-0027]
+        SHORT_MESSAGE = "Unable to validate reset auth token request"
+        DETAILS = "validation Failed: "
+    [WW_ERROR.ANCHOR-0028]
+        SHORT_MESSAGE = "Error validating request"
+        DETAILS = "error: "
+    [WW_ERROR.ANCHOR-0029]
+        SHORT_MESSAGE = "Error communicating with ledger"
+        DETAILS = "error: "
+    [WW_ERROR.ANCHOR-0030]
+        SHORT_MESSAGE = "The old token provided is not a valid token"
+        DETAILS = "Contact WW admin in case old token is lost"
+    [WW_ERROR.ANCHOR-0031]
+        SHORT_MESSAGE = "The account address is invalid for given anchor ID"
+        DETAILS = "provide correct account address"
+    [WW_ERROR.ANCHOR-0061]
+        SHORT_MESSAGE = "Error decoding token request"
+        DETAILS = "error: "
+    [WW_ERROR.ANCHOR-0065]
+        SHORT_MESSAGE = "Asset Type must be DO"
+        DETAILS = "Asset Type must be DO: "
+    [WW_ERROR.ANCHOR-0066]
+        SHORT_MESSAGE = "This operation has been deprecated"
+        DETAILS = "This operation has been deprecated: "
+    [WW_ERROR.ANCHOR-0067]
+        SHORT_MESSAGE = "Error Validating Auth Token"
+        DETAILS = "error Validating Auth Token: "
+    [WW_ERROR.ANCHOR-0068]
+        SHORT_MESSAGE = "Error at Login"
+        DETAILS = "Given account credentials failed to login"
+    [WW_ERROR.ANCHOR-0069]
+        SHORT_MESSAGE = "Missing Authorization Header"
+        DETAILS = "Authorization token in header is missing"
+    [WW_ERROR.ANCHOR-0070]
+        SHORT_MESSAGE = "Invalid Anchor Fund Request"
+        DETAILS = "Invalid Anchor Fund Request"
+    [WW_ERROR.ANCHOR-0071]
+        SHORT_MESSAGE = "Invalid Anchor Signing Key"
+        DETAILS = "Invalid Anchor Signing Key"
+    [WW_ERROR.ANCHOR-0072]
+        SHORT_MESSAGE = "Signature verification failed for Fund Transaction"
+        DETAILS = "Signature verification failed for Fund Transaction"
+    [WW_ERROR.ANCHOR-0073]
+        SHORT_MESSAGE = "Fund Transaction submission failed"
+        DETAILS = "Fund Transaction submission failed"
+    [WW_ERROR.ANCHOR-0074]
+        SHORT_MESSAGE = "Missing query parameter: funding_signed"
+        DETAILS = "Missing query parameter: funding_signed"
+    [WW_ERROR.ANCHOR-0075]
+        SHORT_MESSAGE = "Missing query parameter: instruction_signed"
+        DETAILS = "Missing query parameter: instruction_signed"
+    [WW_ERROR.ANCHOR-0076]
+        SHORT_MESSAGE = "Unable to get Participant Account"
+        DETAILS = "Unable to get Participant Account"
+    [WW_ERROR.ANCHOR-0077]
+        SHORT_MESSAGE = "Error creating account with signing service"
+        DETAILS = "Error while creating account with signing service: "
+    [WW_ERROR.ANCHOR-0078]
+        SHORT_MESSAGE = "Error getting IBM admin account"
+        DETAILS = "Error getting IBM admin account: "
+    [WW_ERROR.ANCHOR-0079]
+        SHORT_MESSAGE = "Error WW assets"
+        DETAILS = "Error WW assets: "
+    [WW_ERROR.ANCHOR-0080]
+        SHORT_MESSAGE = "No WW issued assets found"
+        DETAILS = "No WW issued assets found for : "
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

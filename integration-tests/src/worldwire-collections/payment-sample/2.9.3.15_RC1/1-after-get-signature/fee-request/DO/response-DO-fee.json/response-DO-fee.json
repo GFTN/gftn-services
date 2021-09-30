@@ -1,0 +1,12 @@
+{
+    "amount_fee": 1,
+    "amount_payout": 10,
+    "amount_settlement": 10,
+    "asset_code_payout": "EURDO",
+    "details_asset_settlement": {
+        "asset_code": "EURDO",
+        "asset_type": "DO",
+        "issuer_id": "test1"
+    },
+    "request_id": "23982398"
+}

@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "58692fc2-9604-406c-9ce1-af92d1053eae",
+		"name": "Worldwire-Onboarding-DA(2.10.0)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/admin/anchor/ibmtaiwan5/onboard/assets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9f35de8-cf20-4cca-aa18-e4533a25f201",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"msg\", jsonData.msg)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI5NGNlMzNhNWQ3MmI0NjYyNzI3ZGFiYmRhNzVjZjg4Y2Y5OTg4MGUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY5OTE4NDkxLCJ1c2VyX2lkIjoiVlc2dzlXRE9zTVNYeTEzcFRwejJQNXZDSHR4MSIsInN1YiI6IlZXNnc5V0RPc01TWHkxM3BUcHoyUDV2Q0h0eDEiLCJpYXQiOjE1Njk5MjAyNjIsImV4cCI6MTU2OTkyMzg2MiwiZW1haWwiOiJydWJ5Y2hAc2cuaWJtLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJydWJ5Y2hAc2cuaWJtLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.RzyFvthoJimCo-nUlAeUvQrZFEZxbJmV3HJ0-UFtU3_0B25kmTHkxZ1M1KPzlcKXag7R9F-oGh-eekXVEbP1Id914JaUQ5fLQM36I1bQU6fHqpHdxHUeaSaq7bng5wCZemSNhGNqVJa-wqS4SaniELr0vq-Lrx-TH_7k4WYGcPD1RMyg1bcuAroqbFe6xWqkpHqwC5AnQz9bU04khLivl9R6ia10ST2JHl3eqyTto_ukMf-c_qT5rd9n3fXZO-RNl5fgg7tRpRT7ttrhDVs_R-_NqGPLPrYAYWl9YlBdNo4Vx6yTflPdFEJO9Kitlm_XJhQX_O9PDDXzlYmmMv5YJQ",
+						"description": "ibm super user1 (/fid) ---1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-iid",
+						"value": "-LpWZp0V0oopWEhSRDZN",
+						"description": "---1---2",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "request",
+						"description": "---1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-request",
+						"value": "{{msg}}",
+						"description": "---2",
+						"type": "text"
+					},
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI5NGNlMzNhNWQ3MmI0NjYyNzI3ZGFiYmRhNzVjZjg4Y2Y5OTg4MGUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY5OTE4ODQ3LCJ1c2VyX2lkIjoia2phdzlmQ0ZSU1hrS1p4bTcwZlJTa0puNjlvMSIsInN1YiI6ImtqYXc5ZkNGUlNYa0taeG03MGZSU2tKbjY5bzEiLCJpYXQiOjE1Njk5MjAyNDYsImV4cCI6MTU2OTkyMzg0NiwiZW1haWwiOiJydWJ5Y2hlbmcxMjFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInJ1YnljaGVuZzEyMUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.D80O6S-DFn8_iDGoAMYuMgnArDEAJZPKSt3a_B8QWyXrB7D1IwXlfee1j_NUKrBG1YN22vTIpaELXAqJAC0KxazBgWtcblF9sw5N2H8W2ClIchQaFS_xcPyorhPI1y0lnJiZ2xw31C3NQHlPNkC85jEcy6ZxuMq30jt1GDZQBIZKmAlC1BSUK72cBbe84AlLUdwl42Ht--fuB32wZc0SMcqnJ41AxoaNgtYXTSbz2sBYbihzDIvJ7RFjJIxORUqJJGFu1Ghv_-TqRhqN0AZlolsibBndlWFp5rhKohomw466sru14dBMBe0kvavnMGEihJM0W0qRAYMC9gYbUI3q_A",
+						"description": "ibm super user2(/fid)---2",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "approve",
+						"description": "---2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{anchor_id}}{{anchor-url}}/v1/admin/anchor/{{anchor_id}}/onboard/assets?asset_code=TWD&asset_type=DA",
+					"host": [
+						"{{anchor_id}}{{anchor-url}}"
+					],
+					"path": [
+						"v1",
+						"admin",
+						"anchor",
+						"{{anchor_id}}",
+						"onboard",
+						"assets"
+					],
+					"query": [
+						{
+							"key": "asset_code",
+							"value": "TWD"
+						},
+						{
+							"key": "asset_type",
+							"value": "DA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/anchor/ibmtaiwan5/onboard/assets Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9f35de8-cf20-4cca-aa18-e4533a25f201",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"msg\", jsonData.msg)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBhOTAwNTFmYzA5ZThmNjBlMTE2N2ViYzMxMjYwZjNiM2Y2YmJhYmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY5NDc3NTkzLCJ1c2VyX2lkIjoiVlc2dzlXRE9zTVNYeTEzcFRwejJQNXZDSHR4MSIsInN1YiI6IlZXNnc5V0RPc01TWHkxM3BUcHoyUDV2Q0h0eDEiLCJpYXQiOjE1Njk0Nzc5MzgsImV4cCI6MTU2OTQ4MTUzOCwiZW1haWwiOiJydWJ5Y2hAc2cuaWJtLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJydWJ5Y2hAc2cuaWJtLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.eFfUJdW4vBdq4PJ1UoErfaY_IyH-8gJQweNZ8aVsPpbhAM-ZqVtWMBmKbe6lVpUiat4jZ0Ol85ud02vObj5_4cFw3CApgjABZtN2EsPDIyiOplsGEchphqo2yiUUCyJidUd35EQSFnGqRj4Ti70Vu7-2-edMKULrcpAGk6ELwBlbv4PIiaK41-_S8sx5X0WIC8P119cf6ftODrU_Hl0AfjwZZuGxWvrur6qNHpIb8yN-hFDQ_Ea4Xk1DfkG3XZ2Mkk6bPjtaSLPq5NX1UIfz3gH2Q3hZBkHuNq9zmIW2rvM8I-wYzK-bGwSrtEhlVwH9-Gvs1LHjqGsSe3Eskw6FDA",
+						"description": "ibm super user1 (/fid) ---1",
+						"type": "text"
+					},
+					{
+						"key": "x-iid",
+						"value": "-LnPb3I0W6_pObglJLK9",
+						"description": "---1---2",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "request",
+						"description": "---1",
+						"type": "text"
+					},
+					{
+						"key": "x-request",
+						"value": "-LpbThnweEaIj_fwpHX0",
+						"description": "---2",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBhOTAwNTFmYzA5ZThmNjBlMTE2N2ViYzMxMjYwZjNiM2Y2YmJhYmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY5NDc3NzM4LCJ1c2VyX2lkIjoia2phdzlmQ0ZSU1hrS1p4bTcwZlJTa0puNjlvMSIsInN1YiI6ImtqYXc5ZkNGUlNYa0taeG03MGZSU2tKbjY5bzEiLCJpYXQiOjE1Njk0Nzc3OTYsImV4cCI6MTU2OTQ4MTM5NiwiZW1haWwiOiJydWJ5Y2hlbmcxMjFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInJ1YnljaGVuZzEyMUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.S2ceDJ8cPDvH41-dZQHjGU5DiLDL56POFOOJLY7obad66GAztpS5unMgrxsiKbwJWgpvKRoDuncXq7uYuwQZRzxmTMSQ9zVKYrzd4g7hrwodUauNzOuLJyCzC9uiIfdzWdnQYzq40FwR2_JYb6B2Cvrrng3QpPfGJMlDwO6ryjk_-w7R9wC6-MF3cpHHzagDZeA6jfsh66l2inIhpVssD4yEarpCulkVq2ZqMwCrJbHy3Yqr4BLDLhB5x0ONh6pIYJI0qYrKlh9sLg5cP0h3kODwjdk63lMLSddynkArRlH47dbA4Ql10KqovbqD7HF0FiFhDz3OffmG2pG-CM9WDw",
+						"description": "ibm super user2(/fid)---2",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "approve",
+						"description": "---2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "ibmanchor.worldwire-dev.io/global/anchor/v1/admin/anchor/ibmanchor/register",
+					"host": [
+						"ibmanchor",
+						"worldwire-dev",
+						"io"
+					],
+					"path": [
+						"global",
+						"anchor",
+						"v1",
+						"admin",
+						"anchor",
+						"ibmanchor",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/anchor/ibmtaiwan5/onboard/assets Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9f35de8-cf20-4cca-aa18-e4533a25f201",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"msg\", jsonData.msg)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI5NGNlMzNhNWQ3MmI0NjYyNzI3ZGFiYmRhNzVjZjg4Y2Y5OTg4MGUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY5OTA0MTk0LCJ1c2VyX2lkIjoiVlc2dzlXRE9zTVNYeTEzcFRwejJQNXZDSHR4MSIsInN1YiI6IlZXNnc5V0RPc01TWHkxM3BUcHoyUDV2Q0h0eDEiLCJpYXQiOjE1Njk5MDQxOTQsImV4cCI6MTU2OTkwNzc5NCwiZW1haWwiOiJydWJ5Y2hAc2cuaWJtLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJydWJ5Y2hAc2cuaWJtLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.Y_hYQKjJ1twLSmd5UonaHFbv6mWxZwGWN9WN7DjsbCMMKA91dZno15f7Jx2gktSWP17Xm7EOUB1Ugot1uz-BVB2PsQRoQHTO76WXjy6LuzZ9ik5Yab2V-OMpvGsvaq6LdKtPjHKhmUIu1GBG30t5IVLFS-3Yux9VoJSewyD3OkAe17CCf24-PKq475iVy6OCYEeWw4nMtMkJmcYK9aGaj98djReVwrCl3kAip21Z0E8ZbZhK7kPYVpAZVGyQyGhcTtxp_5MiywQ4-bjjXhaVKCxHOSIcd-chK-Wh-Ich1s18hfgSwRlSZSQHAuBADltHU9FvLR-5KLID6qstISt07w",
+						"description": "ibm super user1 (/fid) ---1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-iid",
+						"value": "-Lo5sFeIrzg641wwjflP",
+						"description": "---1---2",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "request",
+						"description": "---1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-request",
+						"value": "{{msg}}",
+						"description": "---2",
+						"type": "text"
+					},
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI5NGNlMzNhNWQ3MmI0NjYyNzI3ZGFiYmRhNzVjZjg4Y2Y5OTg4MGUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY5OTA0MjY1LCJ1c2VyX2lkIjoia2phdzlmQ0ZSU1hrS1p4bTcwZlJTa0puNjlvMSIsInN1YiI6ImtqYXc5ZkNGUlNYa0taeG03MGZSU2tKbjY5bzEiLCJpYXQiOjE1Njk5MDQyNjUsImV4cCI6MTU2OTkwNzg2NSwiZW1haWwiOiJydWJ5Y2hlbmcxMjFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInJ1YnljaGVuZzEyMUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.DJstye8UsWbomRV7GVy0fyu2CbAGhS6pfO87iiERW_1WmT71xDZAQ1rSDWcRqdZzH0J9_ode2lfCq9u9bmg1aO24YzzwlJ5efrAUZ_bzyyNjeYAEFey1Kj2R2uSJuB4rVd_TCAv3f6OqUISjphq88o7shDxccjrFUM29j_iFDygpemIn6wSsAbMTPiS29KXDrnqDtBQcUCTs_nrB5gaOxSBmoOvys2wcDZP1jnK04ohdO2OSuTKjetHCoN3B1GF3Id9UoPUS6SdMDbtczRxbDqXOTKsNOFbHntJ-oApNRLENGLoxOHPEic49OELXj4irNuRLbmgCqW51OfHjg-scmg",
+						"description": "ibm super user2(/fid)---2",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "approve",
+						"description": "---2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "ibmtaiwan1.worldwire-qa.io/global/anchor/v1/admin/anchor/ibmtaiwan1/onboard/assets?asset_code=TWD&asset_type=DA",
+					"host": [
+						"ibmtaiwan1",
+						"worldwire-qa",
+						"io"
+					],
+					"path": [
+						"global",
+						"anchor",
+						"v1",
+						"admin",
+						"anchor",
+						"ibmtaiwan1",
+						"onboard",
+						"assets"
+					],
+					"query": [
+						{
+							"key": "asset_code",
+							"value": "TWD"
+						},
+						{
+							"key": "asset_type",
+							"value": "DA"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,104 @@
+<form *ngIf="data.action === 'edit' || data.action === 'add'" #userForm="ngForm" name="userForm" (submit)="update(userForm)"  >
+
+	<div class="bx--modal-container">
+
+		<div class="bx--modal-header">
+			<p class="bx--modal-header__label bx--type-delta">
+				User Permissions
+			</p>
+			<p class="bx--modal-header__heading bx--type-beta">
+				<span class="capitalize">{{data.action}}</span> Permissions
+			</p>
+		</div>
+
+		<div class="bx--modal-content">
+
+			<div fxLayout="column" fxLayoutGap="24px">
+
+				<div fxLayout="column" fxLayoutGap="10px">
+
+					<div class="form-group">
+						<div class="bx--form-item">
+							<label for="last" class="bx--label">
+								Email
+								<span class="text-danger">*</span>
+							</label>
+							<div class="bx--form__helper-text">
+								Must end in either 'ibm.com', 'us.ibm.com', 'sg.ibm.com'
+							</div>
+							<input #emailModel="ngModel" id="email" name="email" class="form-control"  appValidEmail [disabled]="data.action === 'edit'" [attr.data-invalid]="!(emailModel.valid || emailModel.untouched) ? true : null" required [(ngModel)]="email" type="email" class="bx--text-input"  >
+								<div *ngIf="emailModel.errors?.required" class="bx--form-requirement">Email is required</div>
+								<div *ngIf="!emailModel.errors?.appValidEmail" class="bx--form-requirement">Email is not valid</div>
+						</div>
+					</div>
+
+					<div class="bx--form-item" fxLayout="row">
+						<div class="bx--select" fxFlex>
+							<label for="new-user-permissions-select" class="bx--label">
+								Role <span class="text-danger">*</span>
+							</label>
+							<select #roleModel="ngModel" id="new-user-permissions-select" class="bx--select-input" name="new-user-permissions-select" [(ngModel)]="role" [attr.data-invalid]="!(roleModel.valid || roleModel.untouched) ? true : null" required>
+								<option class="bx--select-option" ngValue="" disabled selected hidden>Select a Role</option>
+								<option *ngFor="let role of utils.toArray(superPermissionsService.roles)" class="bx--select-option" [ngValue]="role.role">{{role.text}}</option>
+							</select>
+							<div *ngIf="roleModel.errors?.required" class="bx--form-requirement">
+								Role is Required
+							</div>
+
+							<svg class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5">
+								<path d="M0 0l5 4.998L10 0z" fill-rule="evenodd" />
+							</svg>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+		<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+			<button class="bx--btn bx--btn--primary" type="submit" [disabled]="userForm.form.invalid" >Save</button>
+			<button class="bx--btn bx--btn--secondary" (click)="close()" type="button">Cancel</button>
+		</div>
+
+	</div>
+
+</form>
+
+<form *ngIf="data.action === 'remove'">
+
+	<div class="bx--modal-container">
+
+		<div class="bx--modal-header">
+			<p class="bx--modal-header__label bx--type-delta">
+				User Permissions
+			</p>
+			<p class="bx--modal-header__heading bx--type-beta">
+				<span class="capitalize">{{data.action}}</span> Permissions
+			</p>
+		</div>
+
+		<div class="bx--modal-content">
+
+			<div fxLayout="column" fxLayoutGap="24px">
+
+				<div>
+
+					Are you sure you want to remove permissions for <span>{{email}}</span>?
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+			<button class="bx--btn bx--btn--danger--primary" aria-label="danger" (click)="remove()">Remove</button>
+			<button class="bx--btn bx--btn--tertiary" (click)="close()" type="button">Cancel</button>
+		</div>
+
+	</div>
+
+</form>

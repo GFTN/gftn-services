@@ -1,0 +1,19 @@
+
+title: quoteRequestReceipt
+description: Quote Receipt
+x-group-m: Models
+type: object
+required:
+  - request_id
+  - time_request
+properties:
+  request_id:
+    type: string
+    description: Unique id for the original quote request as set by the quote giver.
+  time_request:
+    type: number
+    format: int64
+    description: The timestamp when the quote request happened.
+externalDocs:
+  url: '#/definitions/quoteRequestReceipt'
+x-go-name: quoteRequestReceipt

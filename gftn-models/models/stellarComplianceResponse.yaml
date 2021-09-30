@@ -1,0 +1,18 @@
+title: stellarComplianceResponse
+description: StellarComplianceResponse
+required:
+  - info_status
+  - tx_status
+properties:
+  info_status:
+    type: string
+    description: If this FI is willing to share AML information or not.
+  tx_status:
+    type: string
+    description: If this FI is willing to accept this transaction.
+  dest_info:
+    type: string
+    description: Marshalled JSON of the recipient’s AML information. (only present if info_status is ok) 
+externalDocs:
+  url: '#/definitions/stellarComplianceResponse'
+x-go-name: StellarComplianceResponse

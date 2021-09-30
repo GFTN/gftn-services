@@ -1,0 +1,571 @@
+[WW_ERROR]
+	[WW_ERROR.AUTH-1001]
+		SHORT_MESSAGE = "Access denied"
+		DETAILS = "Error authorizing current request: "
+	[WW_ERROR.AUTH-1002]
+		SHORT_MESSAGE = "Access denied"
+		DETAILS = "Error authorizing maker request: "
+	[WW_ERROR.AUTH-1003]
+		SHORT_MESSAGE = "Access denied"
+		DETAILS = "Error authorizing checker request: "
+	[WW_ERROR.AUTH-1011]
+		SHORT_MESSAGE = "Invalid FID"
+		DETAILS = "Error validating FID: "
+	[WW_ERROR.AUTH-1012]
+		SHORT_MESSAGE = "Missing FID"
+		DETAILS = "Error validating FID: "
+	[WW_ERROR.AUTH-1013]
+		SHORT_MESSAGE = "Invalid IID"
+		DETAILS = "Error validating IID: "
+	[WW_ERROR.AUTH-1014]
+		SHORT_MESSAGE = "Missing IID"
+		DETAILS = "Error validating IID: "
+	[WW_ERROR.AUTH-1015]
+		SHORT_MESSAGE = "Invalid PID"
+		DETAILS = "Error validating PID: "
+	[WW_ERROR.AUTH-1016]
+		SHORT_MESSAGE = "Missing PID"
+		DETAILS = "Error validating PID: "
+	[WW_ERROR.AUTH-1017]
+		SHORT_MESSAGE = "Invalid token"
+		DETAILS = "Error validating token: "
+	[WW_ERROR.AUTH-1018]
+		SHORT_MESSAGE = "Missing token"
+		DETAILS = "Error validating token: "
+	[WW_ERROR.AUTH-1021]
+		SHORT_MESSAGE = "Invalid URL"
+		DETAILS = "Error receiving current request: "
+	[WW_ERROR.DEPOLYMENT-1001]
+		SHORT_MESSAGE = "Invalid message"
+		DETAILS = "Invalid message: "
+	[WW_ERROR.DEPOLYMENT-1002]
+		SHORT_MESSAGE = "Request validation failed"
+		DETAILS = "Request validation failed: "
+	[WW_ERROR.DEPOLYMENT-1003]
+		SHORT_MESSAGE = "Invalid cluster environment"
+		DETAILS = "Invalid cluster environment: "
+	[WW_ERROR.DEPOLYMENT-1004]
+		SHORT_MESSAGE = "Invalid Docker image version"
+		DETAILS = "Invalid Docker image version: "
+	[WW_ERROR.DEPOLYMENT-1005]
+		SHORT_MESSAGE = "Failed to create AWS secret"
+		DETAILS = "Failed to create AWS secret: "
+	[WW_ERROR.DEPOLYMENT-1006]
+		SHORT_MESSAGE = "Failed to generate Kafka certificate"
+		DETAILS = "Failed to generate Kafka certificate: "
+	[WW_ERROR.DEPOLYMENT-1007]
+		SHORT_MESSAGE = "Failed to deploy participant services"
+		DETAILS = "Failed to deploy participant services: "
+	[WW_ERROR.DEPOLYMENT-1008]
+		SHORT_MESSAGE = "Failed to create file"
+		DETAILS = "Failed to create file: "
+	[WW_ERROR.DEPOLYMENT-1009]
+		SHORT_MESSAGE = "Failed to add data into database"
+		DETAILS = "Failed to add data into database: "
+	[WW_ERROR.DEPOLYMENT-1010]
+		SHORT_MESSAGE = "Failed to setup AWS settings for participant"
+		DETAILS = "Failed to setup AWS settings for participant: "
+	[WW_ERROR.DEPOLYMENT-1011]
+		SHORT_MESSAGE = "Unable to create participant record into participant-registry"
+		DETAILS = "Unable to create participant record into participant-registry: "
+	[WW_ERROR.DEPOLYMENT-1012]
+		SHORT_MESSAGE = "Missing environment variable"
+		DETAILS = "Missing environment variable"
+	[WW_ERROR.DEPOLYMENT-1013]
+		SHORT_MESSAGE = "Invalid Settlement Asset. Myst be of type DA, DO or XLM"
+		DETAILS = "Invalid Settlement Asset. Myst be of type DA, DO or native"
+	[WW_ERROR.DEPOLYMENT-1014]
+		SHORT_MESSAGE = "Beneficiary Domain is invalid"
+		DETAILS = "Beneficiary Domain is invalid"
+	[WW_ERROR.DEPOLYMENT-1015]
+		SHORT_MESSAGE = "RFI is not the issuer of this Digital Obligation: "
+		DETAILS = "RFI is not the issuer of this Digital Obligation: "
+	[WW_ERROR.DEPOLYMENT-1016]
+		SHORT_MESSAGE = "Settlement Asset Type and Settlement Method are not compatible "
+		DETAILS = "Settlement Asset Type and Settlement Method are not compatible "
+	[WW_ERROR.DEPOLYMENT-1017]
+		SHORT_MESSAGE = "Invalid Settlement Method. Must be a DA, DO, or XLM"
+		DETAILS = "Invalid Settlement Method. Must be a DA, DO, or XLM: "
+	[WW_ERROR.DEPOLYMENT-1018]
+		SHORT_MESSAGE = "Creditor Charges Information is required: "
+		DETAILS = "Creditor Charges Information is required: "
+	[WW_ERROR.DEPOLYMENT-1019]
+		SHORT_MESSAGE = "No Trust exists for this settlement asset "
+		DETAILS = "No Trust exists for this settlement asset: "
+	[WW_ERROR.DEPOLYMENT-1020]
+		SHORT_MESSAGE = "Debtor Charges Information is required: "
+		DETAILS = "Debtor Charges Information is required: "
+	[WW_ERROR.DEPOLYMENT-1021]
+		SHORT_MESSAGE = "Debtor Information is required: "
+		DETAILS = "Debtor Information is required: "
+	[WW_ERROR.DEPOLYMENT-1022]
+		SHORT_MESSAGE = "Administrator Charges Information is required: "
+		DETAILS = "Administrator Charges Information is required: "
+	[WW_ERROR.DEPOLYMENT-1023]
+		SHORT_MESSAGE = "Payment Identification is required: "
+		DETAILS = "Payment Identification is required: "
+	[WW_ERROR.DEPOLYMENT-1024]
+		SHORT_MESSAGE = "Creditor Charges Asset and Settlement Asset must be the same "
+		DETAILS = "Creditor Charges Asset and Settlement Asset must be the same: "
+	[WW_ERROR.DEPOLYMENT-1025]
+		SHORT_MESSAGE = "RFI is not in the Whitelist "
+		DETAILS = "Please add the given RFI in whitelist: "
+	[WW_ERROR.DEPOLYMENT-1026]
+		SHORT_MESSAGE = "Operating Account may not send/receive FITOFICCT payments"
+		DETAILS = "Operating Account may not send/receive FITOFICCT payments"
+	[WW_ERROR.DEPOLYMENT-1027]
+		SHORT_MESSAGE = "Invalid FITOFICCT Request"
+		DETAILS = "Invalid FITOFICCT Request"
+	[API-1039]
+		SHORT_MESSAGE = "generic error"
+		DETAILS = "generic error: "
+	[API-1040]
+		SHORT_MESSAGE = "http request failed"
+		DETAILS = "http request failed: "
+	[API-1041]
+		SHORT_MESSAGE = "Request validation failed"
+		DETAILS = "Request validation failed: "
+	[API-1042]
+		SHORT_MESSAGE = "unable to parse body of rest call"
+		DETAILS = "error parsing the request parameters: "
+	[API-1043]
+		SHORT_MESSAGE = "unable to parse received http response"
+		DETAILS = "error parsing the response parameters: "
+	[API-1044]
+		SHORT_MESSAGE = "invalid end-to-end id"
+		DETAILS = "invalid end-to-end id: "
+	[API-1045]
+		SHORT_MESSAGE = "invalid operating account"
+		DETAILS = "invalid operating account: "
+	[API-1046]
+		SHORT_MESSAGE = "invalid settlement amount"
+		DETAILS = "invalid settlement amount: "
+	[API-1047]
+		SHORT_MESSAGE = "invalid creditor charges"
+		DETAILS = "invalid creditor charges: "
+	[API-1048]
+		SHORT_MESSAGE = "insufficient balance"
+		DETAILS = "insufficient balance: "
+	[API-1049]
+		SHORT_MESSAGE = "invalid settlement asset"
+		DETAILS = "invalid settlement asset: "
+	[API-1050]
+		SHORT_MESSAGE = "invalid settlement method"
+		DETAILS = "invalid settlement method: "
+	[API-1051]
+		SHORT_MESSAGE = "creditor account type is required"
+		DETAILS = "creditor account type is required: "
+	[API-1052]
+		SHORT_MESSAGE = "callback verification failed"
+		DETAILS = "callback verification failed: "
+	[API-1053]
+		SHORT_MESSAGE = "error communicating with ledger"
+		DETAILS = "error communicating with ledger: "
+	[API-1054]
+		SHORT_MESSAGE = "error retrieving issuing account"
+		DETAILS = "error retrieving issuing account: "
+	[API-1055]
+		SHORT_MESSAGE = "there is no matching account"
+		DETAILS = "there is no matching account: "
+	[API-1056]
+		SHORT_MESSAGE = "there is no matching trust record found for the given asset and issuer"
+		DETAILS = "there is no matching trust record found for the given asset and issuer: "
+	[API-1057]
+		SHORT_MESSAGE = "participant registry error"
+		DETAILS = "participant registry error: "
+	[API-1058]
+		SHORT_MESSAGE = "no participant found"
+		DETAILS = "no participant found: "
+	[API-1059]
+		SHORT_MESSAGE = "bad query parameters"
+		DETAILS = "bad query parameters: "
+	[API-1060]
+		SHORT_MESSAGE = "country code is required"
+		DETAILS = "country code is required: "
+	[API-1061]
+		SHORT_MESSAGE = "country code cannot be empty"
+		DETAILS = "country code cannot be empty: "
+	[API-1062]
+		SHORT_MESSAGE = "beneficiary account identifier is required"
+		DETAILS = "beneficiary account identifier is required: "
+	[API-1063]
+		SHORT_MESSAGE = "beneficiary account identifier cannot be empty"
+		DETAILS = "beneficiary account identifier cannot be empty: "
+	[API-1064]
+		SHORT_MESSAGE = "beneficiary account type is required"
+		DETAILS = "beneficiary account type is required: "
+	[API-1065]
+		SHORT_MESSAGE = "beneficiary account type cannot be empty"
+		DETAILS = "beneficiary account type cannot be empty: "
+	[API-1066]
+		SHORT_MESSAGE = "error getting participants for given id"
+		DETAILS = "error getting participants for given id:"
+	[API-1067]
+		SHORT_MESSAGE = "trusted assets were not returned"
+		DETAILS = "trusted assets were not returned: "
+	[API-1068]
+		SHORT_MESSAGE = "no assets issued on world wire"
+		DETAILS = "no assets issued on world wire: "
+	[API-1069]
+		SHORT_MESSAGE = "error verifying client account"
+		DETAILS = "error verifying client account: "
+	[API-1070]
+		SHORT_MESSAGE = "client account does not exist"
+		DETAILS = "client account does not exist: "
+	[API-1071]
+		SHORT_MESSAGE = "unable to parse compliance check request value from compliance request"
+		DETAILS = "unable to parse compliance check request value from compliance request: "
+	[API-1072]
+		SHORT_MESSAGE = "unable to verify compliance from callback service"
+		DETAILS = "unable to verify compliance from callback service: "
+	[API-1073]
+		SHORT_MESSAGE = "source asset is required"
+		DETAILS = "source asset is required: "
+	[API-1074]
+		SHORT_MESSAGE = "price is required"
+		DETAILS = "price is required: "
+	[API-1075]
+		SHORT_MESSAGE = "invalid price. it must be numeric"
+		DETAILS = "invalid price. it must be numeric: "
+	[API-1076]
+		SHORT_MESSAGE = "target asset is required"
+		DETAILS = "target asset is required: "
+	[API-1077]
+		SHORT_MESSAGE = "target asset cannot be empty"
+		DETAILS = "target asset cannot be empty: "
+	[API-1078]
+		SHORT_MESSAGE = "source_amount cannot be empty"
+		DETAILS = "source_amount cannot be empty: "
+	[API-1079]
+		SHORT_MESSAGE = "beneficiary amount cannot be empty"
+		DETAILS = "beneficiary amount cannot be empty: "
+	[API-1080]
+		SHORT_MESSAGE = "either source amount or beneficiary amount is required"
+		DETAILS = "either source amount or beneficiary amount is required: "
+	[API-1081]
+		SHORT_MESSAGE = "invalid source amount. it must be numeric: "
+		DETAILS = "invalid source amount. it must be numeric: : "
+	[API-1082]
+		SHORT_MESSAGE = "invalid source amount. it must be >=0 : "
+		DETAILS = "invalid source amount. it must be >=0 : : "
+	[API-1083]
+		SHORT_MESSAGE = "invalid beneficiary amount. it must be numeric: "
+		DETAILS = "invalid beneficiary amount. it must be numeric: : "
+	[API-1084]
+		SHORT_MESSAGE = "invalid beneficiary amount. it must be >=0 : "
+		DETAILS = "invalid beneficiary amount. it must be >=0 : : "
+	[API-1085]
+		SHORT_MESSAGE = "beneficiary domain is required"
+		DETAILS = "beneficiary domain is required: "
+	[API-1086]
+		SHORT_MESSAGE = "beneficiary domain cannot be empty: "
+		DETAILS = "beneficiary domain cannot be empty: : "
+	[API-1087]
+		SHORT_MESSAGE = "warning: cannot calculate fee and amount:: "
+		DETAILS = "warning: cannot calculate fee and amount:: : "
+	[API-1088]
+		SHORT_MESSAGE = "warning: cannot marshall fee and amount:: "
+		DETAILS = "warning: cannot marshall fee and amount:: : "
+	[API-1089]
+		SHORT_MESSAGE = "unable to parse compliance check request value from compliance request"
+		DETAILS = "unable to parse compliance check request value from compliance request: "
+	[API-1090]
+		SHORT_MESSAGE = "error creating account with signing service"
+		DETAILS = "error while creating account with signing service: "
+	[API-1091]
+		SHORT_MESSAGE = "error creating new key pair"
+		DETAILS = "error creating new key pair: "
+	[API-1092]
+		SHORT_MESSAGE = "error creating new account in stellar"
+		DETAILS = "error creating new account in stellar: "
+	[API-1093]
+		SHORT_MESSAGE = "error adding issuing account to node config"
+		DETAILS = "error adding issuing account to node config: "
+	[API-1094]
+		SHORT_MESSAGE = "error adding issuing account to pr"
+		DETAILS = "error adding issuing account to pr: "
+	[API-1095]
+		SHORT_MESSAGE = "error while checking if operating account exists"
+		DETAILS = "error while checking if operating account exists: "
+	[API-1096]
+		SHORT_MESSAGE = "error adding operating account to node config"
+		DETAILS = "error adding operating account to node config: "
+	[API-1097]
+		SHORT_MESSAGE = "no issuing account. cannot create operating account"
+		DETAILS = "no issuing account. cannot create operating account: "
+	[API-1098]
+		SHORT_MESSAGE = "operating account not found: "
+		DETAILS = "operating account not found: : "
+	[API-1099]
+		SHORT_MESSAGE = "it looks you are sending an empty account identifier"
+		DETAILS = "it looks you are sending an empty account identifier : "
+	[API-1100]
+		SHORT_MESSAGE = "request validation failed"
+		DETAILS = "mandatory request parameters are missing: "
+	[API-1101]
+		SHORT_MESSAGE = "distAccountName, assetCode, assetIssuer, limit must not be empty"
+		DETAILS = "distAccountName, assetCode, assetIssuer, limit must not be empty: "
+	[API-1102]
+		SHORT_MESSAGE = "no issuing account"
+		DETAILS = "no issuing account: "
+	[API-1103]
+		SHORT_MESSAGE = "asset not trusted by account"
+		DETAILS = "asset not trusted by account: "
+	[API-1104]
+		SHORT_MESSAGE = "cannot create trust for the asset"
+		DETAILS = "cannot create trust for the asset: "
+	[API-1105]
+		SHORT_MESSAGE = "distAccountName, assetCode, amount must not be empty"
+		DETAILS = "distAccountName, assetCode, amount must not be empty"
+	[API-1106]
+		SHORT_MESSAGE = "account has not been funded"
+		DETAILS = "account has not been funded"
+	[API-1107]
+		SHORT_MESSAGE = "unable to parse body of rest call to clear a fx transaction"
+		DETAILS = "unable to parse body of rest call to clear a fx transaction"
+	[API-1108]
+		SHORT_MESSAGE = "error with federation"
+		DETAILS = "error with federation"
+	[API-1109]
+		SHORT_MESSAGE = "error with compliance protocol"
+		DETAILS = "error with compliance protocol"
+	[API-1110]
+		SHORT_MESSAGE = "unable to validate quotes request"
+		DETAILS = "unable to validate quotes request"
+	[API-1111]
+		SHORT_MESSAGE = "error Receiving quotes"
+		DETAILS = "error Receiving quotes: "
+	[API-1112]
+		SHORT_MESSAGE = "trust transaction was not successful"
+		DETAILS = "trust transaction was not successful"
+	[API-1113]
+		SHORT_MESSAGE = "error adding operating account to participant registry, account Name"
+		DETAILS = "error adding operating account to participant registry, account Name"
+	[API-1114]
+		SHORT_MESSAGE = "error getting participants"
+		DETAILS = "error getting participants"
+	[API-1115]
+		SHORT_MESSAGE = "error getting the issuing account of the participant"
+		DETAILS = "error getting the issuing account of the participant"
+	[API-1116]
+		SHORT_MESSAGE = "federation service error"
+		DETAILS = "federation service error"
+	[API-1117]
+		SHORT_MESSAGE = "warning: error getting fee "
+		DETAILS = "warning: error getting fee : "
+	[API-1118]
+		SHORT_MESSAGE = "warning: cannot marshall fee "
+		DETAILS = "warning: cannot marshall fee : "
+	[API-1119]
+		SHORT_MESSAGE = "participant registry error"
+		DETAILS = "participant registry call failed with : "
+	[API-1120]
+		SHORT_MESSAGE = "no participant found"
+		DETAILS = "no matching participant found for: "
+	[API-1121]
+		SHORT_MESSAGE = "callback verification failed"
+		DETAILS = "callback failed with : "
+	[API-1122]
+		SHORT_MESSAGE = "empty request body"
+		DETAILS = "request body cannot be empty. payload is required"
+	[API-1123]
+		SHORT_MESSAGE = "error Starting payment listener"
+		DETAILS = "error Starting payment listener for account: "
+	[API-1124]
+		SHORT_MESSAGE = "invalid issue asset request"
+		DETAILS = "error validating issue asset request: "
+	[API-1125]
+		SHORT_MESSAGE = "unable to query trustlines in stellar database"
+		DETAILS = "select query failed"
+	[API-1126]
+		SHORT_MESSAGE = "Error getting DO balance for given asset code"
+		DETAILS = "either trust does not exist at all or accounts found have zero balance"
+	[API-1127]
+		SHORT_MESSAGE = "issuer in input is not authorized to view this information"
+		DETAILS = "issuers can only view their own assets"
+	[API-1131]
+		SHORT_MESSAGE = "get whiteList participants error"
+		DETAILS = "get whiteList participants error"
+	[API-1132]
+		SHORT_MESSAGE = "Participant domain is required in query"
+		DETAILS = "Participant domain is required in query"
+	[API-1133]
+		SHORT_MESSAGE = "Load nodeconfig error"
+		DETAILS = "Load nodeconfig error"
+	[API-1134]
+		SHORT_MESSAGE = "Error marshalling nodeconfig"
+		DETAILS = "Error marshalling nodeconfig"
+	[API-1135]
+		SHORT_MESSAGE = "Domain name exists already"
+		DETAILS = "Domain name exists already"
+	[API-1136]
+		SHORT_MESSAGE = "Domain name does not exist"
+		DETAILS = "Domain name does not exist"
+	[API-1201]
+		SHORT_MESSAGE = "Asset code is not DO nor DA"
+		DETAILS = "Asset code is not DO nor DA"
+	[API-1202]
+		SHORT_MESSAGE = "No Issuing account"
+		DETAILS = "No Issuing account"
+	[API-1203]
+		SHORT_MESSAGE = "Issuer should not be issuing account"
+		DETAILS = "Issuer should not be issuing account"
+	[API-1204]
+		SHORT_MESSAGE = "Error while checking if operating account exists"
+		DETAILS = "Error while checking if operating account exists"
+	[API-1205]
+		SHORT_MESSAGE = "OFI Operating Account Not Found"
+		DETAILS = "OFI Operating Account Not Found"
+	[API-1206]
+		SHORT_MESSAGE = "Error while creating trust"
+		DETAILS = "Error while creating trust"
+	[API-1207]
+		SHORT_MESSAGE = "Trust transaction call went through. But Error while signing trust"
+		DETAILS = "Trust transaction call went through. But Error while signing trust"
+	[API-1208]
+		SHORT_MESSAGE = "Error during building Mutate"
+		DETAILS = "Error during building Mutate"
+	[API-1209]
+		SHORT_MESSAGE = "Signing trust went through. Error during encoding"
+		DETAILS = "Signing trust went through. Error during encoding"
+	[API-1210]
+		SHORT_MESSAGE = "Error while submitting transaction[signing trust]"
+		DETAILS = "Error while submitting transaction[signing trust]"
+	[API-1211]
+		SHORT_MESSAGE = "Issuing account's flags is not valid"
+		DETAILS = "Issuing account's flags is not valid"
+	[API-1220]
+		SHORT_MESSAGE = "Issuer should be issuing account"
+		DETAILS = "Issuer should be issuing account"
+	[API-1221]
+		SHORT_MESSAGE = "Source account should not be 1 of the participant’s operating accounts"
+		DETAILS = "Source account should not be 1 of the participant’s operating accounts"
+	[API-1222]
+		SHORT_MESSAGE = "Error while allowing trust"
+		DETAILS = "Error while allowing trust"
+	[API-1230]
+		SHORT_MESSAGE = "Error getting IBM Account"
+		DETAILS = "Error getting IBM Account"
+	[API-1231]
+		SHORT_MESSAGE = "Asset was not issued by IBM"
+		DETAILS = "Asset was not issued by IBM"
+	[API-1232]
+		SHORT_MESSAGE = "Invalid query ID"
+		DETAILS = "Only End to end ID and Stellar txn ID are allowed to get transaction details. "
+	[API-1233]
+		SHORT_MESSAGE = "Error while fetching transaction"
+		DETAILS = "Error happened while fetching transaction details using End-to-End ID: "
+	[API-1234]
+		SHORT_MESSAGE = "Error while fetching transaction"
+		DETAILS = "Error happened while fetching transaction details using Stellar transaction ID: "
+	[API-1235]
+		SHORT_MESSAGE = "Error while transilating response"
+		DETAILS = "Error happened while processing the response received from Administration-Service: "
+	[API-1241]
+		SHORT_MESSAGE = "Error while getting Partifipant For Domain"
+		DETAILS = "Error while getting Partifipant For Domain"
+	[API-1242]
+		SHORT_MESSAGE = "Domain name should not be local"
+		DETAILS = "Domain name should not be local"
+	[API-1243]
+		SHORT_MESSAGE = "Issuer should not be issuing account"
+		DETAILS = "Issuer should not be issuing account"
+	[API-1244]
+		SHORT_MESSAGE = "Input validation Failed"
+		DETAILS = "Error validating request parameters: "
+	[API-1245]
+		SHORT_MESSAGE = "Cannot Fund. No Trust Relationship for this asset"
+		DETAILS = "Cannot Fund. No Trust Relationship for this asset"
+	[API-1246]
+		SHORT_MESSAGE = "error deleting quotes"
+		DETAILS = "error deleting quotes: "
+	[API-1247]
+		SHORT_MESSAGE = "Change Trust: Domain cannot be home domain if asset is a DO"
+		DETAILS = "Change Trust: Domain cannot be home domain if asset is a DO"
+	[API-1248]
+		SHORT_MESSAGE = "Change Trust: Operating Account cannot enter into a trust relationship for a DO"
+		DETAILS = "Change Trust: Operating Account cannot enter into a trust relationship for a DO"
+	[API-1249]
+		SHORT_MESSAGE = "issuing or operating account not found"
+		DETAILS = "issuing or operating account not found"
+	[API-1250]
+		SHORT_MESSAGE = "Cannot Validate Change Trust Request"
+		DETAILS = "Cannot Validate Change Trust Request"
+	[API-1251]
+		SHORT_MESSAGE = "Allow Trust: Invalid Trustor Account"
+		DETAILS = "Allow Trust: Invalid Trustor Account"
+	[API-1252]
+		SHORT_MESSAGE = "Use Anchor Service to Allow Trust for a Digital Asset"
+		DETAILS = "Use Anchor Service to Allow Trust for a Digital Asset"
+	[API-1253]
+		SHORT_MESSAGE = "Participant does not have an issuing account"
+		DETAILS = "Participant does not have an issuing account"
+	[API-1254]
+		SHORT_MESSAGE = "type parameter is required in request query"
+		DETAILS = "type parameter is required in request query"
+	[API-1255]
+		SHORT_MESSAGE = "Query Type must be one of: both, issued, trusted"
+		DETAILS = "Query Type must be one of: both, issued, trusted"
+	[API-1256]
+		SHORT_MESSAGE = "Error retrieving participant from Participant Registry"
+		DETAILS = "Error retrieving participant from Participant Registry"
+	[API-1257]
+		SHORT_MESSAGE = "Error marshalling assets"
+		DETAILS = "Error marshalling assets"
+	[API-1258]
+		SHORT_MESSAGE = "Error getting assets for account"
+		DETAILS = "Error getting assets for account: "
+	[API-1261]
+		SHORT_MESSAGE = "Error decoding token request"
+		DETAILS = "error: "
+	[API-1265]
+		SHORT_MESSAGE = "Asset Type must be DO"
+		DETAILS = "Asset Type must be DO: "
+	[API-1266]
+		SHORT_MESSAGE = "This operation has been deprecated"
+		DETAILS = "This operation has been deprecated: "
+	[API-1267]
+		SHORT_MESSAGE = "Error Validating Auth Token"
+		DETAILS = "error Validating Auth Token: "
+	[API-1268]
+		SHORT_MESSAGE = "Error at Login"
+		DETAILS = "Given account credentials failed to login"
+	[API-1269]
+		SHORT_MESSAGE = "Missing Authorization Header"
+		DETAILS = "Authorization token in header is missing"
+	[API-1275]
+		SHORT_MESSAGE = "invalid hash"
+		DETAILS = "hash does not conform to the standard : "
+	[API-1276]
+		SHORT_MESSAGE = "Issuing account should be trusted first"
+		DETAILS = "Please create a trustline with this asset on issuing account"
+	[API-1277]
+		SHORT_MESSAGE = "account already exists, first clear the account on participant registry"
+		DETAILS = "account is already registered with participant registry: "
+	[API-1300]
+		SHORT_MESSAGE = "account limit exceeded"
+		DETAILS = "account limit exceeded: "
+	[API-1301]
+		SHORT_MESSAGE = "account does not trust asset"
+		DETAILS = "account does not trust asset: "
+	[API-1302]
+		SHORT_MESSAGE = "account trust limit exceeded "
+		DETAILS = "account trust limit exceeded : "
+	[API-1303]
+		SHORT_MESSAGE = "account insufficient balance"
+		DETAILS = "account insufficient balance: "
+	[API-1304]
+		SHORT_MESSAGE = "account does not exist"
+		DETAILS = "account does not exist: "
+	[API-1305]
+		SHORT_MESSAGE = "DO sweeping forbiddened"
+		DETAILS = "DO sweeping forbiddened: "
+	[API-1306]
+		SHORT_MESSAGE = "submitting transaction failed"
+		DETAILS = "submitting transaction failed: "
+	[API-1307]
+		SHORT_MESSAGE = "Error when fetching account balance after successful transaction"
+		DETAILS = "Error when fetching account balance after successful transaction: "
+	[API-1308]
+		SHORT_MESSAGE = "Amount Less then or equal to zero"
+		DETAILS = "Amount Less then or equal to zero: "

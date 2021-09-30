@@ -1,0 +1,34 @@
+@import "~sass/helpers.scss";
+
+@import "~sass/ibm-style-override.scss";
+
+.white-text {
+	color: #E6E8E9;
+	font-size: 1em;
+	@include code(15px);
+}
+
+.bx--btn {
+	&:first-of-type {
+		margin-left: 0px;
+	}
+	margin: 10px;
+	border-width: 3px;
+	border-color: transparent;
+	width: 200px;
+
+	&.bx--btn--secondary {
+		color: #003AC4;
+		background-color: transparent;
+		border-color: #003AC4;
+	}
+}
+
+.payload-text {
+	background-color: $inverse-02;
+	color: #E6E8E9;
+}
+
+.route-display {
+    word-break: break-all;
+}

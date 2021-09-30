@@ -1,0 +1,264 @@
+swagger: "2.0"
+info:
+  title: The Participant Registry API
+  description: This is a registry of Stellar Participants that contains configuration details for each participant
+  version: 1.0.0
+# host: participantregistry.gftn.io
+basePath: /v1
+schemes:
+  - https
+tags:
+  - name: Participant Registry API
+    description: APIs for registering and getting config details for participants
+paths:
+  /internal/pr/domain/{participant_id}:
+    get:
+      tags:
+        - Participant Registry API
+      summary: Get the configuration details for the participant idenfied by his participant domain
+      description: Get the configuration details for the participant idenfied by his participant domain
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          required: true
+          description: the participant domain for this participant
+          type: string
+      responses:
+        200:
+          description: Found participant for this domain
+          schema:
+            $ref: '../../gftn-models/models/participant.yaml'
+        404:
+          description: there is no participant for this participant_id
+
+  /internal/pr/country/{country_code}:
+    get:
+      tags:
+        - Participant Registry API
+      summary: Get List of participants operating in the given country
+      description: Get List of participants operating in the given country
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: country_code
+          required: true
+          description: country code
+          type: string
+      responses:
+        200:
+          description: Found participants for this country
+          schema:
+            type: array
+            items:
+              $ref: '../../gftn-models/models/participant.yaml'
+        404:
+          description: there is no participant for this country
+
+  /internal/pr/account/{participant_id}/{account_name}:
+    get:
+      tags:
+        - Participant Registry API
+      summary: Get the pub key for the given operating account name
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          required: true
+          description: the participant domain for this participant
+          type: string
+        - in: path
+          name: account_name
+          required: true
+          description: the participant's operating account name
+          type: string
+      responses:
+        200:
+          description: Found participant operating account key for given account name
+          schema:
+            type: string
+        404:
+          description: there is no participant disctribution account for given name
+          schema:
+            type: string
+
+  /internal/pr/issuingaccount/{participant_id}:
+     post:
+       tags:
+         - Participant Registry API
+       summary: Save Participant Issuing account
+       description: |
+         Saves Participant Issuing account
+       operationId: updateParticipantIssueAccount
+       produces:
+         - application/json
+       consumes:
+         - application/json
+       parameters:
+        - name: participant_id
+          in: path
+          description: participant domain for the participant
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: The participant Issuing data
+          schema:
+            $ref: '../../gftn-models/models/operatingAccount.yaml'
+       responses:
+         200:
+           description: Participant Issuing account saved successfully
+         409:
+          description: Participant Issuing account already exists
+          schema:
+            type: string
+         404:
+          description: there is no participant for this participant_id
+          schema:
+            type: string
+
+  /internal/pr/account/{participant_id}:
+     post:
+       tags:
+         - Participant Registry API
+       summary: Save Participant Operating account
+       description: |
+         Saves Participant Operating account
+       operationId: createParticipant
+       produces:
+         - application/json
+       consumes:
+         - application/json
+       parameters:
+        - name: participant_id
+          in: path
+          description: participant domain for the participant
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: The participant Operating data
+          schema:
+            $ref: '../../gftn-models/models/operatingAccount.yaml'
+       responses:
+         200:
+           description: Participant operating account saved successfully
+         409:
+           description: Participant operating account already exists
+           schema:
+             type: string
+         404:
+           description: there is no participant for this participant_id
+           schema:
+            type: string
+
+  /internal/pr:
+    post:
+      tags:
+        - Participant Registry API
+      summary: Create a new participant
+      description: |
+        Sends a request to the Participant Registry to create an participant
+      operationId: createParticipant
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: The participant data
+          schema:
+            $ref: '../../gftn-models/models/participant.yaml'
+      responses:
+        200:
+          description: Participant created successfully
+        404:
+          description: Participant could not be created
+
+    get:
+      tags:
+        - Participant Registry API
+      summary: Get list of all participants on WW
+      description: |
+        Get list of all participants on WW
+      operationId: getParticipants
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: all Participants on World Wire
+          schema:
+            type: array
+            items:
+              $ref: '../../gftn-models/models/participant.yaml'
+        404:
+          description: there is no participant for this country
+
+  /internal/pr/{participant_id}:
+    put:
+      tags:
+        - Participant Registry API
+      summary: Update an existing participant
+      description: |
+        Sends a request to the Participant Registry to to update an existing participant
+      operationId: updateParticipant
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: participant_id
+          in: path
+          description: participant domain for the participant
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: The participant data
+          schema:
+            $ref: '../../gftn-models/models/participant.yaml'
+      responses:
+        200:
+          description: participant successfully updated
+        404:
+          description: Participant not found
+
+  /internal/pr/{participant_id}/status:
+     put:
+       tags:
+         - Participant Registry API
+       summary: Save Participant WW network status, its a admin api
+       description: |
+         Saves Participant WW network status, its a admin api
+       operationId: updateStatus
+       produces:
+         - application/json
+       consumes:
+         - application/json
+       parameters:
+        - name: participant_id
+          in: path
+          description: participant domain for the participant
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: The participant status
+          schema:
+            $ref: '../../gftn-models/models/participantStatus.yaml'
+       responses:
+         200:
+          description: Participant network status updated successfully
+
+

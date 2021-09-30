@@ -1,0 +1,14 @@
+{
+  "time_expire_ofi": "2026-01-02T15:04:05.999999999Z",
+  "limit_max_ofi": 90,
+  "limit_min_ofi": 20,
+  "target_asset": {"asset_code":"NZDDA",
+    "asset_issuer": "GA7Z4F45IDUPK4BJTJC4XOVMT6VNYAQ6TUK35VHCBDVORKZHKA5LR5ZZ",
+    "asset_type": "DA"
+  },
+  "source_asset": {"asset_code":"FJDDA",
+    "asset_issuer": "GAD2KI6FKPOYF774IFS5WCRHNPGC2KAQRT4SNTOW62QQHXWYF5T4DBDA",
+    "asset_type": "DA"
+  },
+  "ofi_id": "nz.one.payments.gftn.io"
+}

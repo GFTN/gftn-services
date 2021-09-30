@@ -1,0 +1,64 @@
+@import "~sass/ibm-style-override";
+
+.filler {
+	background-color: black;
+}
+
+.btn-sandbox {
+	position: fixed;
+	right: 10px;
+	top: 60px;
+	svg {
+		fill: #fff
+	}
+}
+
+.api-docs {
+	// background-color: red;
+	max-width: 100vw; // border-left: .05px solid $brand-01;
+	.general {
+		padding-top: 10px;
+	}
+}
+
+a.nav-link {
+	margin-left: 10px;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-decoration-line: none;
+
+	&.active-link {
+		padding-left: 13px - 3px; // prevents 3px offset resulting from border
+		border-left: solid 3px $brand-01
+	}
+
+	&.indent {
+		padding-left: 20px;
+		&.active-link {
+			padding-left: 20px - 3px; // prevents 3px offset resulting from border
+			border-left: solid 3px $brand-01
+		}
+	}
+
+	&.hide {
+		padding: 0;
+		margin: 0;
+	}
+
+	.icon-arrow {
+		padding: 0 20px;
+	}
+}
+
+.overlay {
+	position: fixed;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+	background-color: #fff
+}
+
+.bx--loading-overlay {
+	z-index: 3;
+}

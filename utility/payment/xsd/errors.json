@@ -1,0 +1,325 @@
+{
+  "xsd_path":[
+    "/opt/configuration/message.xsd"
+  ],
+  "status":[
+    {
+      "code": 1001,
+      "description": "Unable to parse the transaction",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code": 1002,
+      "description": "Validation failed for the transaction",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code":1003,
+      "description":"Unable to decipher encoded message",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code":1004,
+      "description":"Request was closed due to internal errors",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code":1005,
+      "description":"Unable to validate XML file",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code":1006,
+      "description":"Duplicate message ID found during validation",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1007,
+      "description":"The digital obligation is already settled",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1008,
+      "description":"No mutual whitelist relationship between Debtor Institution and Creditor Institution in World Wire",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1009,
+      "description":"No mutual whitelist relationship between Debtor Institution and Creditor Institution in World Wire",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1010,
+      "description":"Error occurred while signing the transaction",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1011,
+      "description":"World Wire Internal error while processing the transaction",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1012,
+      "description":"Original EndToEndID/TxID/InstrID are not the same",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1013,
+      "description":"Unable to verify signature of Debtor Institution",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1014,
+      "description":"Unable to verify signature of Creditor Institution",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1015,
+      "description":"World Wire Internal error while processing the transaction",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code":1018,
+      "description":"Creditor Institution is not available for transaction",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1019,
+      "description":"Settlement method differs from original transaction message.  Please use the same method.",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1021	,
+      "description":"Invalid account given the specified settlement method. Please use a trusted account.",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1022,
+      "description":"Invalid authentication observed while processing transaction",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1023,
+      "description":"Invalid authorization observed while processing transaction",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1026,
+      "description":"Unable to validate the authentication and authorization parameters",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1027,
+      "description":"The transaction currency/country/institution is within the blocklist, transaction forbidden",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1101,
+      "description":"Transaction successfully validated by World Wire",
+      "tx_status":"ACTC",
+      "type": 2
+    },
+    {
+      "code":1102,
+      "description":"Federation and Compliance response successfully validated by World Wire",
+      "tx_status":"ACTC",
+      "type": 2
+    },
+    {
+      "code":1103,
+      "description":"Transaction successfully processed by World Wire",
+      "tx_status":"ACTC",
+      "type": 2
+    },
+    {
+      "code":1104,
+      "description":"Cancellation response successfully validated by World Wire",
+      "tx_status":"ACTC",
+      "type": 2
+    },
+    {
+      "code":1105,
+      "description":"RDO request successfully validated by World Wire",
+      "tx_status":"ACTC",
+      "type": 2
+    },
+    {
+      "code":1201,
+      "description":"Transaction rejected by Creditor Institution",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1202,
+      "description":"Payment cancellation request was rejected by Creditor Institution",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1203,
+      "description":"Encounter error while producing message to Kafka",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1204,
+      "description":"Encounter error while updating log to firebase",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1205,
+      "description":"Cannot identify the reason code inside the OrgnlGrpInf tag",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1206,
+      "description":"Digital Obligation cannot be transfered internally",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1207,
+      "description":"The country inside postal address of either debtor or creditor is empty",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1208,
+      "description":"Invalid Message ID, please check if the message ID format or value is correct",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1209,
+      "description":"Can not request a cancellation or digital obligation notification on an unfinished payment request",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1210,
+      "description":"Can not reply to a request that is not being intialized properly",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1211,
+      "description":"The asset redemption request sent to anchor is being rejected",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1212,
+      "description":"The asset redemption amount responded by anchor is different from the redemption amount requested by OFI",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1213,
+      "description":"The original message is already being replied",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1214,
+      "description":"World Wire hasn't received any unable to apply response from RFI yet",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1020,
+      "description":"No corresponding settlement account was found",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1024,
+      "description":"Unable to find a corresponding account using the account ID. Please use a correct account ID",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1025,
+      "description":"Invalid Financial Institution ID",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1028,
+      "description":"Invalid asset issuer given the specified settlement method. Please use a correct issuer",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1029,
+      "description":"Invalid original instruction ID. Please use a correct Instruction ID",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1030,
+      "description":"Can not find the transaction info using the provided instruction ID",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1031,
+      "description":"Incorrect original message name ID",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1032,
+      "description":"Unsupported response status code. Please use a correct one",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1033,
+      "description":"Please check the consistency between settlement method and settlement/payout/fee currency",
+      "tx_status":"RJCT",
+      "type": 1
+    },
+    {
+      "code":1034,
+      "description":"Incorrect message type format. Example format: iso20022:pacs.008.001.07",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code":1035,
+      "description":"Insufficient asset balance in stellar to do the redemption, please redeem a smaller amount",
+      "tx_status":"RJCT",
+      "type": 0
+    },
+    {
+      "code":1000,
+      "description":"",
+      "tx_status":"RJCT",
+      "type": 1
+    }
+  ]
+}

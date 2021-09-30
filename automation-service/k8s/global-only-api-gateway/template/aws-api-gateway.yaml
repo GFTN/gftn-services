@@ -1,0 +1,2655 @@
+---
+swagger: "2.0"
+info:
+  version: "2019-03-27T08:53:33Z"
+  title: "participant_id_variable"
+host: "participant_id_variable.worldwireenvironment_variable.io"
+schemes:
+- "https"
+paths:
+  /global/whitelist/{proxy+}:
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-fid,x-iid,x-permission,x-request,x-pid'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        type: "mock"
+    x-amazon-apigateway-any-method:
+      parameters:
+      - name: "postal_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "receive_mode"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "state"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "asset_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "street"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-iid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Auth-Token"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Content-Type"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "address"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "city"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Headers"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "permission"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-fid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "asset_type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "geo"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Client-Cert"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "image"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "anchor_id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "funding_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-permission"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "telephone"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "instruction_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-request"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "proxy"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "currency"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Methods"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "country"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "child"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "url"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "member"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-requested-with"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "parent"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Credentials"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "x-pid"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        410:
+          description: "410 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        510:
+          description: "510 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        511:
+          description: "511 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        201:
+          description: "201 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        300:
+          description: "300 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        202:
+          description: "202 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        301:
+          description: "301 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        203:
+          description: "203 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        302:
+          description: "302 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        401:
+          description: "401 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        500:
+          description: "500 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        204:
+          description: "204 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        226:
+          description: "226 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        303:
+          description: "303 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        402:
+          description: "402 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        501:
+          description: "501 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        205:
+          description: "205 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        304:
+          description: "304 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        403:
+          description: "403 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        502:
+          description: "502 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        206:
+          description: "206 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        305:
+          description: "305 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        404:
+          description: "404 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        503:
+          description: "503 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        207:
+          description: "207 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        306:
+          description: "306 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        405:
+          description: "405 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        504:
+          description: "504 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        208:
+          description: "208 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        307:
+          description: "307 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        406:
+          description: "406 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        505:
+          description: "505 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        209:
+          description: "209 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        308:
+          description: "308 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        407:
+          description: "407 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        506:
+          description: "506 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        309:
+          description: "309 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        408:
+          description: "408 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        507:
+          description: "507 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        409:
+          description: "409 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        508:
+          description: "508 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        509:
+          description: "509 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+      x-amazon-apigateway-request-validator: "Validate query string parameters and\
+          \ headers"
+      x-amazon-apigateway-integration:
+        uri: "http://${stageVariables.global}.ww-${stageVariables.environment}.io/whitelist/{proxy}"
+        responses:
+          510:
+            statusCode: "510"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          511:
+            statusCode: "511"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          41\d{1}:
+            statusCode: "410"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          200:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          201:
+            statusCode: "201"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          300:
+            statusCode: "300"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          202:
+            statusCode: "202"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          301:
+            statusCode: "301"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          400:
+            statusCode: "400"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          203:
+            statusCode: "203"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          302:
+            statusCode: "302"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          401:
+            statusCode: "401"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          500:
+            statusCode: "500"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          204:
+            statusCode: "204"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          226:
+            statusCode: "226"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          303:
+            statusCode: "303"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          402:
+            statusCode: "402"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          501:
+            statusCode: "501"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          205:
+            statusCode: "205"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          304:
+            statusCode: "304"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          403:
+            statusCode: "403"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          502:
+            statusCode: "502"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          206:
+            statusCode: "206"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          305:
+            statusCode: "305"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          404:
+            statusCode: "404"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          503:
+            statusCode: "503"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          207:
+            statusCode: "207"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          306:
+            statusCode: "306"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          405:
+            statusCode: "405"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          504:
+            statusCode: "504"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          208:
+            statusCode: "208"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          307:
+            statusCode: "307"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          406:
+            statusCode: "406"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          505:
+            statusCode: "505"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          209:
+            statusCode: "209"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          308:
+            statusCode: "308"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          407:
+            statusCode: "407"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          506:
+            statusCode: "506"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          309:
+            statusCode: "309"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          408:
+            statusCode: "408"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          507:
+            statusCode: "507"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          409:
+            statusCode: "409"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          508:
+            statusCode: "508"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          509:
+            statusCode: "509"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        requestParameters:
+          integration.request.querystring.instruction_signed: "method.request.querystring.instruction_signed"
+          integration.request.querystring.receive_mode: "method.request.multivaluequerystring.receive_mode"
+          integration.request.querystring.parent: "method.request.querystring.parent"
+          integration.request.querystring.street: "method.request.querystring.street"
+          integration.request.querystring.city: "method.request.querystring.city"
+          integration.request.querystring.url: "method.request.querystring.url"
+          integration.request.querystring.country: "method.request.querystring.country"
+          integration.request.querystring.permission: "method.request.querystring.permission"
+          integration.request.querystring.currency: "method.request.querystring.currency"
+          integration.request.header.x-requested-with: "method.request.header.x-requested-with"
+          integration.request.querystring.image: "method.request.querystring.image"
+          integration.request.header.x-permission: "method.request.header.x-permission"
+          integration.request.header.Content-Type: "method.request.header.Content-Type"
+          integration.request.header.Access-Control-Allow-Headers: "method.request.header.Access-Control-Allow-Headers"
+          integration.request.querystring.asset_type: "method.request.querystring.asset_type"
+          integration.request.querystring.member: "method.request.querystring.member"
+          integration.request.header.x-request: "method.request.header.x-request"
+          integration.request.querystring.id: "method.request.querystring.id"
+          integration.request.querystring.state: "method.request.querystring.state"
+          integration.request.querystring.postal_code: "method.request.querystring.postal_code"
+          integration.request.header.x-fid: "method.request.header.x-fid"
+          integration.request.querystring.child: "method.request.querystring.child"
+          integration.request.header.Access-Control-Allow-Origin: "method.request.header.Access-Control-Allow-Origin"
+          integration.request.header.x-iid: "method.request.header.x-iid"
+          integration.request.header.X-Client-Cert: "method.request.header.X-Client-Cert"
+          integration.request.querystring.geo: "method.request.querystring.geo"
+          integration.request.querystring.funding_signed: "method.request.querystring.funding_signed"
+          integration.request.path.proxy: "method.request.path.proxy"
+          integration.request.header.Authorization: "method.request.header.Authorization"
+          integration.request.querystring.name: "method.request.querystring.name"
+          integration.request.querystring.type: "method.request.querystring.type"
+          integration.request.header.x-pid: "method.request.header.x-pid"
+          integration.request.querystring.asset_code: "method.request.querystring.asset_code"
+          integration.request.querystring.telephone: "method.request.querystring.telephone"
+          integration.request.header.X-Forwarded-For: "context.identity.sourceIp"
+          integration.request.querystring.address: "method.request.querystring.address"
+        passthroughBehavior: "when_no_match"
+        connectionType: "VPC_LINK"
+        connectionId: "${stageVariables.vpcLinkId}"
+        httpMethod: "ANY"
+        cacheNamespace: "0wo71p"
+        cacheKeyParameters:
+        - "method.request.path.proxy"
+        type: "http"
+  /global/anchor/{proxy+}:
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-fid,x-iid,x-permission,x-request,x-pid'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        type: "mock"
+    x-amazon-apigateway-any-method:
+      parameters:
+      - name: "postal_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "receive_mode"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "state"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "asset_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "street"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-iid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Auth-Token"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Content-Type"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "address"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "city"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Headers"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "permission"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-fid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "asset_type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "geo"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Client-Cert"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "image"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "anchor_id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "funding_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-permission"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "telephone"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "instruction_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-request"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "proxy"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "currency"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Methods"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "country"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "child"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "url"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "member"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-requested-with"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "parent"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Credentials"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "x-pid"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        410:
+          description: "410 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        510:
+          description: "510 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        511:
+          description: "511 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        201:
+          description: "201 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        300:
+          description: "300 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        202:
+          description: "202 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        301:
+          description: "301 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        203:
+          description: "203 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        302:
+          description: "302 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        401:
+          description: "401 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        500:
+          description: "500 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        204:
+          description: "204 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        226:
+          description: "226 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        303:
+          description: "303 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        402:
+          description: "402 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        501:
+          description: "501 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        205:
+          description: "205 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        304:
+          description: "304 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        403:
+          description: "403 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        502:
+          description: "502 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        206:
+          description: "206 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        305:
+          description: "305 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        404:
+          description: "404 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        503:
+          description: "503 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        207:
+          description: "207 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        306:
+          description: "306 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        405:
+          description: "405 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        504:
+          description: "504 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        208:
+          description: "208 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        307:
+          description: "307 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        406:
+          description: "406 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        505:
+          description: "505 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        209:
+          description: "209 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        308:
+          description: "308 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        407:
+          description: "407 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        506:
+          description: "506 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        309:
+          description: "309 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        408:
+          description: "408 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        507:
+          description: "507 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        409:
+          description: "409 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        508:
+          description: "508 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        509:
+          description: "509 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+      x-amazon-apigateway-request-validator: "Validate query string parameters and\
+          \ headers"
+      x-amazon-apigateway-integration:
+        uri: "http://${stageVariables.global}.ww-${stageVariables.environment}.io/anchor/{proxy}"
+        responses:
+          510:
+            statusCode: "510"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          511:
+            statusCode: "511"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          41\d{1}:
+            statusCode: "410"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          200:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          201:
+            statusCode: "201"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          300:
+            statusCode: "300"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          202:
+            statusCode: "202"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          301:
+            statusCode: "301"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          400:
+            statusCode: "400"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          203:
+            statusCode: "203"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          302:
+            statusCode: "302"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          401:
+            statusCode: "401"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          500:
+            statusCode: "500"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          204:
+            statusCode: "204"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          226:
+            statusCode: "226"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          303:
+            statusCode: "303"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          402:
+            statusCode: "402"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          501:
+            statusCode: "501"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          205:
+            statusCode: "205"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          304:
+            statusCode: "304"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          403:
+            statusCode: "403"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          502:
+            statusCode: "502"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          206:
+            statusCode: "206"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          305:
+            statusCode: "305"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          404:
+            statusCode: "404"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          503:
+            statusCode: "503"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          207:
+            statusCode: "207"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          306:
+            statusCode: "306"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          405:
+            statusCode: "405"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          504:
+            statusCode: "504"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          208:
+            statusCode: "208"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          307:
+            statusCode: "307"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          406:
+            statusCode: "406"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          505:
+            statusCode: "505"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          209:
+            statusCode: "209"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          308:
+            statusCode: "308"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          407:
+            statusCode: "407"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          506:
+            statusCode: "506"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          309:
+            statusCode: "309"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          408:
+            statusCode: "408"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          507:
+            statusCode: "507"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          409:
+            statusCode: "409"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          508:
+            statusCode: "508"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          509:
+            statusCode: "509"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        requestParameters:
+          integration.request.querystring.instruction_signed: "method.request.querystring.instruction_signed"
+          integration.request.querystring.receive_mode: "method.request.multivaluequerystring.receive_mode"
+          integration.request.querystring.parent: "method.request.querystring.parent"
+          integration.request.querystring.street: "method.request.querystring.street"
+          integration.request.querystring.city: "method.request.querystring.city"
+          integration.request.querystring.url: "method.request.querystring.url"
+          integration.request.querystring.country: "method.request.querystring.country"
+          integration.request.querystring.permission: "method.request.querystring.permission"
+          integration.request.querystring.currency: "method.request.querystring.currency"
+          integration.request.header.x-requested-with: "method.request.header.x-requested-with"
+          integration.request.querystring.image: "method.request.querystring.image"
+          integration.request.header.x-permission: "method.request.header.x-permission"
+          integration.request.header.Content-Type: "method.request.header.Content-Type"
+          integration.request.header.Access-Control-Allow-Headers: "method.request.header.Access-Control-Allow-Headers"
+          integration.request.querystring.asset_type: "method.request.querystring.asset_type"
+          integration.request.querystring.member: "method.request.querystring.member"
+          integration.request.header.x-request: "method.request.header.x-request"
+          integration.request.querystring.id: "method.request.querystring.id"
+          integration.request.querystring.state: "method.request.querystring.state"
+          integration.request.querystring.postal_code: "method.request.querystring.postal_code"
+          integration.request.header.x-fid: "method.request.header.x-fid"
+          integration.request.querystring.child: "method.request.querystring.child"
+          integration.request.header.Access-Control-Allow-Origin: "method.request.header.Access-Control-Allow-Origin"
+          integration.request.header.x-iid: "method.request.header.x-iid"
+          integration.request.header.X-Client-Cert: "method.request.header.X-Client-Cert"
+          integration.request.querystring.geo: "method.request.querystring.geo"
+          integration.request.querystring.funding_signed: "method.request.querystring.funding_signed"
+          integration.request.path.proxy: "method.request.path.proxy"
+          integration.request.header.Authorization: "method.request.header.Authorization"
+          integration.request.querystring.name: "method.request.querystring.name"
+          integration.request.querystring.type: "method.request.querystring.type"
+          integration.request.header.x-pid: "method.request.header.x-pid"
+          integration.request.querystring.asset_code: "method.request.querystring.asset_code"
+          integration.request.querystring.telephone: "method.request.querystring.telephone"
+          integration.request.header.X-Forwarded-For: "context.identity.sourceIp"
+          integration.request.querystring.address: "method.request.querystring.address"
+        passthroughBehavior: "when_no_match"
+        connectionType: "VPC_LINK"
+        connectionId: "${stageVariables.vpcLinkId}"
+        httpMethod: "ANY"
+        cacheNamespace: "0wo71p"
+        cacheKeyParameters:
+        - "method.request.path.proxy"
+        type: "http"
+  /global/admin/{proxy+}:
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-fid,x-iid,x-permission,x-request,x-pid'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        type: "mock"
+    x-amazon-apigateway-any-method:
+      parameters:
+      - name: "postal_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "receive_mode"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "state"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "asset_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "street"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-iid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Auth-Token"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Content-Type"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "address"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "city"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Headers"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "permission"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-fid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "asset_type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "geo"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Client-Cert"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "image"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "anchor_id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "funding_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-permission"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "telephone"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "instruction_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-request"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "proxy"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "currency"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Methods"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "country"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "child"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "url"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "member"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-requested-with"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "parent"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Credentials"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "x-pid"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        410:
+          description: "410 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        510:
+          description: "510 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        511:
+          description: "511 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        201:
+          description: "201 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        300:
+          description: "300 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        202:
+          description: "202 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        301:
+          description: "301 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        203:
+          description: "203 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        302:
+          description: "302 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        401:
+          description: "401 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        500:
+          description: "500 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        204:
+          description: "204 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        226:
+          description: "226 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        303:
+          description: "303 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        402:
+          description: "402 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        501:
+          description: "501 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        205:
+          description: "205 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        304:
+          description: "304 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        403:
+          description: "403 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        502:
+          description: "502 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        206:
+          description: "206 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        305:
+          description: "305 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        404:
+          description: "404 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        503:
+          description: "503 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        207:
+          description: "207 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        306:
+          description: "306 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        405:
+          description: "405 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        504:
+          description: "504 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        208:
+          description: "208 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        307:
+          description: "307 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        406:
+          description: "406 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        505:
+          description: "505 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        209:
+          description: "209 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        308:
+          description: "308 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        407:
+          description: "407 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        506:
+          description: "506 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        309:
+          description: "309 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        408:
+          description: "408 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        507:
+          description: "507 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        409:
+          description: "409 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        508:
+          description: "508 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        509:
+          description: "509 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+      x-amazon-apigateway-request-validator: "Validate query string parameters and\
+        \ headers"
+      x-amazon-apigateway-integration:
+        uri: "http://${stageVariables.global}.ww-${stageVariables.environment}.io/admin/{proxy}"
+        responses:
+          510:
+            statusCode: "510"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          511:
+            statusCode: "511"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          41\d{1}:
+            statusCode: "410"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          200:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          201:
+            statusCode: "201"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          300:
+            statusCode: "300"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          202:
+            statusCode: "202"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          301:
+            statusCode: "301"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          400:
+            statusCode: "400"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          203:
+            statusCode: "203"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          302:
+            statusCode: "302"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          401:
+            statusCode: "401"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          500:
+            statusCode: "500"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          204:
+            statusCode: "204"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          226:
+            statusCode: "226"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          303:
+            statusCode: "303"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          402:
+            statusCode: "402"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          501:
+            statusCode: "501"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          205:
+            statusCode: "205"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          304:
+            statusCode: "304"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          403:
+            statusCode: "403"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          502:
+            statusCode: "502"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          206:
+            statusCode: "206"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          305:
+            statusCode: "305"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          404:
+            statusCode: "404"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          503:
+            statusCode: "503"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          207:
+            statusCode: "207"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          306:
+            statusCode: "306"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          405:
+            statusCode: "405"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          504:
+            statusCode: "504"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          208:
+            statusCode: "208"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          307:
+            statusCode: "307"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          406:
+            statusCode: "406"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          505:
+            statusCode: "505"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          209:
+            statusCode: "209"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          308:
+            statusCode: "308"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          407:
+            statusCode: "407"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          506:
+            statusCode: "506"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          309:
+            statusCode: "309"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          408:
+            statusCode: "408"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          507:
+            statusCode: "507"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          409:
+            statusCode: "409"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          508:
+            statusCode: "508"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          509:
+            statusCode: "509"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        requestParameters:
+          integration.request.querystring.instruction_signed: "method.request.querystring.instruction_signed"
+          integration.request.querystring.receive_mode: "method.request.multivaluequerystring.receive_mode"
+          integration.request.querystring.parent: "method.request.querystring.parent"
+          integration.request.querystring.street: "method.request.querystring.street"
+          integration.request.querystring.city: "method.request.querystring.city"
+          integration.request.querystring.url: "method.request.querystring.url"
+          integration.request.querystring.country: "method.request.querystring.country"
+          integration.request.querystring.permission: "method.request.querystring.permission"
+          integration.request.querystring.currency: "method.request.querystring.currency"
+          integration.request.header.x-requested-with: "method.request.header.x-requested-with"
+          integration.request.querystring.image: "method.request.querystring.image"
+          integration.request.header.x-permission: "method.request.header.x-permission"
+          integration.request.header.Content-Type: "method.request.header.Content-Type"
+          integration.request.header.Access-Control-Allow-Headers: "method.request.header.Access-Control-Allow-Headers"
+          integration.request.querystring.asset_type: "method.request.querystring.asset_type"
+          integration.request.querystring.member: "method.request.querystring.member"
+          integration.request.header.x-request: "method.request.header.x-request"
+          integration.request.querystring.id: "method.request.querystring.id"
+          integration.request.querystring.state: "method.request.querystring.state"
+          integration.request.querystring.postal_code: "method.request.querystring.postal_code"
+          integration.request.header.x-fid: "method.request.header.x-fid"
+          integration.request.querystring.child: "method.request.querystring.child"
+          integration.request.header.Access-Control-Allow-Origin: "method.request.header.Access-Control-Allow-Origin"
+          integration.request.header.x-iid: "method.request.header.x-iid"
+          integration.request.header.X-Client-Cert: "method.request.header.X-Client-Cert"
+          integration.request.querystring.geo: "method.request.querystring.geo"
+          integration.request.querystring.funding_signed: "method.request.querystring.funding_signed"
+          integration.request.path.proxy: "method.request.path.proxy"
+          integration.request.header.Authorization: "method.request.header.Authorization"
+          integration.request.querystring.name: "method.request.querystring.name"
+          integration.request.querystring.type: "method.request.querystring.type"
+          integration.request.header.x-pid: "method.request.header.x-pid"
+          integration.request.querystring.asset_code: "method.request.querystring.asset_code"
+          integration.request.querystring.telephone: "method.request.querystring.telephone"
+          integration.request.header.X-Forwarded-For: "context.identity.sourceIp"
+          integration.request.querystring.address: "method.request.querystring.address"
+        passthroughBehavior: "when_no_match"
+        connectionType: "VPC_LINK"
+        connectionId: "${stageVariables.vpcLinkId}"
+        httpMethod: "ANY"
+        cacheNamespace: "0wo71p"
+        cacheKeyParameters:
+        - "method.request.path.proxy"
+        type: "http"
+  /local/gateway/{proxy+}:
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-fid,x-iid,x-permission,x-request,x-pid'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        type: "mock"
+    x-amazon-apigateway-any-method:
+      parameters:
+      - name: "postal_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "receive_mode"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "state"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "asset_code"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "street"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-iid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Auth-Token"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Content-Type"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "address"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "city"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Headers"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "permission"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-fid"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "asset_type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "geo"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "type"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "X-Client-Cert"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "image"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "anchor_id"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "funding_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-permission"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "telephone"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "instruction_signed"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-request"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "proxy"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "currency"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Methods"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "country"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "child"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "url"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "member"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "x-requested-with"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "parent"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Origin"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Access-Control-Allow-Credentials"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "x-pid"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        410:
+          description: "410 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        510:
+          description: "510 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        511:
+          description: "511 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        201:
+          description: "201 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        300:
+          description: "300 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        202:
+          description: "202 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        301:
+          description: "301 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        400:
+          description: "400 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        203:
+          description: "203 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        302:
+          description: "302 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        401:
+          description: "401 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        500:
+          description: "500 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        204:
+          description: "204 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        226:
+          description: "226 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        303:
+          description: "303 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        402:
+          description: "402 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        501:
+          description: "501 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        205:
+          description: "205 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        304:
+          description: "304 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        403:
+          description: "403 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        502:
+          description: "502 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        206:
+          description: "206 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        305:
+          description: "305 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        404:
+          description: "404 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        503:
+          description: "503 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        207:
+          description: "207 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        306:
+          description: "306 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        405:
+          description: "405 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        504:
+          description: "504 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        208:
+          description: "208 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        307:
+          description: "307 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        406:
+          description: "406 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        505:
+          description: "505 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        209:
+          description: "209 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        308:
+          description: "308 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        407:
+          description: "407 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        506:
+          description: "506 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        309:
+          description: "309 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        408:
+          description: "408 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        507:
+          description: "507 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        409:
+          description: "409 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        508:
+          description: "508 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        509:
+          description: "509 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+      x-amazon-apigateway-request-validator: "Validate query string parameters and\
+          \ headers"
+      x-amazon-apigateway-integration:
+        uri: "http://${stageVariables.participant}.ww-${stageVariables.environment}.io/gateway/{proxy}"
+        responses:
+          510:
+            statusCode: "510"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          511:
+            statusCode: "511"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          41\d{1}:
+            statusCode: "410"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          200:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          201:
+            statusCode: "201"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          300:
+            statusCode: "300"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          202:
+            statusCode: "202"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          301:
+            statusCode: "301"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          400:
+            statusCode: "400"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          203:
+            statusCode: "203"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          302:
+            statusCode: "302"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          401:
+            statusCode: "401"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          500:
+            statusCode: "500"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          204:
+            statusCode: "204"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          226:
+            statusCode: "226"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          303:
+            statusCode: "303"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          402:
+            statusCode: "402"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          501:
+            statusCode: "501"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          205:
+            statusCode: "205"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          304:
+            statusCode: "304"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          403:
+            statusCode: "403"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          502:
+            statusCode: "502"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          206:
+            statusCode: "206"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          305:
+            statusCode: "305"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          404:
+            statusCode: "404"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          503:
+            statusCode: "503"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          207:
+            statusCode: "207"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          306:
+            statusCode: "306"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          405:
+            statusCode: "405"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'*'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          504:
+            statusCode: "504"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          208:
+            statusCode: "208"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          307:
+            statusCode: "307"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          406:
+            statusCode: "406"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          505:
+            statusCode: "505"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          209:
+            statusCode: "209"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          308:
+            statusCode: "308"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          407:
+            statusCode: "407"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          506:
+            statusCode: "506"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          309:
+            statusCode: "309"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          408:
+            statusCode: "408"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          507:
+            statusCode: "507"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          409:
+            statusCode: "409"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          508:
+            statusCode: "508"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+          509:
+            statusCode: "509"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        requestParameters:
+          integration.request.querystring.instruction_signed: "method.request.querystring.instruction_signed"
+          integration.request.querystring.receive_mode: "method.request.multivaluequerystring.receive_mode"
+          integration.request.querystring.parent: "method.request.querystring.parent"
+          integration.request.querystring.street: "method.request.querystring.street"
+          integration.request.querystring.city: "method.request.querystring.city"
+          integration.request.querystring.url: "method.request.querystring.url"
+          integration.request.querystring.country: "method.request.querystring.country"
+          integration.request.querystring.permission: "method.request.querystring.permission"
+          integration.request.querystring.currency: "method.request.querystring.currency"
+          integration.request.header.x-requested-with: "method.request.header.x-requested-with"
+          integration.request.querystring.image: "method.request.querystring.image"
+          integration.request.header.x-permission: "method.request.header.x-permission"
+          integration.request.header.Content-Type: "method.request.header.Content-Type"
+          integration.request.header.Access-Control-Allow-Headers: "method.request.header.Access-Control-Allow-Headers"
+          integration.request.querystring.asset_type: "method.request.querystring.asset_type"
+          integration.request.querystring.member: "method.request.querystring.member"
+          integration.request.header.x-request: "method.request.header.x-request"
+          integration.request.querystring.id: "method.request.querystring.id"
+          integration.request.querystring.state: "method.request.querystring.state"
+          integration.request.querystring.postal_code: "method.request.querystring.postal_code"
+          integration.request.header.x-fid: "method.request.header.x-fid"
+          integration.request.querystring.child: "method.request.querystring.child"
+          integration.request.header.Access-Control-Allow-Origin: "method.request.header.Access-Control-Allow-Origin"
+          integration.request.header.x-iid: "method.request.header.x-iid"
+          integration.request.header.X-Client-Cert: "method.request.header.X-Client-Cert"
+          integration.request.querystring.geo: "method.request.querystring.geo"
+          integration.request.querystring.funding_signed: "method.request.querystring.funding_signed"
+          integration.request.path.proxy: "method.request.path.proxy"
+          integration.request.header.Authorization: "method.request.header.Authorization"
+          integration.request.querystring.name: "method.request.querystring.name"
+          integration.request.querystring.type: "method.request.querystring.type"
+          integration.request.header.x-pid: "method.request.header.x-pid"
+          integration.request.querystring.asset_code: "method.request.querystring.asset_code"
+          integration.request.querystring.telephone: "method.request.querystring.telephone"
+          integration.request.header.X-Forwarded-For: "context.identity.sourceIp"
+          integration.request.querystring.address: "method.request.querystring.address"
+        passthroughBehavior: "when_no_match"
+        connectionType: "VPC_LINK"
+        connectionId: "${stageVariables.vpcLinkId}"
+        httpMethod: "ANY"
+        cacheNamespace: "0wo71p"
+        cacheKeyParameters:
+        - "method.request.path.proxy"
+        type: "http"
+definitions:
+  Empty: {}
+x-amazon-apigateway-request-validators:
+  Validate query string parameters and headers:
+    validateRequestParameters: true
+    validateRequestBody: false

@@ -1,0 +1,19 @@
+title: comparison
+description: Comparison
+type: object
+required:
+  - operator
+  - threshold
+properties:
+  operator:
+    type: string
+    description: >
+      The type of logical comparison. The default option is "eq" (equal to), but other options include "gt" (greater than), "lt" (less than), "ge" (greater than or equal to), and "le" (less than or equal to).
+  threshold:
+    type: number
+    minimum: 1
+    description: The amount you want to compare.
+    x-nullable: true
+externalDocs:
+  url: '#/definitions/comparison'
+x-go-name: Comparison

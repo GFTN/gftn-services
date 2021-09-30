@@ -1,0 +1,39 @@
+@import "~sass/ibm-style-override";
+
+.restrict-width {
+	max-width: 600px;
+}
+
+.bx--tile-content {
+    height: auto;
+}
+
+.status {
+	&.success svg {
+		fill: $support-02;
+    }
+    &.error svg {
+        fill: $support-01;
+    }
+    &.warning svg {
+        fill: $support-03;
+    }
+}
+
+.date-status {
+    height: 40px;
+    max-width: 14px;
+    min-width: 2px;
+    background-color: $support-02;
+
+    &.error {
+        background-color: $support-01
+    }
+    &.warning {
+        background-color: $support-03
+    }
+}
+
+.detailsPane {
+    background-color: $ui-01
+}

@@ -1,0 +1,46 @@
+<div fxLayout="row" class="title-container full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width">
+		<h1 id="QuickStart" class="bx--type-beta page-title">Frequently Asked Questions</h1>
+	</div>
+</div>
+
+<div fxLayout="row" class="full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width" fxLayout="column">
+		<div>
+			<p>
+				Check out some of the top questions asked when learning about World Wire.
+			</p>
+			<!-- <div class="container">
+				<div data-notification class="bx--inline-notification bx--inline-notification--info" aria-live="polite">
+					<div class="bx--inline-notification__details">
+						<svg class="bx--inline-notification__icon" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+							<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm1-3V7H7v6h2zM8 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill-rule="evenodd" />
+						</svg>
+						<div class="bx--inline-notification__text-wrapper">
+							<p class="bx--inline-notification__title">Note</p>
+							<p class="bx--inline-notification__subtitle">
+								If you haven’t already, please make sure to read through the <a href="" routerLink="../overview">World Wire Overview</a>.
+								The World Wire Overview will helps to describe the overall network and many of the terms described here.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div> -->
+
+			<div *ngFor="let category of category_questions | keyvalue">
+
+				<h3 class="bx--type-beta">{{category.key}}</h3>
+
+				<ibm-accordion>
+					<ibm-accordion-item class="text-left" [title]="question.question" *ngFor="let question of category.value; let i = index">
+						<div>
+							<p>{{question.answer}}</p>
+						</div>
+					</ibm-accordion-item>
+				</ibm-accordion>
+			</div>
+			<br>
+			<div class="margin-height"></div>
+			<div class="margin-height"></div>
+		</div>
+	</div>

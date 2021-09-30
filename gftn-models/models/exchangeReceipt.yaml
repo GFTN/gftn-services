@@ -1,0 +1,41 @@
+
+title: exchangeReceipt
+description: Exchange Receipt
+x-group-m: Models
+type: object
+required:
+  - exchange
+  - status_exchange
+  - transacted_amount_target
+  - transacted_amount_source
+  - transaction_hash
+properties:
+  exchange:
+    $ref: 'exchange.yaml'
+    externalDocs:
+      url: '#/definitions/exchange'
+    description: Exchange Request executed.
+    x-go-name: Exchange
+  status_exchange:
+    type: string
+    enum:
+      - OK
+      - Denied
+    description: Options are "OK" or "Denied".
+  time_executed:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: Timestamp when the exchange occured.
+  transacted_amount_target:
+    type: number
+    description: Transacted amount of target asset.
+  transacted_amount_source:
+    type: number
+    description: Transacted amount of source asset.
+  transaction_hash:
+    type: string
+    description: Transacted hash.
+externalDocs:
+  url: '#/definitions/exchangeReceipt'
+x-go-name: ExchangeReceipt

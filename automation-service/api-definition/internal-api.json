@@ -1,0 +1,199 @@
+{
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Automate Deployment API for World Wire Admin to deploy services to Kubernetes cluster.\n",
+    "title": "World Wire Automate Deployment Service API",
+    "version": "1.0.0"
+  },
+  "basePath": "/v1/internal",
+  "paths": {
+    "/{super_permissions}/global/deploy": {
+      "post": {
+        "description": "Deploy global services and global configurations\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Global",
+          "Deploy"
+        ],
+        "summary": "Deploy global services and global configurations",
+        "parameters": [
+          {
+            "description": "Global deployment model.",
+            "name": "global",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/automation"
+            }
+          },
+          {
+            "type": "string",
+            "description": "Permission to access the automation service endpoint.",
+            "name": "super_permissions",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Global services and configurations successfully generated"
+          },
+          "400": {
+            "description": "Error while generated global services and configurations"
+          }
+        }
+      }
+    },
+    "/{super_permissions}/kafka/deploy": {
+      "post": {
+        "description": "Deploy Kafka cluster and SSL certificate\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Kafka",
+          "Deploy"
+        ],
+        "summary": "Deploy Kafka cluster and SSL certificate",
+        "parameters": [
+          {
+            "description": "Kafka deployment model.",
+            "name": "kafka",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/automation"
+            }
+          },
+          {
+            "type": "string",
+            "description": "Permission to access the automation service endpoint.",
+            "name": "super_permissions",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Kafka Cluster and SSL certificate successfully generated"
+          },
+          "400": {
+            "description": "Error while generated Kafka Cluster and SSL certificate"
+          }
+        }
+      }
+    },
+    "/{super_permissions}/participant/deploy": {
+      "post": {
+        "description": "Deploy Participant services\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Participant",
+          "Deploy"
+        ],
+        "summary": "Deploy Participant services",
+        "parameters": [
+          {
+            "description": "Participants information.",
+            "name": "participants",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/automation"
+            }
+          },
+          {
+            "type": "string",
+            "description": "Permission to access the automation service endpoint.",
+            "name": "super_permissions",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant micro services successfully generated"
+          },
+          "400": {
+            "description": "Error while generated participant micro services"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "automation": {
+      "description": "Automation deployment model",
+      "type": "object",
+      "title": "Automation",
+      "required": [
+        "institutionId",
+        "status",
+        "env"
+      ],
+      "properties": {
+        "callbackUrl": {
+          "type": "string"
+        },
+        "countryCode": {
+          "type": "string"
+        },
+        "env": {
+          "type": "string",
+          "enum": [
+            "dev",
+            "qa",
+            "st",
+            "tn",
+            "prod"
+          ]
+        },
+        "initialized": {
+          "type": "boolean"
+        },
+        "institutionId": {
+          "type": "string"
+        },
+        "participantId": {
+          "type": "string"
+        },
+        "replica": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "configuring",
+            "configuration_failed",
+            "complete",
+            "deleted"
+          ]
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "x-go-name": "Automation",
+      "externalDocs": {
+        "url": "#/definitions/automation"
+      }
+    }
+  }
+}

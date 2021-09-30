@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "secretsmanager:GetSecretValue",
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:Query",
+                "dynamodb:UpdateItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:ap-southeast-1:<accountId>:table/<env>_Whitelist",
+                "arn:aws:secretsmanager:<region>:<accountId>:secret:<service_secret>",
+                "arn:aws:secretsmanager:<region>:<accountId>:secret:<participant_secret>"
+            ]
+        }
+    ]
+}

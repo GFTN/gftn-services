@@ -1,0 +1,67 @@
+{
+  "name": "gftn-auth-service",
+  "scripts": {
+    "deploy": "gcloud app deploy",
+    "system-test": "repo-tools test app",
+    "test": "mocha --require ts-node/register src/index.spec.ts",
+    "e2e-test": "repo-tools test deploy",
+    "start": "node ./lib/app.js"
+  },
+  "main": "lib/app.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "firebase-admin": "^8.6.1",
+    "helmet": "^3.21.1",
+    "jsonwebtoken": "^8.4.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "notp": "^2.0.3",
+    "passport": "0.2.x",
+    "passport-idaas-openidconnect-ww": "^2.0.32",
+    "thirty-two": "^1.0.2",
+    "tsoa": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/cors": "^2.8.3",
+    "@types/express": "^4.11.1",
+    "@types/express-session": "^1.15.11",
+    "@types/firebase": "^3.2.1",
+    "@types/lodash": "^4.14.104",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^11.9.4",
+    "@types/passport": "^0.4.6",
+    "@types/request-promise": "^4.1.41",
+    "chai": "^4.2.0",
+    "firebase-functions": "^3.3.0",
+    "firebase-mock": "^2.3.2",
+    "mocha": "^5.2.0",
+    "mockfirebase": "^0.12.0",
+    "sinon": "^8.1.1",
+    "sinon-chai": "^3.4.0",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.5.2"
+  },
+  "private": true,
+  "pkg": {
+    "scripts": "lib/app.js",
+    "assets": [
+      ".credentials/dev/certs/digicert-root.pem",
+      ".credentials/dev/certs/IBMid-server.crt",
+      ".credentials/dev/certs/idaas_iam_ibm_com.crt"
+    ],
+    "targets": [
+      "latest-alpine-x64"
+    ]
+  },
+  "bin": "lib/app.js",
+  "license": "Apache-2.0"
+}

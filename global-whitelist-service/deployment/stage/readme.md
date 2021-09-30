@@ -1,0 +1,1 @@
+Please create .env and awsprofile using respective template in the test/stage/proc folder, start the docker with `docker-compose up`

@@ -1,0 +1,343 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Onboarding admin API for Anchor service setup World Wire.\n",
+    "title": "World Wire Anchor onboarding Service API",
+    "version": "1.0.0"
+  },
+  "host": "anchor.worldwire.io",
+  "basePath": "/v1/anchor",
+  "paths": {
+    "/admin/anchor/assets/issued/{anchor_id}": {
+      "get": {
+        "description": "Returns a list of all your issued assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "all",
+          "assets"
+        ],
+        "summary": "List your issued assets",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Identifier of a World Wire Anchor. To get a list of all participants, make a GET request to /participants.\n",
+            "name": "anchor_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All assets issued on World Wire by this anchor participant",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/asset"
+              }
+            }
+          },
+          "404": {
+            "description": "No assets issued on World Wire by this anchor participant",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Assets"
+      }
+    },
+    "/admin/anchor/{anchor_id}/onboard/assets": {
+      "post": {
+        "description": "Creates trust line with IBM admin account",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "anchor_id",
+          "register",
+          "asset"
+        ],
+        "summary": "Registers asset issued by an anchor on world wire",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "anchor id",
+            "name": "anchor_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Asset code of the Digital Asset, should be a 3-letter ISO currency code",
+            "name": "asset_code",
+            "in": "query",
+            "required": true
+          },
+          {
+            "enum": [
+              "DA"
+            ],
+            "type": "string",
+            "description": "Asset type can only be a digital obligation (DA) since issued by a anchor participant",
+            "name": "asset_type",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The asset has been issued",
+            "schema": {
+              "$ref": "#/definitions/asset"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "The asset could NOT be issued due to error retrieving Issuing Account",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "The asset could NOT be issued due to error communicating with ledger",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/admin/anchor/{anchor_id}/register": {
+      "post": {
+        "description": "Registers anchor domain on WW participant registry with given issuing account address and generates and returns authentication token, used to generate JWT token to access apis",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "anchor_id",
+          "register"
+        ],
+        "summary": "Registers anchor domain to ww",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "anchor domain name",
+            "name": "anchor_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "RegisterAnchorRequest",
+            "description": "Anchor regsitration request",
+            "name": "registerAnchorRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/registerAnchorRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "achor domain is registered",
+            "schema": {
+              "$ref": "#/definitions/operatingAccount"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "The registration failed due to error communicating with ledger",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "409": {
+            "description": "The registration failed due to conflict with ledger",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "account": {
+      "description": "Account",
+      "type": "object",
+      "title": "account",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "description": "The address that was created on the ledger.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"address\""
+        },
+        "name": {
+          "description": "A name to identify this account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"name\""
+        }
+      },
+      "x-go-name": "Account",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    },
+    "asset": {
+      "description": "Details of the asset being transacted",
+      "type": "object",
+      "title": "asset",
+      "required": [
+        "asset_type",
+        "asset_code"
+      ],
+      "properties": {
+        "asset_code": {
+          "description": "Alphanumeric code for the asset - USD, XLM, etc",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"asset_code\""
+        },
+        "asset_type": {
+          "description": "The type of asset. Options include digital obligation, \"DO\", digital asset \"DA\", or a cryptocurrency \"native\".",
+          "type": "string",
+          "enum": [
+            "DO",
+            "DA",
+            "native"
+          ],
+          "x-go-custom-tag": "bson:\"asset_type\""
+        },
+        "issuer_id": {
+          "description": "The asset issuer's participant id.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"issuer_id\""
+        }
+      },
+      "x-go-name": "Asset",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/asset"
+      }
+    },
+    "error": {
+      "description": "Error",
+      "type": "object",
+      "title": "error",
+      "required": [
+        "message",
+        "details",
+        "time_stamp"
+      ],
+      "properties": {
+        "build_version": {
+          "description": "build version string of micro service",
+          "type": "string"
+        },
+        "code": {
+          "description": "Error code reference.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Detailed message description about error.",
+          "type": "string"
+        },
+        "message": {
+          "description": "Short message description about error.",
+          "type": "string"
+        },
+        "participant_id": {
+          "description": "participant id, same as home domain as set by environment variables",
+          "type": "string"
+        },
+        "service": {
+          "description": "name of micro service",
+          "type": "string"
+        },
+        "time_stamp": {
+          "description": "The timestamp of the occurance.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "type": {
+          "description": "Type is for query purposes, it an identifier to assist with troubleshooting where an error came from (eg, containing func name) tells us if it is originating from NotifyWWError vs. NotFound vs. some other spot",
+          "type": "string"
+        },
+        "url": {
+          "description": "Url of endpoint that failed.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "WorldWireError",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/error"
+      }
+    },
+    "operatingAccount": {
+      "description": "Account with the token",
+      "type": "object",
+      "title": "authAccount",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/account"
+        },
+        "token": {
+          "description": "auth token",
+          "type": "string"
+        }
+      },
+      "x-go-name": "AuthAccount",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    },
+    "registerAnchorRequest": {
+      "description": "register anchor id on WW",
+      "type": "object",
+      "title": "registerAnchorRequest",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "description": "The stellar address of the issuing account of the anchor, should have ibm admin account as signatory",
+          "type": "string"
+        }
+      },
+      "x-go-name": "RegisterAnchorRequest",
+      "externalDocs": {
+        "url": "#/definitions/registerAnchorRequest"
+      }
+    }
+  }
+}

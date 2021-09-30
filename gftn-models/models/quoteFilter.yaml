@@ -1,0 +1,56 @@
+title: quoteFilter
+description: >
+  A set of options you can supply to filter the results of quotes you receive from the /quotes endpoint.
+x-group-m: Models
+type: object
+required:
+properties:
+  source_asset:
+    x-nullable: true
+    type: object
+    description: The source asset used for pricing this quote
+    $ref: 'asset.yaml'
+    x-go-name: Asset
+  target_asset:
+    x-nullable: true
+    type: object
+    description: The source asset used for pricing this quote
+    $ref: 'asset.yaml'
+    x-go-name: Asset
+  exchange_rate:
+    x-nullable: true
+    type: object    
+    description: Filter by the exchange rate.
+    $ref: 'comparison.yaml'
+  status:
+    title: status
+    x-nullable: true
+    type: object    
+    description: "Filter by the status of the quote. Options include: 1,2,3,4,98,99"
+    $ref: 'comparison.yaml'
+  ofi_id:
+    x-nullable: true
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: Filter by requestor Participant's identifier.
+  rfi_id:
+    x-nullable: true
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    type: string
+    description: Filter by Participant's identifier that provided the quote.
+  time_expire_rfi:
+    x-nullable: true
+    type: object    
+    description: Filter by the time the quote expired.
+    $ref: 'comparison.yaml'
+  delete_all_quotes:
+    x-nullable: true
+    type: boolean
+    description: This one's special, so be careful! If you set this to true, it will override all other filters and delete all your quotes. Only used for delete quotes
+externalDocs:
+  url: '#/definitions/quoteFilter'
+x-go-name: QuoteFilter

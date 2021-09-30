@@ -1,0 +1,43 @@
+version: '3.5'
+networks:
+  worldwire:
+      name: worldwire
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: "pr-mongodb"
+    networks:
+      - worldwire
+    volumes:
+      - ~/pr_data/db:/data/db
+    ports:
+      - 27018:27017
+
+  pr.gftn.io:
+    image: gftn/participant-registry
+    ports:
+      - 8081:8080
+    container_name: participant-registry
+    networks:
+      - worldwire
+    depends_on:
+      - 'mongodb'
+    environment:
+      - SERVICE_VERSION=v1
+      - SERVICE_PORT=8080
+      - DB_HOST=pr-mongodb
+      - DB_PORT=27017
+      # - DB_NAME=test
+      # - DB_USER=wwUserAdmin
+      # - DB_PWD=wwgftn!*@
+      - PR_DB_NAME=registry
+      - PARTICIPANTS_DB_TABLE=participants
+      - HTTPS_SET=false
+      - DB_TIMEOUT=30
+      - PARTICIPANTS_LIST=/participant-registry/local-setup-participants-list.json
+      - SERVICE_LOG_FILE=/opt/participant-registry/logs/logs.txt
+      - SERVICE_ERROR_CODES_FILE=/opt/participant-registry/error-codes/prErrorCodes.toml
+    volumes:
+      - $GOPATH/src/github.com/GFTN/gftn-services/participant-registry/error-codes:/opt/participant-registry/error-codes
+      - $GOPATH/src/github.com/GFTN/gftn-services/participant-registry/logs:/opt/participant-registry/logs
+

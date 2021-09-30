@@ -1,0 +1,37 @@
+[
+  {
+    "category": "Accounts",
+    "question": "Can an account hold more than one type of asset?",
+    "answer": "Yes, an account can hold several types of digital assets. However, an Operating Account cannot hold a Digital Obligation.  In order to hold an asset issued by another Participant, a trust must be established between the Operating Account and that particular asset. Please note that Digital Assets, i.e. stablecoins, can only be issued using the Anchor API." 
+  },
+  {
+    "category": "Accounts",
+    "question": "Why would I use more than one Operating Account?",
+    "answer": "Some Participants will want to enable strategies to mitigate risk. For example, a Participant may want to have the funds they plan to use in upcoming transactions in a single Operating Account while additional accounts are created to hold onto assets in reserves that the Participant doesn't plan to transact with at this point in time. This would allow access to the funds for ease of operation while mitigating the risk of holding all assets in a single account."
+  },
+  {
+    "category": "Fees",
+    "question": "How are fees calculated?",
+    "answer": "Prior to making a request to the /transactions/send endpoint, the OFI must call the /fees endpoint with the details of the transaction to determine the related fees. These fees must then be included in the request."
+  },
+  {
+    "category": "Transactions",
+    "question": "Can I transact with anyone on the network?",
+    "answer": "A Participant can only transact with other registered World Wire Participants that they have whitelisted. Transactions involving Digital Obligations can only occur between the Issuer of the DO and the issuing account of a trusted counterparty."
+  },
+  {
+    "category": "Transactions",
+    "question": "What's the difference between the /transactions/send and /transactions/exchange endpoints?",
+    "answer": "While both endpoints write a transaction to the Stellar ledger and involve two Participants, they differ in two key ways.\n\nFirstly, the /transactions/send endpoint sends a payment on behalf of the sender to the RFI. This mandates the inclusion of key details on the ultimate sender and ultimate beneficiary to fulfill the regulatory and compliance checks required. On the other hand, Exchange endpoint sends money only between two Financial Institutions on the network.\n\nSecondly, whereas a /transactions/send endpoint transfers money one-way from the OFI to RFI, the /transactions/exchange endpoint actually facilitates two transactions in the opposite direction where the two FIs are completing a swap of assets on World Wire."
+  },
+  {
+    "category": "Quotes",
+    "question": "Can I cancel a quote after it is sent?",
+    "answer": "A quote can be cancelled as long as the cancellation / revocation is sent to the requesting parties before they act on the quote.  If the quote has already been acted upon by the OFI, then it can no longer be revoked." 
+  },
+  {
+    "category": "Quotes",
+    "question": "Why am I not receiving quotes back from my request?",
+    "answer": "There may be several reasons why a quote request comes back empty. Before transacting on the network with another Participant, that Participant must be added to the OFI's whitelist. World Wire will only request quotes from Participants in the OFI whitelist. A Participant also may choose to not provide a quote when requested if they do not wish to exchange their target asset for the source asset being offered by the OFI."
+  }
+]

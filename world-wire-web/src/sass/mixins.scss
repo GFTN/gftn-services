@@ -1,0 +1,60 @@
+@mixin typeText($height) {
+	line-height: $height+2px;
+	font-size: $height;
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-weight: 500;
+}
+
+@mixin code($height) {
+	line-height: $height+2px;
+	font-size: $height;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 700;
+}
+
+@mixin linearGradient($left, $right) {
+	background: $left;
+	/* Old browsers */
+	background: -moz-linear-gradient(left, $left 0%, $right 100%);
+	/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $left), color-stop(100%, $right));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, $left 0%, $right 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, $left 0%, $right 100%);
+	/* Opera 11.10+ */
+	background: -ms-linear-gradient(left, $left 0%, $right 100%);
+	/* IE10+ */
+	background: linear-gradient(to right, $left 0%, $right 100%);
+	/* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5fc8f1', endColorstr='#30588c', GradientType=1);
+	/* IE6-9 */
+}
+
+@mixin absoluteText() {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
+}
+
+// loading row gradient
+@keyframes moving-gradient {
+    0% { background-position: -250px 0; }
+    100% { background-position: 250px 0; }
+}
+
+@mixin loadingGradient() {
+	background: linear-gradient(to right, $ui-02 20%, $field-01 50%, $ui-02 80%);
+    background-size: 500px 100px;
+    animation-name: moving-gradient;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}

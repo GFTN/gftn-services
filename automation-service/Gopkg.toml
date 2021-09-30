@@ -1,0 +1,35 @@
+ignored = ["github.com/GFTN/gftn-services/send-service*"
+, "github.com/GFTN/gftn-services/api-service*"
+, "github.com/GFTN/gftn-services/administration-service*"
+, "github.com/GFTN/gftn-services/anchor-service*"
+, "github.com/GFTN/gftn-services/api-definitions*"
+, "github.com/GFTN/gftn-services/callback-service*"
+, "github.com/GFTN/gftn-services/crypto-service*"
+, "github.com/GFTN/gftn-services/fee-service*"
+, "github.com/GFTN/gftn-services/gas-service*"
+, "github.com/GFTN/gftn-services/global-whitelist-service*"
+, "github.com/GFTN/gftn-services/participant-registry"
+, "github.com/GFTN/gftn-services/payment-listener*"
+, "github.com/GFTN/gftn-services/payout-service*"
+, "github.com/GFTN/gftn-services/quotes-service*"
+, "github.com/GFTN/gftn-services/rdo*"
+, "github.com/GFTN/gftn-services/integration-tests*"
+, "github.com/GFTN/gftn-services/checkmarx*"]
+
+[[constraint]]
+  name = "github.com/gorilla/mux"
+  version = "1.7.0"
+
+[[constraint]]
+  name = "github.com/op/go-logging"
+  branch = "master"
+
+[[constraint]]
+  branch = "development"
+  name = "github.com/GFTN/gftn-services"
+  source = "git@github.ibm.com:gftn/gftn-services.git"
+
+[prune]
+  unused-packages = true
+  go-tests = true
+  non-go = true

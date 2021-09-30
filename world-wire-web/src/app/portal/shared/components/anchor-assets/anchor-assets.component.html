@@ -1,0 +1,36 @@
+<div fxLayout="row" class="row title" fxLayoutAlign="space-between center">
+	<h3 class="bx--type-gamma">Issued Assets</h3>
+</div>
+
+<ng-container *ngIf="!error">
+	<div *ngIf="issuedAssetsLoaded && accountService.issuedAssets" class="row" fxLayout="row wrap" fxLayoutGap="20px">
+		<div *ngFor="let asset of accountService.issuedAssets" class="bx--tile asset-tile" fxFlex="0 0 calc(50% - 20px)"
+			fxFlex.xs="100%">
+			<div fxFlex class="asset-title">
+				<h4 class="bx--type-delta center">
+				{{ asset.asset_code }}
+				</h4>
+			</div>
+			<div fxFlex class="pad-full">
+				<!-- TODO: REMOVE temp data. Add balances of assets once those are available. -->
+				<p>Status: Approved</p>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="issuedAssetsLoaded && !accountService.issuedAssets" class="row">
+		<div class="center italic tall">
+			No issued assets found for this participant.
+		</div>
+	</div>
+
+	<ibm-loading *ngIf="!issuedAssetsLoaded" [overlay]="false"></ibm-loading>
+</ng-container>
+
+<div *ngIf="error">
+	<ibm-notification [notificationObj]="{
+      type: 'error',
+      title: 'Server Error',
+      message: 'Could not load data from server. Please contact an administrator.'}">
+	</ibm-notification>
+</div>

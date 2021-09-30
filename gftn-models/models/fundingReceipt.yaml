@@ -1,0 +1,22 @@
+title: fundingReceipt
+description: Funding Receipt
+x-group-m: Models
+type: object
+required:
+- anchor_fund_request
+- transaction_receipt
+properties:
+  details_funding:
+    type: object
+    description: >
+      The details of the stablecoin funding the Anchor will send to the Participant.
+    $ref: 'funding.yaml'
+    x-go-name: Funding
+  receipt_funding:
+    type: object
+    description: The receipt for the funding transaction.
+    $ref: 'transactionReceipt.yaml'
+    x-go-name: TransactionReceipt
+externalDocs:
+  url: '#/definitions/fundingReceipt'
+x-go-name: FundingReceipt

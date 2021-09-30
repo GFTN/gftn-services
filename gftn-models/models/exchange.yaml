@@ -1,0 +1,30 @@
+
+title: exchange
+description: Exchange
+x-group-m: Models
+type: object
+required:
+  - quote
+  - amount
+  - account_name_send
+  - account_name_receive
+properties:
+  quote:
+    description: >
+      Quote provided by participant for the given asset pair.
+    $ref: 'quote.yaml'
+    x-go-name: Quote
+  account_name_send:
+    description: >
+      OFI Participant operating or issuing account for source asset transmit.
+    type: string
+  account_name_receive:
+    description: >
+      OFI Participant operating or issuing account for receiving target asset.
+    type: string
+  amount:
+    description: Amount of source asset to be exchanged.
+    type: number
+externalDocs:
+  url: '#/definitions/exchange'
+x-go-name: Exchange

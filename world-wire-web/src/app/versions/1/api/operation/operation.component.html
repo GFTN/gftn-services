@@ -1,0 +1,116 @@
+<div fxLayout="column">
+
+	<div fxLayout="column" fxLayout.gt-md="row" [id]="swaggerService.jumpText('path', navPath.operationType, navPath.pathName)">
+
+		<div fxLayout="column" fxFlex="none" fxFlex.gt-md fxLayoutAlign="start center">
+			<div class="restrict-width margin-width">
+				<div ngClass.gt-xs="margin-width margin-height" fxLayout="column" fxLayoutGap="10px">
+
+					<h2 class="route bx--type-beta break-word">{{navPath.operation.summary}}</h2>
+
+					<!-- TODO: navPath.operationType to be removed and add to popover for curl tab in the future -->
+					<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+						<span class="op-type bx--type-delta cap">{{navPath.operationType}}</span>
+						<span class="bx--type-gamma">{{navPath.operation['x-base-url'] + swaggerService._jsonSpec.basePath + navPath.pathName}}</span>
+					</div>
+
+					<div fxLayout="row">
+						<span class="bx--tag bx--tag--experimental" *ngIf="navPath.operation.deprecated">Deprecated</span>
+						<div *ngIf="navPath.operation.tags">
+							<span class="bx--tag bx--tag--ibm cap" *ngFor="let t of navPath.operation.tags">{{t}}</span>
+						</div>
+					</div>
+
+					<div>
+						<p markdown ngPreserveWhitespaces *ngIf="navPath.operation.description" [data]="markdown" class="no-margin"></p>
+					</div>
+
+					<div>
+
+						<div>
+
+							<div fxLayout="row" fxLayoutAlign="start end">
+								<span class="bx--type-gamma">Request</span>
+								<span fxFlex></span>
+							</div>
+
+							<div *ngIf="!navPath.operation.parameters || navPath.operation?.parameters?.length === 0">
+								<span class="bx--type-omega">
+									No parameters
+								</span>
+							</div>
+
+							<div *ngIf="navPath.operation.parameters && navPath.operation?.parameters?.length > 0" fxLayout="column" fxLayoutGap="10px">
+
+								<section class="bx--structured-list">
+									<div class="bx--structured-list-thead">
+										<div class="bx--structured-list-row bx--structured-list-row--header-row">
+											<div class="bx--structured-list-th">Name</div>
+											<div class="bx--structured-list-th">Type</div>
+											<div class="bx--structured-list-th pad-left">
+												<span>
+													Description
+												</span>
+												<span fxFlex></span>
+												<div *ngIf="navPath.operation.consumes" fxLayout="column" fxLayoutAlign="end end">
+													<span class="bx--type-caption">Consumes</span>
+													<span *ngFor="let c of navPath.operation.consumes">{{c}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="bx--structured-list-tbody" *ngFor="let o of navPath.operation.parameters" app-parameters
+									 [parametersDef]="o">
+
+									</div>
+								</section>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="table-responsive-wrapper">
+
+						<div>
+
+							<div fxLayout="row" fxLayoutAlign="start end">
+								<span class="bx--type-gamma">Response</span>
+								<span fxFlex></span>
+							</div>
+
+							<section class="bx--structured-list">
+								<div class="bx--structured-list-thead">
+									<div class="bx--structured-list-row bx--structured-list-row--header-row">
+										<div class="bx--structured-list-th tight">Status</div>
+										<div class="bx--structured-list-th expand">
+											<span class="pad-left">
+												Return
+											</span>
+											<span fxFlex></span>
+											<div *ngIf="navPath.operation.produces" fxLayout="column" fxLayoutAlign="end end">
+												<span class="bx--type-caption">Produces</span>
+												<span *ngFor="let p of navPath.operation.produces">{{p}}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div *ngFor="let r of responseArr; index as i" app-response [responseCode]="r" [responseDef]="navPath.operation.responses[r]"
+								 class="bx--structured-list-tbody"></div>
+							</section>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-dark sandbox" fxFlex="100%" fxFlex.gt-sm="50%" *ngIf="false">
+			<!-- <app-sandbox [operationType]="navPath.operationType" [navPath.operation]="navPath.operation" [pathName]="navPath.pathName"></app-sandbox> -->
+		</div>
+
+	</div>
+
+</div>

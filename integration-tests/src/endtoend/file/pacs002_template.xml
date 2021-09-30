@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<Message xmlns="urn:worldwire">
+		<AppHdr>
+            <Fr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+                <FIId>
+                    <FinInstnId>
+                        <BICFI>$HEADER_BIC</BICFI>
+                        <Othr>
+                            <Id>$HEADER_SENDER_ID</Id>
+                        </Othr>
+                    </FinInstnId>
+                </FIId>
+            </Fr>
+            <To xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+                <FIId>
+                    <FinInstnId>
+                        <BICFI>WORLDWIRE00</BICFI>
+                        <Othr>
+                            <Id>WW</Id>
+                        </Othr>
+                    </FinInstnId>
+                </FIId>
+            </To>
+			<BizMsgIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">BUSINESS_MSG_ID</BizMsgIdr>
+			<MsgDefIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">pacs.002.001.09</MsgDefIdr>
+			<CreDt xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">$HEADER_TX_CREATE_TIMEZ</CreDt>
+		</AppHdr>
+		<FIToFIPmtStsRpt>
+			<GrpHdr xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.09">
+				<MsgId>$MSG_ID</MsgId>
+				<CreDtTm>$TX_CREATE_TIME</CreDtTm>
+				<InstgAgt>
+					<FinInstnId>
+						<BICFI>$INSTG_BIC</BICFI>
+						<Othr>
+							<Id>$INSTG_ID</Id>
+						</Othr>
+					</FinInstnId>
+				</InstgAgt>
+				<InstdAgt>
+					<FinInstnId>
+						<BICFI>$INSTD_BIC</BICFI>
+						<Othr>
+							<Id>$INSTD_ID</Id>
+						</Othr>
+					</FinInstnId>
+				</InstdAgt>
+			</GrpHdr>
+			<TxInfAndSts xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.09">
+				<OrgnlInstrId>$ORI_INSTR_ID</OrgnlInstrId>
+				<OrgnlEndToEndId>$ORI_END_TO_END_ID</OrgnlEndToEndId>
+				<OrgnlTxId>$ORI_TX_ID</OrgnlTxId>
+				<TxSts>ACTC</TxSts>
+				<ChrgsInf>
+					<Amt Ccy="$CHARGS_ASSET_CODE">$CHARGS_AMOUNT</Amt>
+					<Agt>
+						<FinInstnId>
+							<BICFI>$ISSUER_BIC</BICFI>
+							<Othr>
+								<Id>$ISSUER_ID</Id>
+							</Othr>
+						</FinInstnId>
+					</Agt>
+				</ChrgsInf>
+				<OrgnlTxRef>
+					<IntrBkSttlmAmt Ccy="$ORI_SETTLE_ASSET_CODE">$ORI_SETTLE_AMOUNT</IntrBkSttlmAmt>
+				</OrgnlTxRef>
+				<SplmtryData>
+					<PlcAndNm>/Message/FIToFIPmtStsRpt/TxInfAndSts/Issr</PlcAndNm>
+					<Envlp>
+						<Id>$RECEIVER_ID</Id>
+					</Envlp>
+				</SplmtryData>
+				<SplmtryData>
+					<PlcAndNm>/Message/FIToFIPmtStsRpt/TxInfAndSts/SttlmAcctAddr</PlcAndNm>
+					<Envlp>
+						<Id>$RECEIVE_ACCOUNT_ADDRESS</Id>
+					</Envlp>
+				</SplmtryData>
+				<SplmtryData>
+					<PlcAndNm>/Message/FIToFIPmtStsRpt/TxInfAndSts/PayToRef</PlcAndNm>
+					<Envlp>
+						<Id>7777</Id>
+					</Envlp>
+				</SplmtryData>
+			</TxInfAndSts>
+		</FIToFIPmtStsRpt>
+	</Message>

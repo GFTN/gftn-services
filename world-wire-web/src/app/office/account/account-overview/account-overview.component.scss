@@ -1,0 +1,68 @@
+@import "~sass/ibm-style-override";
+@import "~sass/grid";
+
+// need ng-deep to style data bound elements
+::ng-deep {
+	.icon {
+		width: 60%;
+
+		svg {
+			fill: $text-01;
+			max-width: 80px;
+		}
+	}
+}
+
+.picture {
+	width: 120px;
+	.circle {
+		border-color: $ui-03;
+		background-color: $inverse-02;
+		background-size: 60%;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-image: url('/assets/branding/blockchain_photo_bg.svg');
+	}
+}
+
+.account-tool {
+	width: calc(100%/6 - 20px);
+	padding-bottom: calc(100%/6 - 20px);
+	margin-bottom: 20px;
+	position: relative;
+
+	&.md {
+		width: calc(100%/4 - 20px);
+		padding-bottom: calc(100%/4 - 20px);
+	}
+
+	&.xs {
+		width: calc(100%/3 - 20px);
+		padding-bottom: calc(100%/3 - 20px);
+	}
+
+	.tool-content {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+	}
+}
+
+.status {
+    margin: 5px 8px 5px 5px;
+    fill: $support-02;
+    &.suspended {
+        fill: $support-01;
+    }
+    &.pending {
+        fill: $support-03;
+    }
+}
+
+.bx--link {
+	&.bx--toolbar-action {
+        border-bottom: none;
+	}
+}

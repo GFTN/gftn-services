@@ -1,0 +1,72 @@
+$nav-color: transparent;
+
+// limits the page's maximum width
+$max-width: 1440px;
+
+// min-padding for mobile device viewing
+$min-padding: 10px;
+
+#modal-side-nav {
+	.bx--modal-header{
+		// padding-top creates space below x (close) modal button
+		padding-top: $min-padding;
+	}
+	.bx--modal-container {
+		top: 0;
+		left: 0;
+		position: absolute;
+		height: 100vh;
+		padding: 10px;
+		width: 100%;
+		max-width: 300px;
+		min-width: 150px;
+		max-height: 100vh;
+		min-height: 100vh;
+	}
+
+}
+
+.filler-header {
+	min-height: 50px; // background-color: blue
+}
+
+.filler-footer {
+	height: 58px; // background-color: red
+}
+
+.bx--modal.is-visible {
+	transition: 200ms;
+	left: 0;
+}
+
+.bx--modal{
+	left:-300px;
+	opacity: 1;
+}
+
+.outer {
+	min-height: 100vh;
+	padding: 0 $min-padding; // left and right min-padding (for mobile viewing)
+	&.fixed-nav {
+		padding-top: 60px; // padding to move down page text below fixed toolbar
+		nav {
+			z-index: 1000;
+			height: 50px;
+			padding: $min-padding; // left and right min-padding (for mobile viewing)
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			max-width: 100% // max-width: 100% - overrides min-width and prevents distorting nav on very large screens
+		}
+	}
+
+	nav {
+		background-color: $nav-color;
+		padding: $min-padding 0; // set top and bottom min-padding
+	}
+}
+
+.content {
+	position: relative;
+}

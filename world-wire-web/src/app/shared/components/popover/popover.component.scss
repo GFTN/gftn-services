@@ -1,0 +1,73 @@
+
+@import '~sass/ibm-style-override';
+
+.popover {
+	position: absolute;
+	background: white;
+	top: calc(100% - 5px);
+    display: block;
+    padding: 0;
+
+    // z-index must be:
+    // < 7000 for dropdown to show
+    // < 1000 for nav to show
+    z-index: 800;
+
+    // width is necessary to calculate absolute positioning
+    width: calc(100% - 250px - 30px);
+
+    &.mobile {
+        width: calc(100% - 30px);
+
+        // set max-width to account for fixed width
+        max-width: calc(100% - 30px);
+    }
+
+    // override focus style for popover
+    &:focus {
+        outline: none;
+    }
+
+	.bx--label {
+		text-align: right;
+	}
+
+    // custom implementation of overflow menu arrow
+    // in order to have separate positioning from menu
+    // pulled from bx--overflow-menu-options:before
+	.arrow {
+		content: '';
+		position: absolute;
+		display: block;
+		width: 0.5rem;
+		height: 0.5rem;
+		z-index: -1;
+		-webkit-transform: rotate(45deg);
+		transform: rotate(45deg);
+		background-color: #ffffff;
+		border-top: 1px solid #f0f3f6;
+		border-left: 1px solid #f0f3f6;
+		top: -5px;
+        right: 24px;
+
+        &.left {
+            left: 24px;
+            right: auto;
+        }
+    }
+
+    .content {
+        padding: 0.25rem 0 0.5rem
+    }
+}
+
+// bx--overflow-menu-options override
+.popover::before {
+	display: none;
+}
+
+.actionItems {
+    border-top: 1px solid $ui-03;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

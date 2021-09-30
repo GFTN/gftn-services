@@ -1,0 +1,8 @@
+<div class="bx--tooltip--icon" [ngClass]="icon ? '': 'noIcon'">
+	<button class="bx--tooltip__trigger bx--tooltip--icon__top">
+        <svg width="16" height="16">
+          <use [attr.xlink:href]="iconPath"></use>
+        </svg>
+        <div class="tooltip-def"><p>{{tooltipContent}}</p></div>
+    </button>
+</div>

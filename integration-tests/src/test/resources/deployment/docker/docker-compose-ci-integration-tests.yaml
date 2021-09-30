@@ -1,0 +1,106 @@
+version: '2'
+
+services:
+
+  odfi.payments.gftn.io:
+    image: gftn/configuration-responder
+    ports:
+      - "80:80"
+    container_name: odfi_configuration_responder
+    environment:
+      - SERVICE_PORT=80
+      - STELLAR_CONFIG_REMAP=rdfi.payments.gftn.io->rdfi.payments.gftn.io:81
+      - STELLAR_CONFIG_SCHEME=http
+    volumes:
+      - ./configuration_responder/odfi:/opt/configuration-responder/configuration
+
+  mockfi.odfi.payments.gftn.io:
+    image: gftn/mock-fi-service
+    ports:
+      - "8081:8081"
+    container_name: odfi_mock_fi_service
+    environment:
+      - SERVICE_PORT=8081
+
+  api.odfi.payments.gftn.io:
+    image: gftn/api-service
+    ports:
+      - "8080:8080"
+    container_name: odfi_api_service
+    environment:
+      - SERVICE_PORT=8080
+
+  federation.odfi.payments.gftn.io:
+    image: gftn/federation-service
+    ports:
+      - "11001:11001"
+    container_name: odfi_federation_service
+    environment:
+      - SERVICE_PORT=11001
+
+  horizon.odfi.payments.gftn.io:
+    image: stellar/quickstart
+    ports:
+      - "8000:8000"
+      - "11625:11625"
+      - "11626:11626"
+    container_name: odfi_horizon_stellar_core
+    command: --testnet
+
+
+  rdfi.payments.gftn.io:
+    image: gftn/configuration-responder
+    ports:
+      - "81:80"
+    container_name: rdfi_configuration_responder
+    environment:
+      - SERVICE_PORT=80
+    volumes:
+          - ./configuration_responder/rdfi:/opt/configuration-responder/configuration
+
+  mockfi.rdfi.payments.gftn.io:
+    image: gftn/mock-fi-service
+    ports:
+      - "8091:8081"
+    container_name: rdfi_mock_fi_service
+    environment:
+      - SERVICE_PORT=8081
+
+  api.rdfi.payments.gftn.io:
+    image: gftn/api-service
+    ports:
+      - "8090:8080"
+    container_name: rdfi_api_service
+    environment:
+      - SERVICE_PORT=8080
+
+  federation.rdfi.payments.gftn.io:
+    image: gftn/federation-service
+    ports:
+      - "12001:12001"
+    container_name: rdfi_federation_service
+    environment:
+      - SERVICE_PORT=12001
+
+  horizon.rdfi.payments.gftn.io:
+    image: stellar/quickstart
+    ports:
+      - "9000:8000"
+      - "12625:11625"
+      - "12626:11626"
+    container_name: rdfi_horizon_stellar_core
+    command: --testnet
+
+  integration_tests:
+    image: gftn/integration-tests
+    depends_on:
+      - api.odfi.payments.gftn.io
+      - federation.odfi.payments.gftn.io
+    container_name: integration-tests
+    hostname: gftntester
+    links:
+      - "federation.odfi.payments.gftn.io"
+    environment:
+      - FEDERATION_SERVICE_INTERNAL_API_BASE_URL=http://federation.odfi.payments.gftn.io:11001
+    command: bash -c "sleep 15; ./gradlew build"
+

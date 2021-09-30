@@ -1,0 +1,14 @@
+
+[DISTRIBUTION_ACCOUNTS]
+
+  [DISTRIBUTION_ACCOUNTS.doesntexist]
+    NODE_ADDRESS = "FakeOperatingAccount"
+    NODE_SEED = "(seed value)"
+
+[IBM_TOKEN_ACCOUNT]
+  NODE_ADDRESS = "FakeIBMAcc"
+  NODE_SEED = "(seed value)"
+
+[ISSUING_ACCOUNT]
+  NODE_ADDRESS = "FakeIssuingAccount"
+  NODE_SEED = "(seed value)"

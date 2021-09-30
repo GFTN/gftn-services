@@ -1,0 +1,30 @@
+.assetRow {
+	.bx--checkbox-wrapper {
+		max-width: 85px;
+	}
+
+	.bx--form-item {
+		margin-top: 0
+	}
+
+	.bx--text-input-wrapper {
+		input {
+			min-width: 0;
+		}
+	}
+}
+
+.wrap {
+	.assetRow {
+		width: calc(50% - 10px);
+
+		&:nth-of-type(odd) {
+			margin-right: 20px;
+		}
+	}
+}
+
+ibm-loading {
+	// conflicts with modal
+	z-index: 9000;
+}

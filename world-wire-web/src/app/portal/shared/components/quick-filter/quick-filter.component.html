@@ -1,0 +1,31 @@
+<div *ngIf="currentData !== allData">
+	<a class="bx--link" (click)="resetFilters()">Reset Filters x</a>
+  <div class="space"></div>
+  <div class="space"></div>
+</div>
+
+<div fxLayout="column" [fxLayout.sm]="smLayout" fxLayoutGap.gt-sm="30px" fxLayoutGap.lt-md="10px">
+	<div class="" ngClass.xs="row" [ngClass.sm]="smLayoutStyle" fxFlex *ngFor="let filter of filters | keyvalue">
+		<div fxLayout="row" fxLayoutAlign="space-between">
+			<label class="bx--label">{{filter.value.name}}</label>
+			<span *ngIf="getCheckedOptions(filter.value.options)" class="bx--tag" (click)="clearFilterOptions(filter.value.options)">{{getCheckedOptions(filter.value.options) + ' x'}}</span>
+		</div>
+
+		<!-- Checkboxes -->
+		<div *ngFor="let option of filter.value.options; let i = index;" class="bx--form-item bx--checkbox-wrapper"
+			fxLayout="row" fxLayoutAlign="start center">
+			<input
+                  #filterOption
+                  type="checkbox"
+                  class="bx--checkbox"
+                  [id]="filter.key + '-' + i"
+                  name="filter-option"
+                  [(ngModel)]="option.checked"
+                  (change)="this.changed.emit(this.filters)"
+                  />
+			<label class="bx--checkbox-label" [for]="filter.key + '-' + i">{{option.name}}</label>
+		</div>
+		<!-- NO filter options -->
+		<div *ngIf="filter.value.options.length == 0" class="italic">No options to filter by.</div>
+	</div>
+</div>

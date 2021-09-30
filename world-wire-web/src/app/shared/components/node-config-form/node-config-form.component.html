@@ -1,0 +1,298 @@
+<div *ngIf="configSteps" fxLayout="column" class="margin-height margin-width">
+	<ibm-progress-indicator [steps]="configSteps">
+	</ibm-progress-indicator>
+</div>
+<form #configForm="ngForm" (ngSubmit)="sendFormData(configForm)">
+	<div class="margin-height" fxLayout="column">
+		<!-- show current config step if enabled -->
+		<div *ngIf="configSteps">
+			<h3 class="bx--type-beta">{{ configSteps[currentStep].title }}</h3>
+			<p *ngIf="configSteps[currentStep].description" class="margin-height">
+				{{ configSteps[currentStep].description }}</p>
+			<div class="margin-height"></div>
+		</div>
+
+		<!-- FIRST STEP -->
+		<!-- <div *ngIf="configSteps" [fxShow]="currentStep == 0" class="margin-width" fxLayout="column" ngClass.gt-sm="form-max">
+				<div class="bx--form-item">
+					<ibm-dropdown #regionDropdown="ngModel" name="region" placeholder="Region" [(ngModel)]="configData.region" value="value"
+					 [attr.data-invalid]="!(regionDropdown.valid || regionDropdown.untouched) ? true: null" [theme]="theme" required>
+						<ibm-dropdown-list [items]="regionOptions"></ibm-dropdown-list>
+					</ibm-dropdown>
+					<div *ngIf="regionDropdown.errors?.required" class="bx--form-requirement">
+						Region is required
+					</div>
+				</div>
+			</div> -->
+
+		<!-- SECOND STEP -->
+		<div *ngIf="configSteps" [fxShow]="currentStep == 0" class="margin-width" fxLayout="column"
+			ngClass.gt-sm="form-max">
+
+			<div class="bx--form-item" fxFlex="none" [fxFlex.gt-sm]="row ? '0 0 calc(50% - 20px)' : 'none'">
+				<label for="environment" class="bx--label">Participant Role <span class="text-danger">*</span></label>
+				<ibm-dropdown #roleModel="ngModel" name="role" placeholder="Participant Role"
+					[(ngModel)]="configData.role" [appendInline]="true" value="value"
+					[attr.data-invalid]="!(roleModel.valid || roleModel.untouched) ? true: null" [theme]="theme"
+					[disabled]="row" required>
+					<ibm-dropdown-list [items]="participantRoleOptions"></ibm-dropdown-list>
+				</ibm-dropdown>
+				<div *ngIf="roleModel.errors?.required" class="bx--form-requirement">
+					Participant Role is required
+				</div>
+			</div>
+
+			<div class="bx--form-item" fxFlex="none" [fxFlex.gt-sm]="row ? '0 0 calc(50% - 20px)' : 'none'">
+				<label class="bx--label">BIC Code <span class="text-danger">*</span></label>
+				<input ibmText [theme]="theme" #bicModel="ngModel" name="bic" type="text"
+					[attr.data-invalid]="!(bicModel.valid || bicModel.untouched) ? true : null" placeholder="IBMAUSA1234"
+					[disabled]="row" [(ngModel)]="configData.bic" minlength="11" maxlength="11"
+					[pattern]="regexes.bic.pattern" required>
+				<!-- REQUIRED for both MM and IS -->
+				<div *ngIf="bicModel.errors?.required" class="bx--form-requirement">
+					BIC Code is required
+				</div>
+				<div *ngIf="bicModel.errors?.minlength || bicModel.errors?.maxlength" class="bx--form-requirement">
+					BIC Code must be exactly 11 characters
+				</div>
+				<div *ngIf="bicModel.errors?.pattern" class="bx--form-requirement">{{ regexes.bic.validationText }}
+				</div>
+			</div>
+
+			<div class="bx--form-item">
+				<label for="text-input-4" class="bx--label">Participant Name <span class="text-danger">*</span></label>
+				<div class="bx--form__helper-text">
+					This will serve as the base for the participant ID
+					({{ (configData.environment == 'prod') ? 32 : 29 }}
+					characters
+					maximum)
+				</div>
+				<input ibmText [theme]="theme" #participantIdBase="ngModel" #participantIdBaseElement
+					name="participantIdBase" type="text"
+					[attr.data-invalid]="!(participantIdBase.valid || participantIdBase.untouched) ? true : null"
+					placeholder="participant-a" [(ngModel)]="configData.participantIdBase"
+					[maxlength]="(configData.environment == 'prod') ? 32 : 29"
+					[disabled]="(currentStep == 0) ? false : true" appParticipantIdValid
+					[participantIdVal]="getParticipantId()" required>
+				<div *ngIf="participantIdBase.errors?.participantIdExists" class="bx--form-requirement">
+					Participant Name already exists for this environment. Please choose another.
+				</div>
+				<div *ngIf="participantIdBase.errors?.required" class="bx--form-requirement">
+					Participant Name is required
+				</div>
+				<div *ngIf="participantIdBase.errors?.maxlength" class="bx--form-requirement">
+					Participant Name can only be a maximum of {{ (configData.environment == 'prod') ? 32 : 29 }}
+					characters
+				</div>
+			</div>
+
+			<div class="margin-height">
+				<label class="bx--label">Participant ID:</label> {{ getParticipantId() }}
+				<br /><br />
+				<label class="bx--label">Client API URL:</label> {{ getClientDomain() }}
+			</div>
+		</div>
+
+		<div *ngIf="!configSteps">
+			<!-- Show latest approval -->
+			<p *ngIf="latestApproval">
+				<span *ngIf="latestApproval.requestInitiatedBy"><label class="bx--label">Requested
+						By:&nbsp;</label><span>{{latestApproval.requestInitiatedBy}}</span></span>
+				<span *ngIf="latestApproval.requestApprovedBy"> | <label class="bx--label">Approved
+						By:&nbsp;</label><span>{{latestApproval.requestApprovedBy}}</span></span>
+			</p>
+		</div>
+
+		<!-- THIRD STEP -->
+		<div *ngIf="currentStep > 0 || (!configSteps && nodeService.getStatus(configData.status) !== 'pending' && nodeService.getStatus(configData.status) !== 'failed')"
+			[fxShow]="!configSteps || currentStep == 1" class="margin-width" ngClass.gt-sm="form-max-md"
+			fxLayout="column">
+			<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+				<!-- API Version: Generally editable. Only need version for actual node spinup -->
+				<!-- <div fxFlex="none" fxFlex.gt-sm="0 0 calc(50% - 20px)" class="bx--form-item">
+					<label for="environment" class="bx--label">Client API Version <span
+							class="text-danger">*</span></label>
+					<input #versionModel="ngModel" ibmText name="version" type="text" placeholder="Client API Version"
+						[(ngModel)]="configData.version"
+						[attr.data-invalid]="!(versionModel.valid || versionModel.untouched) ? true: null"
+						[theme]="theme" [disabled]="saving || this.configData.role ==='IS'" required>
+					<div *ngIf="versionModel.errors?.required" class="bx--form-requirement">
+						Client API Version is required
+					</div>
+				</div> -->
+
+				<!-- Participant ID: upon update, it is NOT editable/readonly
+							because a lot of configurations rely on this.
+							It would be easier just to delete the node and start all over. -->
+				<div fxFlex="none" fxFlex.gt-sm="0 0 calc(50% - 20px)" class="bx--form-item">
+					<label for="text-input-4" class="bx--label">Participant ID</label>
+					<!-- Participant ID: store readonly value for form submission -->
+					<input name="participantId" type="hidden" [ngModel]="configData.participantId" required>
+					<input ibmText [theme]="theme" name="participantId-readonly" type="text" placeholder="participant-a"
+						[ngModel]="configData.participantId" disabled required>
+				</div>
+				</div>
+
+				<!-- Client Callback: Generally Editable -->
+				<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+					<!-- <div fxFlex="none" fxFlex.gt-sm="0 0 calc(50% - 20px)">
+					<div class="bx--form-item">
+						<label for="text-input-4" class="bx--label">Client Callback API URL <span
+								class="text-danger">*</span></label>
+						<input ibmText [theme]="theme" #callbackUrl="ngModel" name="callbackUrl" type="url"
+							[attr.data-invalid]="(callbackUrl.errors && !defaultCallbackChecked) ? true : null"
+							placeholder="https://callback-url.com/api" [(ngModel)]="configData.callbackUrl"
+							pattern="https://.*" [disabled]="configData.useDefaultCallback || saving" required>
+						<div *ngIf="callbackUrl.errors?.required" class="bx--form-requirement">
+							Client Callback API URL is required
+						</div>
+						<div *ngIf="callbackUrl?.errors?.pattern" class="bx--form-requirement">
+							Callback URL must start with 'https://'
+						</div>
+					</div> -->
+
+					<!--  Determines whether or not to use a mock/the default callback. This is for explicitly for testing purposes in development mode. -->
+					<!-- <div class="bx--form-item bx--checkbox-wrapper">
+						<input id="defaultCallbackChecked" class="bx--checkbox" type="checkbox"
+							name="defaultCallbackChecked" [(ngModel)]="configData.useDefaultCallback"
+							(click)="updateCallback()">
+						<label for="defaultCallbackChecked" class="bx--checkbox-label">Use Default Callback?</label>
+					</div>
+				</div> -->
+
+					<div fxFlex="none" fxFlex.gt-sm="0 0 calc(50% - 20px)" class="bx--form-item">
+						<label for="text-input-4" class="bx--label">Client API URL</label>
+						<input ibmText [theme]="theme" name="participantClientURL" type="text" placeholder="participant-a"
+						[value]="getClientDomain()" disabled required>
+				</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Configuration Overview/Review after form submission -->
+			<div *ngIf="currentStep > 1 || (!configSteps && (nodeService.getStatus(configData.status) === 'pending' || nodeService.getStatus(configData.status) === 'failed'))"
+				[fxShow]="!configSteps || (configSteps && currentStep == (this.configSteps.length - 1))"
+				ngClass.gt-sm="form-max-md" fxLayout="column">
+				<ng-template [ngTemplateOutlet]="reviewTemplate"></ng-template>
+				<div class="margin-height"></div>
+			</div>
+
+			<!-- Notification Placeholder -->
+			<div class="margin-width" ngClass.gt-sm="form-max-md">
+				<div id="notification"></div>
+			</div>
+
+			<!-- spacer between buttons and form fields -->
+			<div class="margin-height"></div>
+
+			<div *ngIf="configSteps" class="margin-height margin-width" fxLayout="row">
+				<!-- Back Button for previous page -->
+				<button *ngIf="this.currentStep > 0" class="bx--btn bx--btn--secondary" type="button" (click)="previousStep()">
+			<div fxLayout="row" fxLayoutAlign="end center">
+				<span>Back</span>
+			</div>
+		</button>
+
+				<!-- Next Button for next page -->
+				<button *ngIf="this.currentStep < (this.configSteps.length - 1)" class="bx--btn bx--btn--primary" type="button"
+			[disabled]="!validForm(configForm)" (click)="nextStep(configForm)">
+			<div fxLayout="row" fxLayoutAlign="end center">
+				<span>Next</span>
+				<span class="bx--btn__icon">
+					<svg width="16" height="16" viewBox="0 0 16 16">
+						<path
+							d="M11.95 5.997L7.86 2.092 9.233.639l6.763 6.356-6.763 6.366L7.86 11.91l4.092-3.912H-.003v-2h11.952z">
+						</path>
+					</svg>
+				</span>
+			</div>
+		</button>
+
+				<!-- Submit button - spins up new node. -->
+				<button *ngIf="this.currentStep == (this.configSteps.length - 1)" class="bx--btn bx--btn--primary" type="submit"
+			[disabled]="!configForm.valid || saving || success">
+			<div fxLayout="row" fxLayoutAlign="end center">
+				<span>Start</span>
+				<span *ngIf="!saving" class="bx--btn__icon">
+					<svg width="16" height="16" viewBox="0 0 16 16">
+						<path
+							d="M11.95 5.997L7.86 2.092 9.233.639l6.763 6.356-6.763 6.366L7.86 11.91l4.092-3.912H-.003v-2h11.952z">
+						</path>
+					</svg>
+				</span>
+			</div>
+		</button>
+				<ng-template [ngTemplateOutlet]="loadingTemplate"></ng-template>
+			</div>
+
+			<!-- Approve/Reject Button for new Configuration update action (create, update, delete) -->
+			<div *ngIf="!configSteps && defaultData && defaultData.update" class="margin-height margin-width"
+				fxLayout="row" fxLayoutGap="10px">
+				<ng-container
+					*ngIf="latestApproval.requestInitiatedBy && nodeService.getStatus(configData.status).includes('pending')">
+					<button ibmButton="danger"
+				[disabled]="!validForm(configForm) || latestApproval.requestInitiatedBy === authService.userProfile.profile.email"
+				type="button" (click)="rejectFormRequest(latestApproval.key)">
+				<span>Reject</span>
+			</button>
+					<button ibmButton
+				[disabled]="!validForm(configForm) || latestApproval.requestInitiatedBy === authService.userProfile.profile.email"
+				type="submit" (click)="sendFormData(configForm)">
+				<span>Approve</span>
+			</button>
+				</ng-container>
+
+				<!-- Retry button - resends form to make initial request. Redos maker/checker process -->
+				<button ibmButton
+			*ngIf="!latestApproval.requestInitiatedBy || nodeService.getStatus(configData.status).includes('failed')"
+			type="submit" [disabled]="!validForm(configForm)" (click)="sendFormData(configForm)">
+			<div fxLayout="row" fxLayoutAlign="end center">
+				<span>Try Again</span>
+				<span *ngIf="!saving" class="bx--btn__icon">
+					<svg width="16" height="16" viewBox="0 0 16 16">
+						<path
+							d="M11.95 5.997L7.86 2.092 9.233.639l6.763 6.356-6.763 6.366L7.86 11.91l4.092-3.912H-.003v-2h11.952z">
+						</path>
+					</svg>
+				</span>
+			</div>
+		</button>
+				<ng-template [ngTemplateOutlet]="loadingTemplate"></ng-template>
+			</div>
+
+			<!-- Save Button for node configuration update -->
+			<div *ngIf="!configSteps && !(defaultData && defaultData.update)" class="margin-height margin-width"
+				fxLayout="row" fxLayoutGap="10px">
+				<button ibmButton type="submit" (click)="sendFormData(configForm)" [disabled]="!validForm(configForm)">
+			<div fxLayout="row" fxLayoutAlign="end center">
+				<span>Request Update</span>
+				<span *ngIf="!saving" class="bx--btn__icon">
+					<svg width="16" height="16" viewBox="0 0 16 16">
+						<path
+							d="M11.95 5.997L7.86 2.092 9.233.639l6.763 6.356-6.763 6.366L7.86 11.91l4.092-3.912H-.003v-2h11.952z">
+						</path>
+					</svg>
+				</span>
+			</div>
+		</button>
+				<ng-template [ngTemplateOutlet]="loadingTemplate"></ng-template>
+			</div>
+</form>
+
+<!-- Inline loader for visual feedback -->
+<ng-template #loadingTemplate>
+	<ibm-inline-loading *ngIf="showLoader" #loading loadingText="Saving settings..." successText="Settings saved!"
+		[success]="success" (onSuccess)="onSuccess()"></ibm-inline-loading>
+</ng-template>
+
+<ng-template #reviewTemplate>
+	<p *ngIf="configData.version"><label class="bx--label">Client API Version:</label> {{ configData.version }}</p>
+	<p *ngIf="configData.participantId"><label class="bx--label">Participant ID:</label> {{ configData.participantId }}
+	</p>
+	<p *ngIf="configData.role"><label class="bx--label">Participant Role:</label> {{ configData.role }}</p>
+	<p *ngIf="configData.bic"><label class="bx--label">BIC Code:</label> {{ configData.bic ? configData.bic : 'N/A' }}
+	</p>
+	<!-- <p><label class="bx--label">Participant Callback URL:</label> <span [class.italic]="configData.useDefaultCallback">
+			{{ configData.useDefaultCallback ? 'Using default' : configData.callbackUrl }}</span>
+	</p> -->
+</ng-template>

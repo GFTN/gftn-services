@@ -1,0 +1,125 @@
+<div class="margin-height"></div>
+<ng-container *ngIf="!institution">
+	<div class="margin-height margin-width" fxLayout="row">
+		<p>This participant does not exist.</p>
+	</div>
+</ng-container>
+<ng-container *ngIf="institution">
+	<div class="margin-height margin-width" fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+		<div fxLayout="column" fxLayout.xs="row" fxLayoutAlign="start center" fxFlex="30%" fxFlex.xs="100%">
+			<div class="picture">
+				<div *ngIf="institution.info.logo_url" class="circle"
+					[ngStyle]="{'background-size': 'cover', 'background-image': 'url(' + institution.info.logo_url + ')'}">
+				</div>
+				<div *ngIf="!institution.info.logo_url" class="circle"></div>
+			</div>
+
+			<div class.gt-xs="full-width" fxFlex fxLayout="column" fxLayoutAlign="start center"
+				fxLayoutAlign.xs="start start">
+				<h2 class="bx--type-beta" ngClass.gt-xs="center">{{institution.info.name}}</h2>
+				<div class="margin-width" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.xs="start center">
+					<svg [ngClass]="'status ' + institution.info.status" width="10" height="10">
+						<circle cx="5" cy="5" r="5" />
+					</svg>
+					<span class="bx--type-caption">{{institution.info.status}}</span>
+				</div>
+				<div class="space"></div>
+			</div>
+		</div>
+
+		<div fxFlex="70%" fxFlex.xs="100%" fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap="20px">
+			<!-- Billing Contact Details -->
+			<div class="bx--tile split" fxFlex="50%" fxFlex.lt-lg="100%">
+				<div class="bx--tile-header" fxLayout="row" fxLayoutAlign="space-between center">
+					<span class="bx--type-epsilon">Billing Contact</span>
+
+					<button class="bx--link bx--toolbar-action" (click)="editParticipant(institution)">
+						<span>Edit</span>
+						<span fxFlex>&nbsp;&nbsp;</span>
+						<svg class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16">
+							<path
+								d="M7.926 3.38L1.002 9.72V12h2.304l6.926-6.316L7.926 3.38zm.738-.675l2.308 2.304 1.451-1.324-2.308-2.309-1.451 1.329zM.002 9.28L9.439.639a1 1 0 0 1 1.383.03l2.309 2.309a1 1 0 0 1-.034 1.446L3.694 13H.002V9.28zM0 16.013v-1h16v1z">
+							</path>
+						</svg>
+					</button>
+				</div>
+				<div class="bx--tile-content" fxLayout="column">
+					<div class="small full-width" *ngIf="institution.info.country">{{institution.info.country}}</div>
+					<div class="small full-width" *ngIf="institution.info.address1">{{institution.info.address1}}</div>
+					<div class="small full-width" *ngIf="institution.info.address2">{{institution.info.address2}}</div>
+					<div class="small full-width" fxLayout="row" fxLayoutAlign="start center">
+						<span *ngIf="institution.info.city">{{institution.info.city}}</span>
+						<span *ngIf="institution.info.state">, {{institution.info.state}}</span>&nbsp;
+						<span *ngIf="institution.info.zip">{{institution.info.zip}}</span>
+					</div>
+					<div class="space"></div>
+				</div>
+			</div>
+
+			<!-- List of Admins -->
+			<div class="bx--tile split" fxFlex="50%" fxFlex.lt-lg="100%">
+				<div class="bx--tile-header">
+					<span class="bx--type-epsilon">Admins</span>
+				</div>
+				<div class="bx--tile-content" fxLayout="column">
+					<ng-container *ngIf="institution.users">
+						<div *ngFor="let a of utils.toArray(institution.users)">
+							<div class="small">{{a.profile.email}}</div>
+						</div>
+					</ng-container>
+					<div *ngIf="!institution.users">
+						<div class="italic">No admins have been set.
+							<a [routerLink]="'/portal/' + institution.info.slug + '/users'">Add one.</a></div>
+					</div>
+					<div class="space"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- AccountTools -->
+	<div class="margin-height margin-width">
+		<div class="row title">
+			<h3 class="bx--type-gamma">Tools</h3>
+		</div>
+		<!-- Tool Tiles -->
+		<div class="row" fxLayout="row wrap" fxLayoutGap="20px">
+			<a *ngFor="let tool of accountTools" class="account-tool bx--tile bx--tile-clickable"
+				[routerLink]="tool.link" [class.disabled]="!tool.link" ngClass.md="md" ngClass.lt-md="xs">
+				<div class="tool-content" fxLayout="column" fxLayoutAlign="center center">
+					<div fxLayout="row" fxLayoutAlign="center center">
+						<div class="icon" [innerHtml]="tool.icon | keepHtml"></div>
+					</div>
+					<div class="space"></div>
+					<p class="center title">{{tool.title}}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<!-- Suspend Participant. Only show if super user is admin -->
+	<!-- <div class="margin-height margin-width" *ngIf="hasSuperPermissions(['admin'])">
+		<div class="row title">
+			<h3 class="bx--type-gamma">Suspend Participant&nbsp;&nbsp;&nbsp;<span class="text-danger uppercase bx--type-epsilon">DANGER</span></h3>
+		</div>
+		<div class="row">
+			<p>This will:
+				- set the participant to inactive
+				- spin down ALL of the nodes of this participant and remove them from the network
+				- suspend all of the participant's stellar accounts
+			</p>
+
+			<div class="margin-height"></div>
+			<div class="margin-width margin-height">
+				<button ibmButton="danger" type="button" fxLayout="row" [disabled]="!hasSuperPermissions(['admin'])">
+				<span>Suspend Participant</span>
+				<span fxFlex></span>
+				<svg class="bx--btn__icon"  width="16" height="16" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM5 5v6h2V5H5zm4 0v6h2V5H9z"></path></svg>
+			</button>
+			</div>
+		</div>
+	</div> -->
+
+</ng-container>
+
+<div class="margin-height"></div>

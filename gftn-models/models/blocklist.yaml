@@ -1,0 +1,27 @@
+
+title: blocklist
+description: A blocklist that records all the currencies/countries/particpants that is forbidden to transact with
+type: object
+required:
+  - type
+  - value
+properties:
+  id:
+    type: string
+    description: The id of the block type
+  name: 
+    type: string
+    description: The name of the block type
+  type:
+    type: string
+    description: The type of the blocklist element
+    enum:
+      - CURRENCY
+      - COUNTRY
+      - INSTITUTION
+  value:
+    type: array
+    description: The value of the block type
+    items:
+      type: string
+x-go-name: Blocklist

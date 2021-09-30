@@ -1,0 +1,30 @@
+<div id="nav-container" fxLayout="column" class="margin-width">
+	<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between">
+
+		<a *ngIf="authService.auth.auth.currentUser; else loggedOut" class="no-line margin-width" (click)="showMenu = !showMenu" href="javascript:void(0)" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+			<svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm-5 8H4v-2.48a4.5 4.5 0 0 1 4.5-4.5l3.022.014a4.5 4.5 0 0 1 4.478 4.5V18h-1v-2.466a3.5 3.5 0 0 0-3.483-3.5l-3-.015A3.504 3.504 0 0 0 5 15.52V18z"></path></svg>
+			<!-- <div *ngIf="authService.auth.auth.currentUser?.photoURL" class="avatar" [style.backgroundImage]="'url('+ authService.auth.auth.currentUser?.photoURL +')'"></div> -->
+			<svg width="12" height="7" viewBox="0 0 12 7"><path d="M6.002 5.55L11.27 0l.726.685L6.003 7 0 .685.726 0z"></path></svg>
+		</a>
+	</div>
+	<div class="menu hide" ngClass.gt-sm="absolute" [class.hide]="!showMenu">
+		<p class="text bx--type-caption">
+			Signed in as:
+			<br/><span [title]="authService.auth.auth.currentUser? authService.auth.auth.currentUser.email : 'user@email.com'" class="bx--type-zeta bx--text-truncate--end">{{authService.auth.auth.currentUser?.displayName || authService.auth.auth.currentUser?.email}}</span>
+		</p>
+		<ul>
+			<li class="bx--overflow-menu-options__option">
+				<button class="bx--overflow-menu-options__btn" (click)="authService.signOut()">Log out</button>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<ng-template #loggedOut>
+	<button class="bx--btn bx--btn--ghost" type="button" routerLink="/login">
+		Login
+		<svg class="bx--btn__icon" width="15" height="16" viewBox="0 0 15 16"><path d="M7 0h1v8H7z"></path><path d="M10.74 1.735a7.5 7.5 0 1 1-8.45 1.371c.627-.605 1.62-1.186 2.086-1.398l.414.91c-.52.236-1.356.774-1.805 1.208a6.5 6.5 0 1 0 7.323-1.189l.432-.902z"></path></svg>
+	</button>
+</ng-template>
+
+<hr fxHide.gt-sm>

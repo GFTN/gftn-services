@@ -1,0 +1,779 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Private API for inter-component communication within the Participant's World Wire instance.",
+    "title": "WW Administration Service Internal; API",
+    "version": "1.0.0"
+  },
+  "host": "admin.gftn.io",
+  "basePath": "/v1/internal",
+  "paths": {
+    "/blocklist": {
+      "get": {
+        "description": "This endpoint will search for the existing record in the blocklist that meets the searching type\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Query blocklist record"
+        ],
+        "summary": "Called when a participant wants to lookup if a certain currency/institution/country is in the blocklist or not",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The type of the blocklist record.",
+            "name": "type",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blocklist record found"
+          },
+          "400": {
+            "description": "Blocklist record not found due to malformed payload"
+          },
+          "404": {
+            "description": "Blocklist record not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "description": "This endpoint will create a new record in the blocklist if there doesn't have an existing blocklist record\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Create new blocklist record"
+        ],
+        "summary": "Called when a currency/country/institution needs to be added into the blocklist",
+        "parameters": [
+          {
+            "description": "The blocklist record that needs to be added.",
+            "name": "blocklist",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blocklist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New blocklist record created"
+          },
+          "400": {
+            "description": "Blocklist record could not be created due to the record already exists or malformed payload"
+          },
+          "404": {
+            "description": "Blocklist record could not be created"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "description": "This endpoint will remove an existing record in the blocklist\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "delete an existing blocklist record"
+        ],
+        "summary": "Called when a currency/country/institution needs to be removed from the blocklist",
+        "parameters": [
+          {
+            "description": "The blocklist record that needs to be removed.",
+            "name": "blocklist",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blocklist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blocklist record removed"
+          },
+          "400": {
+            "description": "Blocklist record could not be removed due to malformed payload"
+          },
+          "404": {
+            "description": "No blocklist record found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/blocklist/validate": {
+      "post": {
+        "description": "This endpoint will check if the query value is in the blocklist or not.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "validate a country/currency/institution from the blocklist"
+        ],
+        "summary": "Called when a currency/country/institution needs to be validated before transaction",
+        "parameters": [
+          {
+            "description": "The blocklist record that needs to be added.",
+            "name": "blocklist",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/blocklist"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validation complete"
+          },
+          "400": {
+            "description": "Could not validate due to malformed payload"
+          },
+          "404": {
+            "description": "Blocklist record not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/fitoficct": {
+      "post": {
+        "description": "sends the details of the recently submitted fitoficct transaction to the WW Admin Service. the hash value of FItoFICCTMemoData is stored in the ledger memo field The PII data is hashed for security\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "store"
+        ],
+        "summary": "send the fitoficct transaction to WW Admin Service for storage",
+        "parameters": [
+          {
+            "description": "The fitoficct data",
+            "name": "FItoFICCTMemoData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fitoFICCTMemoData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the transactionMemoData is successfully persisted by Admin Service"
+          },
+          "400": {
+            "description": "input parameters not acceptable or some error happened",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/reactivate/{participant_id}/{account_name}": {
+      "post": {
+        "description": "sends transaction to Stellar Network using IBM account and raises the Participant's master key weight to 2, signing thresholds to [1,2,3] and adds a new SHA256 signer to the signing list",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Kill Switch",
+          "Undoes Suspend Participant",
+          "Liquidate Network Account"
+        ],
+        "summary": "Undoes suspension of a suspended Participant in WW.",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The address of the account to be re-activated.",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "The id of the participant",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account has been activated successfully."
+          },
+          "400": {
+            "description": "Input parameter not acceptable or some error happened",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error happened.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/suspend/{participant_id}/{account_name}": {
+      "post": {
+        "description": "sends transaction to Stellar Network using IBM account and SHA256 signer and make Participant's master key weight 0, threshold to [1,1,1] and removes SHA256 signer from the signing list",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Kill Switch",
+          "Suspend Participant",
+          "Liquidate Network Account"
+        ],
+        "summary": "Suspend Participant from doing any activities in WW",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The address of the account to be suspended",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "The id of the participant",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account has been suspended successfully."
+          },
+          "400": {
+            "description": "Input parameter not acceptable or some error happened",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error happened.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "post": {
+        "description": "Query transaction's details by End-to-End Id or Stellar Transaction Id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "transaction status",
+          "transaction details"
+        ],
+        "summary": "Query transactions",
+        "parameters": [
+          {
+            "description": "Request containing ID, type and domain details to query transactions.",
+            "name": "FItoFITransactionRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fitoFITransactionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Valid Transaction details according to the ID provided",
+            "schema": {
+              "$ref": "#/definitions/transaction"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "No data found for the criteria quried.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "asset": {
+      "description": "Details of the asset being transacted",
+      "type": "object",
+      "title": "asset",
+      "required": [
+        "asset_type",
+        "asset_code"
+      ],
+      "properties": {
+        "asset_code": {
+          "description": "Alphanumeric code for the asset - USD, XLM, etc",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"asset_code\""
+        },
+        "asset_type": {
+          "description": "The type of asset. Options include digital obligation, \"DO\", digital asset \"DA\", or a cryptocurrency \"native\".",
+          "type": "string",
+          "enum": [
+            "DO",
+            "DA",
+            "native"
+          ],
+          "x-go-custom-tag": "bson:\"asset_type\""
+        },
+        "issuer_id": {
+          "description": "The asset issuer's participant id.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"issuer_id\""
+        }
+      },
+      "x-go-name": "Asset",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/asset"
+      }
+    },
+    "blocklist": {
+      "description": "A blocklist that records all the currencies/countries/particpants that is forbidden to transact with",
+      "type": "object",
+      "title": "blocklist",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "id": {
+          "description": "The id of the block type",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the block type",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the blocklist element",
+          "type": "string",
+          "enum": [
+            "CURRENCY",
+            "COUNTRY",
+            "INSTITUTION"
+          ]
+        },
+        "value": {
+          "description": "The value of the block type",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-name": "Blocklist"
+    },
+    "error": {
+      "description": "Error",
+      "type": "object",
+      "title": "error",
+      "required": [
+        "message",
+        "details",
+        "time_stamp"
+      ],
+      "properties": {
+        "build_version": {
+          "description": "build version string of micro service",
+          "type": "string"
+        },
+        "code": {
+          "description": "Error code reference.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Detailed message description about error.",
+          "type": "string"
+        },
+        "message": {
+          "description": "Short message description about error.",
+          "type": "string"
+        },
+        "participant_id": {
+          "description": "participant id, same as home domain as set by environment variables",
+          "type": "string"
+        },
+        "service": {
+          "description": "name of micro service",
+          "type": "string"
+        },
+        "time_stamp": {
+          "description": "The timestamp of the occurance.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "type": {
+          "description": "Type is for query purposes, it an identifier to assist with troubleshooting where an error came from (eg, containing func name) tells us if it is originating from NotifyWWError vs. NotFound vs. some other spot",
+          "type": "string"
+        },
+        "url": {
+          "description": "Url of endpoint that failed.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "WorldWireError",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/error"
+      }
+    },
+    "fee": {
+      "description": "Fee",
+      "type": "object",
+      "title": "fee",
+      "required": [
+        "cost",
+        "cost_asset"
+      ],
+      "properties": {
+        "cost": {
+          "description": "The fee amount, should be a float64 number",
+          "type": "number",
+          "multipleOf": 1e-7,
+          "x-go-custom-tag": "bson:\"cost\""
+        },
+        "cost_asset": {
+          "$ref": "#/definitions/asset"
+        }
+      },
+      "x-go-name": "Fee",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/fee"
+      }
+    },
+    "fitoFICCTMemoData": {
+      "description": "FI to FI CCT Memo Data - the hash value of this will be stored in the transaction memo field",
+      "type": "object",
+      "title": "fitoFICCTMemoData",
+      "required": [
+        "fitoficct_non_pii_data",
+        "fitoficct_pii_hash",
+        "message_type",
+        "ofi_id",
+        "transaction_status",
+        "time_stamp"
+      ],
+      "properties": {
+        "fitoficct_non_pii_data": {
+          "$ref": "#/definitions/fitoFICCTNonPiiData"
+        },
+        "fitoficct_pii_hash": {
+          "description": "The hash value of the FI to FI CCT Pii Data",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"fitoficct_pii_hash\""
+        },
+        "id": {
+          "description": "Unique autogenerate ID for mongoDB primary key",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"_id\""
+        },
+        "message_type": {
+          "description": "This is the message type of the transaction request",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"message_type\""
+        },
+        "ofi_id": {
+          "description": "The participant id of the OFI (payment sender)",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"ofi_domain\""
+        },
+        "time_stamp": {
+          "description": "The timestamp for this transaction",
+          "type": "number",
+          "format": "int64",
+          "x-go-custom-tag": "bson:\"time_stamp\"",
+          "example": 1547092408123
+        },
+        "transaction_identifier": {
+          "description": "This is the unique id for this transaction generated by the distributed ledger (but not in txn memo hash)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"transaction_identifier\""
+        },
+        "transaction_status": {
+          "description": "This would capture the new status of a transaction while transaction travel through payment flow.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transactionReceipt"
+          },
+          "x-go-custom-tag": "bson:\"transaction_status\""
+        }
+      },
+      "x-go-name": "FItoFICCTMemoData",
+      "externalDocs": {
+        "url": "#/definitions/fitoFICCTMemoData"
+      }
+    },
+    "fitoFICCTNonPiiData": {
+      "description": "FI to FI CCT Non-Pii Data",
+      "type": "object",
+      "title": "fitoFICCTNonPiiData",
+      "required": [
+        "exchange_rate",
+        "account_name_send",
+        "transaction_details",
+        "instruction_id",
+        "end_to_end_id",
+        "original_message_id"
+      ],
+      "properties": {
+        "account_name_send": {
+          "description": "The name of the operating or issuing account from which the payment is to be sent",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"account_name_send\""
+        },
+        "creditor_payment_address": {
+          "description": "The RFI address where the payment is to be sent - received during federation protocol",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"creditor_payment_address\""
+        },
+        "end_to_end_id": {
+          "description": "Generated by originator, a unique ID for this entire use case",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"end_to_end_id\""
+        },
+        "exchange_rate": {
+          "description": "The exchange rate between settlement asset and beneficiary asset. not required if asset is same",
+          "type": "number",
+          "multipleOf": 1e-7,
+          "x-go-custom-tag": "bson:\"exchange_rate\""
+        },
+        "original_message_id": {
+          "description": "This is the reference to the original credit transfer message",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"original_message_id\""
+        },
+        "transaction_details": {
+          "$ref": "#/definitions/transactionDetails"
+        }
+      },
+      "x-go-custom-tag": "bson:\"fitoFICCTNonPiiData\"",
+      "x-go-name": "FItoFICCTNonPiiData",
+      "externalDocs": {
+        "url": "#/definitions/fitoFICCTNonPiiData"
+      }
+    },
+    "fitoFITransactionRequest": {
+      "description": "Transaction GET request parameters",
+      "type": "object",
+      "title": "fitoFITransactionRequest",
+      "required": [
+        "query_type",
+        "ofi_id"
+      ],
+      "properties": {
+        "end_date": {
+          "description": "End Date of the range in which transactions are being quried.",
+          "type": "string",
+          "format": "date"
+        },
+        "ofi_id": {
+          "description": "A name to identify from which OFI the request is coming from",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "page_number": {
+          "description": "Page number for pagination.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "query_data": {
+          "description": "A name to identify the transaction",
+          "type": "string"
+        },
+        "query_type": {
+          "description": "A type to identify what kind of data is passed",
+          "type": "string"
+        },
+        "start_date": {
+          "description": "Start Date of the range in which transactions are being quried.",
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "x-go-name": "FItoFITransactionRequest",
+      "externalDocs": {
+        "url": "#/definitions/fitoFITransactionRequest"
+      }
+    },
+    "transaction": {
+      "description": "Transaction",
+      "type": "object",
+      "title": "transaction",
+      "required": [
+        "transaction_details",
+        "transaction_receipt"
+      ],
+      "properties": {
+        "transaction_details": {
+          "$ref": "#/definitions/transactionDetails"
+        },
+        "transaction_receipt": {
+          "$ref": "#/definitions/transactionReceipt"
+        }
+      },
+      "x-go-name": "FItoFITransaction",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transaction"
+      }
+    },
+    "transactionDetails": {
+      "description": "Transaction Details",
+      "type": "object",
+      "title": "transactionDetails",
+      "required": [
+        "amount_beneficiary",
+        "amount_settlement",
+        "asset_code_beneficiary",
+        "asset_settlement",
+        "fee_creditor",
+        "fee_debtor",
+        "rfi_id",
+        "ofi_id",
+        "settlement_method"
+      ],
+      "properties": {
+        "amount_beneficiary": {
+          "description": "The amount the beneficiary should receive in beneficiary currency",
+          "type": "number",
+          "multipleOf": 1e-7,
+          "x-go-custom-tag": "bson:\"amount_beneficiary\""
+        },
+        "amount_settlement": {
+          "description": "The amount of the settlement.",
+          "type": "number",
+          "multipleOf": 1e-7,
+          "x-go-custom-tag": "bson:\"amount_settlement\""
+        },
+        "asset_code_beneficiary": {
+          "description": "The asset code for the beneficiary",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"asset_code_beneficiary\""
+        },
+        "asset_settlement": {
+          "$ref": "#/definitions/asset"
+        },
+        "fee_creditor": {
+          "$ref": "#/definitions/fee"
+        },
+        "ofi_id": {
+          "description": "The ID that identifies the OFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"ofi_id\""
+        },
+        "rfi_id": {
+          "description": "The ID that identifies the RFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"rfi_id\""
+        },
+        "settlement_method": {
+          "description": "The preferred settlement method for this payment request (DA, DO, or XLM)",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"settlement_method\""
+        }
+      },
+      "x-go-name": "transactionDetails",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transactionDetails"
+      }
+    },
+    "transactionReceipt": {
+      "description": "Transaction Receipt",
+      "type": "object",
+      "title": "transactionReceipt",
+      "required": [
+        "transaction_status",
+        "transaction_id",
+        "time_stamp"
+      ],
+      "properties": {
+        "time_stamp": {
+          "description": "The timestamp of the transaction.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "transaction_id": {
+          "description": "A unique transaction identifier generated by the ledger.",
+          "type": "string"
+        },
+        "transaction_status": {
+          "description": "For DA (digital asset) or DO (digital obligation) ops, this will be \"cleared\".  For cryptocurrencies, this will be \"settled\".",
+          "type": "string"
+        }
+      },
+      "x-go-name": "transactionReceipt",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transactionReceipt"
+      }
+    }
+  }
+}

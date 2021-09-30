@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "28df7db1-eba1-463b-957c-14cefe6b27fb",
+		"name": "IBM - Payment(cancel) Workflow - OFI (ibm01)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 5 - send payment cancel request to RFI",
+					"item": [
+						{
+							"name": "/transactions/send",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message_type\": \"iso20022:camt.056.001.08\",\n\t\"message\": \"<step1: assemble camt 56 xml file>\n\t\t\t\t<step2: base64 encode it>\n\t\t\t\t<step3: paste it here between quotes>\"\n}"
+								},
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/send/v1/client/transactions/send",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"send"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 6 - receive cancel confirmation of payment cancel request to RFI",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm01-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm01.worldwire-st.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"ibm01",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

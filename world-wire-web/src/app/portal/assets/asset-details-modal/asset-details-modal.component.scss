@@ -1,0 +1,16 @@
+[data-structured-list] {
+
+	.bx--structured-list-td:last-child,
+	.bx--structured-list-th:last-child {
+		text-align: right;
+	}
+}
+
+.filler {
+	background-repeat: repeat-x;
+	background-image: radial-gradient(#212121 20%, transparent 20%);
+	background-size: 10px 10px;
+	background-position: bottom;
+	height: 16px;
+	width: 100%;
+}

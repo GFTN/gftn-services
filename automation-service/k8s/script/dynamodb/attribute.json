@@ -1,0 +1,6 @@
+[
+  {
+    "AttributeName": "account_name",
+    "AttributeType": "S"
+  }
+]

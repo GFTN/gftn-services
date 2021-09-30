@@ -1,0 +1,104 @@
+<div [ngClass.lt-md]="{'full-height': true}">
+
+	<app-version-select></app-version-select>
+
+	<div class="top-bdr">
+
+		<div fxLayout="column">
+
+			<a (click)="closeNav()" class="nav-link" routerLink="introduction" routerLinkActive="active-link"> Introduction</a>
+
+			<a (click)="closeNav()" class="nav-link" routerLink="onboarding" routerLinkActive="active-link"> Onboarding</a>
+
+			<a (click)="closeNav()" class="nav-link" routerLink="concepts" routerLinkActive="active-link"> Concepts</a>
+
+			<a (click)="closeNav()" class="nav-link" routerLink="guides" routerLinkActive="active-link"> Guides</a>
+
+			<!-- <a (click)="closeNav()" class="nav-link" routerLink="getting-started" routerLinkActive="active-link">Getting Started</a> -->
+
+			<!-- <a (click)="closeNav()" class="nav-link" routerLink="glossary" routerLinkActive="active-link">Glossary</a> -->
+
+			<a (click)="closeNav()" class="nav-link" routerLink="faq" routerLinkActive="active-link">FAQs</a>
+
+		</div>
+
+		<!-- list apis by version -->
+
+		<!-- <ibm-accordion>
+			<ibm-accordion-item title="Section 1" (selected)="selected($event)">test</ibm-accordion-item>
+			<ibm-accordion-item title="Section 2" (selected)="selected($event)">test</ibm-accordion-item>
+			<ibm-accordion-item title="Section 3" (selected)="selected($event)">test</ibm-accordion-item>
+		</ibm-accordion> -->
+
+		<div>
+
+			<ul #accordionApis data-accordion class="bx--accordion">
+
+				<li data-accordion-item class="bx--accordion__item" routerLinkActive="bx--accordion__item--active">
+
+					<button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane1" fxLayout="row">
+						<a class="nav-link bx--accordion__title">APIs</a>
+						<span fxFlex></span>
+						<svg class="bx--accordion__arrow" width="7" height="12" viewBox="0 0 7 12">
+							<path d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z"></path>
+						</svg>
+					</button>
+
+					<div id="pane1" class="bx--accordion__content" *ngIf="versionService?.current?.config">
+
+				<li *ngFor="let i of versionService.current.config" routerLinkActive="active-link">
+					<a *ngIf="i.public" class="nav-link" [routerLink]="['api', i.name]">{{i.name}}</a>
+				</li>
+
+		</div>
+
+		</li>
+
+		</ul>
+
+	</div>
+
+</div>
+
+<div class="top-bdr">
+
+	<!-- list endpoints -->
+	<div [class.hide]="!swaggerService?.navPaths">
+		<div *ngFor="let i of swaggerService?.navPaths | keyvalue">
+			<app-group-endpoints [group]="i.value"></app-group-endpoints>
+		</div>
+	</div>
+
+	<!-- list models -->
+	<div class="top-bdr" [class.hide]="!swaggerService?._jsonSpec?.definitions">
+
+		<ul #accordionModels data-accordion class="bx--accordion">
+
+			<li data-accordion-item class="bx--accordion__item" routerLinkActive="bx--accordion__item--active">
+
+				<button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane-models" fxLayout="row">
+							<a class="nav-link bx--accordion__title">Models</a>
+							<span fxFlex></span>
+							<svg class="bx--accordion__arrow" width="7" height="12" viewBox="0 0 7 12">
+								<path d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z"></path>
+							</svg>
+					</button>
+
+				<div *ngIf="swaggerService?._jsonSpec?.definitions" id="pane-models" class="bx--accordion__content">
+
+			<li *ngFor="let model of swaggerService._jsonSpec.definitions | keyvalue" routerLinkActive="active-link">
+				<a *ngIf="model.value?.title" class="nav-link" (click)="swaggerService.jumpTo('model', '', model.value?.title )">{{model.value?.title}}</a>
+			</li>
+
+	</div>
+
+
+	</li>
+
+	</ul>
+
+</div>
+
+</div>
+
+</div>

@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "a3eebfb9-3ff2-4cef-ae52-b5429f57f4de",
+		"name": "Worldcom - Exchange - OFI (worldcom1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 1 - sign exchange",
+					"item": [
+						{
+							"name": "/client/sign",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e2dcf8ea-53bd-4d4e-bfd9-18626447f504",
+										"exec": [
+											"let obj = {",
+											"   \"account_name_receive\":\"default\",",
+											"   \"account_name_send\":\"default\",",
+											"   \"amount\":1,",
+											"   \"quote\":   {",
+											"        \"account_name_receive\": \"default\",",
+											"        \"account_name_send\": \"default\",",
+											"        \"exchange_rate\": 50,",
+											"        \"limit_max\": 1000,",
+											"        \"quote_id\": pm.environment.get(\"quote_id\"),",
+											"        \"quote_request\": {",
+											"        \"time_expire\":1644516034,",
+											"        \"limit_max\": 90,",
+											"        \"limit_min\": 20,",
+											"        \"source_asset\": {",
+											"            \"asset_code\": pm.environment.get(\"source_asset_code\"),",
+											"            \"asset_type\": \"DA\",",
+											"            \"issuer_id\": pm.environment.get(\"source_issuer_id\")",
+											"        },",
+											"        \"target_asset\": {",
+											"            \"asset_code\": pm.environment.get(\"target_asset_code\"),",
+											"            \"asset_type\": \"DA\",",
+											"            \"issuer_id\": pm.environment.get(\"target_issuer_id\")",
+											"        },",
+											"        \"ofi_id\": pm.environment.get(\"worldcom1-id\")",
+											"    },",
+											"      \"rfi_id\":pm.environment.get(\"worldcom2-id\"),",
+											"    \"time_expire\": 1644516034,",
+											"    \"time_start\": 1544516034",
+											"   }",
+											"}",
+											"",
+											"let objJsonStr = JSON.stringify(obj);",
+											"let objJsonB64 = Buffer.from(objJsonStr).toString(\"base64\");",
+											"postman.setEnvironmentVariable(\"objJsonB64ExchangeR\", objJsonB64)",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0d49afd4-8c0c-4e1a-9129-9fa134cabe07",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"signed_payload_OFI\", jsonData.transaction_signed);",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{worldcom1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"payload\": \"{{objJsonB64ExchangeR}}\"\n}"
+								},
+								"url": {
+									"raw": "worldcom1.worldwire-st.io/local/crypto/v1/client/sign",
+									"host": [
+										"worldcom1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"crypto",
+										"v1",
+										"client",
+										"sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 2 - send exchange",
+					"item": [
+						{
+							"name": "/client/exchange",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e2dcf8ea-53bd-4d4e-bfd9-18626447f504",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "71074b94-e190-4f78-9e2e-be4c0e0afdf0",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"pm.test(\"quote status update to 1\", function () {",
+											"    pm.expect(jsonData.status_exchange).to.equal(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{worldcom1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"exchange\": \"{{objJsonB64ExchangeR}}\",\n    \"signature\": \"{{signed_payload_OFI}}\"\n}"
+								},
+								"url": {
+									"raw": "worldcom1.worldwire-st.io/global/quotes/v1/client/exchange",
+									"host": [
+										"worldcom1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"exchange"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 3 - receive stellar hash payment result",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{worldcom1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "worldcom1.worldwire-st.io/local/gateway/v1/client/message?type=payment",
+									"host": [
+										"worldcom1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "payment"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

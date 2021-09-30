@@ -1,0 +1,38 @@
+{
+
+    "exchange_request":{
+        "amount": 10,
+        "account_name_receive": "issuing",
+        "account_name_send": "issuing",
+        "quote":   {
+           "address_receive": "GAEJ4FESNA24RPDEAMW7M2ZQK472MLZN5NLIA6GJ4L4TJCA5NUCPHQJA",
+           "address_send": "GAEJ4FESNA24RPDEAMW7M2ZQK472MLZN5NLIA6GJ4L4TJCA5NUCPHQJA",
+           "exchange_rate": 0.6046602,
+           "limit_max": 1000,
+           "quote_id": "request_id_test",
+           "quote_request": {
+               "limit_max": 2000,
+               "limit_min": 1,
+               "ofi_id": "hk.one.payments.worldwire.io",
+               "source_asset": {
+                   "asset_code": "HKDDO",
+                   "asset_type": "DO",
+                   "issuer_id": "hk.one.payments.worldwire.io"
+               },
+               "target_asset": {
+                   "asset_code": "EURDO",
+                   "asset_type": "DO",
+                   "issuer_id": "ie.one.payments.worldwire.io"
+               },
+               "time_expire": "2022-09-07T10:40:52.000Z"
+           },
+           "reference_hash": "ffe36bcc6d0876449759b166399ceba2743bcd12801c07706d998712bffa8de3",
+           "rfi_id": "ie.one.payments.worldwire.io",
+           "status": "active",
+           "time_expire": "2018-11-29T08:22:23.451Z",
+           "time_start": "2018-11-27T08:12:23.451Z"
+       }
+        
+    },
+    "signature":"signature"
+    }

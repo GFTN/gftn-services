@@ -1,0 +1,25 @@
+title: strongholdWithdrawRequest
+description: strongholdWithdrawRequest
+type: object
+required:
+  - customerReference
+  - assetID
+  - paymentMethodDetails
+  - paymentMethod
+properties:
+  customerReference:
+    type: string
+    description: customer reference
+  paymentMethodDetails:
+    type: Object
+    description: Details of payment method
+    $ref: 'strongholdPaymentMethodDetails.yaml'
+  assetID:
+    type: string
+    description: asset ID issued by an anchor
+  paymentMethod:
+    type: string
+    description: payment method information typically \"us-ach\"
+externalDocs:
+  url: '#/definitions/StrongholdWithdrawRequest'
+x-go-name: StrongholdWithdrawRequest

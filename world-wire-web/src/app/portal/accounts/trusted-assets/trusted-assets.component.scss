@@ -1,0 +1,8 @@
+@import "~sass/grid";
+
+.filters {
+	&.collapsed {
+		position: absolute;
+		background: white;
+	}
+}

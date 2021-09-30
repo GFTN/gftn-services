@@ -1,0 +1,35 @@
+
+title: complianceReceipt
+description: Compliance Receipt
+x-group-m: Models
+type: object
+required:
+  - compliance_status
+  - compliance_id
+  - aml_kyc
+properties:
+  aml_kyc:
+    type: string
+    description: AML/KYC/Sanctions info of the recipient.
+  compliance_id:
+    type: string
+    description: >
+      The unique identifier for the compliance check done prior to this payment.
+  compliance_status:
+    type: string
+    enum:
+      - OK
+      - Denied
+    description: >
+      "OK" or "Denied"
+  sanctions_status:
+    type: string
+    enum:
+      - OK
+      - Denied
+    description: >
+      "OK" or "Denied"
+externalDocs:
+  url: '#/definitions/complianceReceipt'
+x-go-name: ComplianceReceipt
+# TODO: Seema - replace everywhere in Go code: "callbackComplianceCheckResponse" -> "ComplianceReceipt"

@@ -1,0 +1,9 @@
+#! /bin/bash
+go test -run TestServiceCheck
+go test -run TestNotFound
+go test -run TestParticipantAuthForMaker
+go test -run TestSuperUserAuthForMaker
+go test -run TestExpiredFID
+go test -run TestSuperDirectAccess
+go test -run TestParticipantDirectAccess
+go test -run TestMakerCheckerFlow

@@ -1,0 +1,29 @@
+
+title: customer
+description: Customer
+x-group-m: Models
+type: object
+required:
+  - id
+  - name
+  - country
+  - city
+  - account
+properties:
+  id:
+    type: string
+    description: Account identifier for the actor involved in a payment.
+  name:
+    type: string
+    description: Country code of the location.
+  account:
+    type: object
+    description: Account information of the customer.
+    $ref: 'accountCustomer.yaml'
+  location_address:
+    type: object
+    description: The address of the customer.
+    $ref: 'address.yaml'
+externalDocs:
+  url: '#/definitions/customer'
+x-go-name: PaymentAddress

@@ -1,0 +1,977 @@
+{
+	"basePath": "/",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"TOTPQRcode": {
+			"description": "TOTP QR code object containing QR code URL containing the TOPT seed and user profile.",
+			"properties": {
+				"qrcodeURI": {
+					"type": "string"
+				},
+				"accountName": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"qrcodeURI",
+				"accountName"
+			],
+			"type": "object"
+		},
+		"TOTPResponse": {
+			"description": "TOTP response for TOTP API endpoints",
+			"properties": {
+				"success": {
+					"type": "boolean"
+				},
+				"registered": {
+					"type": "boolean",
+					"x-nullable": true
+				},
+				"msg": {
+					"type": "string",
+					"x-nullable": true
+				},
+				"data": {
+					"$ref": "#/definitions/TOTPQRcode",
+					"x-nullable": true
+				}
+			},
+			"required": [
+				"success"
+			],
+			"type": "object"
+		},
+		"TokenBody": {
+			"description": "TOTP token as body for TOTP API endpoints",
+			"properties": {
+				"token": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"token"
+			],
+			"type": "object"
+		},
+		"IEncodeFirebaseCred": {
+			"properties": {
+				"type": {
+					"type": "string"
+				},
+				"project_id": {
+					"type": "string"
+				},
+				"private_key_id": {
+					"type": "string"
+				},
+				"private_key": {
+					"type": "string"
+				},
+				"client_email": {
+					"type": "string"
+				},
+				"client_id": {
+					"type": "string"
+				},
+				"auth_uri": {
+					"type": "string"
+				},
+				"token_uri": {
+					"type": "string"
+				},
+				"auth_provider_x509_cert_url": {
+					"type": "string"
+				},
+				"client_x509_cert_url": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"type",
+				"project_id",
+				"private_key_id",
+				"private_key",
+				"client_email",
+				"client_id",
+				"auth_uri",
+				"token_uri",
+				"auth_provider_x509_cert_url",
+				"client_x509_cert_url"
+			],
+			"type": "object"
+		},
+		"IDecodeResult": {
+			"properties": {
+				"encodedText": {
+					"type": "string",
+					"description": "base 64 encoded string"
+				},
+				"getJson": {
+					"type": "boolean",
+					"description": "if true, will return a json object rather than string"
+				}
+			},
+			"required": [
+				"encodedText",
+				"getJson"
+			],
+			"type": "object"
+		},
+		"IVerifyCompare": {
+			"properties": {
+				"endpoint": {
+					"type": "string"
+				},
+				"ip": {
+					"type": "string"
+				},
+				"account": {
+					"type": "string",
+					"x-nullable": true
+				}
+			},
+			"required": [
+				"endpoint",
+				"ip"
+			],
+			"type": "object"
+		},
+		"IJWTTokenInfoPublic": {
+			"properties": {
+				"acc": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"ver": {
+					"type": "string"
+				},
+				"ips": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"env": {
+					"type": "string"
+				},
+				"enp": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"jti": {
+					"type": "string"
+				},
+				"aud": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"acc",
+				"ver",
+				"ips",
+				"env",
+				"enp",
+				"jti",
+				"aud",
+				"description"
+			],
+			"type": "object"
+		}
+	},
+	"info": {
+		"title": "auth-service",
+		"version": "1.0.0",
+		"description": "**Step 1** - retrieve the .credential.zip file from wherever your organization keeps this and extract the zip file to `./auth-service`    - *NOTE 1: To update credentials run  `$ zip -re credentials.zip .credentials` from `./auth-service`*",
+		"license": {
+			"name": "ISC"
+		}
+	},
+	"paths": {
+		"/totp/{accountName}": {
+			"get": {
+				"operationId": "CreateTOTP",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/TOTPResponse"
+						}
+					}
+				},
+				"description": "Get registration QR Code\nReturns TOTPResponse which contain a uri string that can be converted to a QR Code",
+				"security": [],
+				"parameters": [
+					{
+						"description": "user email",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/totp/{accountName}/confirm": {
+			"post": {
+				"operationId": "ConfirmTOTP",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/TOTPResponse"
+						}
+					}
+				},
+				"description": "complete TOTP registration\nReturns TOTPResponse which contain the msg",
+				"security": [],
+				"parameters": [
+					{
+						"description": "user email",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"description": "TOTP token",
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/TokenBody"
+						}
+					}
+				]
+			}
+		},
+		"/totp/check": {
+			"post": {
+				"operationId": "CheckTOTP",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				},
+				"description": "check if TOTP is correct this endpoint is for other services like deployment service",
+				"security": [],
+				"parameters": [
+					{
+						"description": "TOTP token",
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/TokenBody"
+						}
+					}
+				]
+			}
+		},
+		"/util/base64/encode-fb-cred": {
+			"post": {
+				"operationId": "base64EncodeFbCred",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"description": "encode firebase credentials to sanitized base64 string",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IEncodeFirebaseCred"
+						}
+					}
+				]
+			}
+		},
+		"/util/base64/decode-fb-cred": {
+			"post": {
+				"operationId": "base64DecodeFbCred",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "alias for base64/decode-text - can be used to decode firebase credential",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IDecodeResult"
+						}
+					}
+				]
+			}
+		},
+		"/util/base64/encode": {
+			"post": {
+				"operationId": "base64Encode",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"description": "encode to base64 string\nobj = json object in body, or text = someLongString",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					}
+				]
+			}
+		},
+		"/util/base64/decode": {
+			"post": {
+				"operationId": "base64Decode",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "decode to base64 string or obj",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IDecodeResult"
+						}
+					}
+				]
+			}
+		},
+		"/util/json/escape": {
+			"post": {
+				"operationId": "escapeJson",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"description": "Creates a JSON escaped string",
+				"security": [],
+				"parameters": [
+					{
+						"description": "a json object",
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					}
+				]
+			}
+		},
+		"/sso/login": {
+			"get": {
+				"operationId": "authSSOLogin",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Called to force login with IBMId\nNOTE: This endpoint uses middleware via passport.js",
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/sso/token": {
+			"get": {
+				"operationId": "authSSOToken",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "For IBMId User this endpoint creates a users in\nfirebase (if they do not previously exist) and creates a\ncustom firebase auth Token to be consumed by the\nclient to log in a user to the portal. NOTE: This\nendpoint uses middleware via passport.js",
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/sso/portal-login": {
+			"get": {
+				"operationId": "authSSOPortalLogin",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "login from portal",
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/sso/portal-login-totp": {
+			"post": {
+				"operationId": "PortalTokenTOTP",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/sso/callback": {
+			"get": {
+				"operationId": "authSSOCallback",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Used by IBMId as the specified callback upon successful login\nConsider limiting CORs and IP to the IBMId server to thwart against attacks\nAPI Key cannot be used on this route since the caller is the IBMId server\nand setting the api key in the request to the callback is not possible",
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/sso/logout": {
+			"post": {
+				"operationId": "authSSOLogout",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Logout of the current IBMid user session",
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/sso/failure": {
+			"post": {
+				"operationId": "authSSOFailure",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Called internally by redirect if login failure is experienced",
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/permissions/participant": {
+			"post": {
+				"operationId": "permissionsParticipant",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"description": "Updates permissions for a user associated with a participant",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-iid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/permissions/super": {
+			"post": {
+				"operationId": "permissionsSuper",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Updates permissions for a super user (IBM Super Administrator)",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/institution/create": {
+			"post": {
+				"operationId": "createInstitution",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/jwt/refresh": {
+			"post": {
+				"operationId": "jwtRefresh",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Refreshes a JWT Token for an\ninitial session (must be refreshed every 15 minutes or less)",
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/jwt/verify": {
+			"post": {
+				"operationId": "jwtVerify",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Used to test a token to determine if it is valid given a defined\nendpoint, ip, and/or account.",
+				"security": [],
+				"parameters": [
+					{
+						"description": "- \"Endpoints\" are used to check if the token provided is good for those specified endpoints",
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IVerifyCompare"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-iid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/jwt/request": {
+			"post": {
+				"operationId": "jwtRequest",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"description": "Request creation of a JWT Token, generates request for\napproval to create token. NOTE: This endpoint does not\ncreate a jwt token only 'request'. User must request the creation\nof a token, and must be 'approved' by another admin user before the\ntoken can be 'generated'.",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/IJWTTokenInfoPublic"
+						}
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-iid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/jwt/approve": {
+			"post": {
+				"operationId": "jwtApprove",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"description": "Approve creation of a JWT Token",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-iid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/jwt/reject": {
+			"post": {
+				"operationId": "jwtReject",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Reject is an alias for revoke\nNOTE: needed to create reject so that the action from\nthe ui calls reject and revoke separately - this allows\nus to handle reject different in the future if we so choose",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-iid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/jwt/revoke": {
+			"post": {
+				"operationId": "jwtRevoke",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Invalidates a token session by removing it from the database (identified by ID)",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-iid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/jwt/generate": {
+			"post": {
+				"operationId": "jwtGenerate",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "A JWT token can only be generated by the requestor after an approver\napproved the creation of the token",
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"required": true,
+						"schema": {
+							"type": "object"
+						}
+					},
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "header",
+						"name": "x-iid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/jwt/rotate-pepper": {
+			"get": {
+				"operationId": "jwtRotatePepper",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "object"
+						}
+					}
+				},
+				"description": "Used to randomly generate a new set of pepper values for the aws-secret store\nDISCUSSION: These values can be de-serialized and referenced using keyId\nand '.' to split on the keyid for looking up the value from the database\nand looking up the correct env var. This allows us to rotate the pepper\nsecrets because we can append to the old list of pepper values to\nthe new result of randomly generate pepper values and then periodically (ie: 15 minutes)\nwhen all the a values are presumed to be expired we can delete our the old values and rotate again.\nThereby preventing any disruption to service but effectively rotating secret keys",
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "x-fid",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {
+		"api_key": {
+			"description": "A generic api key included on requests from the portal that is used to call commmon public endpoints like /login. A quota is set on the use of this key to limit the amount of requests in a certain period of time. Api key issued by gcloud for use with gcloud Endpoints product, see https://cloud.google.com/endpoints/docs/openapi/get-started-app-engine#deploy_backend. IMPORTANT: This alone is not a secure authentication method and should be used in conjunction with either Oauth or JWT",
+			"type": "apiKey",
+			"name": "key",
+			"in": "query"
+		}
+	},
+	"host": "live-gftn.appspot.com",
+	"schemes": [
+		"https"
+	]
+}

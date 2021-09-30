@@ -1,0 +1,57 @@
+{
+    "name": "gas-service",
+    "version": "1.0.1",
+    "description": "WorldWire-gasSVC",
+    "main": "app.js",
+    "directories": {
+        "test": "test"
+    },
+    "dependencies": {
+        "@sendgrid/mail": "^6.4.0",
+        "anymatch": "^3.1.1",
+        "assert": "^2.0.0",
+        "async": "^3.1.0",
+        "aws-sdk": "^2.597.0",
+        "big-integer": "^1.6.48",
+        "braces": "^3.0.2",
+        "chokidar": "^3.3.1",
+        "colors": "^1.4.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "fstream": "^1.0.12",
+        "https-proxy-agent": "^4.0.0",
+        "json-stringify-safe": "^5.0.1",
+        "micromatch": "^4.0.2",
+        "mocha": "^7.0.0",
+        "mocha-stress": "^1.0.0",
+        "mochawesome": "^4.1.0",
+        "npm-check-updates": "^4.0.1",
+        "request": "^2.88.0",
+        "should": "^13.2.3",
+        "stellar-sdk": "^3.3.0",
+        "util": "^0.12.1"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "./node_modules/mocha/bin/mocha test/unitTest --reporter mochawesome --reporter-options reportDir=Report,reportFilename=unitTest ",
+        "stress-test": "mocha -r mocha-stress test/stressTest --reporter mochawesome --reporter-options reportDir=Report,reportFilename=stressTest ",
+        "stress-test-concurrent": "./node_modules/mocha/bin/mocha test/stressTestConcurrent  --reporter mochawesome --reporter-options reportDir=Report,reportFilename=stressTestConcurrent",
+        "start": "node app.js",
+        "makedocker": "docker build -f Dockerfile -t gftn/gas-service .",
+        "createAccountsTB": "node ./feature/createAccountsTable.js",
+        "createContactsTB": "node ./feature/createContactsTable.js",
+        "createGroupsTB": "node ./feature/createGroupsTable.js",
+        "deleteTB": "node ./feature/deleteTable.js $*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/GFTN/gftn-services/tree/development/gas-service"
+    },
+    "keywords": [
+        "aws",
+        "stellar",
+        "nodejs",
+        "blockchain"
+    ],
+    "license": "MIT"
+}

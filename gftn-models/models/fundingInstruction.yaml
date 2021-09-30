@@ -1,0 +1,19 @@
+title: fundingInstruction
+description: Funding Instruction
+x-group-m: Models
+type: object
+required:
+- funding
+- instruction
+properties:
+  details_funding:
+    type: object
+    description: Details about an Anchor's proposed funding to a Participant.
+    $ref: 'funding.yaml'
+  instruction_unsigned:
+    type: string
+    description: >
+      Unsigned transaction xdr related to the funding. This will need to be signed in the next step.
+externalDocs:
+  url: '#/definitions/fundingInstruction'
+x-go-name: FundingInstruction

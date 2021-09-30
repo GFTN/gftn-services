@@ -1,0 +1,17 @@
+title: addressLedger
+description: Address Ledger
+x-group-m: Models
+type: object
+required:
+  - address
+  - account_name
+properties:
+  address:
+    type: string
+    description: The ledger address which is expected to be the recipient for this transaction, once compliance checks are complete.
+  account_name:
+    type: string
+    description: Can be either 'issuing' or the Participants operating account's name. 
+externalDocs:
+  url: '#/definitions/addressLedger'
+x-go-name: DiscoverParticipantResponse

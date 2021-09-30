@@ -1,0 +1,84 @@
+swagger: "2.0"
+info:
+  title: World Wire Automate Deployment Service API
+  description: >
+    Automate Deployment API for World Wire Admin to deploy services to Kubernetes cluster.
+  version: 1.0.0
+basePath: /v1
+schemes:
+  - http
+paths:
+  /deploy/participant:
+    post:
+      tags:
+        - Participant
+        - Deploy
+      summary: Deploy Participant services
+      description: >
+        Deploy Participant services
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: participants
+          required: true
+          description: Participants information.
+          schema:
+            $ref: '../model/models/automation.yaml'
+      responses:
+        200:
+          description: Participant micro services successfully generated
+        400:
+          description: Error while generated participant micro services
+
+  /update/image:
+    post:
+      tags:
+        - Update
+        - Docker images
+      summary: Update all docker container to new version
+      description: >
+        Update all docker container to new version
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: update
+          required: true
+          description: Update information.
+          schema:
+            $ref: '../model/models/update.yaml'
+      responses:
+        200:
+          description: Docker image version successfully update
+        400:
+          description: Error while update Docker image version for micro services
+
+  /upload/files:
+    post:
+      tags:
+        - Upload
+        - Configurations
+      summary: Upload files
+      description: >
+        Upload files
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: upload
+          required: true
+          description: Upload files.
+          schema:
+            $ref: '../model/models/upload.yaml'
+      responses:
+        200:
+          description: Upload was successfully finished
+        400:
+          description: Error while upload files

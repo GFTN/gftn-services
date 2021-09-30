@@ -1,0 +1,108 @@
+// PURPOSE: "plain text" email templates to use in conjuction with send-in-blue with ./src/email/email.ts.
+
+export class PlainEmailTemplates {
+
+    public emptyEmail = this.defaultEmail();
+
+    /**
+     * Replace [NAME] [MESSAGE]
+     * 
+     * @returns {string} 
+     * @memberof HTMLEmailTemplates
+     */
+    autoResponse(name: string, subject: string): string {
+        const body = `
+        Hi [NAME],
+            
+        Thanks for reaching out. We have received your message!
+        
+        RE: "[SUBJECT]"
+            
+        We are excited to learn more about you and your business. We will be in touch shortly.
+            
+        Thanks,
+
+        IBM World Wire Team
+        
+        `;
+        return this.defaultEmail()
+            .replace('[BODY]', body)
+            .replace('[NAME]', name)
+            .replace('[SUBJECT]', subject);
+
+    }
+
+    /**
+     * Replace [NAME] [MESSAGE]
+     * 
+     * @returns {string} 
+     * @memberof HTMLEmailTemplates
+     */
+    welcome(name: string): string {
+        const body = `
+        Hi [NAME],
+            
+        Welcome to IBM World Wire!        
+            
+        We are excited to learn more about you and your organization. 
+        You should receive an email shortly with your temporary password. 
+        
+        Join us in redefining access to money for people and businesses everywhere.
+            
+        Thanks,
+
+        Jesse Lund
+        Vice President, IBM Blockchain
+        
+        `;
+        return this.defaultEmail()
+            .replace('[BODY]', body)
+            .replace('[NAME]', name);
+
+    }
+
+    /**
+     * Replace [NAME] [MESSAGE]
+     * 
+     * @returns {string} 
+     * @memberof HTMLEmailTemplates
+     */
+    password(name: string, password: string): string {
+        const body = `
+        Hi [NAME],
+        
+        Welcome to IBM World Wire!
+        
+        Your account is now ready.
+        
+        Your password: [PASSWORD]
+
+        Log in using your email and password at worldwire.io/login.
+            
+        Thanks,
+
+        IBM Blockchain World Wire Team
+        
+        `;
+        return this.defaultEmail()
+            .replace('[BODY]', body)
+            .replace('[NAME]', name)
+            .replace('[PASSWORD]', password);
+
+    }
+
+    /**
+     * replace [BODY] - get default header and footer for all emails
+     * 
+     * @returns {string} 
+     * @memberof HTMLEmailTemplates
+     */
+    private defaultEmail(): string {
+        return `
+        IBM World Wire
+        
+        [BODY]
+        `;
+    }
+
+}

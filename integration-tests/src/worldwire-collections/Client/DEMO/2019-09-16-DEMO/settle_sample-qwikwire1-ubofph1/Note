@@ -1,0 +1,24 @@
+1.Need unique/need to match
+{
+pac008:MsgId
+ibwf002:OrgnlMsgId
+pacs004:OrgnlMsgId
+},
+{
+pac008:InstrId,
+ibwf001:InstrId,
+ibwf002:OrgnlInstrId
+pacs004:OrgnlInstrId
+},
+{
+ibwf001:MsgId
+},
+{
+ibwf002:MsgId,NtfId
+},
+{
+pacs004:MsgId,RtrId
+}
+2.AccId in ibwf.001.001.01 need to be receiver account address
+
+

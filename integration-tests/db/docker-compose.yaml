@@ -1,0 +1,10 @@
+version: '2.0'
+services:
+
+  mongodb.gftn.io:
+      image: mongo
+      ports:
+        - "37017:27017"
+      volumes:
+        - ~/mongodata:/data/db
+

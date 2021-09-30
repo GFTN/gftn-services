@@ -1,0 +1,234 @@
+swagger: "2.0"
+info:
+  title: WW Administration Service Internal; API
+  description: Private API for inter-component communication within the Participant's World Wire instance.
+  version: 1.0.0
+host: admin.gftn.io
+basePath: /v1/internal
+schemes:
+  - https
+paths:
+  /fitoficct:
+    post:
+      tags:
+        - store
+      summary: send the fitoficct transaction to WW Admin Service for storage
+      description: >
+        sends the details of the recently submitted fitoficct transaction
+        to the WW Admin Service. the hash value of FItoFICCTMemoData is stored in the ledger memo field
+        The PII data is hashed for security
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: FItoFICCTMemoData
+          required: true
+          description: The fitoficct data
+          schema:
+            $ref: '../../gftn-models/models/fitoFICCTMemoData.yaml'
+      responses:
+        200:
+          description: the transactionMemoData is successfully persisted by Admin Service
+        400:
+          description: input parameters not acceptable or some error happened
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+  /suspend/{participant_id}/{account_name}:
+      post:
+        tags:
+          - Kill Switch
+          - Suspend Participant
+          - Liquidate Network Account
+        summary: Suspend Participant from doing any activities in WW
+        description: sends transaction to Stellar Network using IBM account and SHA256 signer and make Participant's master key weight 0, threshold to [1,1,1] and removes SHA256 signer from the signing list
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: account_name
+            type: string
+            required: true
+            description: The address of the account to be suspended
+          - in: path
+            name: participant_id
+            type: string
+            required: true
+            description: The id of the participant
+        responses:
+          200:
+            description: Account has been suspended successfully.
+          400:
+            description: Input parameter not acceptable or some error happened
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+          500:
+            description: Internal Server Error happened.
+            schema:
+              $ref: '../../gftn-models/models/error.yaml'
+
+  /reactivate/{participant_id}/{account_name}:
+        post:
+          tags:
+            - Kill Switch
+            - Undoes Suspend Participant
+            - Liquidate Network Account
+          summary: Undoes suspension of a suspended Participant in WW.
+          description: sends transaction to Stellar Network using IBM account and raises the Participant's master key weight to 2, signing thresholds to [1,2,3] and adds a new SHA256 signer to the signing list
+          produces:
+            - application/json
+          parameters:
+            - in: path
+              name: account_name
+              type: string
+              required: true
+              description: The address of the account to be re-activated.
+            - in: path
+              name: participant_id
+              type: string
+              required: true
+              description: The id of the participant
+          responses:
+            200:
+              description: Account has been activated successfully.
+            400:
+              description: Input parameter not acceptable or some error happened
+              schema:
+                $ref: '../../gftn-models/models/error.yaml'
+            500:
+              description: Internal Server Error happened.
+              schema:
+                $ref: '../../gftn-models/models/error.yaml'
+
+  /transaction:
+    post:
+      tags:
+        - transaction status
+        - transaction details
+      summary: Query transactions
+      description: Query transaction's details by End-to-End Id or Stellar Transaction Id
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          required: true
+          name: FItoFITransactionRequest
+          description: Request containing ID, type and domain details to query transactions.
+          schema:
+            $ref: '../../gftn-models/models/fitoFITransactionRequest.yaml'
+      responses:
+        200:
+          description: Valid Transaction details according to the ID provided
+          schema:
+            $ref: '../../gftn-models/models/transaction.yaml'
+        404:
+          description: No data found for the criteria quried.
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /blocklist:
+    post:
+      tags:
+        - Create new blocklist record
+      summary: Called when a currency/country/institution needs to be added into the blocklist
+      description: |
+        This endpoint will create a new record in the blocklist if there doesn't have an existing blocklist record
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: blocklist
+          required: true
+          description: The blocklist record that needs to be added.
+          schema:
+            $ref: '../../gftn-models/models/blocklist.yaml'
+      responses:
+        200:
+          description: New blocklist record created
+        400:
+          description: Blocklist record could not be created due to the record already exists or malformed payload
+        404:
+          description: Blocklist record could not be created
+        500:
+          description: Internal server error
+    delete:
+      tags:
+        - delete an existing blocklist record
+      summary: Called when a currency/country/institution needs to be removed from the blocklist
+      description: |
+        This endpoint will remove an existing record in the blocklist
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: blocklist
+          required: true
+          description: The blocklist record that needs to be removed.
+          schema:
+            $ref: '../../gftn-models/models/blocklist.yaml'
+      responses:
+        200:
+          description: Blocklist record removed
+        400:
+          description: Blocklist record could not be removed due to malformed payload
+        404:
+          description: No blocklist record found
+        500:
+          description: Internal server error
+    get:
+      tags:
+        - Query blocklist record
+      summary: Called when a participant wants to lookup if a certain currency/institution/country is in the blocklist or not
+      description: |
+        This endpoint will search for the existing record in the blocklist that meets the searching type
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: type
+          type: string
+          required: false
+          description: The type of the blocklist record.
+      responses:
+        200:
+          description: Blocklist record found
+        400:
+          description: Blocklist record not found due to malformed payload
+        404:
+          description: Blocklist record not found
+        500:
+          description: Internal server error
+  /blocklist/validate:
+    post:
+      tags:
+        - validate a country/currency/institution from the blocklist
+      summary: Called when a currency/country/institution needs to be validated before transaction
+      description: |
+        This endpoint will check if the query value is in the blocklist or not.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          required: true
+          description: The blocklist record that needs to be added.
+          name: blocklist
+          schema:
+            type: array
+            items:
+              $ref: '../../gftn-models/models/blocklist.yaml'
+      responses:
+        200:
+          description: Validation complete
+        400:
+          description: Could not validate due to malformed payload
+        404:
+          description: Blocklist record not found
+        500:
+          description: Internal server error

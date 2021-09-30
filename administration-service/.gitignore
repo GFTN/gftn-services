@@ -1,0 +1,5 @@
+vendor
+deployment/docker/keys
+.idea
+administration-service
+api-definitions/node_modules

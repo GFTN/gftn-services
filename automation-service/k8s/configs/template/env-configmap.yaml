@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config-global
+  labels:
+    app: environment
+data:
+  HOME_DOMAIN_NAME: "ww"
+  AWS_REGION: "ap-southeast-1"
+  ENABLE_JWT: "enable_jwt_variable"
+  HTTPS_SET: "false"
+  ORIGIN_ALLOWED: "true"
+  HORIZON_CLIENT_URL: "horizon_url_variable"
+  STELLAR_NETWORK: "stellar_network_variable"
+  VAULT_BASE_URL: "something"
+  VAULT_CERT: "something"
+  VAULT_CERT_PRIVATE_KEY: "something"
+  SECRET_STORAGE_LOCATION: "AWS"
+  SERVICE_VERSION: "v1"
+  PARTICIPANT_REGISTRY_URL: "http://ww-pr:18080/v1"
+  QUOTE_SVC_URL: "http://ww-quotes:8083/v1"
+  WL_SVC_URL: "http://ww-whitelist:21234/v1"
+  GAS_SVC_URL: "http://ww-gas:8099"
+  ADMIN_SVC_URL: "http://ww-admin:8090/v1"
+  ANCHOR_SVC_URL: "http://ww-anchor:8081/v1"
+  FEE_SVC_URL: "http://ww-fee:8082/v1"
+  ENV_VERSION: "environment_variable"
+  IBM_TOKEN_DOMAIN_ID: "ww"
+  CRYPTO_SVC_URL: "http://{participant_id}-crypto:9999/v1"
+  CRYPTO_SVC_INT_URL: "http://{participant_id}-crypto:10042/v1"
+  RDO_SVC_URL: "http://{participant_id}-rdo:21002/v1"
+  SEND_SVC_URL: "http://{participant_id}-send:8888/v1"
+  API_SVC_URL: "http://{participant_id}-api:11000/v1"
+  PAYMENT_SVC_URL: "http://{participant_id}-listener:21005/v1"
+  FIREBASE_DB_URL: "firebase_url_variable"
+  WRITE_TIMEOUT: "80"
+  READ_TIMEOUT: "80"
+  IDLE_TIMEOUT: "80"
+  GAS_ACCOUNT_ATTEMPTS: "3"
+  WAIT_UNLOCK_DURATION: "2"

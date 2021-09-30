@@ -1,0 +1,54 @@
+{
+    "permissions": {
+        "jwt": {
+            "default": {
+                "method": {
+
+                    "GET": {
+                        "endpoint": {
+                            "endpoint/something/here": {
+                                "role": {
+                                    "admin": true,
+                                    "manager": true
+                                }
+                            },
+                            "endpoint1/something/here": {
+                                "role": {
+                                    "admin": true,
+                                    "manager": true
+                                }
+                            }
+                        },
+                        "POST": {
+                            ...
+                        }
+                    }
+                }
+            }
+        },
+        "participant_permissions": {
+            "maker_checker": {
+                "method": {
+                    ...
+                }
+            },
+            "default": {
+                "method": {
+                   ...
+                }
+            }
+        },
+        "super_permissions": {
+            "maker_checker": {
+                "method": {
+                    ...
+                }
+            },
+            "default": {
+                "method": {
+                   ...
+                }
+            }
+        }
+    }
+}

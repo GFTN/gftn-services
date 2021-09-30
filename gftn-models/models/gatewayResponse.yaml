@@ -1,0 +1,21 @@
+title: gatewayResponse
+description: The message payload for participant to post data to World Wire
+type: object
+required:
+  - timestamp
+  - data
+properties:
+  timestamp:
+    type: string
+    description: >
+      The unix timestamp of the message being retrieved
+  data:
+    type: array
+    items:
+      title: gatewayMessage
+      description: The message data.
+      type: object  
+    description: The set of data to be posted to World Wire.
+externalDocs:
+  url: '#/definitions/gatewayResponse'
+x-go-name: GatewayResponse

@@ -1,0 +1,43 @@
+[WW_ERROR]
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "
+    [WW_ERROR.API-1041]
+        SHORT_MESSAGE = "Request validation failed"
+        DETAILS = "Request validation failed:"
+    [WW_ERROR.API-1124]
+        SHORT_MESSAGE = "payment listener error"
+        DETAILS = "Unable to restart listener for account: "

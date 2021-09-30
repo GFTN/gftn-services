@@ -1,0 +1,25 @@
+title: strongholdWithdrawResponse
+description: strongholdWithdrawResponse
+type: object
+required:
+  - requestId
+  - timestamp
+  - success
+  - statusCode
+  - result
+properties:
+  requestId:
+    type: string
+  timestamp:
+    type: string
+    format: date-time
+  success:
+    type: boolean
+  statusCode:
+    type: integer
+  result:
+    type: object
+    $ref: 'strongholdResponseResult.yaml'
+externalDocs:
+  url: '#/definitions/strongholdWithdrawResponse'
+x-go-name: StrongholdWithdrawResponse

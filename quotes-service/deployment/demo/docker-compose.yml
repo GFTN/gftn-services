@@ -1,0 +1,305 @@
+version: '3.5'
+services:
+  # quotes-service:
+  #   image: gftn/quotes-service
+  #   container_name: quotes-service
+  #   ports:
+  #     - "11111:11111"
+  #   volumes:
+  #     - $GOPATH/src/github.com/GFTN/gftn-services/quotes-service/error-codes:/opt/quotes-service/error-codes
+  #     - /var/log/gftn:/opt/quotes-service/logs
+  #     - ./:/var/secret
+  #   env_file:
+  #    - ./.env_nqservice
+  #   networks:
+  #     - wwnet
+      # depends_on:
+      # - postgres
+      
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - wwnet
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - wwnet
+    restart: unless-stopped
+
+  mongodb-gftn-io:
+    image: mongo:latest
+    container_name: pr-mongodb
+    volumes:
+    - ~/pr_data/db:/data/db
+    ports:
+    - "27017:27017"
+    networks:
+    - wwnet
+
+  pr-gftn-io:
+    image: gftn/participant-registry
+    container_name: participant-registry
+    ports:
+    - "8080:8080"
+    restart: unless-stopped
+    networks:
+    - wwnet
+    depends_on:
+    - 'mongodb-gftn-io'
+    # env_file: .env
+    environment:
+    - SERVICE_PORT=8080
+    - DB_HOST=pr-mongodb
+    - DB_PORT=27017
+    # - DB_NAME=test
+    # - DB_USER=wwUserAdmin
+    # - DB_PWD=wwgftn!*@
+    - PR_DB_NAME=registry
+    - PARTICIPANTS_DB_TABLE=participants
+    - HTTPS_SET=false
+    - DB_TIMEOUT=30
+    - SERVICE_NAME=pr-service
+    - SERVICE_LOG_FILE=/opt/logs/logs.txt
+    - SERVICE_ERROR_CODES_FILE=/opt/error-codes/errorCodes.toml
+
+    - HOME_DOMAIN_NAME=ww
+    - AWS_REGION=ap-southeast-1
+    - AWS_ACCESS_KEY_ID=""
+    - AWS_SECRET_ACCESS_KEY=""
+    - ENABLE_JWT=false
+    - HTTPS_SET=""
+    - ORIGIN_ALLOWED="" 
+    - HORIZON_CLIENT_URL=https://horizon-testnet.stellar.org
+    - STELLAR_NETWORK=Test SDF Network ; September 2015
+    - FIREBASE_CREDENTIALS=""
+    - VAULT_BASE_URL=""
+    - VAULT_CERT=""
+    - VAULT_CERT_PRIVATE_KEY=""
+    - SECRET_STORAGE_LOCATION=LOCAL
+    - SERVICE_VERSION=v1
+    - PARTICIPANT_REGISTRY_URL=http://pr-gftn-io:8080/v1
+    - QUOTE_SVC_URL=http://quote-gftn-io:8083/v1
+    - WL_SVC_URL=http://global-whitelist-service-io:11234/v1
+    - GAS_SVC_URL=http://gas-service-io:8099
+    - ADMIN_SVC_URL=http://admin-ww-io:8090/v1
+    - ANCHOR_SVC_URL=http://anchor-gftn-io:8081/v1
+    - FEE_SVC_URL=http://fee-gftn-io:8082/v1
+    - SEND_SVC_URL=""
+    - API_SVC_URL=""
+    - PAYMENT_SVC_URL=""
+    - ENV_VERSION=dev
+    - CRYPTO_SVC_URL=http://{participant_id}-cryptoservice:2222/v1
+    - CRYPTO_SVC_INT_URL=http://{participant_id}-cryptoservice:10042/v1
+    - RDO_SVC_URL=""
+    
+    volumes:
+    - $GOPATH/src/github.com/GFTN/gftn-services/participant-registry/logs:/opt/logs
+    - $GOPATH/src/github.com/GFTN/gftn-services/participant-registry/error-codes:/opt/error-codes
+   
+
+  # global-whitelist-service-io:
+  #   image: gftn/global-whitelist-service
+  #   container_name: global-whitelist-service
+  #   ports:
+  #   - "11234:11234"
+  #   networks:
+  #   - wwnet
+  #   # env_file: .env
+  #   environment:
+  #   - SERVICE_NAME=whitelist-service
+  #   - HOME_DOMAIN_NAME=ww
+  #   - AWS_REGION=ap-southeast-1
+  #   - AWS_ACCESS_KEY_ID=""
+  #   - AWS_SECRET_ACCESS_KEY=""
+  #   - ENABLE_JWT=false
+  #   - HTTPS_SET=""
+  #   - ORIGIN_ALLOWED=""
+  #   - HORIZON_CLIENT_URL=https://horizon-testnet.stellar.org
+  #   - STELLAR_NETWORK=Test SDF Network ; September 2015
+  #   - FIREBASE_CREDENTIALS=""
+  #   - VAULT_BASE_URL=""
+  #   - VAULT_CERT=""
+  #   - VAULT_CERT_PRIVATE_KEY=""
+  #   - SECRET_STORAGE_LOCATION=AWS
+  #   - SERVICE_VERSION=v1
+  #   - PARTICIPANT_REGISTRY_URL=http://global.worldwire.io/pr/v1
+  #   - QUOTE_SVC_URL=http://quote-gftn-io:8083/v1
+  #   - WL_SVC_URL=http://global-whitelist-service-io:11234/v1
+  #   - GAS_SVC_URL=http://gas-service-io:8099
+  #   - ADMIN_SVC_URL=http://admin-ww-io:8090/v1
+  #   - ANCHOR_SVC_URL=http://anchor-gftn-io:8081/v1
+  #   - FEE_SVC_URL=http://fee-gftn-io:8082/v1
+  #   - SEND_SVC_URL=""
+  #   - API_SVC_URL=""
+  #   - PAYMENT_SVC_URL=""
+  #   - ENV_VERSION=dev
+  #   - CRYPTO_SVC_URL=http://{participant_id}-cryptoservice:2222/v1
+  #   - CRYPTO_SVC_INT_URL=http://{participant_id}-cryptoservice:10042/v1
+  #   - RDO_SVC_URL=""  
+
+  #   volumes:
+  #   - $GOPATH/src/github.com/GFTN/gftn-services/api-service/firebase:/opt/firebase
+  #   - $GOPATH/src/github.com/GFTN/gftn-services/global-whitelist-service/whitelistserver/error-codes:/opt/error-codes
+  #   - $GOPATH/src/github.com/GFTN/gftn-services/global-whitelist-service/logs:/opt/logs
+  #   - $GOPATH/src/github.com/GFTN/gftn-services/integration-tests/config/secret:/var/secret/
+
+
+  gas-service-io:
+    image: gftn/gas-service 
+    container_name: gas-service
+    ports:
+    - "8099:8099"
+    networks:
+      - wwnet
+    # env_file: .env
+    environment:
+    - SERVICE_NAME=gas-service
+    - HOME_DOMAIN_NAME=ww
+    - AWS_REGION=ap-southeast-1
+    - AWS_ACCESS_KEY_ID=""
+    - AWS_SECRET_ACCESS_KEY=""
+    - ENABLE_JWT=false
+    - HTTPS_SET=""
+    - ORIGIN_ALLOWED=""
+    - HORIZON_CLIENT_URL=https://horizon-testnet.stellar.org
+    - STELLAR_NETWORK=Test SDF Network ; September 2015
+    - FIREBASE_CREDENTIALS=""
+    - VAULT_BASE_URL=""
+    - VAULT_CERT=""
+    - VAULT_CERT_PRIVATE_KEY=""
+    - SECRET_STORAGE_LOCATION=AWS
+    - SERVICE_VERSION=v1
+    - PARTICIPANT_REGISTRY_URL=http://pr-gftn-io:8080/v1
+    - QUOTE_SVC_URL=http://quote-gftn-io:8083/v1
+    - WL_SVC_URL=http://global-whitelist-service-io:11234/v1
+    - GAS_SVC_URL=http://gas-service-io:8099
+    - ADMIN_SVC_URL=http://admin-ww-io:8090/v1
+    - ANCHOR_SVC_URL=http://anchor-gftn-io:8081/v1
+    - FEE_SVC_URL=http://fee-gftn-io:8082/v1
+    - SEND_SVC_URL=""
+    - API_SVC_URL=""
+    - PAYMENT_SVC_URL=""
+    - ENV_VERSION=dev
+    - CRYPTO_SVC_URL=http://{participant_id}-cryptoservice:2222/v1
+    - CRYPTO_SVC_INT_URL=http://{participant_id}-cryptoservice:10042/v1
+    - RDO_SVC_URL=""
+    
+    volumes:
+      - $GOPATH/src/github.com/GFTN/gftn-services/gas-service/logs/:/opt/gas-service/logs/
+
+  paticipant1.crypto.io:
+    image: gftn/crypto-service
+    container_name: paticipant1_crypto_io
+    ports:
+      - "9999:9999"
+      - "8888:10042"
+    volumes:
+      -  ~/config:/opt/crypto-service/configuration
+      -  ./log:/opt/crypto-service/logs
+    environment:
+        - SERVICE_PORT=9999
+        - SERVICE_NAME=crypto-service
+        - HOME_DOMAIN_NAME=participant1
+        - AWS_REGION=ap-southeast-1
+        - AWS_ACCESS_KEY_ID=""
+        - AWS_SECRET_ACCESS_KEY=""
+        - ENABLE_JWT=false
+        - HTTPS_SET=""
+        - ORIGIN_ALLOWED=""
+        - HORIZON_CLIENT_URL=https://horizon-testnet.stellar.org
+        - STELLAR_NETWORK=Test SDF Network ; September 2015
+        - FIREBASE_CREDENTIALS=/opt/firebase/_next-gftn-firebase-adminsdk-wvjz8-67ea263932.json
+        - VAULT_BASE_URL=""
+        - VAULT_CERT=""
+        - VAULT_CERT_PRIVATE_KEY=""
+        - SECRET_STORAGE_LOCATION=AWS
+        - SERVICE_VERSION=v1
+        - PARTICIPANT_REGISTRY_URL=http://pr-gftn-io:8080/v1
+        - QUOTE_SVC_URL=http://quote-gftn-io:8083/v1
+        - WL_SVC_URL=http://global-whitelist-service-io:11234/v1
+        - GAS_SVC_URL=http://gas-service-io:8099
+        - ADMIN_SVC_URL=http://admin-ww-io:8090/v1
+        - ANCHOR_SVC_URL=http://anchor-gftn-io:8081/v1
+        - FEE_SVC_URL=http://fee-gftn-io:8082/v1
+        - SEND_SVC_URL=http://{participant_id}-send-service-gftn-io:8888/v1
+        - API_SVC_URL=http://{participant_id}-api-service-gftn-io:11000/v1
+        - PAYMENT_SVC_URL=http://{participant_id}-payment-listener-gftn-io:11005/v1
+        - ENV_VERSION=pen
+        - CRYPTO_SVC_URL=http://{participant_id}-cryptoservice:9999/v1
+        - CRYPTO_SVC_INT_URL=http://{participant_id}-cryptoservice:10042/v1
+        - RDO_SVC_URL=http://{participant_id}-rdo-service-gftn-io:21002/v1/rdo
+        - IBM_TOKEN_DOMAIN_ID=ww
+        - FIREBASE_DB_URL=https://next-gftn.firebaseio.com
+
+  paticipant2.crypto.io:
+      image: gftn/crypto-service
+      container_name: paticipant2_crypto_io
+      ports:
+        - "10099:9999"
+        - "10088:10042"
+      volumes:
+        -  ~/config:/opt/crypto-service/configuration
+        -  ./log:/opt/crypto-service/logs
+      environment:
+        - SERVICE_PORT=9999
+        - SERVICE_INTERNAL_PORT=10042
+        - SERVICE_NAME=crypto-service
+        - HOME_DOMAIN_NAME=participant2
+        - AWS_REGION=ap-southeast-1
+        - AWS_ACCESS_KEY_ID=""
+        - AWS_SECRET_ACCESS_KEY=""
+        - ENABLE_JWT=false
+        - HTTPS_SET=""
+        - ORIGIN_ALLOWED=""
+        - HORIZON_CLIENT_URL=https://horizon-testnet.stellar.org
+        - STELLAR_NETWORK=Test SDF Network ; September 2015
+        - FIREBASE_CREDENTIALS=/opt/firebase/_next-gftn-firebase-adminsdk-wvjz8-67ea263932.json
+        - VAULT_BASE_URL=""
+        - VAULT_CERT=""
+        - VAULT_CERT_PRIVATE_KEY=""
+        - SECRET_STORAGE_LOCATION=AWS
+        - SERVICE_VERSION=v1
+        - PARTICIPANT_REGISTRY_URL=http://pr-gftn-io:8080/v1
+        - QUOTE_SVC_URL=http://quote-gftn-io:8083/v1
+        - WL_SVC_URL=http://global-whitelist-service-io:11234/v1
+        - GAS_SVC_URL=http://gas-service-io:8099
+        - ADMIN_SVC_URL=http://admin-ww-io:8090/v1
+        - ANCHOR_SVC_URL=http://anchor-gftn-io:8081/v1
+        - FEE_SVC_URL=http://fee-gftn-io:8082/v1
+        - SEND_SVC_URL=http://{participant_id}-send-service-gftn-io:8888/v1
+        - API_SVC_URL=http://{participant_id}-api-service-gftn-io:11000/v1
+        - PAYMENT_SVC_URL=http://{participant_id}-payment-listener-gftn-io:11005/v1
+        - ENV_VERSION=pen
+        - CRYPTO_SVC_URL=http://{participant_id}-cryptoservice:9999/v1
+        - CRYPTO_SVC_INT_URL=http://{participant_id}-cryptoservice:10042/v1
+        - RDO_SVC_URL=http://{participant_id}-rdo-service-gftn-io:21002/v1/rdo
+        - IBM_TOKEN_DOMAIN_ID=ww
+        - FIREBASE_DB_URL=https://next-gftn.firebaseio.com
+
+networks:
+  wwnet:
+    # external:
+      name: wwnet
+
+volumes:
+    postgres:
+    pgadmin:

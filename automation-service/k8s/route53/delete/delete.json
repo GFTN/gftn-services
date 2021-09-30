@@ -1,0 +1,14 @@
+{
+  "Comment": "Delete Alias resource record sets in Route 53",
+  "Changes": [{
+    "Action": "DELETE",
+    "ResourceRecordSet": {
+      "Name": "participant_id_variable.worldwireenvironment_variable.io",
+      "Type": "A",
+      "AliasTarget":{
+        "HostedZoneId": "alias_hosted_zone_id_variable",
+        "DNSName": "api_id_variable.execute-api.aws_region_variable.amazonaws.com.",
+        "EvaluateTargetHealth": true
+      }}
+  }]
+}

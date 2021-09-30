@@ -1,0 +1,60 @@
+<!-- Main action link provided -->
+<a *ngIf="link" fxFlexFill class="bx--tile bx--tile-clickable" [routerLink]="link">
+    <ng-template [ngTemplateOutlet]="mainTileTemplate"></ng-template>
+</a>
+
+<!-- NO action link provided -->
+<div *ngIf="!link" fxFlexFill class="bx--tile" [class.bx--tile-clickable]="hasAction">
+	<ng-template [ngTemplateOutlet]="mainTileTemplate"></ng-template>
+</div>
+
+<ng-template #mainTileTemplate>
+	<div fxFlexFill [ngSwitch]="type" [class]="'bx--inline-notification bx--inline-notification--' + type"
+		fxLayout="row" fxLayoutAlign="space-between center">
+		<div fxFlexFill class="bx--inline-notification__details">
+			<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+				<!-- Info -->
+				<svg *ngSwitchCase="'info'" class="bx--inline-notification__icon" width="16" height="16"
+					viewBox="0 0 16 16">
+					<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm1-3V7H7v6h2zM8 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+				</svg>
+				<!-- Warning -->
+				<svg *ngSwitchCase="'warning'" class="bx--inline-notification__icon" width="16" height="16"
+					viewBox="0 0 16 16">
+					<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM4 7v2h8V7H4z"></path>
+				</svg>
+				<!-- Error -->
+				<svg *ngSwitchCase="'error'" class="bx--inline-notification__icon" width="16" height="16"
+					viewBox="0 0 16 16">
+					<path
+						d="M8 6.586L5.879 4.464 4.464 5.88 6.586 8l-2.122 2.121 1.415 1.415L8 9.414l2.121 2.122 1.415-1.415L9.414 8l2.122-2.121-1.415-1.415L8 6.586zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z">
+					</path>
+				</svg>
+				<!-- Success -->
+				<svg *ngSwitchCase="'success'" class="bx--inline-notification__icon" width="16" height="16"
+					viewBox="0 0 16 16">
+					<path
+						d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm3.293-11.332L6.75 9.21 4.707 7.168 3.293 8.582 6.75 12.04l5.957-5.957-1.414-1.414z">
+					</path>
+				</svg>
+
+				<p class="bx--inline-notification__title">{{title}}</p>
+			</div>
+			<div class="bx--inline-notification__subtitle" fxFlex>
+				<ng-template *ngIf="content && hasContentTemplate; else plainContent" [ngTemplateOutlet]="content">
+				</ng-template>
+				<ng-template #plainContent>
+					<p>{{content}}</p>
+				</ng-template>
+			</div>
+
+			<!-- Show UI element designing this component as an actionable/clickable item, if a link is provided -->
+			<span *ngIf="hasAction || link" class="tile-link">
+			<svg width="16" height="14" viewBox="0 0 16 14">
+				<path d="M11.95 5.997L7.86 2.092 9.233.639l6.763 6.356-6.763 6.366L7.86 11.91l4.092-3.912H-.003v-2h11.952z">
+				</path>
+			</svg>
+			</span>
+		</div>
+	</div>
+</ng-template>

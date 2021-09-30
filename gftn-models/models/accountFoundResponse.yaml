@@ -1,0 +1,16 @@
+title: accountFoundResponse
+description: Account Found Response
+type: object
+required:
+  - stellar_network_address
+properties:
+  stellar_network_address:
+    type: string
+    description: The stellar address to interact with in the context of this transaction
+  other_info:
+    type: string
+    description: Other info returned about the participant or the final receiver
+externalDocs:
+  url: '#/definitions/accountFoundResponse'
+x-go-name: AccountFoundResponse
+

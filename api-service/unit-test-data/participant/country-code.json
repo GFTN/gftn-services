@@ -1,0 +1,26 @@
+[
+  {
+    "api_service_url": "http://test-nz.worldwire-ibm.com:8080",
+    "compliance_service_url": "http://test-nz.worldwire-ibm.com:11003",
+    "country_code": "NZ",
+    "distribution_accounts": [
+      {
+        "account_name": "default",
+        "stellar_network_address": "GA7D2ZZHDRELM7G3DVXSNYGLXPTMFVHTJOQZ3SKSCBDR7DHPPAQS2OW6"
+      },
+      {
+        "account_name": "da1",
+        "stellar_network_address": "GBTJVFAAZCRJG4TXAMADCBDQ6RJGYJJ34XAJLONUSQA5YCPB2356IUBJ"
+      },
+      {
+        "account_name": "da2",
+        "stellar_network_address": "GDSVFKYAC6KKREKYYZA7RMGKDC6JXNA35IDT5PKGB3UHWYFIR7U4LXMG"
+      }
+    ],
+    "federation_service_url": "http://test-nz.worldwire-ibm.com:11001",
+    "issuing_account": "GASEKKND6OO6CGJPQCK4I4DGQFY3ZPK3SDLPQ6WODXFTEEU4H2UPK5JP",
+    "participant_domain": "nz.one.payments.gftn.io",
+    "quote_service_url": "http://test-nz.worldwire-ibm.com:11002",
+    "rdo_service_url": "http://test-nz.worldwire-ibm.com:7070"
+  }
+]

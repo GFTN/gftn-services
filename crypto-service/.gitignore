@@ -1,0 +1,5 @@
+api-definitions/node_modules
+.DS_Store
+.idea
+crypto-service
+log.txt

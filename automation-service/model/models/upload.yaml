@@ -1,0 +1,21 @@
+title: Upload
+description: Upload aws secret, k8s secret and config map to database for version control
+type: object
+required:
+- version
+properties:
+  version:
+    type: string
+  configMap:
+    description: Encoded K8s ConfigMap
+    type: string
+  awsSecret:
+    description: Encoded secret store in AWS secret manager
+    type: string
+  k8sSecret:
+    description: Encoded K8s secret
+    type: string
+
+externalDocs:
+  url: '#/definitions/upload'
+x-go-name: Upload

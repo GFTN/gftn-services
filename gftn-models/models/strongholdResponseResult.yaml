@@ -1,0 +1,47 @@
+title: strongholdResponseResult
+description: strong hold specification for withdrawal response
+type: object
+required:
+  - paymentInstructions
+  - paymentMethodDetails
+properties:
+  id:
+    type: string
+    description: result id
+  amount:
+    type: string
+    description: amount
+  feeAmount:
+    type: string
+    description: fee
+  paymentMethod:
+    type: string
+    description: typically us-ach
+  assetId:
+    type: string
+    description: asset ID issued by an anchor
+  paymentMethodInstructions:
+    type: object
+    properties:
+      amount:
+        type: string
+      pay_to_reference:
+        type: string
+        description: a reference hash to refer transaction in anchor's system of record
+      pay_to_venue_specific:
+        type: string
+        description: address to return back to
+    x-go-name: StrongholdPaymentInstructions
+  paymentMethodDetails:
+    type: Object
+    description: Details of payment method
+    $ref: 'strongholdPaymentMethodDetails.yaml'
+  customerReference:
+    type: string
+  direction:
+    type: string
+  status:
+    type: string
+externalDocs:
+  url: '#/definitions/strongholdResponseResult'
+x-go-name: StrongholdResponseResult

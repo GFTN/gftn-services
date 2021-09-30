@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message SendPayload {
+    string msg_id = 1;
+    string msg_type = 2;
+    bytes message = 3;
+    string ofi_id = 4;
+    string ofi_public_key = 5;
+    string rfi_id = 6;
+    string instruction_id = 7;
+    string original_instruction_id = 8;
+    string original_msg_id = 9;
+}

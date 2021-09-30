@@ -1,0 +1,52 @@
+[WW_ERROR]
+    [WW_ERROR.GATEWAY-1001]
+        SHORT_MESSAGE = "Error while decoding message payload"
+        DETAILS = "Message payload attribute malformed or missing"
+    [WW_ERROR.GATEWAY-1002]
+        SHORT_MESSAGE = "Error while validating message payload"
+        DETAILS = "Message payload attribute malformed or missing"
+    [WW_ERROR.GATEWAY-1003]
+        SHORT_MESSAGE = "Error while sending message payload"
+        DETAILS = "Encounter error while sending message to message broker"
+    [WW_ERROR.GATEWAY-1004]
+        SHORT_MESSAGE = "Error while parsing message payload"
+        DETAILS = "Specified message type is not supported"
+    [WW_ERROR.GATEWAY-1005]
+        SHORT_MESSAGE = "Error while retrieving message from WW"
+        DETAILS = "Gateway consumer is unable to retrieve messages from WW"
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

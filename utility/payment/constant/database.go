@@ -1,0 +1,30 @@
+// © Copyright IBM Corporation 2020. All rights reserved.
+// SPDX-License-Identifier: Apache2.0
+// 
+package constant
+
+var (
+	DATABASE_STATUS_PENDING               = "PENDING"
+	DATABASE_STATUS_FAILED                = "FAILED"
+	DATABASE_STATUS_DONE                  = "DONE"
+	DATABASE_STATUS_EMPTY                 = "EMPTY"
+	DATABASE_STATUS_NONE                  = "NONE"
+	DATABASE_STATUS_CXL_RJCT              = "CXL_RJCT"
+	DATABASE_UPDATE                       = "UPDATE"
+	DATABASE_INIT                         = "INIT"
+	DATABASE_STATUS_CLEARED               = "CLEARED"
+	DATABASE_STATUS_CANCEL_INIT           = "CANCEL_INIT"
+	DATABASE_STATUS_CANCELED              = "CANCELED"
+	DATABASE_STATUS_RDO_INIT              = "RDO_INIT"
+	DATABASE_STATUS_ASSET_REDEMPTION_INIT = "ASSET_REDEMPTION_INIT"
+	DATABASE_STATUS_MODIFY_PAYMENT        = "REQUEST_TO_MODIFY_PAYMENT"
+	DATABASE_STATUS_SETTLED               = "SETTLED"
+	DATABASE_STATUS_UNABLE_TO_EXECUTE     = "UNABLE_TO_EXECUTE"
+
+	FIREBASE_INIT           = "init"
+	FIREBASE_UPDATE_PARTIAL = "update_partial"
+	FIREBASE_UPDATE_BOTH    = "update_both"
+
+	ROLE_ANCHOR       = "IS"
+	ROLE_MARKET_MAKER = "MM"
+)

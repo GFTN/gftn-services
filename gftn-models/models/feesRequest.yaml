@@ -1,0 +1,51 @@
+
+title: feesRequest
+x-group-m: Models
+description: >
+  The information required to determine the fees related to a payment a Participant would like to execute.
+type: object
+required:
+  - request_id
+  - asset_settlement
+  - asset_payout
+  - participant_id
+properties:
+  amount_gross:
+    type: number
+    multipleOf: 0.0000001
+    description: >
+      Amount the OFI sends to the RFI on the ledger (not inclusive of RFI Fees). The recipient will receive this amount minus the RFI fees. If this attribute is set, amount_payout should not be filled in.
+  amount_payout:
+    type: number
+    multipleOf: 0.0000001
+    description: >
+      Amount (in payout asset) the sender would like the recipient to receive from the RFI. This is different from the amount_gross parameter since the sender will need to confirm that they are willing to pay the RFI's fee to make the payment to the recipient. If this attribute is set, amount_gross should not be set.
+  amount_settlement:
+    type: number
+    multipleOf: 0.0000001
+    description: >
+      Amount (in settlement asset) the OFI gives to the RFI on the ledger (inclusive of RFI Fees).
+  asset_payout:
+    type: string
+    description: >
+      The three-letter asset code of the fiat payment which will be made by the Participant to their ultimate beneficiary.
+  asset_settlement:
+    type: object
+    description: Digital asset used to settle the transaction on the ledger.
+    $ref: 'asset.yaml'
+  details_payout_location:
+    type: object
+    description: Where the beneficiary picks up their payout.
+    $ref: 'payoutLocation.yaml'
+  participant_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: Identifier of the Participant who initiated the fee request.
+  request_id:
+    type: string
+    description: Unique identifier for this fee request.
+externalDocs:
+  url: '#/definitions/feesRequest'
+x-go-name: FeesRequest

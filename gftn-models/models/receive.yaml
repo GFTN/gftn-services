@@ -1,0 +1,28 @@
+
+title: receive
+description: Receive
+x-group-m: Models
+type: object
+required:
+  - transaction_id
+  - transaction_reference
+  - account_name
+properties:
+  transaction_memo:
+    type: string
+    description: >
+      Optional info about the transaction.
+  transaction_id:
+    type: string
+    description: >
+      The unique identifier for the compliance check done prior to this payment.
+  account_name:
+    type: string
+    description: >
+      The operating or issuing account name where the payment was received.
+  transaction_reference:
+    type: string
+    description: Cursor location of this payment on the ledger.
+externalDocs:
+  url: '#/definitions/receive'
+x-go-name: Receive

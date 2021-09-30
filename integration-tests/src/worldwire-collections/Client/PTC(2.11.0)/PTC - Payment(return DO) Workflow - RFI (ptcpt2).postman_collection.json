@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "e9582e57-a053-4e44-a807-8d633d57b93b",
+		"name": "PTC - Payment(return DO) Workflow - RFI (ptcpt2)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 5 - receive incoming return DO request",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ptcpt2.worldwire-qa.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"ptcpt2",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 6.0 - sign agree return DO reply",
+					"item": [
+						{
+							"name": "/client/payload/sign",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "768dbc69-5980-4d15-8e8c-558423d29027",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"rfi_signed_msg\", jsonData.payload_with_signature)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"payload\":\"<step1: assemble pacs 004 xml file>\n\t\t\t\t<step2: base64 encode it>\n\t\t\t\t<step3: paste it here between quotes>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "ptcpt2.worldwire-qa.io/local/crypto/v1/client/payload/sign",
+									"host": [
+										"ptcpt2",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"crypto",
+										"v1",
+										"client",
+										"payload",
+										"sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 6.1 - submit agree return DO reply to OFI",
+					"item": [
+						{
+							"name": "/transactions/reply",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message_type\": \"iso20022:pacs.004.001.09\",\n\t\"message\": \"{{rfi_signed_msg}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "ptcpt2.worldwire-qa.io/local/send/v1/client/transactions/reply",
+									"host": [
+										"ptcpt2",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"reply"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 7 - receive stellar hash payment result",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ptcpt2.worldwire-qa.io/local/gateway/v1/client/message?type=payment",
+									"host": [
+										"ptcpt2",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "payment"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

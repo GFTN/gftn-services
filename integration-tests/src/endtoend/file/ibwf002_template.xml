@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:worldwire">
+    <AppHdr >
+        <Fr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+            <FIId>
+                <FinInstnId>
+                    <BICFI>$HEADER_BIC</BICFI>
+                    <Othr>
+                        <Id>$HEADER_SENDER_ID</Id>
+                    </Othr>
+                </FinInstnId>
+            </FIId>
+        </Fr>
+        <To xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+            <FIId>
+                <FinInstnId>
+                    <BICFI>WORLDWIRE00</BICFI>
+                    <Othr>
+                        <Id>WW</Id>
+                    </Othr>
+                </FinInstnId>
+            </FIId>
+        </To>
+        <BizMsgIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">$BUSINESS_MSG_ID</BizMsgIdr>
+        <MsgDefIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">ibwf.002.001.01</MsgDefIdr>
+        <CreDt xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">$HEADER_TX_CREATE_TIMEZ</CreDt>
+    </AppHdr>
+    <DigOblSetNotif>
+        <GrpHdr xmlns="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01">
+            <MsgId>$MSG_ID</MsgId>
+            <CreDtTm>$TX_CREATE_TIME</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>$SETTLE_METHOD</SttlmMtd>
+                <SttlmAcct>
+                    <Id>
+                        <Othr>
+                            <Id>$OFI_ID</Id>
+                        </Othr>
+                    </Id>
+                    <Nm>$OFI_ACCOUNT_NAME</Nm>
+                </SttlmAcct>
+            </SttlmInf>
+            <PmtTpInf>
+                <SvcLvl>
+                    <Prtry>$PMT_PARTICIPANT_ID</Prtry>
+                </SvcLvl>
+            </PmtTpInf>
+            <InstgAgt>
+                <FinInstnId>
+                    <BICFI>$INSTG_BIC</BICFI>
+                    <Othr>
+                        <Id>$INSTG_ID</Id>
+                    </Othr>
+                </FinInstnId>
+            </InstgAgt>
+            <InstdAgt>
+                <FinInstnId>
+                    <BICFI>$INSTD_BIC</BICFI>
+                    <Othr>
+                        <Id>$INSTD_ID</Id>
+                    </Othr>
+                </FinInstnId>
+            </InstdAgt>
+        </GrpHdr>
+        <SttlOblInf xmlns="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01">
+            <OrgnlGrpInf>
+                <OrgnlMsgId>$ORI_MSG_ID</OrgnlMsgId>
+                <OrgnlMsgNmId>$ORI_SEND_REQUEST_FILE_NAME</OrgnlMsgNmId>
+                <OrgnlCreDtTm>$ORI_TX_CREATE_TIME</OrgnlCreDtTm>
+            </OrgnlGrpInf>
+            <TxInf>
+                <NtfId>$OFI_FINANCIAL_ID</NtfId>
+                <OrgnlInstrId>$ORI_INSTR_ID</OrgnlInstrId>
+                <OrgnlEndToEndId>$ORI_END_TO_END_ID</OrgnlEndToEndId>
+                <OrgnlTxId>$ORI_TX_ID</OrgnlTxId>
+                <ActSttldAmt Ccy="$SETTLE_ASSET_CODE">$SETTLE_AMOUNT</ActSttldAmt>
+                <OrgnlTxRef>
+                    <IntrBkSttlmAmt Ccy="$ORI_SETTLE_ASSET_CODE">$ORI_SETTLE_AMOUNT</IntrBkSttlmAmt>
+                    <Dbtr>
+                        <Nm>$SENDER_BANK_NAME</Nm>
+                        <PstlAdr>
+                            <StrtNm>$SENDER_STREET_NAME</StrtNm>
+                            <BldgNb>$SENDER_BUILDING_NUMBER</BldgNb>
+                            <PstCd>$SENDER_POST_CODE</PstCd>
+                            <TwnNm>$SENDER_TOWN_NAME</TwnNm>
+                            <Ctry>$SENDER_COUNTRY</Ctry>
+                        </PstlAdr>
+                    </Dbtr>
+                    <Cdtr>
+                        <Nm>$RECEIVER_BANK_NAME</Nm>
+                        <PstlAdr>
+                            <StrtNm>$RECEIVER_STREET_NAME</StrtNm>
+                            <BldgNb>$RECEIVER_BUILDING_NUMBER</BldgNb>
+                            <PstCd>$RECEIVER_POST_CODE</PstCd>
+                            <TwnNm>$RECEIVER_TOWN_NAME</TwnNm>
+                            <Ctry>$RECEIVER_COUNTRY</Ctry>
+                        </PstlAdr>
+                    </Cdtr>
+                </OrgnlTxRef>
+            </TxInf>
+        </SttlOblInf>
+    </DigOblSetNotif>
+</Message>

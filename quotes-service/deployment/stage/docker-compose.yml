@@ -1,0 +1,13 @@
+version: '2.0'
+services:
+
+  admin.ww.io:
+    image: gftn/quotes-service
+    container_name: quotes-service
+    ports:
+      - "11234:11234"
+    volumes:
+      - /var/log/gftn:/opt/quotes-service/logs
+      - ./:/var/secret
+    env_file:
+     - ./.env

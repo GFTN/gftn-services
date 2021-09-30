@@ -1,0 +1,22 @@
+title: geo
+description: Geographic coordinates for a location. Based on https://schema.org/geo
+type: object
+required:
+  - coordinates
+  - type
+properties:
+  type:
+    enum: 
+      - area
+      - point
+    type: string
+    description: >
+      The type of location. Options include "point" if the location is a single pickup location, or "area" if it's a region.
+  coordinates:
+    type: array
+    items:
+      $ref: 'coordinate.yaml'
+    description: The geo coordinates
+externalDocs:
+  url: '#/definitions/geo'
+x-go-name: Geo

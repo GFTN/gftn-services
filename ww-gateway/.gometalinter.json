@@ -1,0 +1,12 @@
+{
+  "Enable": [
+    "deadcode",
+    "unconvert",
+    "golint"
+  ],
+  "Exclude": [
+    "exported type (\\w+) should have comment or be unexported",
+    "exported \\w+ (\\S*['.]*)([a-zA-Z'.*]*) should have comment or be unexported",
+    "warning: don't use ALL_CAPS in Go names; use CamelCase"
+  ]
+}

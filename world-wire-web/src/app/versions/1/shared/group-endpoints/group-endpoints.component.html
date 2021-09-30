@@ -1,0 +1,19 @@
+<ul #accordion data-accordion class="bx--accordion">
+	<li data-accordion-item class="bx--accordion__item" routerLinkActive="bx--accordion__item--active">
+		<button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane-methods" fxLayout="row">
+        <a class="nav-link bx--accordion__title cap">{{group[0].groupName}}</a>
+        <span fxFlex></span>
+        <svg class="bx--accordion__arrow" width="7" height="12" viewBox="0 0 7 12">
+          <path d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z"></path>
+        </svg>
+      </button>
+		<div id="pane-methods" class="bx--accordion__content">
+	<li *ngFor="let i of group" routerLinkActive="active-link">
+		<a class="nav-link"
+      [title]="i.operation.summary"
+      (click)="swaggerService.jumpTo('path', i.operationType, i.pathName)">{{i.operation.summary}}
+    </a>
+	</li>
+	</div>
+	</li>
+</ul>

@@ -1,0 +1,90 @@
+title: payoutLocation
+description: Details of each payout location. Based on https://schema.org/LocalBusiness
+type: object
+required:
+  - type
+  - name
+  - currencies_accepted
+  - image
+  - url
+  - telephone
+  - member_of
+  - geo
+  - opening_hours
+  - category
+  - payout_child
+  - payout_parent
+properties:
+  payout_parent:
+    type: array
+    items:
+      type: string  
+    description: >
+      The collection of identifiers for the parents of the locations - it can be only areas.
+    x-go-custom-tag: "bson:\"payout_parent\""
+  payout_child:
+    type: array
+    items:
+      type: string   
+    description: >
+      The collection of identifiers for locations which belong to the location - these can include areas, and points.
+    x-go-custom-tag: "bson:\"payout_child\""
+  geo:
+    description: >
+      The geo coordinates (longtitude & latitude) of the location
+    $ref: 'geo.yaml'
+  opening_hours:
+    description: The opening hours of the location.
+    type: array
+    x-go-custom-tag: "bson:\"opening_hours\""
+    items:
+      $ref: 'payoutLocationOpeningHours.yaml'
+  category:
+    description: The category type of the location
+    $ref: 'payoutLocationCategory.yaml'
+  address:
+    description: The address of the payout location
+    $ref: 'address.yaml'
+  type:
+    type: string
+    description: >
+      The type of location. Options include: "Bank", "Non-Bank Financial Institution", "Mobile Network Operator", or "Other".
+    enum:
+      - Bank
+      - Non-Bank Financial Institution
+      - Mobile Network Operator
+      - Other
+  name:
+    type: string
+    description: The name of the location.
+  currencies_accepted:
+    type: array
+    x-go-custom-tag: "bson:\"currencies_accepted\""
+    items:
+      type: string
+    description: The currency accepted.
+  image:
+    type: string
+    description: An image of the item. This can be a URL or a fully described ImageObject.
+  id:
+    type: string
+    description: The unique identifier of the location.
+  url:
+    type: string
+    description: The URL of the location.
+  telephone:
+    type: string
+    description: The phone number of the location.
+  member_of:
+    type: array
+    x-go-custom-tag: "bson:\"member_of\""
+    items:
+      type: string
+    description: The financial institute that this location belongs to.
+  routing_number:
+    type: string
+    x-go-custom-tag: "bson:\"routing_number\""
+    description: Optional routing information, also known as BIC (bank id code).
+externalDocs:
+  url: '#/definitions/payoutLocation'
+x-go-name: PayoutLocation

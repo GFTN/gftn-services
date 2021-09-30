@@ -1,0 +1,72 @@
+{
+  "_id": "5b88f01fb33c730001bc3ed1",
+  "compliance_service_url": "https://one-au.worldwire.io:11003",
+  "federation_service_url": "https://one-au.worldwire.io:11001",
+  "quote_service_url": "https://one-au.worldwire.io:11002",
+  "participant_domain": "au.one.payments.worldwire.io",
+  "country_code": "AU",
+  "distribution_accounts": [
+    {
+      "account_name": "default",
+      "stellar_network_address": "GAVX4KQ7VR5EXW5HYKBYD2PROLHULDMXKEKQETH6QELNAZIRJLCMNGP6"
+    }
+  ],
+  "issuing_account": "GCAMLVDETBNK7ASGFH7QBUK464IVHB3QQYJXAYS3TNFCTTLCEGL2UQ4K",
+  "api_service_url": "https://one-au.worldwire.io:8080",
+  "rdo_service_url": "https://one-au.worldwire.io:7070",
+  "status": "active"
+}
+{
+  "_id": "5b88f1dab33c730001bc3ed2",
+  "compliance_service_url": "https://one-sg.worldwire.io:11003",
+  "federation_service_url": "https://one-sg.worldwire.io:11001",
+  "quote_service_url": "https://one-sg.worldwire.io:11002",
+  "participant_domain": "sg.one.payments.worldwire.io",
+  "country_code": "SG",
+  "distribution_accounts": [
+    {
+      "account_name": "default",
+      "stellar_network_address": "GBRZRX75NM2FIPYJW7AYUFP5OCT3EYIH6FUZGJ2APSTZNAJVP4QRMLW5"
+    }
+  ],
+  "issuing_account": "GAJ6BK4DARKHVA4SDFSST5FAV6AAAEP6PABFMFOXQTGEF43L7WK4DBQF",
+  "api_service_url": "https://one-sg.worldwire.io:8080",
+  "rdo_service_url": "https://one-sg.worldwire.io:7070",
+  "status": "active"
+}
+{
+  "_id": "5b89d087b33c730001bc3ed3",
+  "compliance_service_url": "https://one-fj.worldwire.io:11003",
+  "federation_service_url": "https://one-fj.worldwire.io:11001",
+  "quote_service_url": "https://one-fj.worldwire.io:11002",
+  "participant_domain": "fj.one.payments.worldwire.io",
+  "country_code": "FJ",
+  "distribution_accounts": [
+    {
+      "account_name": "default",
+      "stellar_network_address": "GD7OS4SJFENVYIRPT3PH5EYPLWV4IBPHB77A6265PCCFSWNRFVCEELVW"
+    }
+  ],
+  "issuing_account": "GB3A2JAQM5UTWFKYH5I5GV35JNQJB3YPAOMBPGE63FOXHVTPEUERCKEY",
+  "api_service_url": "https://one-fj.worldwire.io:8080",
+  "rdo_service_url": "https://one-fj.worldwire.io:7070",
+  "status": "active"
+}
+{
+  "_id": "5b89d0b9b33c730001bc3ed4",
+  "compliance_service_url": "https://one-nz.worldwire.io:11003",
+  "federation_service_url": "https://one-nz.worldwire.io:11001",
+  "quote_service_url": "https://one-nz.worldwire.io:11002",
+  "participant_domain": "nz.one.payments.worldwire.io",
+  "country_code": "NZ",
+  "distribution_accounts": [
+    {
+      "account_name": "default",
+      "stellar_network_address": "GCW364PWLO5YVMBX5CBZ3DAYGSLPXZQBA47XEBMCYK36EDNTVP63PDWZ"
+    }
+  ],
+  "issuing_account": "GAGSRSDCZFCMHUWHACXPFVVIUQ6BT4N7KGQSKOO5ZLI2TKKU3BXQINPX",
+  "api_service_url": "https://one-nz.worldwire.io:8080",
+  "rdo_service_url": "https://one-nz.worldwire.io:7070",
+  "status": "active"
+}

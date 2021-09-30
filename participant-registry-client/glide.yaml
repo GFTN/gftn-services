@@ -1,0 +1,4 @@
+package: github.com/GFTN/gftn-services/participant-registry-client
+import:
+- package: github.com/op/go-logging
+

@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "cf0f29a2-ace1-4d23-9c1d-c32e7b8773a8",
+		"name": "StrongHoldVPN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Allow Trust operation on Anchor service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://anchor-vpn.worldwire.io:8080/v1/anchor/participant/hk.one.payments.worldwire.io/account/issuing/trust?action=allow&asset_code=USD&anchor_domain=usd.us.stronghold.co&account_name=issuing&authorize=true",
+					"protocol": "https",
+					"host": [
+						"anchor-vpn",
+						"worldwire",
+						"io"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"anchor",
+						"participant",
+						"hk.one.payments.worldwire.io",
+						"account",
+						"issuing",
+						"trust"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "allow"
+						},
+						{
+							"key": "asset_code",
+							"value": "USD"
+						},
+						{
+							"key": "anchor_domain",
+							"value": "usd.us.stronghold.co"
+						},
+						{
+							"key": "account_name",
+							"value": "issuing"
+						},
+						{
+							"key": "authorize",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Disctovery endpoint for issuingaccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://anchor-vpn.worldwire.io:8080/v1/anchor/discover?q=issuing*hk.one.payments.worldwire.io&type=name",
+					"protocol": "https",
+					"host": [
+						"anchor-vpn",
+						"worldwire",
+						"io"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"anchor",
+						"discover"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "issuing*hk.one.payments.worldwire.io"
+						},
+						{
+							"key": "type",
+							"value": "name"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

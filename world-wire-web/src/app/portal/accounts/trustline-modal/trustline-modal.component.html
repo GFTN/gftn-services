@@ -1,0 +1,121 @@
+<ibm-modal>
+	<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+		<div class="bx--modal-header__label bx--type-delta">Add New</div>
+		Create New Trustline Request
+	</ibm-modal-header>
+
+	<form #trustlineForm="ngForm" (ngSubmit)="submitForm(trustlineForm)">
+		<section class="bx--modal-content">
+			<p>Select a whitelisted issuer to begin creating a trustline request for an asset/s you want to hold in this
+				account:</p>
+			<br/>
+			<p class="bx--type-epsilon">{{accountService.getAccountNameReadable()}}</p>
+			<br/>
+			<div class="margin-height margin-width bx--form-item bx--text-input-wrapper">
+
+				<label class="bx--label">Asset Issuer <span class="text-danger">*</span></label>
+
+				<!-- Loading bar for issuer options if request has not previously been made. -->
+				<p *ngIf="!issuerOptions" class="loading"></p>
+
+				<!-- No whitelisted issuers -->
+				<p *ngIf="issuerOptions && issuerOptions.length == 0" class="italic">You have not whitelisted any asset
+					issuer. No options are available for creating a asset trustline with.</p>
+
+				<!-- Show dropdown only if options are available. Options get set upon init of component, so this is a neccesary check for component initialization. -->
+				<ng-container *ngIf="issuerOptions && issuerOptions.length > 0">
+					<ibm-dropdown #issuerDropdown="ngModel" name="environment" placeholder="Asset Issuer"
+						[(ngModel)]="formData.issuer_id" value="value" theme="dark" [appendInline]="true"
+						[disabled]="assetsLoading || issuerOptions.length == 0" (selected)="getAssetsForIssuer()"
+						required>
+						<ibm-dropdown-list [items]="issuerOptions"></ibm-dropdown-list>
+					</ibm-dropdown>
+
+					<div *ngIf="issuerDropdown && issuerDropdown.errors?.required" class="bx--form-requirement">
+						Asset Issuer is required
+					</div>
+				</ng-container>
+			</div>
+
+			<label class="bx--type-gamma margin-width">Select Asset/s</label>
+
+			<!-- Default display message. Still fetching assets for participant. -->
+			<div fxLayout="column" class="margin-height margin-width" *ngIf="assetsLoading">
+				<div *ngFor="let item of ' '.repeat(2).split(''); let i = index;"
+					class="bx--form-item bx--checkbox-wrapper" fxLayout="row" fxLayoutAlign="start center">
+					<input type="checkbox" class="bx--checkbox" [id]="'loader-' + i"
+					name="loader-option" disabled />
+					<label fxFlex class="bx--checkbox-label" [for]="'asset-' + i"><p class="loading"></p></label>
+				</div>
+			</div>
+
+			<!-- No issuer selected, or no issued assets to display for selected issuer. -->
+			<div fxLayout="row" class="margin-height"
+				*ngIf="!assetsLoading && (!formData.assets || formData.assets.length === 0)">
+				<p class="italic">No assets to display.
+					<span *ngIf="!formData.issuer_id">Please select an asset issuer.</span></p>
+			</div>
+
+			<!-- assets -->
+			<div class="margin-width margin-height" fxLayout="column" *ngIf="formData.assets.length > 0">
+
+				<!-- Select/Deselect All -->
+				<div class="bx--form-item bx--checkbox-wrapper" fxLayout="row" fxLayoutAlign="start center">
+					<input type="checkbox" class="bx--checkbox" id="checkAll" name="checkAll" [(ngModel)]="checkAll" [indeterminate]="checkMixed" (change)="selectAll()" />
+					<label class="bx--checkbox-label" for="checkAll">Select/Deselect All</label>
+				</div>
+
+				<!-- labels for Asset Options -->
+				<div fxLayout="row" class="wrap">
+					<div fxLayout="row" class="assetRow">
+						<div class="bx--form-item bx--checkbox-wrapper"></div>
+						<label class="bx--type-zeta">Limit</label>
+					</div>
+
+					<div *ngIf="formData.assets.length > 4" fxLayout="row" class="assetRow">
+						<div class="bx--form-item bx--checkbox-wrapper"></div>
+						<label class="bx--type-zeta">Limit</label>
+					</div>
+				</div>
+
+				<!-- Asset Option Checkboxes. Wraps into 2 columns if more than 4 results -->
+				<div [fxLayout]="formData.assets.length > 4 ? 'row wrap' : 'column'"
+					[class.wrap]="formData.assets.length > 4">
+					<div fxLayout="row" *ngFor="let asset of formData.assets; let i = index;" class="assetRow">
+						<div class="bx--form-item bx--checkbox-wrapper" fxLayout="row" fxLayoutAlign="start center">
+							<input
+										#assetOption
+										type="checkbox"
+										class="bx--checkbox"
+										[id]="'asset-' + i"
+										name="asset-option"
+										[(ngModel)]="asset.checked"
+										(change)="checkIfMixed()"
+										/>
+							<label class="bx--checkbox-label" [for]="'asset-' + i">{{asset.name}}</label>
+						</div>
+						<!-- Asset Option limit -->
+						<div class="bx--form-item bx--text-input-wrapper">
+							<input ibmText #assetLimit="ngModel" theme="light" type="number" minlength="1" min="1" [name]="'assetLimit-'+i" [(ngModel)]="asset.limit" placeholder="0" [disabled]="!asset.checked" [attr.data-invalid]="!(assetLimit.valid || assetLimit.untouched) ? true: null" [required]="asset.checked">
+							<div *ngIf="assetLimit.errors?.required" class="bx--form-requirement">
+								Asset Limit is required
+							</div>
+							<div *ngIf="assetLimit.errors?.minlength" class="bx--form-requirement">
+								Asset Limit must be greater than 0
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="assets-error-notication"></div>
+			</div>
+		</section>
+		<ibm-modal-footer>
+			<button ibmButton="secondary" type="button" (click)="closeModal()">Cancel</button>
+			<button ibmButton="primary" type="submit" [disabled]="loadingRequest || !validForm(trustlineForm)">Request</button>
+		</ibm-modal-footer>
+	</form>
+
+</ibm-modal>
+
+<ibm-loading *ngIf="loadingRequest" [overlay]="true"></ibm-loading>

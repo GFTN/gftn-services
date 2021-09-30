@@ -1,0 +1,182 @@
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center center">
+	<div #container id="container" fxFlex class="margin-width margin-height restrict-width" fxLayout="column">
+
+		<!-- Display Dropdown to switch between nodes if available -->
+		<app-node-select (changed)="refreshTransactions()"></app-node-select>
+
+		<ibm-tabs class="bordered">
+			<ibm-tab *ngFor="let type of transactionService.transactionTypes" [heading]="type.name"
+				[active]="type.key === transactionService.transactionType"
+				(selected)="getSelectedTransactions(type.key)">
+				<!-- Search and Filter -->
+				<section *ngIf="transactionTypeDetails" class="bx--table-toolbar" fxLayout="row" fxLayoutGap="20px">
+					<!-- Text Search -->
+					<div class="bx--toolbar-search-container" fxFlex fxLayout="row">
+						<div data-search role="search" class="bx--search bx--search--sm">
+							<label id="search-input-label-1" class="bx--label" for="search__input-1">Search</label>
+							<input #search="ngModel" class="bx--search-input bx--text-input--light" type="text" id="search__input-1" name="transactions-search" [(ngModel)]="currSearchText" [placeholder]="transactionTypeDetails.searchPlaceholderText" (keyup)="keyUp.next($event)">
+							<svg class="bx--search-magnifier" width="16" height="16" viewBox="0 0 16 16">
+								<path
+									d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm4.936-1.27l4.563 4.557-.707.708-4.563-4.558a6.5 6.5 0 1 1 .707-.707z"
+									fill-rule="nonzero" />
+							</svg>
+							<button class="bx--search-close" [ngClass]="{
+								'bx--search-close--hidden': !currSearchText || currSearchText.length === 0
+							}" title="Clear search
+									  input" aria-label="Clear search input" (click)="clearSearch()">
+							<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+								<title>Search</title>
+								<path d="M8 6.586L5.879 4.464 4.464 5.88 6.586 8l-2.122 2.121 1.415 1.415L8 9.414l2.121 2.122 1.415-1.415L9.414 8l2.122-2.121-1.415-1.415L8 6.586zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+								fill-rule="evenodd" />
+							</svg>
+							</button>
+						</div>
+
+						<button class="bx--btn bx--btn--primary bx--btn--sm" type="button" [appPopover]="filtersTemplate" trigger="click" placement="left-bottom" [container]="containerRef">
+							<span>Filter</span>
+							<svg class="bx--btn__icon" width="16" height="12" viewBox="0 0 16 12" xmlns="http://www.w3.org/2000/svg">
+							<title>Filter Transactions</title>
+							<path d="M8.05 2a2.5 2.5 0 0 1 4.9 0H16v1h-3.05a2.5 2.5 0 0 1-4.9 0H0V2h8.05zm2.45 2a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM3.05 9a2.5 2.5 0 0 1 4.9 0H16v1H7.95a2.5 2.5 0 0 1-4.9 0H0V9h3.05zm2.45 2a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+							</svg>
+						</button>
+
+					</div>
+
+					<!-- Toolbar Actions (icons) -->
+					<div class="bx--toolbar-content">
+						<button class="bx--toolbar-action" (click)="openExportModal()">
+								<span class="bx--tooltip__trigger bx--tooltip--icon__top" aria-label="Export Transactions">
+								<svg class="bx--toolbar-action__icon" fill-rule="evenodd" height="16" name="Export" role="img" viewBox="0 0 14 16" width="14" alt="Export">
+								<title>Export Transactions</title>
+								<path d="M7.5 11l4.1-4.4.7.7L7 13 1.6 7.3l.7-.7L6.5 11V0h1v11zm5.5 4v-2h1v2c0 .6-.4 1-1 1H1c-.6 0-1-.4-1-1v-2h1v2h12z"></path>
+								</svg>
+								</span>
+							</button>
+						<button class="bx--toolbar-action" [appPopover]="settingsTemplate" trigger="click" placement="left-bottom" [container]="containerRef" dialogWidth="400px">
+							<span class="bx--tooltip__trigger bx--tooltip--icon__top" aria-label="Settings">
+								<svg class="bx--toolbar-action__icon" fill-rule="evenodd" height="16" name="settings" role="img" viewBox="0 0 15 16" width="15" alt="Settings">
+								<title>Settings</title>
+								<path d="M7.5 10.5C8.9 10.5 10 9.4 10 8S8.9 5.5 7.5 5.5 5 6.6 5 8s1.2 2.5 2.5 2.5zm0 1C5.6 11.5 4 9.9 4 8s1.6-3.5 3.5-3.5S11 6.1 11 8s-1.5 3.5-3.5 3.5z"></path><path d="M6.3 2.6l-.3.1c-.7.2-1.3.5-1.9 1l-.2.2-1.4-.8-1.3 1.8L2.4 6l-.1.2C2.1 6.8 2 7.4 2 8c0 .3 0 .7.1 1l.1.3-1.2 1L2.2 12l1.1-.6.3.3c.6.8 1.4 1.3 2.4 1.6l.3.1.2 1.6h2.1l.2-1.6.3-.1c.8-.2 1.6-.7 2.2-1.3l.3-.2 1.1.6 1.2-1.7-1.1-1 .1-.3c.1-.5.1-1 .1-1.4 0-.5-.1-1.1-.2-1.6l-.1-.3 1.2-1-1.2-1.7-1.4.6-.3-.2c-.6-.5-1.3-.9-2-1.1l-.2-.1L8.6 1H6.5l-.2 1.6zM5.5.9c0-.5.5-.9 1-.9h2.1c.5 0 .9.4 1 .9l.1 1c.6.2 1.2.5 1.8 1l.7-.4c.4-.2 1-.1 1.3.3l1.2 1.7c.3.4.2 1-.1 1.3l-.7.6c.1.5.1 1.1.1 1.6 0 .4 0 .8-.1 1.3l.6.6c.4.3.4.9.1 1.3l-1.2 1.7c-.3.4-.8.5-1.3.3l-.4-.2c-.6.5-1.3.9-2 1.2l-.1 1c-.1.5-.5.9-1 .9H6.5c-.5 0-.9-.4-1-.9l-.1-1c-.8-.3-1.6-.8-2.3-1.4l-.4.2c-.4.2-1 .1-1.3-.3L.2 11c-.3-.4-.2-1 .1-1.3l.8-.7c0-.4-.1-.7-.1-1 0-.6.1-1.2.2-1.8l-.6-.6C.2 5.3.1 4.7.4 4.3l1.2-1.7c.3-.5.9-.6 1.3-.4l.9.5c.5-.3 1-.6 1.6-.8l.1-1z"></path>
+								</svg>
+							</span>
+						</button>
+						<!-- empty disabled button to preserve margin -->
+						<button class="bx--toolbar-action" disabled></button>
+					</div>
+				</section>
+
+				<div class="table-responsive-wrapper">
+					<ibm-table fxFlexFill [model]="model" [showSelectionColumn]="showSelectionColumn"
+						[striped]="transactionService.stripedRows" (sort)="customSort($event)"
+						[size]="transactionService.tableSize">
+						<!-- Skeleton Loading Template -->
+						<tbody *ngIf="!loaded">
+							<tr class="static" *ngFor="let item of ' '.repeat(5).split('')">
+								<td [attr.colspan]="model.header.length">
+									<p class="loading"></p>
+								</td>
+							</tr>
+						</tbody>
+						<!-- Transactions are loading and show 0 results. -->
+						<tbody *ngIf="loaded && model.data[0].length == 0">
+							<tr id="not-found" class="static">
+								<td [attr.colspan]="model.header.length">
+									<p>No transactions found for this participant.</p>
+								</td>
+							</tr>
+						</tbody>
+					</ibm-table>
+				</div>
+
+				<ng-container *ngIf="loaded && model.data[0].length > 0">
+					<!-- Load More Button -->
+					<div *ngIf="model.data.length < (transactionService.$transactions | async)?.length"
+						class="margin-height margin-width" fxLayout="row" fxLayoutAlign="center">
+						<button class="bx--btn bx--btn--primary" type="button" (click)="loadMore()">Load More</button>
+					</div>
+					<!-- No more transactions to load -->
+					<div *ngIf="model.data.length >= (transactionService.$transactions | async)?.length"
+						class="margin-height margin-width" fxLayout="row" fxLayoutAlign="center">
+						<p class="italic margin-height center">End of transactions.</p>
+					</div>
+				</ng-container>
+			</ibm-tab>
+		</ibm-tabs>
+	</div>
+</div>
+
+<!-- Search Filters Menu -->
+<ng-template #filtersTemplate>
+	<app-transactions-filters></app-transactions-filters>
+</ng-template>
+
+<ng-template #overflowMenuItemTemplate let-data="data">
+	<ibm-overflow-menu [flip]="true">
+		<li class="bx--overflow-menu-options__option">
+			<button class="bx--overflow-menu-options__btn" (click)="viewStatusHistory(data.status, data.type)">Status History</button>
+		</li>
+	</ibm-overflow-menu>
+</ng-template>
+
+<ng-template #customTableItemTemplate let-data="data">
+	<table [class]="data.class">
+		<tbody>
+			<tr>
+				<td *ngFor="let field of data.fields" [class]="field.containerClass">
+					<label class="bx--label" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="5px">
+							<span class="label">{{ field.name }}</span>
+							<span *ngIf="field.tooltip" class="bx--tooltip--icon label">
+								<span class="bx--tooltip__trigger bx--tooltip--icon__top" [attr.aria-label]="field.tooltip">
+									<svg width="12px" viewBox="0 0 16 16">
+										<use xlink:href="/assets/icons/ibm/carbon-icons.svg#icon--info--solid"></use>
+									</svg>
+								</span>
+							</span>
+						</label>
+
+					<span *ngIf="!Array.isArray(field.value)" [class]="field.class">{{ field.value }}</span>
+					<span *ngIf="Array.isArray(field.value)" [class]="field.class">
+						<ng-container *ngFor="let item of field.value; let i = index;">
+							<span *ngIf="item.value">
+								{{ item.value }} {{ (field.delimiter && (i+1) < field.value.length) ? field.delimiter : '' }}
+							</span>
+					<span *ngIf="!item.value">{{item}}</span>
+					<br *ngIf="(i+1) < field.value.length">
+					</ng-container>
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</ng-template>
+
+<ng-template #tableItemTemplate let-data="data">
+	<span [class]="data.class">{{ data.pre }}{{ data.space ? ' ' : '' }}{{ data.value }}</span>
+</ng-template>
+
+<!-- Settings Menu -->
+<ng-template #settingsTemplate>
+	<app-transactions-settings></app-transactions-settings>
+</ng-template>
+
+<ng-template #customHeaderTemplate let-data="data">
+	<div fxLayout="row" fxLayoutGap="5px" [class]="data.class">
+		<span *ngIf="!data.hide">{{data.displayName ? data.displayName : data.value}}</span>
+		<span *ngIf="data.tooltip" class="bx--tooltip--icon">
+			<!-- Use bottom-aligned tooltip to prevent overflow on top -->
+			<span class="bx--tooltip__trigger bx--tooltip--icon__bottom" [attr.aria-label]="data.tooltip">
+				<svg class="gray" width="12px" viewBox="0 0 16 16">
+					<use xlink:href="/assets/icons/ibm/carbon-icons.svg#icon--info--solid"></use>
+				</svg>
+			</span>
+		</span>
+	</div>
+</ng-template>
+
+<!-- Custom template for Status Labels -->
+<ng-template #statusTemplate let-data="data">
+	<span class="bx--tag" [ngClass]="'bx--tag--' + transactionService.getStatusColor(data.value)">{{ transactionService.getStatusName(data.value, data.type) ? transactionService.getStatusName(data.value, data.type) : 'N/A' }}</span>
+</ng-template>
+
+<!-- necessary placeholder for modal -->
+<ibm-placeholder></ibm-placeholder>

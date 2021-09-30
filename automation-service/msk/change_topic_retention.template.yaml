@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ PARTICIPANT_ID }}-change-topic-retention
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: {{ PARTICIPANT_ID }}-change-topic-retention
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: {{ PARTICIPANT_ID }}-change-topic-retention
+        image: {{ DOCKER_REGISTRY_URL }}/gftn/msk-cli:{{ VERSION }}
+        command: ["sh",  "change_topic_retention.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: TOPIC
+          value: {{ TOPIC }}
+        - name: ZOOKEEPER
+          value: {{ ZOOKEEPER }}
+        - name: RETENTIONTIME
+          value: "{{ TIME }}"

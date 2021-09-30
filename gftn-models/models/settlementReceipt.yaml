@@ -1,0 +1,28 @@
+
+title: settlementReceipt
+description: Settlement Receipt
+x-group-m: Models
+type: object
+required:
+properties:
+  amount_fee:
+    type: number
+    multipleOf: 0.0000001
+    description: The fee amount, should be a float64 number
+    x-go-custom-tag: "bson:\"amount_fee\""
+  asset_code:
+    type: string
+    description: The identifier of the asset the anchor issued. For a list of assets, retrieve all World Wire assets from the /assets endpoint.
+  transaction_note:
+    type: string
+    description: An optional way for customers to name a transaction.
+  transaction_id:
+    type: string
+    description:  A hash that identifies the transaction on the ledger.
+  reference_hash:
+    type: string
+    description: A reference hash to refer transaction in anchor's system of record.
+
+externalDocs:
+  url: '#/definitions/settlementReceipt'
+x-go-name: AnchorWithdrawalResponse

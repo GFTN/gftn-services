@@ -1,0 +1,16 @@
+title: coordinate
+description: Geographic coordinates for a location. Based on https://schema.org/geo
+type: object
+required:
+  - lat
+  - long
+properties:
+  lat:
+    type: number
+    description: The latitude of the geo coordinates
+  long:
+    type: number
+    description: The longitude of the geo coordinates
+externalDocs:
+  url: '#/definitions/coordinate'
+x-go-name: Coordinate

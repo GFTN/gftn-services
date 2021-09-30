@@ -1,0 +1,64 @@
+
+title: transactionDetails
+description: Transaction Details
+x-group-m: Models
+type: object
+required:
+  - amount_beneficiary
+  - amount_settlement
+  - asset_code_beneficiary
+  - assetsettlement
+  - feecreditor
+  - feedebtor
+  - rfi_id
+  - ofi_id
+  - settlement_method
+properties:
+  ofi_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The ID that identifies the OFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).
+    x-go-custom-tag: "bson:\"ofi_id\""
+  amount_beneficiary:
+    type: number
+    multipleOf: 0.0000001
+    description: The amount the beneficiary should receive in beneficiary currency
+    x-go-custom-tag: "bson:\"amount_beneficiary\""
+  asset_code_beneficiary:
+    type: string
+    description: The asset code for the beneficiary
+    x-go-custom-tag: "bson:\"asset_code_beneficiary\""
+  rfi_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The ID that identifies the RFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).
+    x-go-custom-tag: "bson:\"rfi_id\""
+  feecreditor:
+    type: object
+    description: The fee charged by the creditor (RFI)
+    # x-desc-fee_creditor: The fee charged by the creditor (RFI)
+    $ref: 'fee.yaml'
+    externalDocs:
+      url: '#/definitions/fee'
+  amount_settlement:
+    type: number
+    multipleOf: 0.0000001
+    description: The amount of the settlement.
+    x-go-custom-tag: "bson:\"amount_settlement\""
+  assetsettlement:
+    type: object
+    description: The asset used for settlement on the blockchain(XLM for method = XLM)
+    $ref: 'asset.yaml'
+    externalDocs:
+      url: '#/definitions/asset'
+  settlement_method:
+    type: string
+    description: The preferred settlement method for this payment request (DA, DO, or XLM)
+    x-go-custom-tag: "bson:\"settlement_method\""
+externalDocs:
+  url: '#/definitions/transactionDetails'
+x-go-name: transactionDetails

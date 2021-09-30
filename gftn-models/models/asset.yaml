@@ -1,0 +1,34 @@
+title: asset
+description: Details of the asset being transacted
+x-group-m: Models
+type: object
+#when generating models after changes to asset.yaml, use 'make swaggergenasset' command to generate individual model first then carefully inspect the
+# discarded govalidator validation and add it again and then check in the changes
+required:
+  - asset_type
+  - asset_code
+properties:
+  asset_type:
+    type: string
+    description: The type of asset. Options include digital obligation, "DO", digital asset "DA", or a cryptocurrency "native".
+    enum:
+    - DO
+    - DA
+    - native
+    x-go-custom-tag: "bson:\"asset_type\""
+  asset_code:
+    type: string
+    description: Alphanumeric code for the asset - USD, XLM, etc
+    x-go-custom-tag: "bson:\"asset_code\""
+  issuer_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The asset issuer's participant id.
+    x-go-custom-tag: "bson:\"issuer_id\""
+externalDocs:
+  url: '#/definitions/asset'
+x-go-name: Asset
+
+

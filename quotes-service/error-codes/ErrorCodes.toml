@@ -1,0 +1,235 @@
+[WW_ERROR]
+    [WW_ERROR.QUOTE-1000]
+        SHORT_MESSAGE = "HTTP request failed"
+        DETAILS = "HTTP request failed:  "
+    [WW_ERROR.QUOTE-1001]
+        SHORT_MESSAGE = "user request validation failed"
+        DETAILS = "request body format are invalid: "
+    [WW_ERROR.QUOTE-1002]
+        SHORT_MESSAGE = "Unable to parse body of REST call"
+        DETAILS = "Error parsing the request parameters: "
+    [WW_ERROR.QUOTE-1003]
+        SHORT_MESSAGE = "Unable to parse received HTTP response"
+        DETAILS = "Error parsing the response parameters: "
+    [WW_ERROR.QUOTE-1004]
+        SHORT_MESSAGE = "Stellar operation Failed"
+        DETAILS = "Error performing following operation: "
+    [WW_ERROR.QUOTE-1005]
+        SHORT_MESSAGE = "Receiving account missing"
+        DETAILS = "Receiving account missing is not set in the exchange request"
+    [WW_ERROR.QUOTE-1006]
+        SHORT_MESSAGE = "Participant registry operation Failed"
+        DETAILS = "Error performing following operation: "
+    [WW_ERROR.QUOTE-1007]
+        SHORT_MESSAGE = "Participant Denied exchange request"
+        DETAILS = "Exchange denied: "
+    [WW_ERROR.QUOTE-1008]
+        SHORT_MESSAGE = "Error submitting stellar transaction"
+        DETAILS = "Exchange failed: "
+    [WW_ERROR.QUOTE-1009]
+        SHORT_MESSAGE = "Error parsing signing key"
+        DETAILS = "Signing key is invalid: "
+    [WW_ERROR.QUOTE-1010]
+        SHORT_MESSAGE = "Signature Verification Failed"
+        DETAILS = "Signature Verification returned : "
+    [WW_ERROR.QUOTE-1011]
+        SHORT_MESSAGE = "Query quote response failed"
+        DETAILS = "Query quote response failed: "
+    [WW_ERROR.QUOTE-1012]
+        SHORT_MESSAGE = "Stellar Submit Transaction Error"
+        DETAILS = "Stellar Submit Transaction returned : "
+    [WW_ERROR.QUOTE-1013]
+        SHORT_MESSAGE = "unable to get signing key from counter party"
+        DETAILS = "unable to get signing key from counter party : "
+    [WW_ERROR.QUOTE-1014]
+        SHORT_MESSAGE = "unable to parse signing key from counter party"
+        DETAILS = "unable to parse signing key from counter party : "
+    [WW_ERROR.QUOTE-1015]
+        SHORT_MESSAGE = "request for quotes did not come from expected host, verifying signing key failed"
+        DETAILS = "request for quotes did not come from expected host, verifying signing key failed : "
+    [WW_ERROR.QUOTE-1016]
+        SHORT_MESSAGE = "unable to create API client"
+        DETAILS = "unable to create API client : "
+    [WW_ERROR.QUOTE-1017]
+        SHORT_MESSAGE = "unable to get fees"
+        DETAILS = "unable to get fees : "
+    [WW_ERROR.QUOTE-1018]
+        SHORT_MESSAGE = "unable to marshal fees"
+        DETAILS = "unable to marshal fees : "
+    [WW_ERROR.QUOTE-1019]
+        SHORT_MESSAGE = "error occurred while creating PR handler"
+        DETAILS = "error occurred while creating PR handler : "
+    [WW_ERROR.QUOTE-1020]
+        SHORT_MESSAGE = "error occurred while getting participant for domain"
+        DETAILS = "error occurred while getting participant for domain : "
+    [WW_ERROR.QUOTE-1021]
+        SHORT_MESSAGE = "error occurred while getting fee for participant"
+        DETAILS = "error occurred while getting fee for participant : "
+    [WW_ERROR.QUOTE-1022]
+        SHORT_MESSAGE = "error occurred while getting participant for domain"
+        DETAILS = "error occurred while getting participant for domain : "
+    [WW_ERROR.QUOTE-1023]
+        SHORT_MESSAGE = "Source and target assets are not supported"
+        DETAILS = "Given pair of Source and target assets are not supported : "
+    [WW_ERROR.QUOTE-1024]
+        SHORT_MESSAGE = "Participant domain is not whitelisted"
+        DETAILS = "Please whitelist given domain to act of quote: "
+    [WW_ERROR.QUOTE-1025]
+        SHORT_MESSAGE = "Error connecting internal api service"
+        DETAILS = "Error connecting internal api service: "
+    [WW_ERROR.QUOTE-1026]
+        SHORT_MESSAGE = "Response quote failed"
+        DETAILS = "Response quote failed: "
+    [WW_ERROR.QUOTE-1027]
+        SHORT_MESSAGE = "Cancel quote failed"
+        DETAILS = "Cancel quote failed: "
+    [WW_ERROR.QUOTE-1028]
+        SHORT_MESSAGE = "Executed quote failed"
+        DETAILS = "Executed quote failed: "
+    [WW_ERROR.EXCHANGE-1001]
+        SHORT_MESSAGE = "Error connecting gas service"
+        DETAILS = "Error connecting gas service: "
+    [WW_ERROR.EXCHANGE-1002]
+        SHORT_MESSAGE = "Error Loading account from horizon"
+        DETAILS = "Error Loading account from horizon: "
+    [WW_ERROR.EXCHANGE-1003]
+        SHORT_MESSAGE = "Insufficient balance from OFI"
+        DETAILS = "Insufficient balance from OFI: "
+    [WW_ERROR.EXCHANGE-1004]
+        SHORT_MESSAGE = "Insufficient balance from RFI"
+        DETAILS = "Insufficient balance from RFI: "
+    [WW_ERROR.EXCHANGE-1005]
+        SHORT_MESSAGE = "Invalid DO exchange operation"
+        DETAILS = "Invalid DO exchange operation: "
+    [WW_ERROR.EXCHANGE-1006]
+        SHORT_MESSAGE = "RFI not in OFI's whitelist"
+        DETAILS = "RFI not in OFI's whitelist: "
+    [WW_ERROR.EXCHANGE-1007]
+        SHORT_MESSAGE = "Error getting Participant"
+        DETAILS = "Error getting Participant: "
+    [WW_ERROR.EXCHANGE-1008]
+        SHORT_MESSAGE = "Error getting whitelist Participant"
+        DETAILS = "Error getting whitelist Participant: "
+    [WW_ERROR.EXCHANGE-1009]
+        SHORT_MESSAGE = "Error encoding XDR to base64"
+        DETAILS = "Error encoding XDR to base64: "
+    [WW_ERROR.EXCHANGE-1010]
+        SHORT_MESSAGE = "Error geting Source Asset issuing address"
+        DETAILS = "Error geting Source Asset issuing address: "
+    [WW_ERROR.EXCHANGE-1011]
+        SHORT_MESSAGE = "Error geting Target Asset issuing address"
+        DETAILS = "Error geting Target Asset issuing address: "
+    [WW_ERROR.EXCHANGE-1012]
+        SHORT_MESSAGE = "Error constructing transaction"
+        DETAILS = "Error constructing transaction: "
+    [WW_ERROR.EXCHANGE-1013]
+        SHORT_MESSAGE = "Exchange request failed"
+        DETAILS = "Exchange request failed: "
+    [WW_ERROR.EXCHANGE-1014]
+        SHORT_MESSAGE = "Invalid exchange operation : OFI do not trust target asset"
+        DETAILS = "Invalid exchange operation : OFI do not trust target asset: "
+    [WW_ERROR.EXCHANGE-1015]
+        SHORT_MESSAGE = "Invalid exchange operation : RFI do not trust target asset"
+        DETAILS = "Invalid exchange operation : RFI do not trust target asset: "
+    [WW_ERROR.EXCHANGE-1017]
+        SHORT_MESSAGE = "Error marking failed Quote"
+        DETAILS = "Error marking failed Quote: "
+    [WW_ERROR.EXCHANGE-1018]
+        SHORT_MESSAGE = "Quote execution failed"
+        DETAILS = "Quote execution failed: "
+    [WW_ERROR.EXCHANGE-1019]
+        SHORT_MESSAGE = "Error marking Executed Quote"
+        DETAILS = "Error marking Executed Quote: "
+    [WW_ERROR.EXCHANGE-1020]
+        SHORT_MESSAGE = "Error requesting signing"
+        DETAILS = "Error requesting signing: "
+    [WW_ERROR.EXCHANGE-1021]
+        SHORT_MESSAGE = "ofiID is not equal caller identity from jwt token"
+        DETAILS = "ofiID is not equal caller identity from jwt token: "
+    [WW_ERROR.EXCHANGE-1022]
+        SHORT_MESSAGE = "Invalid request of quote execution"
+        DETAILS = "Invalid request of quote execution: "
+    [WW_ERROR.COMMON-1001]
+        SHORT_MESSAGE = "jwt identity authorization failed"
+        DETAILS = "jwt identity authorization failed: "
+    [WW_ERROR.COMMON-1002]
+        SHORT_MESSAGE = "Error fetching whitelist service"
+        DETAILS = "Error fetching whitelist service: "
+    [WW_ERROR.COMMON-1003]
+        SHORT_MESSAGE = "Verifying Token And Endpoints"
+        DETAILS = "Verifying Token And Endpoints: "
+    [WW_ERROR.COMMON-1004]
+        SHORT_MESSAGE = "Endpoint access not permitted"
+        DETAILS = "Endpoint access not permitted: "
+    [WW_ERROR.COMMON-1005]
+        SHORT_MESSAGE = "Error Extracting jwt token"
+        DETAILS = "Error Extracting jwt token: "
+    [WW_ERROR.COMMON-1006]
+        SHORT_MESSAGE = "Error extracting identity from jwt token"
+        DETAILS = "Error extracting identity from jwt token: "
+    [WW_ERROR.COMMON-1007]
+        SHORT_MESSAGE = "No White List Participants available"
+        DETAILS = "No White List Participants available: "
+    [WW_ERROR.COMMON-1301]
+        SHORT_MESSAGE = "account does not trust asset"
+        DETAILS = "account does not trust asset: "
+    [WW_ERROR.COMMON-1302]
+        SHORT_MESSAGE = "account trust limit exceeded "
+        DETAILS = "account trust limit exceeded : "
+    [WW_ERROR.COMMON-1303]
+        SHORT_MESSAGE = "account insufficient balance"
+        DETAILS = "account insufficient balance: "
+    [WW_ERROR.COMMON-1304]
+        SHORT_MESSAGE = "account does not exist"
+        DETAILS = "account does not exist: "
+    [WW_ERROR.COMMON-1305]
+        SHORT_MESSAGE = "DO sweeping forbiddened"
+        DETAILS = "DO sweeping forbiddened: "
+    [WW_ERROR.COMMON-1306]
+        SHORT_MESSAGE = "submitting transaction failed"
+        DETAILS = "submitting transaction failed: "
+    [WW_ERROR.COMMON-1307]
+        SHORT_MESSAGE = "Error when fetching account balance after successful transaction"
+        DETAILS = "Error when fetching account balance after successful transaction: "
+    [WW_ERROR.COMMON-1308]
+        SHORT_MESSAGE = "Amount Less then or equal to zero"
+        DETAILS = "Amount Less then or equal to zero: "
+    [WW_ERROR.COMMON-1309]
+        SHORT_MESSAGE = "No issuer involved in DO exchange"
+        DETAILS = "No issuer involved in DO exchange: "
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

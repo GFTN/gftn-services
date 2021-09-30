@@ -1,0 +1,18 @@
+title: requestPayload
+description: requestPayload
+x-group-m: Models
+type: object
+required:
+  - payload
+  - account_name
+properties:
+  payload:
+    type: string
+    format: byte
+    description: unsigned request payload to be signed
+  account_name:
+     type: string
+     description: The name of the account with which the payload needs to be signed
+externalDocs:
+  url: '#/definitions/requestPayload'
+x-go-name: RequestPayload

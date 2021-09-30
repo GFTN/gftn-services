@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kafka-topics
+  name: msk-burrow
+  labels:
+    app: msk-burrow
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: msk-burrow
+  template:
+    metadata:
+      labels:
+        app: msk-burrow
+    spec:
+      containers:
+      - name: msk-burrow
+        image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/msk-burrow:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "0.1"
+          limits:
+            memory: "128Mi"
+            cpu: "0.25"
+        ports:
+          - containerPort: 8000
+        volumeMounts:
+        - mountPath: /var/private/ssl/
+          name: kafka-secret
+          readOnly: true
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+      volumes:
+      - name: kafka-secret
+        secret:
+          secretName: kafka-secret-global

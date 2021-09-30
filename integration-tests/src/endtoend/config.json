@@ -1,0 +1,4 @@
+{
+    "cleanNodeFileScript":"cp ~/go-workspace/src/github.com/GFTN/gftn-services/integration-tests/keys/fiji/nodeconfig_clean.toml  ~/go-workspace/src/github.com/GFTN/gftn-services/integration-tests/keys/fiji/nodeconfig.toml  ../fiji/nodeconfig.toml && cp ~/go-workspace/src/github.com/GFTN/integration-tests/keys/nzl/nodeconfig_clean.toml  ~/go-workspace/src/github.com/GFTN/integration-tests/keys/nzl/nodeconfig.toml "
+    
+}

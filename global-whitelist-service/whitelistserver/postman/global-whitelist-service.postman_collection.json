@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "96465aad-d625-408e-ba79-a2e12703b33e",
+		"name": "global-whitelist-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getWLParticipantIDs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ofi_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/client/participants/whitelist",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"client",
+						"participants",
+						"whitelist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getWLParticipants",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ofi_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/client/participants/whitelist/object",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"client",
+						"participants",
+						"whitelist",
+						"object"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createWLParticipant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2MiOlsiaXNzdWluZyIsImRlZmF1bHQiLCJ0ZXN0Il0sInZlciI6InYyLjkuMC4xX2FscGhhIiwiaXBzIjpbIjEyNy4wLjAuMSIsIjo6MSJdLCJlbnYiOiJzdCIsImVucCI6WyIvYWRkcmVzcy9zdGVsbGFyIiwiL2Fzc2V0cyIsIi9hc3NldHMvYWNjb3VudHMve2FjY291bnRfbmFtZX0iLCIvYXNzZXRzL2lzc3VlZCIsIi9hc3NldHMvcGFydGljaXBhbnRzL3twYXJ0aWNpcGFudF9pZH0iLCIvYmFsYW5jZXMvYWNjb3VudHMve2FjY291bnRfbmFtZX0iLCIvYmFsYW5jZXMvZG8iLCIvY29tcGxpYW5jZSIsIi9leGNoYW5nZS92ZXJpZnkiLCIvZmVlcyIsIi9mZWVzL3thc3NldH0iLCIvcGFydGljaXBhbnRzIiwiL3BhcnRpY2lwYW50cy9hc3NldCIsIi9wYXJ0aWNpcGFudHMvYmVuZWZpY2lhcnkiLCIvcGFydGljaXBhbnRzL3doaXRlbGlzdCIsIi9wYXJ0aWNpcGFudHMve3BhcnRpY2lwYW50X2lkfSIsIi9wYXltZW50IiwiL3BheW1lbnQvc3Vic2NyaWJlL3thY2NvdW50X25hbWV9IiwiL3F1b3RlIiwiL3F1b3RlL3txdW90ZV9pZH0iLCIvcXVvdGVzIiwiL3F1b3Rlcy97cXVvdGVfaWR9IiwiL3Jkby9hY3Rpdml0eSIsIi9yZG8vY2xvc2UiLCIvcmRvL2ZpdG9maS9zdGFydCIsIi9yZG8vbm90aWZ5IiwiL3Jkby9wYXltZW50IiwiL3Jkby90cmFuc2FjdGlvbi97ZW5kX3RvX2VuZF9pZH0iLCIvdHJhbnNhY3Rpb25zIiwiL3RyYW5zYWN0aW9ucy9leGNoYW5nZSIsIi90cmFuc2FjdGlvbnMvc2VuZCIsIi90cmFuc2FjdGlvbnMvc2V0dGxlL2RhIiwiL3RydXN0IiwiL3ZlcmlmeV9hY2NvdW50X2lkZW50aWZpZXIiLCIvd2hpdGVsaXN0L3BhcnRpY2lwYW50cy97cGFydGljaXBhbnRfaWR9Il0sIm4iOjAsImlhdCI6MTU0ODgzMjc1NCwibmJmIjoxNTQ4ODMyNzU5LCJleHAiOjE1NDg5MTkxNTQsImF1ZCI6ImZqLm9uZS5wYXltZW50cy5nZnRuLmlvIiwic3ViIjoiLUxQbXJGMFFnZzZmc2h6TGM0OGkiLCJqdGkiOiItTFhTYnNnRHM5aXVJTlJIVE5aQyJ9.iYJd_NQ9G-6NrodPErpY2WVaB1tzVTFrwp0AD0KpBWA ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"participant_id\":\"test.com\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/client/participants/whitelist",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"client",
+						"participants",
+						"whitelist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteWLParticipant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ofi_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"participant_id\":\"test.com\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/client/participants/whitelist",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"client",
+						"participants",
+						"whitelist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "service check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/service_check",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"service_check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[internal]getWLParticipantIDs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/internal/participants/whitelist/hk.one.payments.worldwire.io",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"internal",
+						"participants",
+						"whitelist",
+						"hk.one.payments.worldwire.io"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[internal]getWLParticipant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/internal/participants/whitelist/hk.one.payments.worldwire.io/object",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"internal",
+						"participants",
+						"whitelist",
+						"hk.one.payments.worldwire.io",
+						"object"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[internal]getmutualWLParticipantID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\tLOGGER.Infof(\"\\t* Delete wlparticipants(body) for a given participant ID\")\n\tinternalAPIRounter.HandleFunc(\"/\"+serviceVersion+\"/internal/whitelist/participants/{participant_id}/mutual\", wlh.GetMutualWLParticipantIDs).Methods(\"GET\")\n"
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/internal/participants/whitelist/hk.one.payments.worldwire.io/mutual",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"internal",
+						"participants",
+						"whitelist",
+						"hk.one.payments.worldwire.io",
+						"mutual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[internal]getmutualWLParticipant",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/internal/participants/whitelist/hk.one.payments.worldwire.io/mutual/object",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"internal",
+						"participants",
+						"whitelist",
+						"hk.one.payments.worldwire.io",
+						"mutual",
+						"object"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[internal]createWLParticipant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"participant_id\":\"hk.one.payments.worldwire.io\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/internal/participants/whitelist/test.com",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"internal",
+						"participants",
+						"whitelist",
+						"test.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[internal]getWLParticipantIDs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/internal/participants/whitelist/hk.one.payments.worldwire.io",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"internal",
+						"participants",
+						"whitelist",
+						"hk.one.payments.worldwire.io"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteWLParticipant Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ofi_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"participant_id\":\"test.com\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/client/participants/whitelist",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"client",
+						"participants",
+						"whitelist"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

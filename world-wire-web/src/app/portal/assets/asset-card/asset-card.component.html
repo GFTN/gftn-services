@@ -1,0 +1,38 @@
+<div class="bx--tile split" fxLayout="column">
+	<div class="bx--tile-header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+		<span class="bx--type-epsilon">{{ asset.asset_code }}</span>
+		<ibm-overflow-menu [flip]="true">
+			<li class="bx--overflow-menu-options__option">
+				<button class="bx--overflow-menu-options__btn" (click)="openApprovalModal()">View Approval</button>
+			</li>
+		</ibm-overflow-menu>
+	</div>
+	<div class="bx--tile-content asset-details" fxLayout="column">
+		<div class="space"></div>
+
+		<div *ngIf="!loaded" fxLayout="column" fxLayoutGap="10px">
+			<p class="loading"></p>
+			<p class="loading"></p>
+			<p class="loading"></p>
+		</div>
+		<ng-container *ngIf="loaded">
+			<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+				<label class="bx--label">In Circulation</label><span class="filler" fxFlex></span><span>{{ asset.balance.toFixed(2) }}</span>
+			</div>
+
+			<div class="margin-height"></div>
+
+			<div fxLayoutAlign="end">
+				<button class="bx--link bx--toolbar-action" fxLayoutAlign="space-between center" (click)="openDetailsModal()">
+				<span>View Details</span>
+				<span fxFlex>&nbsp;&nbsp;</span>
+				<svg class="bx--btn__icon" height="12" viewBox="0 0 16 14">
+					<path d="M11.95 5.997L7.86 2.092 9.233.639l6.763 6.356-6.763 6.366L7.86 11.91l4.092-3.912H-.003v-2h11.952z"></path>
+				</svg>
+			</button>
+			</div>
+		</ng-container>
+
+		<div class="space"></div>
+	</div>
+</div>

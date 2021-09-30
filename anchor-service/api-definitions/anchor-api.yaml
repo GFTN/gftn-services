@@ -1,0 +1,368 @@
+swagger: "2.0"
+info:
+  title: World Wire Anchor Service API
+  description: >
+    Client Facing API for Anchors to interact with World Wire.
+  version: 1.0.0
+host: anchor.worldwire.io
+basePath: /v1/anchor
+schemes:
+  - https
+paths:
+
+  /address:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    # TODO: this endpoint needs to be moved to:
+    #       "/marketmakers/{marketmaker_id}/ledger"
+    # - to do this, add a separate "participant_id" path parameter and move the exisiting "name" query param to "account_name"
+    get:
+      x-base-url: /anchor
+      x-group-e: Participants
+      tags:
+        - query
+        - address
+      summary: Retrieve a participant's ledger address
+      description: >
+        Returns ledger address corresponding to the supplied identifier of a Participant. Learn more about the Ledger in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: name
+          type: string
+          description: Account name concatenated with the World Wire Participant's ID.  (i.e. 1234554321*uk.barclays.payments.ibm.com)
+      responses:
+        200:
+          description: The account identifier is recognized as being able to receive value, presenting a account address
+          schema:
+            $ref: '../../gftn-models/models/addressLedger.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        404:
+          description: There is no matching record found for the participant domain
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        401:
+          description: JWT token in header is invalid
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /fundings/instruction:
+
+    # 
+    #  Developer: @Sudhakar
+    #
+
+    post:
+      x-base-url: /anchor
+      x-group-e: Fundings
+      tags:
+        - fundings
+        - generate
+        - instruction
+      summary: Create a funding instruction
+      description: >
+        Generates the bytecode instruction necessary to record your transaction on the ledger. Once you receive this instruction, you can use it on the /fundings/send endpoint to complete your funding to other Participants on the WorldWire network. Learn more about Fundings in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        required: true
+        name: Funding
+        description: Includes all necessary detail about the anchor funding.
+        schema:
+          $ref: '../../gftn-models/models/funding.yaml'
+      responses:
+        200:
+          description: >
+            Succesfully created a funding instruction for the ledger. Here you go. You'll need to sign this and supply it to the /funding/send endpoint before delivery to the Participant.
+          schema:
+            $ref: '../../gftn-models/models/fundingInstruction.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        404:
+          description: invalid participant or fund request failed
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        401:
+          description: JWT token in header is invalid
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /fundings/send:
+
+    # 
+    #  Developer: @Sudhakar
+    #
+
+    post:
+      x-base-url: /anchor
+      x-group-e: Fundings
+      tags:
+      - funding
+      - send
+      summary: Fund a participant
+      description: >
+        Funds a Participant on the World Wire network with stablecoins by signing the ledger instruction you received from the /fundings/instruction endpoint with your secret key. IBM doesn't charge for this, hooray! Learn more about Fundings in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: funding
+        required: true
+        description: >
+          Details about the funding from the Anchor to the Participant.
+        schema:
+          $ref: '../../gftn-models/models/funding.yaml'
+      - in: query
+        name: funding_signed
+        required: true
+        type: string
+        description: Signed version of the funding details.
+      - in: query
+        name: instruction_signed
+        required: true
+        type: string
+        description: >
+          You'll receive an unsigned version of this instruction when you first create it from the /fundings/instruction endpoint. Sign it with your secret key and supply it here.
+      responses:
+        200:
+          description: >
+            Succesfully funded the Participant by submitting this to the ledger! Here's your receipt.
+          schema:
+            $ref: '../../gftn-models/models/fundingReceipt.yaml'
+        400:
+          description: >
+            Something went wrong with your funding! You probably forgot or supplied invalid parameters.
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        404:
+          description: >
+            Something went wrong with your funding! You probably supplied an invalid participant.
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        401:
+          description: >
+            Something went wrong with your funding! It looks like your JWT token in the header is invalid.
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /trust/{anchor_id}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    post:
+      x-base-url: /anchor
+      x-group-e: Trust
+      tags:
+        - trust
+      summary: Submit asset trust permissions
+      description: >
+        Changes the trust relationship you have with an OFI Participant. As the Anchor, you can request, allow, or revoke permission to transact with an OFI by supplying a corresponding permission on this request. Learn more about Trust in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: anchor_id
+          description: >
+            Identifier of a World Wire Anchor. To get a list of all participants, make a GET request to /participants.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+        - in: body
+          required: true
+          name: Trust
+          description: Indicate who you are trusting
+          schema:
+            $ref: '../../gftn-models/models/trust.yaml'
+          x-go-name: Trust
+      responses:
+        200:
+          description: Allow Trust was successful
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        404:
+          description: invalid participant or allow trust failed
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        401:
+          description: JWT token in header is invalid
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /assets/issued/{anchor_id}:
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /anchor
+      x-group-e: Trust
+      tags:
+        - all
+        - assets
+      summary: List your issued assets
+      description: >
+        Returns a list of all your issued assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      parameters:
+        - in: path
+          name: anchor_id
+          description: >
+            Identifier of a World Wire Anchor. To get a list of all participants, make a GET request to /participants.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: All assets issued on World Wire by this anchor participant
+          schema:
+            type: array
+            items:
+              $ref: '../../gftn-models/models/asset.yaml'
+        404:
+          description: No assets issued on World Wire by this anchor participant
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /assets/redeem:
+
+    # 
+    #  Developer: @John
+    #
+
+    post:
+      x-base-url: /anchor
+      x-group-e: Transactions
+      tags:
+        - stable coins
+        - setup
+        - redeem
+        - cashout
+      summary: Redeem digital asset
+      description: >
+        Returns a digital asset you're holding for it's corresponding value off the network. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: sendPacs
+          required: true
+          description: This will include the message id of the request, message type, encoded message and OFI participant id.
+          schema:
+            $ref: '../../gftn-models/models/sendPacs.yaml'
+      responses:
+        200:
+          description: Transaction response was successfully sent to the Kafka broker.
+          schema:
+            $ref: '../../gftn-models/models/sendPacs.yaml'
+        404:
+          description: Error occured during response handling.
+          schema:
+            $ref: '../../gftn-models/models/sendPacs.yaml'
+            
+
+  /participants:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /anchor
+      x-group-e: Participants
+      tags:
+        - all
+        - Banks
+        - PSPs
+        - Institutions
+      summary: List all participants
+      description: >
+        Retrieves a list of all active Participants and associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: country_code
+          type: string
+          required: false
+          description: The 2-digit code of the country where the Participants are located.
+        - in: query
+          name: asset_code
+          type: string
+          required: false
+          description: The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.
+        - in: query
+          name: issuer_id
+          description: >
+            Identifier of the Issuer of this asset.
+          required: false
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+      responses:
+        200:
+          description: Retrieved Participants on World Wire
+          schema:
+            type: array
+            items:
+              $ref: '../../gftn-models/models/participant.yaml'
+        404:
+          description: No Participants found on World Wire
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /participants/{participant_id}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /anchor
+      x-group-e: Participants
+      tags:
+        - participants
+        - id
+      summary: Retrieve a specific participant
+      description: >
+        Retrieves a specific Participant and their associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          description: >
+            Identifier of a WorldWire Participant. To get a list of all participants, make a GET request to /participants.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+      responses:
+        200:
+          description: Successfully retrieved a WorldWire Participant.
+          schema:
+            $ref: '../../gftn-models/models/participant.yaml'
+        404:
+          description: Whoops, no Participant found with that ID on World Wire.
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'

@@ -1,0 +1,27 @@
+@import "~sass/ibm-style-override";
+@import "~sass/grid";
+
+.account-tools {
+	height: 80px;
+	// for horizontal alignment, make sure at least 1/3 of the row
+	min-width: calc(100%/3 - 20px);
+	font-size: 16px;
+
+	.bx--btn__icon {
+		width: 25px;
+		height: 25px;
+	}
+}
+
+.issuing-account-tile {
+    .number {
+        margin: 0;
+        width: auto;
+        font-size: 20px;
+    }
+	h3 {
+		margin: 0;
+		width: 100%;
+		color: $brand-01
+	}
+}

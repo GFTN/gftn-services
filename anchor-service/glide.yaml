@@ -1,0 +1,23 @@
+package: github.com/GFTN/anchor-service
+import:
+- package: github.com/go-errors/errors
+- package: github.com/go-openapi/errors
+- package: github.com/go-openapi/strfmt
+- package: github.com/go-openapi/swag
+- package: github.com/go-openapi/validate
+- package: github.com/go-resty/resty
+- package: github.com/lib/pq
+  version: master
+- package: github.com/visionmedia/go-debug
+  version: master
+- package: github.com/sirupsen/logrus
+  version: ea8897e79973357ba785ac2533559a6297e83c44
+- package: github.com/stellar/go
+  version: master
+- package: github.com/BurntSushi/toml
+- package: github.com/gorilla/mux
+- package: github.com/gorilla/handlers
+- package: github.com/op/go-logging
+- package: github.com/pkg/errors
+
+

@@ -1,0 +1,13 @@
+title: registerAnchorRequest
+description: register anchor id on WW
+type: object
+required:
+  - address
+properties:
+  address:
+    type: string
+    description: The stellar address of the issuing account of the anchor, should have ibm admin account as signatory
+externalDocs:
+  url: '#/definitions/registerAnchorRequest'
+x-go-name: RegisterAnchorRequest
+

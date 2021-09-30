@@ -1,0 +1,43 @@
+
+// define custom light theme here
+// IMPORTANT: Set the same color themes for 'light_theme' in 'material-design-color-palette.ts'
+// do not use A*** palette for primary
+$primary-lt: mat-palette($mat-blue-grey, 200, 50, 300);
+
+// try to use A*** palette for accent
+// $accent-lt: mat-palette($mat-light-green, A200, A100, A400);
+$accent-lt: mat-palette($mat-green, A400, A200, A700);
+
+// set light theme
+
+// warn use red, orange or yellow
+$warn-lt: mat-palette($mat-red);
+
+$theme-lt: mat-light-theme($primary-lt, $accent-lt, $warn-lt);
+
+// default style
+.light-theme {
+    
+    @include angular-material-theme($theme-lt);
+
+    background-color: #fff;
+
+    color: map-get($mat-light-theme-foreground, text);
+
+    // this way you can reference text color accent
+    // try to use sparingly
+    .text-accent {
+        color: map-get($accent-lt, default);
+    }
+
+    .text-warn {
+        color: map-get($warn-lt, default);
+    }
+
+    // set the most important text has an opacity of 87% per material design spec
+    // https://material.io/guidelines/style/color.html#color-usability
+    body {
+        color: $black-87-opacity;
+    }
+
+}

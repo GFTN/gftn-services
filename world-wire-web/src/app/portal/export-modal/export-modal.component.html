@@ -1,0 +1,20 @@
+<ibm-modal>
+	<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">Export</ibm-modal-header>
+	<section class="bx--modal-content">
+
+		<div *ngIf="!exportService.exportInProgress">
+
+			Select an export type:
+			<div class="margin-height"></div>
+			<div class="margin-height" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
+				<button fxFlex class="bx--btn bx--btn--secondary" type="submit" (click)="exportData('xlsx')">Excel</button>
+				<button fxFlex class="bx--btn bx--btn--secondary" type="submit" (click)="exportData('csv')">CSV</button>
+			</div>
+		</div>
+
+		<div *ngIf="exportService.exportInProgress" fxLayout="row" fxLayoutAlign="start center">
+			<ibm-loading size="normal" [overlay]="false"></ibm-loading> Export in progress...
+		</div>
+
+	</section>
+</ibm-modal>

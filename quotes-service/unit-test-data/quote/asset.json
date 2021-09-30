@@ -1,0 +1,72 @@
+[
+    {
+      "asset_code": "HKDDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "EURDO",
+      "asset_issuer": "GBPD3QEYU5E6ORGOY54WS2BQIFSJBM3GUQQOEPPYB4DZ2B5GQ7QHUVAV",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "USDDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "GBPDO",
+      "asset_issuer": "GBPD3QEYU5E6ORGOY54WS2BQIFSJBM3GUQQOEPPYB4DZ2B5GQ7QHUVAV",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "USD",
+      "asset_issuer": "GDVEAQUY2MA6XWHPQHPXE44PYYAB65WGPAIXY3BYUMMYPQNBNFR2G4UW",
+      "asset_type": "DA"
+    },
+    {
+      "asset_code": "TWDDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "JPYDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "THBDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "SGDDO",
+      "asset_issuer": "GBPD3QEYU5E6ORGOY54WS2BQIFSJBM3GUQQOEPPYB4DZ2B5GQ7QHUVAV",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "NaveenDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "GDDDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "WILDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "StrongHoldDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    },
+    {
+      "asset_code": "CHIDO",
+      "asset_issuer": "GA3Z5DS6GAPBI6EGRFRCEJKAFBZHESW62U5ME3OJYVD5VEREY5ENTGIK",
+      "asset_type": "DO"
+    }
+  ]

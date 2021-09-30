@@ -1,0 +1,78 @@
+# Api Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: participant_id_variable-api
+  labels:
+    app: participant_id_variable-api
+    service: participant_id_variable-api
+spec:
+  ports:
+  - name: external
+    port: 12000
+  - name: internal
+    port: 11000
+  selector:
+    app: participant_id_variable-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: participant_id_variable-crypto
+  labels:
+    app: participant_id_variable-crypto
+    service: participant_id_variable-crypto
+spec:
+  ports:
+    - name: external
+      port: 9999
+    - name: internal
+      port: 10042
+  selector:
+    app: participant_id_variable-crypto
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: participant_id_variable-send
+  labels:
+    app: participant_id_variable-send
+    service: participant_id_variable-send
+spec:
+  ports:
+    - name: external
+      port: 8888
+  selector:
+    app: participant_id_variable-send
+---
+# Listener Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: participant_id_variable-listener
+  labels:
+    app: participant_id_variable-listener
+    service: participant_id_variable-listener
+spec:
+  ports:
+    - name: external
+      port: 11005
+    - name: internal
+      port: 21005
+  selector:
+    app: participant_id_variable-listener
+---
+# WW gateway
+apiVersion: v1
+kind: Service
+metadata:
+  name: participant_id_variable-gateway
+  labels:
+    app: participant_id_variable-gateway
+    service: participant_id_variable-gateway
+spec:
+  ports:
+  - name: external
+    port: 9000
+  selector:
+    app: participant_id_variable-gateway

@@ -1,0 +1,71 @@
+	<div class="bx--modal-container">
+
+		<div class="bx--modal-header">
+			<p class="bx--modal-header__heading bx--type-beta">
+				<span class="capitalize">{{ setModalTitle() }}</span>
+			</p>
+		</div>
+
+		<!-- Start of Add currency/country case -->
+		<form *ngIf="data.action === 'add'" (ngSubmit)="submitRequest()">
+			<div class="bx--modal-content">
+				<div fxLayout="column" fxLayoutGap="24px">
+					<div fxLayout="column" fxLayoutGap="10px">
+						<div class="form-group">
+
+							<div class="bx--form-item" fxLayout="row">
+								<div class="bx--select" fxFlex>
+									<label for="currency-select" class="bx--label capitalize">
+									{{ this.data.type }} <span class="text-danger">*</span>
+									</label>
+
+									<select class="bx--select-input" name="currency-select" id="currency-select" [(ngModel)]="request.value" required>
+									<option class="bx--select-option" disabled selected hidden>Select a {{ this.data.type }}</option>
+									<option class="bx--select-option" *ngFor="let option of blocklistOptions" [ngValue]="option.isoCode">{{option.isoCode + ' (' + option.name + ')' }}</option>
+								</select>
+									<svg class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5">
+										<path d="M0 0l5 4.998L10 0z" fill-rule="evenodd" />
+									</svg>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div id="notification"></div>
+			</div>
+
+			<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+				<button class="bx--btn bx--btn--primary" type="submit">Save</button>
+				<button class="bx--btn bx--btn--secondary" (click)="closeModal()" type="button">Cancel</button>
+			</div>
+		</form>
+		<!-- End of Add currency/country case -->
+
+		<!-- Start of Remove currency & country case -->
+		<form *ngIf="data.action === 'remove'" (ngSubmit)="removalRequest()">
+			<div class="bx--modal-content">
+				<div fxLayout="column" fxLayoutGap="24px">
+					<div fxLayout="column" fxLayoutGap="10px">
+
+						<p>Delete <strong>{{data.name}}</strong> from the blocklist? This will allow this
+							{{data.action == 'removeCurrency' ? 'currency' : 'country'}} to be available for
+							transactions by all participants on the World Wire network.</p>
+
+					</div>
+				</div>
+
+				<div id="notification"></div>
+			</div>
+
+			<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+				<button class="bx--btn bx--btn--danger--primary" aria-label="danger" type="submit">Remove</button>
+				<button class="bx--btn bx--btn--tertiary" (click)="closeModal()" type="button">Cancel</button>
+			</div>
+		</form>
+		<!-- End of Remove currency & country case -->
+
+	</div>
+
+	<ibm-loading *ngIf="loadingRequest" [overlay]="true"></ibm-loading>

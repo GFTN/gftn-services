@@ -1,0 +1,59 @@
+title: participant
+description: Participant
+x-group-m: Models
+type: object
+#when generating models after changes to participant.yaml, use 'make swaggergenparticipant' command to generate individual model first then carefully inspect the
+# discarded govalidator validation and add it again and then check in the changes
+required:
+  - id
+  - country_code
+  - role
+  - bic
+properties:
+  id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The participant id for the participant
+    x-go-custom-tag: "bson:\"id\""
+  bic:
+    type: string
+    maxLength: 11
+    minLength: 11
+    pattern: '^[A-Z]{3}[A-Z]{3}[A-Z2-9]{1}[A-NP-Z0-9]{1}[A-Z0-9]{3}$'
+    description: The business identifier code of each participant
+    x-go-custom-tag: "bson:\"bic\""
+  issuing_account:
+    type: string
+    description: The ledger address belonging to the issuing account.
+    x-go-custom-tag: "bson:\"issuing_account\""
+  operating_accounts:
+    type: array
+    description: Accounts
+    items:
+      $ref: 'account.yaml'
+    x-go-custom-tag: "bson:\"operating_accounts\""
+  country_code:
+    type: string
+    maxLength: 3
+    minLength: 3
+    description: Participant's country of residence, country code in ISO 3166-1 format
+    x-go-custom-tag: "bson:\"country_code\""
+  status:
+    type: string
+    description: Participant active status on WW network, inactive, active, suspended
+    x-go-custom-tag: "bson:\"status\""
+  role:
+    type: string
+    maxLength: 2
+    minLength: 2
+    enum:
+      - MM
+      - IS
+    description: The Role of this registered participant, it can be MM for Market Maker and IS for Issuer or anchor
+    x-go-custom-tag: "bson:\"role\""
+
+externalDocs:
+  url: '#/definitions/participant'
+x-go-name: Participant

@@ -1,0 +1,6 @@
+<div>
+	<ibm-dropdown name="version" placeholder="API Version" [displayValue]="versionService.current ? versionService.current.version : ''" theme="light"
+		[appendInline]="true" (selected)="onSelect($event)">
+		<ibm-dropdown-list [items]="versionOptions"></ibm-dropdown-list>
+	</ibm-dropdown>
+</div>

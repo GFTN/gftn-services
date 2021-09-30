@@ -1,0 +1,27 @@
+
+title: transaction
+description: Transaction
+x-group-m: Models
+type: object
+required:
+  - transaction_details
+  - transaction_receipt
+properties:
+  transaction_details:
+    type: object
+    description: The transaction details.
+    $ref: 'transactionDetails.yaml'
+    externalDocs:
+      url: '#/definitions/transactionDetails'
+    x-go-name: TransactionDetails
+  transaction_receipt:
+    type: array
+    items:
+      $ref: 'transactionReceipt.yaml'
+    description: The transaction receipt.
+    externalDocs:
+      url: '#/definitions/transactionReceipt'
+    x-go-name: TransactionReceipt
+externalDocs:
+  url: '#/definitions/transaction'
+x-go-name: FItoFITransaction

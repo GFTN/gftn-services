@@ -1,0 +1,62 @@
+<ibm-modal>
+	<div *ngIf="!currentAccountRequest">
+		<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+			<div class="bx--modal-header__label bx--type-delta">Add New</div>
+			<span>Account Request</span>
+		</ibm-modal-header>
+
+		<form #assetForm="ngForm">
+			<section class="bx--modal-content">
+				<div class="margin-height margin-width bx--form-item bx--text-input-wrapper">
+					<label class="bx--label">Name <span class="text-danger">*</span></label>
+					<input ibmText theme="dark" #accountNameModel="ngModel" name="asset-code"
+                [(ngModel)]="formData.accountName"
+                [attr.data-invalid]="!(accountNameModel.valid || accountNameModel.untouched) ? true : null"
+                placeholder="operating-account-1" (keyup)="getAccountId()" required>
+					<div *ngIf="formData.accountId" class="bx--type-caption">
+						Name of generated account will be submitted as:
+						<span class="bx--type-omega">{{ formData.accountId }}</span>
+					</div>
+					<div *ngIf="accountNameModel.errors?.required" class="bx--form-requirement">
+						Account name is required
+					</div>
+				</div>
+
+				<div id="error-notication"></div>
+			</section>
+
+			<ibm-modal-footer>
+				<button ibmButton="secondary" type="button" (click)="closeModal()">Cancel</button>
+				<button ibmButton="primary" type="submit" [disabled]="!assetForm.valid" (click)="requestAccountRequest()">Add</button>
+			</ibm-modal-footer>
+		</form>
+	</div>
+
+	<div *ngIf="currentAccountRequest">
+		<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+			<div class="bx--modal-header__label bx--type-delta">Review</div>
+			<span>Account Request</span>
+		</ibm-modal-header>
+
+		<section class="bx--modal-content">
+			<p><label class="bx--label">Account Name:&nbsp;</label>{{ currentAccountRequest.name }}</p>
+			<br/>
+			<p *ngIf="latestApproval && latestApproval.requestInitiatedBy">
+				<label class="bx--label">Requested By:&nbsp;</label>{{ latestApproval.requestInitiatedBy }}</p>
+			<p *ngIf="latestApproval && latestApproval.requestApprovedBy">
+				<label class="bx--label">Approved By:&nbsp;</label>{{ latestApproval.requestApprovedBy }}</p>
+
+			<p *ngIf="registered && (!latestApproval || (latestApproval && !latestApproval.requestApprovedBy))">
+				Registered through API</p>
+
+			<div id="error-notication"></div>
+		</section>
+
+		<ibm-modal-footer *ngIf="!registered && latestApproval">
+			<button ibmButton="secondary" type="button" [disabled]="latestApproval && latestApproval.requestInitiatedBy === authService.userProfile.profile.email" (click)="rejectAccountRequest()">Reject</button>
+			<button ibmButton="primary" type="button" [disabled]="latestApproval && latestApproval.requestInitiatedBy === authService.userProfile.profile.email" (click)="approveAccountRequest()">Approve</button>
+		</ibm-modal-footer>
+	</div>
+</ibm-modal>
+
+<ibm-loading *ngIf="loadingRequest" [overlay]="true"></ibm-loading>

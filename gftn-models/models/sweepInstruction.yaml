@@ -1,0 +1,8 @@
+title: sweepInstruction
+description: SweepInstruction
+type: array
+items:
+  $ref: 'sweep.yaml'
+externalDocs:
+  url: '#/definitions/sweepInstruction'
+x-go-name: SweepInstruction

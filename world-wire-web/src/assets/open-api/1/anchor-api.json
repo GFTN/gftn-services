@@ -1,0 +1,842 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Client Facing API for Anchors to interact with World Wire.\n",
+    "title": "World Wire Anchor Service API",
+    "version": "1.0.0"
+  },
+  "host": "anchor.worldwire.io",
+  "basePath": "/v1/anchor",
+  "paths": {
+    "/address": {
+      "get": {
+        "description": "Returns ledger address corresponding to the supplied identifier of a Participant. Learn more about the Ledger in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "query",
+          "address"
+        ],
+        "summary": "Retrieve a participant's ledger address",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Account name concatenated with the World Wire Participant's ID.  (i.e. 1234554321*uk.barclays.payments.ibm.com)",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The account identifier is recognized as being able to receive value, presenting a account address",
+            "schema": {
+              "$ref": "#/definitions/addressLedger"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "401": {
+            "description": "JWT token in header is invalid",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "There is no matching record found for the participant domain",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Participants"
+      }
+    },
+    "/assets/issued/{anchor_id}": {
+      "get": {
+        "description": "Returns a list of all your issued assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "all",
+          "assets"
+        ],
+        "summary": "List your issued assets",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Identifier of a World Wire Anchor. To get a list of all participants, make a GET request to /participants.\n",
+            "name": "anchor_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All assets issued on World Wire by this anchor participant",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/asset"
+              }
+            }
+          },
+          "404": {
+            "description": "No assets issued on World Wire by this anchor participant",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Trust"
+      }
+    },
+    "/assets/redeem": {
+      "post": {
+        "description": "Returns a digital asset you're holding for it's corresponding value off the network. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "stable coins",
+          "setup",
+          "redeem",
+          "cashout"
+        ],
+        "summary": "Redeem digital asset",
+        "parameters": [
+          {
+            "description": "This will include the message id of the request, message type, encoded message and OFI participant id.",
+            "name": "sendPacs",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction response was successfully sent to the Kafka broker.",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          },
+          "404": {
+            "description": "Error occured during response handling.",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Transactions"
+      }
+    },
+    "/fundings/instruction": {
+      "post": {
+        "description": "Generates the bytecode instruction necessary to record your transaction on the ledger. Once you receive this instruction, you can use it on the /fundings/send endpoint to complete your funding to other Participants on the WorldWire network. Learn more about Fundings in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "fundings",
+          "generate",
+          "instruction"
+        ],
+        "summary": "Create a funding instruction",
+        "parameters": [
+          {
+            "description": "Includes all necessary detail about the anchor funding.",
+            "name": "Funding",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/funding"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully created a funding instruction for the ledger. Here you go. You'll need to sign this and supply it to the /funding/send endpoint before delivery to the Participant.\n",
+            "schema": {
+              "$ref": "#/definitions/fundingInstruction"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "401": {
+            "description": "JWT token in header is invalid",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "invalid participant or fund request failed",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Fundings"
+      }
+    },
+    "/fundings/send": {
+      "post": {
+        "description": "Funds a Participant on the World Wire network with stablecoins by signing the ledger instruction you received from the /fundings/instruction endpoint with your secret key. IBM doesn't charge for this, hooray! Learn more about Fundings in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "funding",
+          "send"
+        ],
+        "summary": "Fund a participant",
+        "parameters": [
+          {
+            "description": "Details about the funding from the Anchor to the Participant.\n",
+            "name": "funding",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/funding"
+            }
+          },
+          {
+            "type": "string",
+            "description": "Signed version of the funding details.",
+            "name": "funding_signed",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "You'll receive an unsigned version of this instruction when you first create it from the /fundings/instruction endpoint. Sign it with your secret key and supply it here.\n",
+            "name": "instruction_signed",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesfully funded the Participant by submitting this to the ledger! Here's your receipt.\n",
+            "schema": {
+              "$ref": "#/definitions/fundingReceipt"
+            }
+          },
+          "400": {
+            "description": "Something went wrong with your funding! You probably forgot or supplied invalid parameters.\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "401": {
+            "description": "Something went wrong with your funding! It looks like your JWT token in the header is invalid.\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "Something went wrong with your funding! You probably supplied an invalid participant.\n",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Fundings"
+      }
+    },
+    "/participants": {
+      "get": {
+        "description": "Retrieves a list of all active Participants and associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "all",
+          "Banks",
+          "PSPs",
+          "Institutions"
+        ],
+        "summary": "List all participants",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The 2-digit code of the country where the Participants are located.",
+            "name": "country_code",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.",
+            "name": "asset_code",
+            "in": "query"
+          },
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Identifier of the Issuer of this asset.\n",
+            "name": "issuer_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved Participants on World Wire",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/participant"
+              }
+            }
+          },
+          "404": {
+            "description": "No Participants found on World Wire",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Participants"
+      }
+    },
+    "/participants/{participant_id}": {
+      "get": {
+        "description": "Retrieves a specific Participant and their associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "participants",
+          "id"
+        ],
+        "summary": "Retrieve a specific participant",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Identifier of a WorldWire Participant. To get a list of all participants, make a GET request to /participants.\n",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved a WorldWire Participant.",
+            "schema": {
+              "$ref": "#/definitions/participant"
+            }
+          },
+          "404": {
+            "description": "Whoops, no Participant found with that ID on World Wire.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Participants"
+      }
+    },
+    "/trust/{anchor_id}": {
+      "post": {
+        "description": "Changes the trust relationship you have with an OFI Participant. As the Anchor, you can request, allow, or revoke permission to transact with an OFI by supplying a corresponding permission on this request. Learn more about Trust in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "trust"
+        ],
+        "summary": "Submit asset trust permissions",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Identifier of a World Wire Anchor. To get a list of all participants, make a GET request to /participants.\n",
+            "name": "anchor_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Trust",
+            "description": "Indicate who you are trusting",
+            "name": "Trust",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/trust"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Allow Trust was successful"
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "401": {
+            "description": "JWT token in header is invalid",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "invalid participant or allow trust failed",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/anchor",
+        "x-group-e": "Trust"
+      }
+    }
+  },
+  "definitions": {
+    "account": {
+      "description": "Account",
+      "type": "object",
+      "title": "account",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "description": "The address that was created on the ledger.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"address\""
+        },
+        "name": {
+          "description": "A name to identify this account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"name\""
+        }
+      },
+      "x-go-name": "Account",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    },
+    "addressLedger": {
+      "description": "Address Ledger",
+      "type": "object",
+      "title": "addressLedger",
+      "required": [
+        "address",
+        "account_name"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "Can be either 'issuing' or the Participants operating account's name.",
+          "type": "string"
+        },
+        "address": {
+          "description": "The ledger address which is expected to be the recipient for this transaction, once compliance checks are complete.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "DiscoverParticipantResponse",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/addressLedger"
+      }
+    },
+    "asset": {
+      "description": "Details of the asset being transacted",
+      "type": "object",
+      "title": "asset",
+      "required": [
+        "asset_type",
+        "asset_code"
+      ],
+      "properties": {
+        "asset_code": {
+          "description": "Alphanumeric code for the asset - USD, XLM, etc",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"asset_code\""
+        },
+        "asset_type": {
+          "description": "The type of asset. Options include digital obligation, \"DO\", digital asset \"DA\", or a cryptocurrency \"native\".",
+          "type": "string",
+          "enum": [
+            "DO",
+            "DA",
+            "native"
+          ],
+          "x-go-custom-tag": "bson:\"asset_type\""
+        },
+        "issuer_id": {
+          "description": "The asset issuer's participant id.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"issuer_id\""
+        }
+      },
+      "x-go-name": "Asset",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/asset"
+      }
+    },
+    "error": {
+      "description": "Error",
+      "type": "object",
+      "title": "error",
+      "required": [
+        "message",
+        "details",
+        "time_stamp"
+      ],
+      "properties": {
+        "build_version": {
+          "description": "build version string of micro service",
+          "type": "string"
+        },
+        "code": {
+          "description": "Error code reference.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Detailed message description about error.",
+          "type": "string"
+        },
+        "message": {
+          "description": "Short message description about error.",
+          "type": "string"
+        },
+        "participant_id": {
+          "description": "participant id, same as home domain as set by environment variables",
+          "type": "string"
+        },
+        "service": {
+          "description": "name of micro service",
+          "type": "string"
+        },
+        "time_stamp": {
+          "description": "The timestamp of the occurance.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "type": {
+          "description": "Type is for query purposes, it an identifier to assist with troubleshooting where an error came from (eg, containing func name) tells us if it is originating from NotifyWWError vs. NotFound vs. some other spot",
+          "type": "string"
+        },
+        "url": {
+          "description": "Url of endpoint that failed.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "WorldWireError",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/error"
+      }
+    },
+    "funding": {
+      "description": "Details about a Funding",
+      "type": "object",
+      "title": "funding",
+      "required": [
+        "asset_code_issued",
+        "amount_funding",
+        "participant_id",
+        "anchor_id",
+        "end_to_end_id"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "The name of an operating account or \"issuing\" for an issuing account.\n",
+          "type": "string"
+        },
+        "amount_funding": {
+          "description": "The amount that the Anchor is funding the Participant.",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "anchor_id": {
+          "description": "Identifier of the World Wire Anchor that will fund the Participant with stablecoins. (i.e., \"thebestbankintheUK\")\n",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "asset_code_issued": {
+          "description": "Identifier of the stable coin asset issued by the Anchor. For a list of assets, retrieve all World Wire assets from the /assets endpoint.\n",
+          "type": "string"
+        },
+        "end_to_end_id": {
+          "description": "Generated by the anchor, a unique ID for this funding request",
+          "type": "string"
+        },
+        "memo_transaction": {
+          "description": "An optional way for anchor to name a transaction.",
+          "type": "string"
+        },
+        "participant_id": {
+          "description": "Identifier of the World Wire Participant that will receive the funding.\n",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        }
+      },
+      "x-go-name": "Funding",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/funding"
+      }
+    },
+    "fundingInstruction": {
+      "description": "Funding Instruction",
+      "type": "object",
+      "title": "fundingInstruction",
+      "required": [
+        "funding",
+        "instruction"
+      ],
+      "properties": {
+        "details_funding": {
+          "$ref": "#/definitions/funding"
+        },
+        "instruction_unsigned": {
+          "description": "Unsigned transaction xdr related to the funding. This will need to be signed in the next step.\n",
+          "type": "string"
+        }
+      },
+      "x-go-name": "FundingInstruction",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/fundingInstruction"
+      }
+    },
+    "fundingReceipt": {
+      "description": "Funding Receipt",
+      "type": "object",
+      "title": "fundingReceipt",
+      "required": [
+        "anchor_fund_request",
+        "transaction_receipt"
+      ],
+      "properties": {
+        "details_funding": {
+          "$ref": "#/definitions/funding"
+        },
+        "receipt_funding": {
+          "$ref": "#/definitions/transactionReceipt"
+        }
+      },
+      "x-go-name": "FundingReceipt",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/fundingReceipt"
+      }
+    },
+    "participant": {
+      "description": "Participant",
+      "type": "object",
+      "title": "participant",
+      "required": [
+        "id",
+        "country_code",
+        "role",
+        "bic"
+      ],
+      "properties": {
+        "bic": {
+          "description": "The business identifier code of each participant",
+          "type": "string",
+          "maxLength": 11,
+          "minLength": 11,
+          "pattern": "^[A-Z]{3}[A-Z]{3}[A-Z2-9]{1}[A-NP-Z0-9]{1}[A-Z0-9]{3}$",
+          "x-go-custom-tag": "bson:\"bic\""
+        },
+        "country_code": {
+          "description": "Participant's country of residence, country code in ISO 3166-1 format",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 3,
+          "x-go-custom-tag": "bson:\"country_code\""
+        },
+        "id": {
+          "description": "The participant id for the participant",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"id\""
+        },
+        "issuing_account": {
+          "description": "The ledger address belonging to the issuing account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"issuing_account\""
+        },
+        "operating_accounts": {
+          "description": "Accounts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/account"
+          },
+          "x-go-custom-tag": "bson:\"operating_accounts\""
+        },
+        "role": {
+          "description": "The Role of this registered participant, it can be MM for Market Maker and IS for Issuer or anchor",
+          "type": "string",
+          "maxLength": 2,
+          "minLength": 2,
+          "enum": [
+            "MM",
+            "IS"
+          ],
+          "x-go-custom-tag": "bson:\"role\""
+        },
+        "status": {
+          "description": "Participant active status on WW network, inactive, active, suspended",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"status\""
+        }
+      },
+      "x-go-name": "Participant",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/participant"
+      }
+    },
+    "sendPacs": {
+      "description": "Send Pacs format",
+      "type": "object",
+      "title": "sendPacs",
+      "required": [
+        "message_type",
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "description": "This will be the encoded base 64 format xml message. Sending a transaction request will need to encode a pacs.008 xml message. Reacting on a received transaction request will need to encode an ibwf.001 xml message.",
+          "type": "string"
+        },
+        "message_type": {
+          "description": "This will be the type of the xml message. There are three types of message. First, pacs.008 for sending a transaction request. Second, ibwf.001 for reacting on a received transaction request. Finally, any response from the service will be a pacs.002 message.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "SendPacs",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/sendPacs"
+      }
+    },
+    "transactionReceipt": {
+      "description": "Transaction Receipt",
+      "type": "object",
+      "title": "transactionReceipt",
+      "required": [
+        "transactionstatus",
+        "transactionid",
+        "timestamp"
+      ],
+      "properties": {
+        "timestamp": {
+          "description": "The timestamp of the transaction.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "transactionid": {
+          "description": "A unique transaction identifier generated by the ledger.",
+          "type": "string"
+        },
+        "transactionstatus": {
+          "description": "This would capture the new status of a transaction while transaction travel through payment flow.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "transactionReceipt",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transactionReceipt"
+      }
+    },
+    "trust": {
+      "description": "Trust",
+      "type": "object",
+      "title": "trust",
+      "required": [
+        "participant_id",
+        "account_name",
+        "asset_code",
+        "permission"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "This is account name that is trusting of the asset. Options include \"default\", \"issuing\", or another string that identifies another operating account.\n",
+          "type": "string"
+        },
+        "asset_code": {
+          "description": "The 3-letter code identifying the asset being trusted. For a list of assets retrieve all World Wire assets from the [/assets](??base_url??/docs/??version??/api/participant-client-api?jump=path_get__assets) endpoint.\n",
+          "type": "string"
+        },
+        "end_to_end_id": {
+          "description": "Generated by requester, a unique ID for this entire trust flow",
+          "type": "string"
+        },
+        "limit": {
+          "description": "The trust limit for this asset between source and issuer. This parameter is only necessary when the trust permission you are submitting is \"request\".\n",
+          "type": "integer",
+          "default": 100,
+          "minimum": 1
+        },
+        "participant_id": {
+          "description": "When the permission submitted by an OFI is \"request\", this is the identifier of the RFI who issued the asset. However, when the permission submitted by an RFI is \"allow\", this is the OFI's identifier (i.e., uk.yourbankintheUK.payments.ibm.com). Make sure you request trust first to the RFI's issuing account, and then also their operating account.\n",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "permission": {
+          "description": "This string identifier represents the level of trust you would like to set with another participant in your trust object. Options are \"request\", \"allow\", or \"revoke\".\n",
+          "type": "string"
+        }
+      },
+      "x-go-name": "Trust",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/trust"
+      }
+    }
+  }
+}

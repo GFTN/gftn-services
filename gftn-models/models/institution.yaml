@@ -1,0 +1,21 @@
+
+title: institution
+description: Institution
+x-group-m: Models
+type: object
+required:
+  - participant_id
+  - name
+properties:
+  participant_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The ID that identifies a Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).
+  name:
+    type: string
+    description: The name of the Institution.
+externalDocs:
+  url: '#/definitions/institution'
+x-go-name: FinancialInstitutionDefinition

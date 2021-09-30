@@ -1,0 +1,14 @@
+# WW gateway
+apiVersion: v1
+kind: Service
+metadata:
+  name: participant_id_variable-gateway
+  labels:
+    app: participant_id_variable-gateway
+    service: participant_id_variable-gateway
+spec:
+  ports:
+  - name: external
+    port: 9000
+  selector:
+    app: participant_id_variable-gateway

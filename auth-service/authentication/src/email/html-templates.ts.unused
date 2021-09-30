@@ -1,0 +1,508 @@
+// PURPOSE: "rich-text" email templates to use in conjuction with send-in-blue with ./src/email/email.ts.
+
+import * as crypto from 'crypto';
+import { IGlobalEnvs } from '../environment';
+
+// email templates below can be customized by replacing parts of the email 
+// eg.: replace [FIRST] with str.replace('[FIRST]', 'Kristin') 
+
+export class HTMLEmailTemplates {
+
+    public emptyEmail = this.defaultEmail();
+    private env: IGlobalEnvs = global['envs'];
+
+    constructor(){}
+
+    addUnsubscribeBtn(htmlEmail: string, toEmailAddress: string, mailingLists: string[], all: boolean): string {
+
+        const emailHash = this.hashEmail(toEmailAddress);
+
+        return htmlEmail
+            // must have <!--UNSUBSCRIBE--> in email wrapper 
+            .replace('<!-- UNSUBSCRIBE -->', '<a href="' + this.env.app_root + '/unsubscribe/[EMAIL_HASH]/[CSV_MAILING_LIST]/[ALL_AS_0_OR_1]">Unsubscribe</a> from these emails.')
+            .replace('[EMAIL_HASH]', emailHash)
+            .replace('[CSV_MAILING_LIST]', mailingLists.join(','))
+            .replace('[ALL_AS_0_OR_1]', Number(all).toString());
+    }
+
+    /**
+     * email body for getting started inquiries
+     * Replace [NAME] [MESSAGE]
+     * 
+     * @returns {string} 
+     * @memberof HTMLEmailTemplates
+     */
+    welcome(name): string {
+        const body = `
+        <table class="main">
+            <tr>
+            <td class="wrapper">
+                <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+        
+                    <p>Hi [NAME],</p>
+                    <p>Welcome to IBM World Wire!</p>
+                    <br>        
+                    <p>
+                        We are excited to learn more about you and your organization. 
+                        You should receive an email shortly with your temporary password. 
+                    </p>
+                    <br>
+                    <p>
+                        Join us in redefining access to money for people and businesses everywhere. 
+                    </p>
+                    <br>
+
+                    <p>
+                        Thanks,
+                        <br> Jesse Lund
+                        <br> Vice President, IBM Blockchain
+                    </p>
+        
+                    </td>
+                </tr>
+                </table>
+            </td>
+            </tr>
+        </table>`;
+        return this.defaultEmail()
+            .replace('[BODY]', body)
+            .replace('[NAME]', name);
+    }
+
+    password(name: string, password: string): string {
+        const body = `
+        <table class="main">
+            <tr>
+            <td class="wrapper">
+                <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+        
+                    <p>Hi [NAME],</p>
+                    <p>Welcome to IBM World Wire!</p>
+                    <br>        
+                    <p>
+                        Your password: [PASSWORD]     
+                    </p>
+                    <br>
+                    <p>
+                        Your account is now ready. Log in using your email and password at worldwire.io/login.
+                    </p>
+                    <br>
+
+                    <p>
+                        Thanks,                        
+                        <br> IBM Blockchain World Wire Team
+                    </p>
+        
+                    </td>
+                </tr>
+                </table>
+            </td>
+            </tr>
+        </table>`;
+        return this.defaultEmail()
+            .replace('[BODY]', body)
+            .replace('[NAME]', name)
+            .replace('[PASSWORD]', password);
+    }
+
+    hashEmail(emailAddress: string) {
+
+        // openssl list-message-digest-algorithms will display the available digest algorithms.
+        const emailHash = crypto.createHash('md5')
+            // IMPORTANT: use .toLowerCase() to ensure consistent hashing results
+            .update(emailAddress.toLowerCase())
+            .digest('hex');
+
+        return emailHash;
+
+    }
+
+    /**
+     * Email that includes default header and footer
+     * replace [BODY]
+     *  
+     * @returns {string} 
+     * @memberof HTMLEmailTemplates
+     */
+    private defaultEmail(): string {
+        const wrapper = `
+        <!doctype html>
+        <html>
+        
+            <head>
+            <meta name="viewport" content="width=device-width" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>IBM World Wire</title>
+            <style>
+                /* -------------------------------------
+                GLOBAL RESETS
+            ------------------------------------- */
+        
+                .logo-svg {
+                height: 50px;
+                width: 50px;
+                }
+        
+                img {
+                border: none;
+                -ms-interpolation-mode: bicubic;
+                max-width: 100%;
+                }
+        
+                body {
+                background-color: #fff;
+                font-family: sans-serif;
+                -webkit-font-smoothing: antialiased;
+                font-size: 12px;
+                line-height: 1.4;
+                margin: 0;
+                padding: 0;
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+                }
+        
+                table {
+                border-collapse: separate;
+                mso-table-lspace: 0pt;
+                mso-table-rspace: 0pt;
+                width: 100%;
+                }
+        
+                table td {
+                font-family: sans-serif;
+                font-size: 12px;
+                vertical-align: top;
+                }
+        
+                /* -------------------------------------
+                BODY & CONTAINER
+            ------------------------------------- */
+        
+                .tbl-body {
+                background-color: #fff;
+                width: 100%;
+                }
+        
+                /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+        
+                .container {
+                display: block;
+                margin: 0 auto !important;
+                /* makes it centered */
+                max-width: 580px;
+                padding: 10px;
+                width: 580px;
+                }
+        
+                /* This should also be a block element, so that it will fill 100% of the .container */
+        
+                .content {
+                box-sizing: border-box;
+                display: block;
+                margin: 0 auto;
+                max-width: 580px;
+                padding: 10px;
+                }
+        
+                /* -------------------------------------
+                HEADER, FOOTER, MAIN
+            ------------------------------------- */
+        
+                .main {
+                background: #ffffff;
+                border-radius: 3px;
+                width: 100%;
+                }
+        
+                .wrapper {
+                box-sizing: border-box;
+                padding: 20px;
+                }
+        
+                .content-block {
+                padding-bottom: 10px;
+                padding-top: 10px;
+                }
+        
+                .footer,
+                .header {
+                clear: both;
+                margin-top: 10px;
+                text-align: center;
+                width: 100%;
+                }
+        
+                .footer td,
+                .footer p,
+                .footer span,
+                .footer a {
+                color: #999;
+                font-size: 12px;
+                text-align: center;
+                }
+        
+                .header td,
+                .header p,
+                .header span,
+                .header a {
+                color: #000;
+                font-size: 16px;
+                text-align: center;
+                }
+        
+                /* -------------------------------------
+                TYPOGRAPHY
+            ------------------------------------- */
+        
+                h1,
+                h2,
+                h3,
+                h4 {
+                color: #000000;
+                font-family: sans-serif;
+                font-weight: 400;
+                line-height: 1.4;
+                margin: 0;
+                margin-bottom: 20px;
+                }
+        
+                h1 {
+                font-size: 36px;
+                font-weight: 300;
+                text-align: center;
+                text-transform: capitalize;
+                }
+        
+                p,
+                ul,
+                ol {
+                font-family: sans-serif;
+                font-size: 12px;
+                font-weight: normal;
+                margin: 0;
+                margin-bottom: 10px;
+                }
+        
+                p li,
+                ul li,
+                ol li {
+                list-style-position: inside;
+                margin-left: 5px;
+                }
+        
+                a {
+                color: transparent;
+                text-decoration: underline;
+                }
+        
+                /* -------------------------------------
+                BUTTONS
+            ------------------------------------- */
+        
+                .btn {
+                box-sizing: border-box;
+                width: 100%;
+                }
+        
+                .btn>tbody>tr>td {
+                padding-bottom: 10px;
+                }
+        
+                .btn table {
+                width: auto;
+                }
+        
+                .btn table td {
+                text-align: center;
+                }
+        
+                .btn a {
+                border: 0.5px solid black;
+                border-radius: 0px;
+                box-sizing: border-box;
+                color: #000;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 12px;
+                font-weight: bold;
+                margin: 0;
+                padding: 10px 20px;
+                text-decoration: none;
+                text-transform: capitalize;
+                }
+        
+                /* -------------------------------------
+                OTHER STYLES THAT MIGHT BE USEFUL
+            ------------------------------------- */
+        
+                .align-center {
+                text-align: center;
+                }
+        
+                .align-right {
+                text-align: right;
+                }
+        
+                .align-left {
+                text-align: left;
+                }
+        
+                .clear {
+                clear: both;
+                }
+        
+                .mt0 {
+                margin-top: 0;
+                }
+        
+                .mb0 {
+                margin-bottom: 0;
+                }
+        
+                .preheader {
+                color: transparent;
+                display: none;
+                height: 0;
+                max-height: 0;
+                max-width: 0;
+                opacity: 0;
+                overflow: hidden;
+                mso-hide: all;
+                visibility: hidden;
+                width: 0;
+                }
+        
+                hr {
+                border: 0;
+                border-bottom: 1px solid #fff;
+                margin: 10px 0;
+                }
+        
+                /* -------------------------------------
+                RESPONSIVE AND MOBILE FRIENDLY STYLES
+            ------------------------------------- */
+        
+                @media only screen and (max-width: 620px) {
+                table[class=tbl-body] h1 {
+                    font-size: 36px !important;
+                    margin-bottom: 10px !important;
+                }
+        
+                table[class=tbl-body] p,
+                table[class=tbl-body] ul,
+                table[class=tbl-body] ol,
+                table[class=tbl-body] td,
+                table[class=tbl-body] span,
+                table[class=tbl-body] a {
+                    font-size: 12px !important;
+                }
+        
+                table[class=tbl-body] .wrapper,
+                table[class=tbl-body] .article {
+                    padding: 10px !important;
+                }
+        
+                table[class=tbl-body] .content {
+                    padding: 0 !important;
+                }
+        
+                table[class=tbl-body] .container {
+                    padding: 0 !important;
+                    width: 100% !important;
+                }
+        
+                table[class=tbl-body] .main {
+                    border-left-width: 0 !important;
+                    border-radius: 0 !important;
+                    border-right-width: 0 !important;
+                }
+        
+                table[class=tbl-body] .btn table {
+                    width: 100% !important;
+                }
+        
+                table[class=tbl-body] .btn a {
+                    width: 100% !important;
+                }
+        
+                table[class=tbl-body] .img-responsive {
+                    height: auto !important;
+                    max-width: 100% !important;
+                    width: auto !important;
+                }
+                }
+        
+                /* -------------------------------------
+                PRESERVE THESE STYLES IN THE HEAD
+            ------------------------------------- */
+        
+                @media all {
+                .btn a:hover {
+                    border: 0.5px solid black;
+                    background-color: #f0f0f0 !important;
+                }
+                }
+        
+                /*# sourceMappingURL=styles.css.map */
+        
+            </style>
+            </head>
+        
+            <body>
+            <table border="0" cellpadding="0" cellspacing="0" class="tbl-body">
+                <tr>
+                <td>&nbsp;</td>
+                <td class="container">
+                    <div class="content">
+                    
+                    <!-- This is preheader text. Some clients will show this text as a preview. -->
+                    <span class="preheader">Redefining access to money for people and businesses everywhere.</span>
+                    
+                    <!-- START Header -->
+                    <div class="header">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="content-block">
+                                <img style="height: 100px; width: 100px;" src="[LOGO HERE]" alt="IBM WORLD WIRE">
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+                    <!-- END Header -->
+                    [BODY]
+                    <!-- START Footer -->
+                    <div class="footer">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="content-block">
+                            <strong>IBM World Wire</strong>
+                            <br>
+                            <span>[ADDRESS HERE]</span>
+                            <br>
+                            <!-- UNSUBSCRIBE -->
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+                    <!-- END Footer -->
+        
+                    <!-- END CENTERED WHITE CONTAINER -->
+                    </div>
+                </td>
+                <td>&nbsp;</td>
+                </tr>
+            </table>
+            </body>
+        
+        </html>
+        `;
+
+        return wrapper;
+
+    }
+
+}

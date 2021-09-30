@@ -1,0 +1,56 @@
+{
+    "participantID": "ww",
+    "serviceObjArray": [{
+            "serviceName": "pr-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/participant-registry",
+            "serviceUrl": "-pr",
+            "serviceEPort": "8080:8080",
+            "serviceIPort": "18080:18080"
+        },
+        {
+            "serviceName": "anchor-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/anchor-service",
+            "serviceUrl": "-anchor",
+            "serviceEPort": "6080:6080"
+        },
+        {
+            "serviceName": "admin-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/administration-service",
+            "serviceUrl": "-admin",
+            "serviceEPort": "8090:8090",
+            "serviceIPort": "18090:18090"
+        },
+        {
+            "serviceName": "gas-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/gas-service",
+            "serviceUrl": "-gas",
+            "serviceEPort": "8099:8099"
+        },
+        {
+            "serviceName": "quotes-service-local",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/quotes-service",
+            "serviceUrl": "-quotes",
+            "serviceEPort": "8083:8083"
+        },
+        {
+            "serviceName": "whitelist-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/global-whitelist-service",
+            "serviceUrl": "-whitelist",
+            "serviceEPort": "11234:11234",
+            "serviceIPort": "21234:21234"
+        },
+        {
+            "serviceName": "fee-service-local",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/fee-service",
+            "serviceUrl": "-fee",
+            "serviceEPort": "8082:8082"
+        },
+        {
+            "serviceName": "payout-service",
+            "imageName": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/payout-service",
+            "serviceUrl": "-payout",
+            "serviceEPort": "8084:8084",
+            "serviceIPort": "18084:18084"
+        }
+    ]
+}

@@ -1,0 +1,138 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="background">
+
+	<div fxFlex class="outer fixed-nav" fxLayout="column">
+
+		<nav class="uppercase" fxLayout="row" fxLayoutAlign="center center">
+
+			<div fxFlex class="full-width">
+
+				<div fxHide.lt-md fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+
+					<a routerLink="/" class="btn-fab">
+						<svg viewBox="0 0 16 16">
+							<path d="M5.582 7.418h4.837C9.897 6.717 9.009 6.109 8 6.109s-1.897.608-2.418 1.309zM5 8.418h6v1H5zM5 10.418h6v1H5zM8 13.582c1.009 0 1.897-.462 2.418-1.164H5.582c.521.701 1.409 1.164 2.418 1.164zM0 9.209a1.928 1.928 0 0 0 1.189 1.781c.234.097.484.146.734.146h.008c.249 0 .499-.049.734-.147a1.908 1.908 0 0 0 1.043-1.043l1.626-4.144L1.19 7.429A1.919 1.919 0 0 0 0 9.209zM15.853 8.472a1.935 1.935 0 0 0-1.042-1.043l-4.144-1.626 1.626 4.144a1.915 1.915 0 0 0 1.043 1.043c.235.097.484.147.734.147h.008a1.918 1.918 0 0 0 1.776-1.19 1.938 1.938 0 0 0-.001-1.475zM6 4.418a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM10 4.418a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+							/>
+						</svg>
+					</a>
+
+					<div fxFlexOrder.xs="1" class="blockchain-logo">
+						IBM <strong> Blockchain </strong>
+					</div>
+
+					<div fxFlex></div>
+				</div>
+
+				<div fxHide.gt-sm fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+
+					<a class="btn-fab" (click)="openSideNavModal()">
+						<svg width="24" height="24" viewBox="0 0 20 20">
+							<path d="M3 4h14v1H3zm0 6h14v1H3zm0 6h14v1H3z"></path>
+						</svg>
+					</a>
+
+					<span fxFlex></span>
+
+					<a routerLink="/" class="btn-fab">
+						<svg viewBox="0 0 16 16">
+							<path d="M5.582 7.418h4.837C9.897 6.717 9.009 6.109 8 6.109s-1.897.608-2.418 1.309zM5 8.418h6v1H5zM5 10.418h6v1H5zM8 13.582c1.009 0 1.897-.462 2.418-1.164H5.582c.521.701 1.409 1.164 2.418 1.164zM0 9.209a1.928 1.928 0 0 0 1.189 1.781c.234.097.484.146.734.146h.008c.249 0 .499-.049.734-.147a1.908 1.908 0 0 0 1.043-1.043l1.626-4.144L1.19 7.429A1.919 1.919 0 0 0 0 9.209zM15.853 8.472a1.935 1.935 0 0 0-1.042-1.043l-4.144-1.626 1.626 4.144a1.915 1.915 0 0 0 1.043 1.043c.235.097.484.147.734.147h.008a1.918 1.918 0 0 0 1.776-1.19 1.938 1.938 0 0 0-.001-1.475zM6 4.418a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM10 4.418a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+							/>
+						</svg>
+					</a>
+
+					<div fxFlexOrder.xs="1" class="blockchain-logo">
+						IBM <strong> Blockchain </strong>
+						<!-- <strong fxFlexOrder.xs="0"> World Wire </strong> -->
+					</div>
+
+				</div>
+
+			</div>
+
+		</nav>
+
+		<div fxLayout="row">
+
+			<div fxFlex="none">
+				<div class="side-nav" fxHide.lt-md>
+					<div class="side-nav-inner" fxLayout="column" fxHide.lt-md>
+						<div fxFlex="none">
+							<div class="filler-header"></div>
+						</div>
+						<div fxFlex class="side-nav-content">
+							<app-version-nav fxLayout="column"></app-version-nav>
+						</div>
+						<div fxFlex="none">
+							<div class="filler-footer"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div fxFlex fxLayout="column">
+				<div class="filler-header"></div>
+				<div fxLayout="row">
+					<router-outlet></router-outlet>
+				</div>
+				<div class="filler-footer"></div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="footer">
+		<app-public-footer></app-public-footer>
+	</div>
+
+	<app-support-button></app-support-button>
+	<app-docs-feedback></app-docs-feedback>
+
+	<div data-modal id="modal-side-nav" class="bx--modal " tabindex="-1">
+		<div class="bx--modal-container">
+
+			<button class="bx--modal-close" type="button" data-modal-close aria-label="close modal" data-modal-primary-focus>
+				<svg class="bx--modal-close__icon" width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+					<title>Close Modal</title>
+					<path d="M6.32 5L10 8.68 8.68 10 5 6.32 1.32 10 0 8.68 3.68 5 0 1.32 1.32 0 5 3.68 8.68 0 10 1.32 6.32 5z" fill-rule="nonzero"/>
+				</svg>
+			</button>
+
+			<div class="bx--modal-content" fxLayout="column">
+				<app-version-nav fxLayout="column" (closeSideNavModal)="closeSideNavModal()"></app-version-nav>
+			</div>
+
+		</div>
+	</div>
+
+	<div data-modal id="modal-terms" class="bx--modal " tabindex="-1">
+
+		<div class="bx--modal-container">
+
+			<div class="bx--modal-header">
+				<p class="bx--modal-header__label bx--type-delta">Terms & Conditions</p>
+				<p class="bx--modal-header__heading bx--type-beta"> World Wire Usage</p>
+			</div>
+
+			<div class="bx--modal-content">
+				<p>
+					This IBM Blockchain World Wire site is intended for demonstration purposes only. There is no guarantee of general availability functionality and the system cannot be used for live transactions until you are authorized as a valid network participant.
+				</p>
+				<br>
+				<p>
+					By clicking accept, you agree to our
+					<a class="no-line" target="_blank" routerLink="/privacy">Privacy</a>,
+					<a class="no-line" target="_blank" routerLink="/online-privacy">Online Privacy</a>, and
+					<a class="no-line" target="_blank" routerLink="/terms">Terms</a>.
+				</p>
+				<p class="margin-height"></p>
+			</div>
+
+			<div class="bx--modal-footer">
+				<button id="acceptTermsBtn" class="bx--btn bx--btn--secondary" type="button" data-modal-close (click)="acceptOptInCookie(true)">Accept</button>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

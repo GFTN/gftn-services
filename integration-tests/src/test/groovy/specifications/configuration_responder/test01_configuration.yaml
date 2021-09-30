@@ -1,0 +1,9 @@
+ParticipantDomain: specification.integrationtest.gftn.io
+Federation:
+  FederationServerPublicUrl: http://federation.specification.integrationtest.gftn.io
+Compliance:
+  ComplianceServerPublicUrl: http://compliance.specification.integrationtest.gftn.io
+ParticipantPublicKeys:
+  ComplianceSigningPublicKey: GATGJE7IMG436KBEM3Y7HYSJVZHB4MIWTXPF3PLIXES6YBX43N6ERVEK
+ParticipantSecretKeys:
+  ComplianceSecretKey: SCU4EF2HGA6EIDA5R34NUYAPZ5W5CSTV2H72PVYP7NPGUG4F6XZV5MNL

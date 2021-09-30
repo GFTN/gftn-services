@@ -1,0 +1,58 @@
+<ibm-modal>
+	<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+		<div class="bx--modal-header__label bx--type-delta">Review</div>
+		<span>Balance Details for: <span class="semibold">{{ currentAsset.asset_code }}</span></span>
+	</ibm-modal-header>
+
+	<section class="bx--modal-content">
+
+		<h3 class="bx--type-gamma">Totals</h3>
+		<p fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+			<label class="bx--type-zeta">In Circulation</label><span class="filler" fxFlex></span><span>{{ currentAsset.balance.toFixed(2) }}</span>
+		</p>
+
+		<div class="margin-height"></div>
+
+		<h3 class="bx--type-gamma">Current Holders</h3>
+
+		<section class="bx--structured-list" data-structured-list>
+
+			<div class="bx--structured-list-thead">
+				<div class="bx--structured-list-row bx--structured-list-row--header-row">
+					<div class="bx--structured-list-th">Holder</div>
+					<div class="bx--structured-list-th">Total Currently Held</div>
+				</div>
+			</div>
+
+			<!-- Loading Animation -->
+			<div class="caption" *ngIf="!obligationsLoaded">
+				<div class="loader-row">
+					<p class="loading"></p>
+				</div>
+				<div class="loader-row">
+					<p class="loading"></p>
+				</div>
+				<div class="loader-row">
+					<p class="loading"></p>
+				</div>
+			</div>
+
+			<!-- No current holders -->
+			<div class="caption" *ngIf="obligationsLoaded && !(obligationBalances && obligationBalances.length)">
+				<div class="loader-row">
+					<div class="center italic tall" fxLayout="column" fxLayoutAlign="center center">
+						<p>There are no holders of this asset on the network.</p>
+					</div>
+				</div>
+			</div>
+
+			<div *ngIf="obligationsLoaded && obligationBalances && obligationBalances.length"
+				class="bx--structured-list-tbody">
+				<div *ngFor="let holder of obligationBalances" class="bx--structured-list-row">
+					<div class="bx--structured-list-td">{{ holder.participant_id }}</div>
+					<div class="bx--structured-list-td">{{ utils.strToFloat(holder.balance.balance).toFixed(2) }}</div>
+				</div>
+			</div>
+		</section>
+	</section>
+</ibm-modal>

@@ -1,0 +1,38 @@
+title: fitoFITransactionRequest
+description: Transaction GET request parameters
+type: object
+required:
+  - query_type
+  - ofi_id
+properties:
+  query_type:
+    type: string
+    description: A type to identify what kind of data is passed
+  query_data:
+    type: string
+    description: A name to identify the transaction
+  ofi_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: A name to identify from which OFI the request is coming from
+  start_date:
+    type: string
+    format: date
+    description: Start Date of the range in which transactions are being quried.
+  end_date:
+    type: string
+    format: date
+    description: End Date of the range in which transactions are being quried.
+  page_number:
+    type: integer
+    format: int64
+    description: Page number for pagination.
+  transaction_batch:
+    type: integer
+    format: int64
+    description: Number of transactions for each page
+externalDocs:
+  url: '#/definitions/fitoFITransactionRequest'
+x-go-name: FItoFITransactionRequest

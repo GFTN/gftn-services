@@ -1,0 +1,154 @@
+swagger: "2.0"
+info:
+  title: World Wire internal signing API Service for individual Participant
+  description: >
+    Internal API service which takes in unsigned transaction envelope as input and returns back a signed
+    transaction envelop
+  version: 1.0.0
+host: sign.worldwire.io
+basePath: /v1/crypto/internal
+schemes:
+  - https
+paths:
+
+  /account/{account_name}:
+    post:
+      tags:
+        - account name
+      summary: Retreive an account.
+      description: >
+        Retrieves an Issuing or Operating Account after it is newly created.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: account_name
+          required: true
+          type: string
+          description: name of the new account to be created
+      responses:
+        200:
+          description: Successfully retrieved account.
+          schema:
+            $ref: '../../gftn-models/models/account.yaml'
+        400:
+          description: Invalid create account request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        409:
+           description: conflict or error
+           schema:
+             $ref: '../../gftn-models/models/error.yaml'        
+        424:
+           description: conflict or error
+           schema:
+             $ref: '../../gftn-models/models/error.yaml'
+
+  /sign:
+    post:
+      tags:
+        - sign
+        - transaction
+      summary: returns signed envelope
+      description: >  
+        This API service which takes in unsigned transaction envelope as input and returns back a signed
+        transaction envelope
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Draft
+          required: true
+          description: This is a request model for signing request
+          schema:
+            $ref: '../../gftn-models/models/draft.yaml'
+      responses:
+        200:
+          description: Successfully signed the transaction. Here you go.
+          schema:
+            $ref: '../../gftn-models/models/signature.yaml'
+        404:
+          description: Invalid signing request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /admin/sign:
+    post:
+      tags:
+        - sign
+        - transaction
+      summary: returns signed envelope with IBM token account signature
+      description: >
+        This API service which takes in unsigned transaction envelope as input and returns back a signed
+        transaction envelope
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Draft
+          required: true
+          description: This is a internal request model for signing request
+          schema:
+            $ref: '../../gftn-models/models/internalDraft.yaml'
+      responses:
+        200:
+          description: Successfully signed the transaction. Here you go.
+          schema:
+            $ref: '../../gftn-models/models/signature.yaml'
+        404:
+          description: Invalid signing request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+
+  /admin/account:
+    post:
+      summary: Retreive IBM account public address.
+      description: >
+        Retrieves IBM account public address.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully retrieved account address.
+          schema:
+            $ref: '../../gftn-models/models/account.yaml'
+        400:
+          description: Invalid create account request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        409:
+          description: conflict or error
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+        424:
+          description: conflict or error
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'
+
+  /request/sign:
+    post:
+      tags:
+        - sign
+        - request
+      summary: Create a signature
+      description: >
+        Accepts a draft payload as input and returns a signature (signed version) back.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: payload
+          required: true
+          description: The payload that needs to be signed.
+          schema:
+            $ref: '../../gftn-models/models/requestPayload.yaml'
+      responses:
+        200:
+          description: Signed successfully. Here's you go.
+          schema:
+            $ref: '../../gftn-models/models/signature.yaml'
+        404:
+          description: Invalid signing request
+          schema:
+            $ref: '../../gftn-models/models/error.yaml'

@@ -1,0 +1,18 @@
+{
+  "name": "deployment-gcpendpoints",
+  "version": "1.0.0",
+  "description": "For details, see the README.md in the root of this directory.",
+  "main": "gcp_endpoints.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "yamljs": "^0.3.0"
+  }
+}

@@ -1,0 +1,36 @@
+<br>
+<br>
+<br>
+
+<form class="outer-wrapper" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" novalidate (ngSubmit)="onSubmit()"
+ #docsForm="ngForm">
+
+	<div> You are trying to access a secure resource.</div>
+
+	<div fxLayout="column" fxLayoutGap="10px">
+
+		<div class="bx--form-item">
+			<label for="password" class="param-label bx--label">
+				<span> Please enter your password: </span>  
+			</label>
+			<input id="password" required [attr.data-invalid]="!(password.valid || password.untouched) || errorMsg.length > 0 ? true : null" placeholder="Password" type="password"
+			class="bx--text-input param-input" [(ngModel)]="model.password" name="password" #password="ngModel">
+			<div class="bx--form-requirement">
+				<div [hidden]="password.valid || password.untouched">
+					Required
+				</div>
+				<div [hidden]="!(errorMsg.length > 0)">
+					{{errorMsg}}
+				</div>
+			</div>
+		</div>
+
+		<div class="bx--form-item">
+
+			<button class="bx--btn bx--btn--primary" [disabled]="password.invalid ? true : null" type="submit">Submit</button>
+
+		</div>
+
+	</div>
+
+</form>

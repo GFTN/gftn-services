@@ -1,0 +1,100 @@
+[WW_ERROR]
+    [WW_ERROR.PAYOUT-1001]
+        SHORT_MESSAGE = "Error while decoding Payout location payload"
+        DETAILS = "Payout location payload attribute malformed or missing"
+    [WW_ERROR.PAYOUT-1002]
+        SHORT_MESSAGE = "Error while validating Payout location payload"
+        DETAILS = "Payout location payload attribute malformed or missing"
+    [WW_ERROR.PAYOUT-1003]
+        SHORT_MESSAGE = "Failed updating payout location."
+        DETAILS = "Payout location not found"
+    [WW_ERROR.PAYOUT-1004]
+        SHORT_MESSAGE = "Failed creating payout location"
+        DETAILS = "Database error encountered"
+    [WW_ERROR.PAYOUT-1005]
+        SHORT_MESSAGE = "Failed deleting payout location"
+        DETAILS = "Database error encountered"
+    [WW_ERROR.PAYOUT-1006]
+        SHORT_MESSAGE = "Failed getting corresponding payout location"
+        DETAILS = "Parameter missing in GetPayout request"
+    [WW_ERROR.PAYOUT-1007]
+        SHORT_MESSAGE = "Error encountered during database operation"
+        DETAILS = "Database error encountered"
+    [WW_ERROR.PAYOUT-1008]
+        SHORT_MESSAGE = "Failed getting corresponding payout location"
+        DETAILS = "No matching payout location found"
+    [WW_ERROR.PAYOUT-1009]
+        SHORT_MESSAGE = "Failed adding new payout location"
+        DETAILS = "Payout location already exists, please use the update endpoint."
+    [WW_ERROR.PAYOUT-1010]
+        SHORT_MESSAGE = "Failed updating new payout location"
+        DETAILS = "Invalid payload for the concat operation"
+    [WW_ERROR.PAYOUT-1011]
+        SHORT_MESSAGE = "Failed deleting payout location"
+        DETAILS = "Id not found"
+    [WW_ERROR.PAYOUT-1012]
+        SHORT_MESSAGE = "Encounter error while parsing Mongo DB data"
+        DETAILS = "Failed parsing mongo data"
+    [WW_ERROR.PAYOUT-1013]
+        SHORT_MESSAGE = "Error while validating Payout location payload"
+        DETAILS = "Payout location geo type does not match with the given coordinates or category"
+    [WW_ERROR.PAYOUT-1014]
+        SHORT_MESSAGE = "Error while querying payout location"
+        DETAILS = "Cannot find the given parent/child payout location"
+    [WW_ERROR.PAYOUT-1015]
+        SHORT_MESSAGE = "Encounter error while updating the relatives of payout location"
+        DETAILS = "Cannot update the parent/child payout location"
+    [WW_ERROR.PAYOUT-1016]
+        SHORT_MESSAGE = "Encounter error while querying duplicate record of the payout location"
+        DETAILS = "Cannot confirm if there's a duplicate record for the payout location"
+    [WW_ERROR.PAYOUT-1017]
+        SHORT_MESSAGE = "Encounter error while updating the payout location"
+        DETAILS = "Cycle detected, please make sure the parent/child of the payout location is correct"
+    [WW_ERROR.PAYOUT-1018]
+        SHORT_MESSAGE = "Encounter error while creating session to graph database"
+        DETAILS = "Cannot create connecting session to graph database"
+    [WW_ERROR.PAYOUT-1019]
+        SHORT_MESSAGE = "Encounter error while querying data using Google Map API"
+        DETAILS = "Receive unexpected response from geocoding API"
+    [WW_ERROR.PAYOUT-1020]
+        SHORT_MESSAGE = "Encounter error while inserting data"
+        DETAILS = "CSV value cannot contains comma"
+    [WW_ERROR.PAYOUT-1021]
+        SHORT_MESSAGE = "Encounter error while inserting data"
+        DETAILS = "Unexpected field in CSV file"
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

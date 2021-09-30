@@ -1,0 +1,14 @@
+title: payloadWithSignature
+description: PayloadWithSignature
+x-group-m: Models
+type: object
+required:
+  - payload_with_signature
+properties:
+  payload_with_signature:
+    type: string
+    format: byte
+    description: Signed ISO 20022 message.
+externalDocs:
+  url: '#/definitions/payloadWithSignature'
+x-go-name: PayloadWithSignature

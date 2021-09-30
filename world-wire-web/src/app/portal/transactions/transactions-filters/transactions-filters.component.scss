@@ -1,0 +1,46 @@
+@import '~sass/ibm-style-override';
+
+@import "~sass/grid";
+
+.container {
+	margin-top: 15px;
+}
+
+.block {
+	display: block;
+}
+
+.top-filler.bx--checkbox-label {
+	&::before {
+		top: calc(50% - 9px - 9px);
+	}
+
+	&::after {
+		top: calc(50% - 9px);
+	}
+}
+
+// Overrides to make date-picker responsive
+.bx--date-picker--range {
+    width: 75%;
+    min-width: 250px;
+    &.mobile {
+        min-width: 150px;
+    }
+	.bx--date-picker__input {
+		width: 100%;
+		max-width: 100%;
+    }
+}
+
+.bx--date-picker__icon {
+    position: relative;
+    top: auto;
+    left: auto;
+}
+
+.bx--date-picker-container {
+	width: 100%;
+	// override to account for error message
+	justify-content: start;
+}

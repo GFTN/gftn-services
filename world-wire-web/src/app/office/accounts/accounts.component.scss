@@ -1,0 +1,26 @@
+@import "~sass/ibm-style-override";
+
+.participant {
+	padding: 0;
+
+	margin-bottom: 20px;
+
+	.picture {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center center;
+		// default image
+		background-image: url("/assets/branding/blockchain_bg.jpg");
+		width: 100%;
+		padding-bottom: 50%;
+		border-bottom: 1px solid $ui-03
+	}
+
+	.link {
+		padding-right: 20px;
+
+		svg {
+			fill: $brand-01
+		}
+	}
+}

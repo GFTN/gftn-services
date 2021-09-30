@@ -1,0 +1,64 @@
+<form #confirmForm="ngForm" (ngSubmit)="confirm()">
+	<div class="bx--modal-container" fxLayout="column">
+		<div class="bx--modal-content" fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+			<div>
+
+				<p class="bx--type-delta">IBM World Wire</p>
+				<p class="bx--type-beta">Two-factor Authentication</p>
+
+				<br/>
+				<p>Please enter your 6-digit code from your authenticator app to confirm:</p>
+
+				<div *ngIf="!disabled" class="bx--form-item margin-width">
+					<input ibmText #confirmCodeModel="ngModel" id="confirm-code" name="confirm-code" type="password" [(ngModel)]="confirmCode" [attr.data-invalid]="!(confirmCodeModel.valid || confirmCodeModel.untouched) || status === 'inactive' ? true: null" required />
+					<div *ngIf="confirmCodeModel.errors?.required" class="bx--form-requirement">
+						Confirmation of Two-Factor code is required
+					</div>
+				</div>
+
+				<!-- Loading Success State -->
+				<div data-inline-loading id="my-inline-loading" class="bx--inline-loading margin-width">
+					<div *ngIf="status === 'active' || status === 'finished'" class="bx--inline-loading__animation">
+						<div data-inline-loading-spinner class="bx--loading bx--loading--small">
+							<svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+								<circle cx="0" cy="0" r="37.5" />
+							</svg>
+						</div>
+						<svg data-inline-loading-finished hidden
+							class="bx--inline-loading__checkmark-container bx--inline-loading__svg"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+							<polyline class="bx--inline-loading__checkmark" points="0.74 3.4 3.67 6.34 9.24 0.74">
+							</polyline>
+						</svg>
+					</div>
+					<p *ngIf="status === 'active'" data-inline-loading-text-active class="bx--inline-loading__text">
+						Authenticating...</p>
+
+					<p *ngIf="status === 'finished'" data-inline-loading-text-finished class="bx--inline-loading__text">
+						Authentication
+						successful!</p>
+					<p *ngIf="status === 'inactive'" data-inline-loading-text-inactive class="bx--inline-loading__text"
+						fxLayout="row" fxLayoutGap="20px">
+						<svg width="18" height="18" style="fill: red" viewBox="0 0 16 16">
+							<path d="M8 14.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z">
+							</path>
+							<path d="M4 7h8v2H4z"></path>
+						</svg>
+						<span>
+						Authentication attempt failed, please try again.
+					</span>
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="bx--modal-footer">
+			<button class="bx--btn bx--btn--secondary" type="button" (click)="close(false, '')">Cancel</button>
+			<button class="bx--btn bx--btn--primary" type="submit" [disabled]="!confirmForm.valid || disableResend">Submit</button>
+			<!-- <button class="bx--btn bx--btn--primary" type="button" [disabled]="disableResend" (click)="send()">Resend <span>{{timerText}}</span></button> -->
+		</div>
+	</div>
+</form>

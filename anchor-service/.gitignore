@@ -1,0 +1,7 @@
+.idea
+deployment/docker/keys
+vendor
+api-definitions/node_modules
+package-lock.json
+.DS_Store
+log.txt

@@ -1,0 +1,442 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "API endpoints for querying the details of payout location locations",
+    "title": "Payout location API",
+    "version": "1.0.0"
+  },
+  "host": "payout.worldwire.io",
+  "basePath": "/v1/admin/payout",
+  "paths": {
+    "/": {
+      "post": {
+        "description": "If there doesn't have an existing payout location. participants can use this endpoint to create the payout location\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Create new payout location"
+        ],
+        "summary": "Called when participant wants to create a new payout location",
+        "parameters": [
+          {
+            "description": "The payout location that needs to be added.",
+            "name": "payout location",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/payoutLocation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payout location created"
+          },
+          "400": {
+            "description": "Payout location could not be created due to payout location already exists or malformed payload"
+          },
+          "404": {
+            "description": "Payout location could not be created"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "description": "delete the payout location with given id\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Delete existing payout location"
+        ],
+        "summary": "delete a payout location",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "the id of the payout location you want to delete",
+            "name": "id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payout location deleted"
+          },
+          "400": {
+            "description": "missing or invalid parameters in the request"
+          },
+          "404": {
+            "description": "The payout location could not be found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "patch": {
+        "description": "If there is an existing payout location. participants can use this endpoint to update the payout location\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Update an existing payout location"
+        ],
+        "summary": "Called when participant wants to update an existing payout location",
+        "parameters": [
+          {
+            "description": "The payout location that needs to be updated.",
+            "name": "payout location",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/payoutLocationUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payout location updated"
+          },
+          "400": {
+            "description": "Failed updating the payout location"
+          },
+          "404": {
+            "description": "Cannot find the payout location"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "address": {
+      "description": "Address",
+      "type": "object",
+      "title": "address",
+      "required": [
+        "building_number",
+        "street",
+        "city",
+        "state",
+        "postal_code",
+        "country"
+      ],
+      "properties": {
+        "building_number": {
+          "description": "The building number or identifier.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"building_number\""
+        },
+        "city": {
+          "description": "Name of the city or town.",
+          "type": "string"
+        },
+        "country": {
+          "description": "Country code of the location.",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "Postal code for the location.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"postal_code\""
+        },
+        "state": {
+          "description": "Name of the state.",
+          "type": "string"
+        },
+        "street": {
+          "description": "The street name.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "Address",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/address"
+      }
+    },
+    "coordinate": {
+      "description": "Geographic coordinates for a location. Based on https://schema.org/geo",
+      "type": "object",
+      "title": "coordinate",
+      "required": [
+        "lat",
+        "long"
+      ],
+      "properties": {
+        "lat": {
+          "description": "The latitude of the geo coordinates",
+          "type": "number"
+        },
+        "long": {
+          "description": "The longitude of the geo coordinates",
+          "type": "number"
+        }
+      },
+      "x-go-name": "Coordinate",
+      "externalDocs": {
+        "url": "#/definitions/coordinate"
+      }
+    },
+    "geo": {
+      "description": "Geographic coordinates for a location. Based on https://schema.org/geo",
+      "type": "object",
+      "title": "geo",
+      "required": [
+        "coordinates",
+        "type"
+      ],
+      "properties": {
+        "coordinates": {
+          "description": "The geo coordinates",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/coordinate"
+          }
+        },
+        "type": {
+          "description": "The type of location. Options include \"point\" if the location is a single pickup location, or \"area\" if it's a region.\n",
+          "type": "string",
+          "enum": [
+            "area",
+            "point"
+          ]
+        }
+      },
+      "x-go-name": "Geo",
+      "externalDocs": {
+        "url": "#/definitions/geo"
+      }
+    },
+    "payoutLocation": {
+      "description": "Details of each payout location. Based on https://schema.org/LocalBusiness",
+      "type": "object",
+      "title": "payoutLocation",
+      "required": [
+        "type",
+        "name",
+        "currencies_accepted",
+        "image",
+        "url",
+        "telephone",
+        "member_of",
+        "geo",
+        "opening_hours",
+        "category",
+        "payout_child",
+        "payout_parent"
+      ],
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/address"
+        },
+        "category": {
+          "$ref": "#/definitions/payoutLocationCategory"
+        },
+        "currencies_accepted": {
+          "description": "The currency accepted.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"currencies_accepted\""
+        },
+        "geo": {
+          "$ref": "#/definitions/geo"
+        },
+        "id": {
+          "description": "The unique identifier of the location.",
+          "type": "string"
+        },
+        "image": {
+          "description": "An image of the item. This can be a URL or a fully described ImageObject.",
+          "type": "string"
+        },
+        "member_of": {
+          "description": "The financial institute that this location belongs to.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"member_of\""
+        },
+        "name": {
+          "description": "The name of the location.",
+          "type": "string"
+        },
+        "opening_hours": {
+          "description": "The opening hours of the location.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/payoutLocationOpeningHours"
+          },
+          "x-go-custom-tag": "bson:\"opening_hours\""
+        },
+        "payout_child": {
+          "description": "The collection of identifiers for locations which belong to the location - these can include areas, and points.\n",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"payout_child\""
+        },
+        "payout_parent": {
+          "description": "The collection of identifiers for the parents of the locations - it can be only areas.\n",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"payout_parent\""
+        },
+        "routing_number": {
+          "description": "Optional routing information, also known as BIC (bank id code).",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"routing_number\""
+        },
+        "telephone": {
+          "description": "The phone number of the location.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of location. Options include: \"Bank\", \"Non-Bank Financial Institution\", \"Mobile Network Operator\", or \"Other\".\n",
+          "type": "string",
+          "enum": [
+            "Bank",
+            "Non-Bank Financial Institution",
+            "Mobile Network Operator",
+            "Other"
+          ]
+        },
+        "url": {
+          "description": "The URL of the location.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "PayoutLocation",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocation"
+      }
+    },
+    "payoutLocationCategory": {
+      "description": "Details of each payout location offer category. Based on https://schema.org/hasOfferCatalog",
+      "type": "object",
+      "title": "payoutLocationCategory",
+      "required": [
+        "name",
+        "options"
+      ],
+      "properties": {
+        "name": {
+          "description": "name of the category",
+          "type": "string",
+          "enum": [
+            "delivery",
+            "cash_pickup",
+            "agency_pickup",
+            "mobile",
+            "bank_account"
+          ]
+        },
+        "options": {
+          "description": "offer list of the category",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/payoutLocationOption"
+          }
+        }
+      },
+      "x-go-name": "PayoutLocationCategory",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocationCategory"
+      }
+    },
+    "payoutLocationOpeningHours": {
+      "description": "The opening hours of each payout location. Based on https://schema.org/OpeningHoursSpecification",
+      "type": "object",
+      "title": "payoutLocationOpeningHours",
+      "required": [
+        "day_of_week",
+        "opens",
+        "closes"
+      ],
+      "properties": {
+        "closes": {
+          "description": "The closing hour of the payout location on the given day(s) of the week",
+          "type": "string"
+        },
+        "day_of_week": {
+          "description": "The day of the week for which these opening hours are valid",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"day_of_week\""
+        },
+        "opens": {
+          "description": "The opening hour of the payout location on the given day(s) of the week",
+          "type": "string"
+        }
+      },
+      "x-go-name": "PayoutLocationOpeningHour",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocationOpeningHours"
+      }
+    },
+    "payoutLocationOption": {
+      "description": "Details of each payout location offer. Based on https://schema.org/hasOfferCatalog",
+      "type": "object",
+      "title": "payoutLocationOption",
+      "required": [
+        "description",
+        "terms"
+      ],
+      "properties": {
+        "description": {
+          "description": "name of the service",
+          "type": "string"
+        },
+        "terms": {
+          "description": "service detail",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"terms\""
+        }
+      },
+      "x-go-name": "PayoutLocationOption",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocationOption"
+      }
+    },
+    "payoutLocationUpdateRequest": {
+      "description": "List of updated payout location attributes. Based on https://schema.org/LocalBusiness",
+      "type": "object",
+      "title": "payoutLocationUpdateRequest",
+      "required": [
+        "update_type",
+        "id",
+        "updated_payload"
+      ],
+      "properties": {
+        "id": {
+          "description": "The identifier of the payout location",
+          "type": "string"
+        },
+        "updated_payload": {
+          "$ref": "#/definitions/payoutLocation"
+        }
+      },
+      "x-go-name": "PayoutLocationUpdateRequest",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocationUpdateRequest"
+      }
+    }
+  }
+}

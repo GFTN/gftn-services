@@ -1,0 +1,796 @@
+@import "~sass/link-underline-animation";
+
+@import "~sass/ibm-style-override";
+
+@import "~sass/mixins";
+
+// Changes the hover color to accent color
+// $hover-primary: $brand-02;
+// Global styles (base styles for Carbon)
+@import "~carbon-components/scss/globals/scss/styles.scss";
+
+// Importing Highlight.js syntax for overriding
+@import "~highlight.js/styles/androidstudio.css";
+
+@import "~sass/mat-elevation";
+
+.page {
+	min-height: 100vh;
+}
+
+// Underline animation
+a.line-under {
+	@include underline-from-left-animation($text-01, $brand-02);
+}
+
+// .content {
+//
+// NOTE per Chase - Don't use $spacing variables as rem conflicts
+// with flex-layout on small screen sizes use absolute pixels for
+// padding and then arrange content using flex-layout
+//
+// 	padding: $spacing-xl $spacing-sm;
+// }
+//
+// .content-gt-sm {
+// 	padding: $spacing-3xl $spacing-xl;
+// }
+// set default widths for all text copy
+// so they fit their containers
+div[fxLayout] {
+
+	p,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	.container {
+		width: calc(100% - 30px);
+		margin-left: 15px;
+		margin-right: 15px;
+		position: relative;
+		// maintain whitespace for both spaces + line-breaks (if it exists)
+		white-space: pre-wrap;
+
+		&.full-width {
+			width: 100%;
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+}
+
+h1 {
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+
+h2 {
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+
+h3,
+h4 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.full-width {
+	width: 100%;
+	max-width: 100vw;
+}
+
+.restrict-width {
+	max-width: 1440px;
+}
+
+.content-gt-sm {
+	width: calc(100vw - 250px);
+}
+
+.max-content {
+	max-width: 800px;
+}
+
+.btn-fab {
+	height: 24px;
+	width: 24px;
+	line-height: 24px;
+	cursor: pointer;
+}
+
+// removes underline
+.no-line,
+.no-underline {
+	text-decoration-line: none;
+	color: $link;
+	cursor: pointer;
+}
+
+hr {
+	border: 1px solid #dfe6eb;
+}
+
+// IBM blockchain logo
+// <span class="blockchain-logo">IBM <strong>Blockchain</strong></span>
+.blockchain-logo {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.title-container {
+	background: $ui-04;
+	border-bottom: 2px solid $brand-01;
+	height: auto;
+}
+
+// apply table-responsive-wrapper
+// to outer div of a table to contain
+// it in the page
+.table-responsive-wrapper {
+	overflow-y: hidden;
+	overflow-x: auto;
+	// adjust max-width for 15px margins on left and right
+	max-width: calc(100vw - 30px);
+	width: 100%;
+}
+
+table {
+	&.table {
+
+		th,
+		td {
+			padding: 5px;
+			vertical-align: middle;
+			text-align: left;
+
+			&.top {
+				vertical-align: top;
+			}
+
+			&.expand {
+				// takes up the remaining space
+				width: 100%
+			}
+
+			// does not apply border to nested tables
+			th,
+			td {
+				border: 0px solid transparent
+			}
+
+			table {
+				margin: -5px;
+			}
+		}
+
+	}
+}
+
+// ============= OVERRIDE SPECIFIC CARBON COMPONENT STYLES ==============
+.bx--link {
+	svg {
+		fill: $brand-01;
+	}
+
+	&:hover {
+		cursor: pointer;
+
+		svg {
+			fill: #3d70b2;
+		}
+	}
+}
+
+.bx--inline-notification__subtitle,
+.bx--inline-notification__title {
+	line-height: 1.5;
+}
+
+// Toast Notification Overrides
+.bx--toast-notification {
+	position: fixed;
+	right: 0;
+	z-index: 10000;
+}
+
+.notify-bottom {
+	bottom: 60px;
+}
+
+.notify-top {
+	top: 60px;
+}
+
+.bx--loading__svg {
+	stroke: $brand-01
+}
+
+p.bx--inline-loading__text {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	width: auto !important;
+}
+
+// Structured List
+.bx--structured-list {
+	// need for responsive layout on small screen
+	min-width: 100%;
+	// default margin of 80px looks too big
+	margin-bottom: 20px;
+
+	.bx--structured-list-th,
+	.bx--structured-list-td {
+
+		// use in first row to shrink
+		&.tight {
+			padding-right: 10px;
+			white-space: nowrap
+		}
+
+		// use in final row to expand
+		&.expand {
+			width: 100%
+		}
+	}
+
+	.caption {
+		background-color: inherit;
+		display: table-caption;
+		caption-side: bottom;
+	}
+
+	.loader-row {
+		// inherit from parent div
+		padding: 1rem;
+		border-bottom: 1px solid $ui-03;
+
+		.tall {
+			min-height: 3rem;
+		}
+
+		&:last-of-type {
+			border-bottom: none
+		}
+	}
+
+	// &.bx--structured-list--selection {
+
+	// 	.bx--structured-list-row:hover,
+	// 	.bx--structured-list-row:focus,
+	// 	.bx--structured-list-row--selected {
+	// 		outline: 1px solid $brand-01
+	// 	}
+	// }
+}
+
+// general loader to be reused anywhere we need component loading
+p.loading {
+	height: 14px;
+	color: transparent;
+	display: inline-block;
+	@include loadingGradient();
+}
+
+.bx--structured-list-input:checked {
+
+	+.bx--structured-list-row,
+	+.bx--structured-list-td {
+		.bx--structured-list-svg {
+			fill: $brand-01
+		}
+	}
+}
+
+
+// Carbon Design Tile Overrides
+.bx--tile {
+
+	// remove focus styling on non-clickable links
+	&:not(.bx--tile-clickable):focus {
+		outline: none
+	}
+
+	.bx--structured-list {
+		margin-bottom: 0px;
+	}
+
+	&.bx--tile-clickable {
+		&:hover {
+			outline: 1px solid $brand-01;
+			cursor: pointer;
+		}
+	}
+}
+
+.bx--accordion__item {
+	border-top: 1px solid $ui-05;
+}
+
+.bx--accordion__item:last-child {
+	border-bottom: 1px solid $ui-05;
+}
+
+//==== Inverse theming ====
+.bg-dark {
+	background-color: $inverse-02;
+	color: white;
+}
+
+// Carbon code block style overrides
+.bx--text-area {
+	&.dark {
+		width: 100%;
+		background-color: $ui-02;
+		font-size: 0.75em;
+		@include code(15px);
+		border: none;
+		box-shadow: none;
+		resize: none;
+	}
+}
+
+.bx--snippet {
+
+	// dark in getting started & sandbox
+	& .dark {
+		width: 100%;
+		background-color: $inverse-03;
+		border-color: $inverse-03;
+		padding: 1rem;
+		max-width: none;
+
+		&.edit-area {
+			border-color: $brand-02;
+			border-width: 5px;
+		}
+	}
+}
+
+.body-snippet {
+	max-width: none;
+	overflow: auto;
+}
+
+.bx--snippet-code {
+
+	// dark in getting started & sandbox
+	& .dark {
+		font-size: 1em;
+		@include code(15px);
+	}
+}
+
+//==== Carbon Data Tables Overrides ====
+.bx--data-table-v2-container {
+	min-width: 0;
+	padding-top: 0;
+}
+
+.bx--data-table-v2 {
+	// leave some room for hover styles
+	// when in table-responsive container
+	width: calc(100% - 2px);
+	// account for 1px border when hovering over row
+	// in table in a table-responsive-wrapper
+	margin-bottom: 1px;
+
+	thead {
+		background-color: $ui-04;
+	}
+
+	&.static tr,
+	tr.static {
+		&:hover td {
+			background: transparent;
+			// default border color
+			border-color: $ui-03;
+		}
+	}
+
+	&.no-borders {
+		border: none;
+
+		td,
+		tr:hover td {
+			border: none;
+		}
+	}
+
+	.bx--expandable-row-v2 {
+
+		// give some padding for expandable row cells
+		table td {
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+			vertical-align: top;
+		}
+	}
+
+	//  Loading Gradient for table
+	p.loading {
+		position: relative;
+		height: 14px;
+		display: inline-block;
+		@include loadingGradient();
+	}
+
+	#not-found p {
+		font-style: italic;
+		text-align: center;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+}
+
+tr.bx--expandable-row-v2 {
+	+tr[data-child-row] {
+		td {
+			padding-top: 0.5rem;
+		}
+	}
+}
+
+.bx--pagination {
+	.bx--pagination__button {
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.5;
+		}
+	}
+}
+
+// Custom tag colors based on support colors
+.bx--tag--failure {
+	background-color: $support-01;
+	color: $inverse-01;
+}
+
+.bx--tag--success {
+	background-color: $support-02;
+	color: $inverse-01;
+}
+
+.bx--tag--warning {
+	background-color: $support-03;
+	color: $inverse-01;
+}
+
+.bx--tag--neutral-1 {
+	background-color: $support-04;
+	color: $inverse-01;
+}
+
+.bx--tag--neutral-2 {
+	background-color: $brand-03;
+	color: $inverse-01;
+}
+
+// Overrides for Carbon Accordion
+p.bx--accordion__title {
+	margin-left: 15px;
+	text-align: left;
+}
+
+.bx--accordion__content p {
+	width: calc(100% - 15px);
+	margin-left: 0;
+}
+
+.bx--accordion__heading {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.bx--btn {
+
+	// remove hover events on disabled buttons
+	&:disabled {
+		pointer-events: none;
+	}
+}
+
+// Carbon Button extensions
+.bx--btn--primary,
+.bx--btn--primary:hover {
+	z-index: 100;
+}
+
+.bx--btn--secondary {
+
+	&:focus,
+	&:hover {
+		.bx--btn__icon {
+			fill: $ui-01;
+		}
+	}
+}
+
+// override to match Carbon style for v9
+.bx--btn--sm {
+	min-height: 2rem;
+}
+
+svg.bx--btn__icon {
+
+	// remove extra margin if icon is the only element in the button
+	// make sure button text is enclose in some sort of element to
+	// allow this to work
+	&:only-child {
+		margin-left: 0;
+	}
+
+	// make sure path takes the same fill as the btn icon
+	path {
+		fill: inherit !important;
+	}
+}
+
+.bx--breadcrumb {
+	display: flex !important;
+	flex-wrap: wrap;
+}
+
+// Carbon Tile overrides
+a.bx--tile {
+	color: $text-01;
+	text-decoration: none
+}
+
+.bx--tile.split {
+	padding: 0;
+
+	.bx--tile-header {
+		padding: 10px 15px;
+		border-bottom: 1px solid $ui-02;
+	}
+
+	.bx--tile-content {
+		padding: 10px 15px;
+		height: auto;
+	}
+
+	.bx--tile-footer {
+		padding: 10px 15px;
+		border-top: 1px solid $ui-02;
+	}
+}
+
+.bx--tile-inverse {
+	background-color: transparent;
+	border-color: $brand-01;
+}
+
+// Carbon Progress Step overrides
+.bx--progress-step {
+	min-width: 0;
+
+	.bx--progress-line {
+		transition: 300ms all cubic-bezier(0.5, 0, 0.1, 1);
+	}
+}
+
+.bx--progress-label {
+	width: 100% !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+
+	&.sm {
+		font-size: 14px;
+	}
+}
+
+.bx--form-item {
+	margin-top: 10px;
+	margin-bottom: 20px;
+
+	p {
+		width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+}
+
+// IBM style overrides for code highlighting
+.hljs {
+	background: $inverse-03;
+	color: white;
+}
+
+.hljs-string {
+	color: $brand-03
+}
+
+.hljs-number {
+	color: $support-02
+}
+
+.bx--form-requirement {
+	// for any dynamic line breaks, keep in text via styling
+	white-space: pre-line;
+}
+
+.bx--text-input,
+.bx--text-area {
+
+	&::placeholder,
+	&::-webkit-input-placeholder {
+		color: #cdd1d4;
+	}
+
+	&~.bx--type-caption {
+		margin-top: 10px;
+		order: 3;
+	}
+
+	&~.bx--form-requirement {
+		order: 4;
+	}
+
+}
+
+.bx--date-picker__input {
+	&.bx--text-input--light {
+		background-color: $field-02
+	}
+}
+
+.bx--toggle--small+.bx--toggle__label {
+	margin: 5px 0
+}
+
+.bx--list-box--inline {
+	border: 1px solid $brand-01;
+	display: inline-block;
+
+	// missing adjustment for inline dropdown
+	.bx--list-box__menu {
+		top: 2rem;
+	}
+}
+
+// override dropdown (non-inline) styles
+.bx--dropdown:not(.bx--list-box--inline) {
+	.bx--list-box__field {
+		// give a little more padding in between dropdown arrow and field
+		// original padding: 0 2.5rem 0 1.5rem
+		padding-right: 2.5rem;
+	}
+}
+
+// extend data invalid for custom dropdown
+app-dropdown {
+	width: 100%;
+
+	~.bx--form-requirement {
+		order: 3;
+		color: #e71d32;
+		font-weight: 400;
+		margin-top: 0.25rem;
+	}
+
+	&[data-invalid] {
+
+		.bx--dropdown,
+		.bx--dropdown:focus {
+			box-shadow: 0 2px 0 0 #e71d32;
+		}
+
+		~.bx--form-requirement {
+			max-height: 12.5rem;
+			display: block;
+		}
+	}
+}
+
+.disabled {
+	cursor: not-allowed;
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.bx--toolbar-action {
+	width: auto;
+
+	&:disabled {
+		&:hover>.bx--toolbar-action__icon {
+			fill: inherit;
+			opacity: inherit;
+		}
+	}
+
+	&.danger {
+
+		// creates danger icon button - see user management
+		&:hover:not(:disabled)>.bx--toolbar-action__icon {
+			fill: #e71d32;
+		}
+
+		&:focus {
+			outline: 1px solid #e71d32;
+		}
+
+		&:focus>.bx--toolbar-action__icon {
+			fill: #e71d32;
+		}
+
+		&:active>.bx--toolbar-action__icon {
+			fill: #e71d32;
+		}
+	}
+
+	&:only-of-type {
+		padding-left: 0;
+	}
+
+	&.bx--link {
+		padding: 5px;
+		border-bottom: 1px solid $brand-01;
+		text-decoration: none;
+
+		&:hover {
+			border-bottom-color: #3d70b2
+		}
+	}
+}
+
+// Modal Overrides
+header.bx--modal-header {
+	padding-left: 15px;
+	padding-right: 15px;
+	text-transform: capitalize;
+}
+
+.bx--modal-container {
+	height: auto;
+}
+
+// Tab overrides
+ibm-tabs {
+
+	.bx--tabs__nav {
+		margin-left: 0;
+		margin-right: 0;
+
+		.bx--tabs__nav-item {
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+	}
+
+	// Custom styling - add border to tabs
+	&.bordered {
+		.bx--tabs__nav {
+			border-bottom: 1px solid $ui-03;
+		}
+	}
+
+	// Keep capitalization of tab labels consistent
+	.bx--tabs__nav-link {
+		text-transform: capitalize;
+	}
+}
+
+ibm-tab {
+
+	&:focus,
+	div:focus {
+		outline: none;
+	}
+}
+
+// overflow menu overrides
+.bx--overflow-menu-options__option {
+	button {
+		// enforce button width in overflow menu
+		width: 100%;
+
+		&:disabled {
+			cursor: not-allowed;
+			pointer-events: none;
+			opacity: 0.5;
+		}
+	}
+}

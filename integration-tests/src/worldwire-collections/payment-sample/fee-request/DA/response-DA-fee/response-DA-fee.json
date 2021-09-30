@@ -1,0 +1,10 @@
+{
+    "amount_fee": 1,
+    "amount_payout": 10,
+    "amount_settlement": 10,
+    "asset_code_payout": "USD",
+    "details_asset_settlement": {
+        "asset_code": "USD",
+        "asset_type": "DA",
+        "issuer_id": "testibmanchor3qa"
+    }

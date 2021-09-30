@@ -1,0 +1,25 @@
+swagger: "2.0"
+info:
+  title: The Model definitions for GFTN
+  description: This is the sdk for participant model definitions for GFTN
+  version: 1.0.0
+
+basePath: /v1
+schemes:
+  - https
+tags:
+  - name: The Model definitions for GFTN
+    description: This is the sdk for participant model definitions for GFTN
+paths:
+  /internal/pr/service_check:
+    get:
+      responses:
+        200:
+        404:
+          description: not found
+
+responses:
+  Asset:
+    description: Asset
+    schema:
+      $ref: '../../gftn-models/models/participant.yaml'

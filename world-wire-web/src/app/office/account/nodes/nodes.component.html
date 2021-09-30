@@ -1,0 +1,81 @@
+<div class="margin-height"></div>
+<div fxLayout="row" class="margin-height margin-width" fxLayoutAlign="start">
+	<button class="bx--btn bx--btn--primary" (click)="toggleShowDeleted()" fxLayout="row" fxLayoutAlign="space-between center"><span>{{showDeleted ? 'Hide': 'Show'}}</span>&nbsp;Inactive</button>
+</div>
+<div fxLayout="row wrap" fxLayout.xs="column" class="margin-height margin-width" fxLayoutAlign="start"
+	fxLayoutGap="20px">
+	<ng-container *ngIf="!loaded">
+		<div class="bx--tile" fxFlex.gt-md="0 0 calc(25% - 20px)" fxFlex.gt-xs="0 0 calc(100%/3 - 20px)"
+			fxFlex.xs="0 0 100%" fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="15px">
+			<p class="loading"></p>
+			<p class="loading"></p>
+			<p class="loading"></p>
+			<p class="loading"></p>
+		</div>
+	</ng-container>
+	<div *ngFor="let node of $nodes | async" class="nodes" tabindex="0" fxFlex.gt-md="0 0 calc(25% - 20px)"
+		fxFlex.gt-xs="0 0 calc(50% - 20px)" fxFlex.xs="0 0 100%">
+		<div ngClass.gt-xs="square">
+			<div class="text bx--tile split"
+				[class.disabled]="nodeService.getStatus(node.status) === 'configuring' || nodeService.getStatus(node.status).includes('deleted')"
+				fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="10px">
+				<div class="bx--tile-header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center"><svg
+						class="bx--btn__icon" width="30" viewBox="0 0 21 24">
+						<use xlink:href="/assets/icons/ibm/carbon-icons.svg#icon--block-chain"></use>
+					</svg>
+					<span class="bx--type-epsilon">{{node.participantId}}</span>
+				</div>
+				<div class="bx--tile-content" fxLayout="column" fxLayoutAlign="center start" fxFlexFill
+					fxFlex="1 1 100%" fxLayoutGap="10px">
+
+					<button class="bx--btn bx--btn--secondary bx--btn-sm" (click)="openEditDialog(node)" fxLayout="row" fxLayoutAlign="space-between center">
+					<span>{{ !nodeService.getStatus(node.status).includes('exists') ? 'Review Configuration' : 'View/Edit' }}</span>
+					<span fxFlex></span>
+					<svg class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16">
+						<use xlink:href="/assets/icons/ibm/carbon-icons.svg#icon--edit"></use>
+					</svg>
+					</button>
+
+					<!-- disabled if node configuration is not successful -->
+					<button *ngIf="node.role === 'IS'" class="bx--btn bx--btn--secondary bx--btn-sm" (click)="openRegistrationDialog(node)" fxLayout="row" fxLayoutAlign="space-between center" [disabled]="!nodeService.getStatus(node.status).includes('complete')">
+						<span>Account Registration</span>
+						<span fxFlex></span>
+						<svg class="bx--btn__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1{fill:none;}</style></defs><title>finance</title><rect x="2" y="28" width="28" height="2"/><path d="M27,11a1,1,0,0,0,1-1V7a1,1,0,0,0-.66-.94l-11-4a1,1,0,0,0-.68,0l-11,4A1,1,0,0,0,4,7v3a1,1,0,0,0,1,1H6V24H4v2H28V24H26V11ZM6,7.7,16,4.06,26,7.7V9H6ZM18,24H14V11h4ZM8,11h4V24H8ZM24,24H20V11h4Z" transform="translate(0 0)"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/></svg>
+					</button>
+
+					<!-- <button *ngIf="!nodeService.getStatus(node.status).includes('deleted') && nodeService.getStatus(node.status).includes('exists')" class="bx--btn bx--btn--danger bx--btn-sm" fxLayout="row" fxLayoutAlign="space-between center" (click)="openDeleteDialog(node)">
+				<span>Delete</span>
+				<span fxFlex></span>
+				<svg class="bx--btn__icon" width="12" height="16" viewBox="0 0 12 16">
+						<use xlink:href="/assets/icons/ibm/carbon-icons.svg#icon--delete"></use>
+				</svg>
+			</button> -->
+				</div>
+				<div class="bx--tile-footer" fxLayout="row" fxLayoutAlign="space-between center">
+					<div fxLayout="row" fxLayoutAlign="start center">
+						<svg [ngClass]="'status ' + nodeService.getStatus(node.status)" width="10" height="10">
+							<circle cx="5" cy="5" r="5" />
+						</svg>
+						<span class="bx--type-caption">{{ nodeService.toHumanReadable(node.status[0]) }}</span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Add Button -->
+	<a id="add-btn" class="bx--tile bx--tile-inverse bx--btn bx--btn--secondary" fxLayout="column" tabindex="0" fxFlex.gt-md="0 0 calc(25% - 20px)" fxFlex.gt-xs="0 0 calc(50% - 20px)"  fxFlex.xs="0 0 100%" routerLink="add" fxFlexOrder="0">
+    <div ngClass.gt-xs="square" fxLayout="column">
+      <div ngClass.gt-xs="text">
+          <p fxFlexFill fxLayout="column" fxLayoutAlign="center center">
+						<svg class="bx--btn__icon" width="10" height="10" viewBox="0 0 10 10">
+							<title>Add Node</title>
+							<path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z"></path>
+						</svg>
+          </p>
+      </div>
+    </div>
+  </a>
+</div>
+
+<ibm-placeholder></ibm-placeholder>

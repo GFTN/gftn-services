@@ -1,0 +1,44 @@
+<ibm-modal>
+	<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">
+		<div class="bx--modal-header__label bx--type-delta">Add to Whitelist</div>
+		Create New Whitelist Request
+	</ibm-modal-header>
+	<form #whitelistForm="ngForm" (ngSubmit)="submitForm()">
+		<section class="bx--modal-content">
+			<p>Select a participant by scrolling/searching through the list below to add to the whitelist.</p>
+			<div class="margin-height margin-width">
+				<div class="bx--form-item bx--text-input-wrapper">
+
+					<ibm-inline-loading *ngIf="!participantsLoaded" #loading loadingText="Loading Participants..."></ibm-inline-loading>
+
+					<ibm-dropdown *ngIf="participantOptions && participantOptions.length == 0" #placeHolder
+						name="placeholder" placeholder="Participant Name" value="" theme="dark" [appendInline]="true"
+						[disabled]="true">
+						<ibm-dropdown-list [items]="participantOptions"></ibm-dropdown-list>
+					</ibm-dropdown>
+
+					<ng-container *ngIf="participantOptions && participantOptions.length > 0">
+						<ibm-dropdown #participantDropdown="ngModel" name="participant-name"
+							placeholder="Participant Name" [(ngModel)]="requestedParticipant" value="value" theme="dark"
+							[appendInline]="true" [disabled]="participantOptions.length == 0" required>
+							<ibm-dropdown-list [items]="participantOptions"></ibm-dropdown-list>
+						</ibm-dropdown>
+
+						<div *ngIf="participantDropdown && participantDropdown.errors?.required"
+							class="bx--form-requirement">
+							A participant must be selected.
+						</div>
+					</ng-container>
+				</div>
+			</div>
+
+			<div id="notification"></div>
+		</section>
+		<ibm-modal-footer>
+			<button ibmButton="secondary" type="button" (click)="closeModal()">Cancel</button>
+			<button ibmButton="primary" type="submit" [disabled]="!whitelistForm.valid">Request</button>
+		</ibm-modal-footer>
+	</form>
+</ibm-modal>
+
+<ibm-loading *ngIf="loadingRequest" [overlay]="true"></ibm-loading>

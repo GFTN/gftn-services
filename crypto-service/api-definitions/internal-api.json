@@ -1,0 +1,407 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Internal API service which takes in unsigned transaction envelope as input and returns back a signed transaction envelop\n",
+    "title": "World Wire internal signing API Service for individual Participant",
+    "version": "1.0.0"
+  },
+  "host": "sign.worldwire.io",
+  "basePath": "/v1/crypto/internal",
+  "paths": {
+    "/account/{account_name}": {
+      "post": {
+        "description": "Retrieves an Issuing or Operating Account after it is newly created.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "account name"
+        ],
+        "summary": "Retreive an account.",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "name of the new account to be created",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved account.",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          },
+          "400": {
+            "description": "Invalid create account request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "409": {
+            "description": "conflict or error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "424": {
+            "description": "conflict or error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/admin/account": {
+      "post": {
+        "description": "Retrieves IBM account public address.\n",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Retreive IBM account public address.",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved account address.",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          },
+          "400": {
+            "description": "Invalid create account request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "409": {
+            "description": "conflict or error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "424": {
+            "description": "conflict or error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/admin/sign": {
+      "post": {
+        "description": "This API service which takes in unsigned transaction envelope as input and returns back a signed transaction envelope\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sign",
+          "transaction"
+        ],
+        "summary": "returns signed envelope with IBM token account signature",
+        "parameters": [
+          {
+            "description": "This is a internal request model for signing request",
+            "name": "Draft",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/internalDraft"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully signed the transaction. Here you go.",
+            "schema": {
+              "$ref": "#/definitions/signature"
+            }
+          },
+          "404": {
+            "description": "Invalid signing request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/request/sign": {
+      "post": {
+        "description": "Accepts a draft payload as input and returns a signature (signed version) back.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sign",
+          "request"
+        ],
+        "summary": "Create a signature",
+        "parameters": [
+          {
+            "description": "The payload that needs to be signed.",
+            "name": "payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/requestPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed successfully. Here's you go.",
+            "schema": {
+              "$ref": "#/definitions/signature"
+            }
+          },
+          "404": {
+            "description": "Invalid signing request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/sign": {
+      "post": {
+        "description": "This API service which takes in unsigned transaction envelope as input and returns back a signed transaction envelope\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sign",
+          "transaction"
+        ],
+        "summary": "returns signed envelope",
+        "parameters": [
+          {
+            "description": "This is a request model for signing request",
+            "name": "Draft",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/draft"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully signed the transaction. Here you go.",
+            "schema": {
+              "$ref": "#/definitions/signature"
+            }
+          },
+          "404": {
+            "description": "Invalid signing request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "account": {
+      "description": "Account",
+      "type": "object",
+      "title": "account",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "description": "The address that was created on the ledger.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"address\""
+        },
+        "name": {
+          "description": "A name to identify this account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"name\""
+        }
+      },
+      "x-go-name": "Account",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    },
+    "draft": {
+      "description": "draft",
+      "type": "object",
+      "title": "draft",
+      "required": [
+        "account_name",
+        "id_unsigned",
+        "id_signed",
+        "transaction_unsigned"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "The name of the account with which the transactions needs to be signed",
+          "type": "string"
+        },
+        "id_signed": {
+          "description": "This will be signed reference envelope to verify against partcipant's signature for authenticity.",
+          "type": "string",
+          "format": "byte"
+        },
+        "id_unsigned": {
+          "description": "This will be unsigned reference envelope to verify against partcipant's signature for authenticity.",
+          "type": "string",
+          "format": "byte"
+        },
+        "transaction_id": {
+          "description": "Identifier for transaction.",
+          "type": "string"
+        },
+        "transaction_unsigned": {
+          "description": "The unsigned transaction envelope to be signed by the participant.",
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "x-go-name": "Draft",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/draft"
+      }
+    },
+    "error": {
+      "description": "Error",
+      "type": "object",
+      "title": "error",
+      "required": [
+        "message",
+        "details",
+        "time_stamp"
+      ],
+      "properties": {
+        "build_version": {
+          "description": "build version string of micro service",
+          "type": "string"
+        },
+        "code": {
+          "description": "Error code reference.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Detailed message description about error.",
+          "type": "string"
+        },
+        "message": {
+          "description": "Short message description about error.",
+          "type": "string"
+        },
+        "participant_id": {
+          "description": "participant id, same as home domain as set by environment variables",
+          "type": "string"
+        },
+        "service": {
+          "description": "name of micro service",
+          "type": "string"
+        },
+        "time_stamp": {
+          "description": "The timestamp of the occurance.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "type": {
+          "description": "Type is for query purposes, it an identifier to assist with troubleshooting where an error came from (eg, containing func name) tells us if it is originating from NotifyWWError vs. NotFound vs. some other spot",
+          "type": "string"
+        },
+        "url": {
+          "description": "Url of endpoint that failed.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "WorldWireError",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/error"
+      }
+    },
+    "internalDraft": {
+      "description": "draft",
+      "type": "object",
+      "title": "internalDraft",
+      "required": [
+        "transaction_unsigned",
+        "account_name"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "The name of the account with which the transactions needs to be signed",
+          "type": "string"
+        },
+        "transaction_id": {
+          "description": "Identifier for transaction.",
+          "type": "string"
+        },
+        "transaction_unsigned": {
+          "description": "The unsigned transaction envelope to be signed by IBM account.",
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "x-go-name": "internalDraft",
+      "externalDocs": {
+        "url": "#/definitions/InternalDraft"
+      }
+    },
+    "requestPayload": {
+      "description": "requestPayload",
+      "type": "object",
+      "title": "requestPayload",
+      "required": [
+        "payload",
+        "account_name"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "The name of the account with which the payload needs to be signed",
+          "type": "string"
+        },
+        "payload": {
+          "description": "unsigned request payload to be signed",
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "x-go-name": "RequestPayload",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/requestPayload"
+      }
+    },
+    "signature": {
+      "description": "signature",
+      "type": "object",
+      "title": "signature",
+      "required": [
+        "transaction_signed"
+      ],
+      "properties": {
+        "transaction_signed": {
+          "description": "Transaction signed by Participant.",
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "x-go-name": "signature",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/signature"
+      }
+    }
+  }
+}

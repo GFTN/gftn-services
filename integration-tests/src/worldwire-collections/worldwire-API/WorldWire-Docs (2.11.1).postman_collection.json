@@ -1,0 +1,2366 @@
+{
+	"info": {
+		"_postman_id": "1ec02999-064f-4256-8703-e5c7a83fef5e",
+		"name": "WorldWire-Docs (2.11.1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "anchor-api",
+			"item": [
+				{
+					"name": "Fundings",
+					"item": [
+						{
+							"name": "Create a funding instruction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"amount_funding\": 10,\n    \"anchor_id\": \"{{anchor_id}}\",\n    \"asset_code_issued\": \"{{anchor-asset}}\",\n    \"end_to_end_id\": \"32939\",\n    \"participant_id\": \"{{participant2_id}}\",\n    \"memo_transaction\": \"QA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/fundings/instruction",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"fundings",
+										"instruction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fund a participant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"amount_funding\": 100,\n    \"anchor_id\": \"{{anchor_id}}\",\n    \"asset_code_issued\": \"{{anchor-asset}}\",\n    \"end_to_end_id\": \"32939\",\n    \"participant_id\": \"{{participant1_id}}\",\n    \"memo_transaction\": \"QA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/fundings/send?funding_signed=&instruction_signed=AAAAADBist1%2FUDRt%2FAIElE6cb74Xfmr1%2BqvFcTdaCrRSkjC9AAAAZAAAQ5AAAAAeAAAAAAAAAAOpb9snNYjklUqKVEB1hkkvvq9JY66LmEUGoRaF0zVlBgAAAAEAAAABAAAAALqCnTJ%2BnR7cjy%2F03x30sh4TYn9twWZ9IfRHl0I0XgaVAAAAAQAAAABu0k4KZpErlzp1cmLGioi2PG5JPSHcHIEvz%2Bt6DxO63QAAAAFVU0QAAAAAALqCnTJ%2BnR7cjy%2F03x30sh4TYn9twWZ9IfRHl0I0XgaVAAAAAHc1lAAAAAAAAAAAATReBpUAAABA8AlAvqATnfTCJzLLZD%2FEben67%2F6mviCOAQdNB61gK2Tn9GB%2FDXwsN5%2FchGSez2OgEcrz0B0bGnQm%2F1ze%2F7hGBw%3D%3D",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"fundings",
+										"send"
+									],
+									"query": [
+										{
+											"key": "funding_signed",
+											"value": ""
+										},
+										{
+											"key": "instruction_signed",
+											"value": "AAAAADBist1%2FUDRt%2FAIElE6cb74Xfmr1%2BqvFcTdaCrRSkjC9AAAAZAAAQ5AAAAAeAAAAAAAAAAOpb9snNYjklUqKVEB1hkkvvq9JY66LmEUGoRaF0zVlBgAAAAEAAAABAAAAALqCnTJ%2BnR7cjy%2F03x30sh4TYn9twWZ9IfRHl0I0XgaVAAAAAQAAAABu0k4KZpErlzp1cmLGioi2PG5JPSHcHIEvz%2Bt6DxO63QAAAAFVU0QAAAAAALqCnTJ%2BnR7cjy%2F03x30sh4TYn9twWZ9IfRHl0I0XgaVAAAAAHc1lAAAAAAAAAAAATReBpUAAABA8AlAvqATnfTCJzLLZD%2FEben67%2F6mviCOAQdNB61gK2Tn9GB%2FDXwsN5%2FchGSez2OgEcrz0B0bGnQm%2F1ze%2F7hGBw%3D%3D"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Participants",
+					"item": [
+						{
+							"name": "Retrieve a participant's ledger address",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/address?name=issuing*{{anchor_id}}",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"address"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "issuing*{{anchor_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all participants",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/participants",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"participants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve a specific participant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/participants",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"participants"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Transactions",
+					"item": [
+						{
+							"name": "Redeem digital asset",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message_type\": \"iso20022:pacs.002.001.09\",\n    \"message\": \"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KCTxNZXNzYWdlIHhtbG5zPSJ1cm46d29ybGR3aXJlIj4KCQk8QXBwSGRyPgogICAgICAgICAgICA8RnIgeG1sbnM9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpoZWFkLjAwMS4wMDEuMDEiPgogICAgICAgICAgICAgICAgPEZJSWQ+CiAgICAgICAgICAgICAgICAgICAgPEZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDxCSUNGST5JQk1RQVRXTjAwMTwvQklDRkk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxPdGhyPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPElkPmlibXRhaXdhbjE8L0lkPgogICAgICAgICAgICAgICAgICAgICAgICA8L090aHI+CiAgICAgICAgICAgICAgICAgICAgPC9GaW5JbnN0bklkPgogICAgICAgICAgICAgICAgPC9GSUlkPgogICAgICAgICAgICA8L0ZyPgogICAgICAgICAgICA8VG8geG1sbnM9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpoZWFkLjAwMS4wMDEuMDEiPgogICAgICAgICAgICAgICAgPEZJSWQ+CiAgICAgICAgICAgICAgICAgICAgPEZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDxCSUNGST5XT1JMRFdJUkUwMDwvQklDRkk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxPdGhyPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPElkPldXPC9JZD4KICAgICAgICAgICAgICAgICAgICAgICAgPC9PdGhyPgogICAgICAgICAgICAgICAgICAgIDwvRmluSW5zdG5JZD4KICAgICAgICAgICAgICAgIDwvRklJZD4KICAgICAgICAgICAgPC9Ubz4KCQkJPEJpek1zZ0lkciB4bWxucz0idXJuOmlzbzpzdGQ6aXNvOjIwMDIyOnRlY2g6eHNkOmhlYWQuMDAxLjAwMS4wMSI+QjIwMTkwNDA0V09STERXSVJFMDBCSFUwOTI4Mzc0PC9CaXpNc2dJZHI+CgkJCTxNc2dEZWZJZHIgeG1sbnM9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpoZWFkLjAwMS4wMDEuMDEiPnBhY3MuMDAyLjAwMS4wOTwvTXNnRGVmSWRyPgoJCQk8Q3JlRHQgeG1sbnM9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpoZWFkLjAwMS4wMDEuMDEiPjIwMTktMTEtMjBUMTY6MDA6MDBaPC9DcmVEdD4KCQk8U2dudHIgeG1sbnM9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpoZWFkLjAwMS4wMDEuMDEiPjxTaWduYXR1cmUgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyMiPjxTaWduZWRJbmZvIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIj48Q2Fub25pY2FsaXphdGlvbk1ldGhvZCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyIgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzEwL3htbC1leGMtYzE0biMiLz48U2lnbmF0dXJlTWV0aG9kIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIiBBbGdvcml0aG09Imh0dHA6Ly93d3cudzMub3JnLzIwMDkveG1sZHNpZzExI3JzYS1zaGEyNTYiLz48UmVmZXJlbmNlIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIj48VHJhbnNmb3JtcyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+PFRyYW5zZm9ybSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyIgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjZW52ZWxvcGVkLXNpZ25hdHVyZSIvPjxUcmFuc2Zvcm0geG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyMiIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS8xMC94bWwtZXhjLWMxNG4jIi8+PC9UcmFuc2Zvcm1zPjxEaWdlc3RNZXRob2QgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyMiIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS8wNC94bWxlbmMjc2hhMjU2Ii8+PERpZ2VzdFZhbHVlIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjIj42U2JxYy9CMkEyZFpYZCtKRmFBSWlUbzBGaHpqMVAvaEkyaFdldUxwTWZBPTwvRGlnZXN0VmFsdWU+PC9SZWZlcmVuY2U+PC9TaWduZWRJbmZvPjxTaWduYXR1cmVWYWx1ZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+YkhBc0dmeVVUbmVWTU91d3htN2p2Y0tGY0ZsWVhxcHNkc1ZaSWE1T1lXR2xJRjQ2MXE4eWR4Sk14emF2cFFOSzBXbnljRTJ5aHNsRlFEekNnaEJCQWc9PTwvU2lnbmF0dXJlVmFsdWU+PEtleUluZm8geG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvMDkveG1sZHNpZyMiPjxYNTA5RGF0YSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+PFg1MDlDZXJ0aWZpY2F0ZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+R0JUWEI3QjJWQ0hOSElWWE1CN01VWjVWNVJDNE5TVjY1T1RSUEhYS0tBNlZXRkk2QlBLQUJKSEo8L1g1MDlDZXJ0aWZpY2F0ZT48L1g1MDlEYXRhPjwvS2V5SW5mbz48L1NpZ25hdHVyZT48L1NnbnRyPjwvQXBwSGRyPgoJCTxGSVRvRklQbXRTdHNScHQ+CgkJCTxHcnBIZHIgeG1sbnM9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpwYWNzLjAwMi4wMDEuMDkiPgoJCQkJPE1zZ0lkPlVTRERBMjAxOTExMjBJQk1RQVRXTjAwMUIxMTExMTEwMDAxPC9Nc2dJZD4KCQkJCTxDcmVEdFRtPjIwMTktMDUtMjRUMDc6MjM6MzI8L0NyZUR0VG0+CgkJCQk8SW5zdGdBZ3Q+CgkJCQkJPEZpbkluc3RuSWQ+CgkJCQkJCTxCSUNGST5JQk1RQVRXTjAwMTwvQklDRkk+CgkJCQkJCTxPdGhyPgoJCQkJCQkJPElkPmlibXRhaXdhbjE8L0lkPgoJCQkJCQk8L090aHI+CgkJCQkJPC9GaW5JbnN0bklkPgoJCQkJPC9JbnN0Z0FndD4KCQkJCTxJbnN0ZEFndD4KCQkJCQk8RmluSW5zdG5JZD4KCQkJCQkJPEJJQ0ZJPlNHUExBVVNFMDAxPC9CSUNGST4KCQkJCQkJPE90aHI+CgkJCQkJCQk8SWQ+aWJtc2luZ2Fwb3JlMTwvSWQ+CgkJCQkJCTwvT3Rocj4KCQkJCQk8L0Zpbkluc3RuSWQ+CgkJCQk8L0luc3RkQWd0PgoJCQk8L0dycEhkcj4KCQkJPFR4SW5mQW5kU3RzIHhtbG5zPSJ1cm46aXNvOnN0ZDppc286MjAwMjI6dGVjaDp4c2Q6cGFjcy4wMDIuMDAxLjA5Ij4KCQkJCTxPcmdubEluc3RySWQ+VVNEREEyMDE5MTEyMFNHUExBVVNFMDAxQjExMTExMTAwMDI8L09yZ25sSW5zdHJJZD4KCQkJCTxPcmdubEVuZFRvRW5kSWQ+VVNEREEyMDExMjAxOVNHUExBVVNFMDAwMDAwMDAwMDAwMDI8L09yZ25sRW5kVG9FbmRJZD4KCQkJCTxPcmdubFR4SWQ+VVNEREEyMDExMjAxOVNHUExBVVNFMDAwMDAwMDAwMDAwMDI8L09yZ25sVHhJZD4KCQkJCTxUeFN0cz5BQ1RDPC9UeFN0cz4KCQkJCTxDaHJnc0luZj4KCQkJCQk8QW10IENjeT0iVVNEIj4yPC9BbXQ+CgkJCQkJPEFndD4KCQkJCQkJPEZpbkluc3RuSWQ+CgkJCQkJCQk8QklDRkk+SUJNUUFUV04wMDE8L0JJQ0ZJPgoJCQkJCQkJPE90aHI+CgkJCQkJCQkJPElkPmlibXRhaXdhbjE8L0lkPgoJCQkJCQkJPC9PdGhyPgoJCQkJCQk8L0Zpbkluc3RuSWQ+CgkJCQkJPC9BZ3Q+CgkJCQk8L0NocmdzSW5mPgoJCQkJPE9yZ25sVHhSZWY+CgkJCQkJPEludHJCa1N0dGxtQW10IENjeT0iVVNEIj4yPC9JbnRyQmtTdHRsbUFtdD4KCQkJCTwvT3JnbmxUeFJlZj4KCQkJCTxTcGxtdHJ5RGF0YT4KCQkJCQk8UGxjQW5kTm0+L01lc3NhZ2UvRklUb0ZJUG10U3RzUnB0L1R4SW5mQW5kU3RzL0lzc3I8L1BsY0FuZE5tPgoJCQkJCTxFbnZscD4KCQkJCQkJPElkPmlibXRhaXdhbjE8L0lkPgoJCQkJCTwvRW52bHA+CgkJCQk8L1NwbG10cnlEYXRhPgoJCQkJPFNwbG10cnlEYXRhPgoJCQkJCTxQbGNBbmRObT4vTWVzc2FnZS9GSVRvRklQbXRTdHNScHQvVHhJbmZBbmRTdHMvU3R0bG1BY2N0QWRkcjwvUGxjQW5kTm0+CgkJCQkJPEVudmxwPgoJCQkJCQk8SWQ+R0JUWEI3QjJWQ0hOSElWWE1CN01VWjVWNVJDNE5TVjY1T1RSUEhYS0tBNlZXRkk2QlBLQUJKSEo8L0lkPgoJCQkJCTwvRW52bHA+CgkJCQk8L1NwbG10cnlEYXRhPgoJCQkJPFNwbG10cnlEYXRhPgoJCQkJCTxQbGNBbmRObT4vTWVzc2FnZS9GSVRvRklQbXRTdHNScHQvVHhJbmZBbmRTdHMvUGF5VG9SZWY8L1BsY0FuZE5tPgoJCQkJCTxFbnZscD4KCQkJCQkJPElkPjc3Nzc8L0lkPgoJCQkJCTwvRW52bHA+CgkJCQk8L1NwbG10cnlEYXRhPgoJCQk8L1R4SW5mQW5kU3RzPgoJCTwvRklUb0ZJUG10U3RzUnB0PgoJPC9NZXNzYWdlPg==\"\n}"
+								},
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/assets/redeem",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"assets",
+										"redeem"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Trust",
+					"item": [
+						{
+							"name": "List your issued assets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/assets/issued/{{anchor_id}}",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"assets",
+										"issued",
+										"{{anchor_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Submit asset trust permissions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{anchor-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+								},
+								"url": {
+									"raw": "{{anchor-url}}/global/anchor/v1/anchor/trust/{{anchor_id}}?",
+									"host": [
+										"{{anchor-url}}"
+									],
+									"path": [
+										"global",
+										"anchor",
+										"v1",
+										"anchor",
+										"trust",
+										"{{anchor_id}}"
+									],
+									"query": [
+										{
+											"key": "permission",
+											"value": "allow",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "Accounts",
+					"item": [
+						{
+							"name": "Consolidate funds into one account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n        {\n            \"account_name\": \"default\",\n            \"amount\": 9,\n            \"asset\": {\n                \"asset_code\": \"{{anchor-asset}}\",\n                \"issuer_id\": \"{{anchor_id}}\",\n                \"asset_type\": \"DA\"\n            }\n        }\n]"
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/accounts/default-2/sweep",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"accounts",
+										"default-2",
+										"sweep"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset cursor location on a specific account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/local/listener/v1/client/accounts/issuing/now",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"listener",
+										"v1",
+										"client",
+										"accounts",
+										"issuing",
+										"now"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Assets",
+					"item": [
+						{
+							"name": "List all assets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/assets",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a digital obligation",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/assets?asset_code={{participant1-asset}}&asset_type=DO",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "{{participant1-asset}}"
+										},
+										{
+											"key": "asset_type",
+											"value": "DO"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List your trusted assets from a specific account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/assets/accounts/issuing",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets",
+										"accounts",
+										"issuing"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List your issued assets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/assets/issued",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets",
+										"issued"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List a participant's assets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/assets/participants/{{participant1_id}}?type=both",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"assets",
+										"participants",
+										"{{participant1_id}}"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "issued",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "trusted",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "both"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Refresh a token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b3a88863-c558-4f14-83ec-19527fbe1859",
+										"exec": [
+											"",
+											"",
+											"  var str = responseBody;",
+											"  var res = str.split(\"\\\"\");",
+											"//   str=str.replace(\"\\\"\", \"\");",
+											"postman.setEnvironmentVariable(\"p1-jwt-token\",  res[1])",
+											"setTimeout(1000)",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{global-auth-url}}/jwt/refresh",
+									"host": [
+										"{{global-auth-url}}"
+									],
+									"path": [
+										"jwt",
+										"refresh"
+									]
+								},
+								"description": "Used to create a request for a approval to generate a JWT Token. Make sure that you use a valid iid (=institutionId) and fid (firebase custom auth token) in headers."
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Balances",
+					"item": [
+						{
+							"name": "Retrieve an account's asset balance",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/balances/accounts/default?asset_code={{anchor-asset}}&issuer_id={{anchor_id}}",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"balances",
+										"accounts",
+										"default"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "{{anchor-asset}}"
+										},
+										{
+											"key": "issuer_id",
+											"value": "{{anchor_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve your digital obligation balances",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-iid",
+										"value": "{{p1-xiid}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "x-fid",
+										"value": "{{au_fid1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "x-pid",
+										"value": "{{participant1_id}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/obligations?",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"obligations"
+									],
+									"query": [
+										{
+											"key": "asset_code",
+											"value": "{{participant1-asset}}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve a list of participants holding your specific obligation",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-iid",
+										"value": "-LmxeZsixNIcVsF851Hf",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "x-fid",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ1OThkYjVjZjE1ZWNhOTI0OWJhZTUzMDYzOWVkYzUzNmMzYzViYjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZGV2LTItYzg3NzQiLCJhdWQiOiJkZXYtMi1jODc3NCIsImF1dGhfdGltZSI6MTU3NjAzMzM1MiwidXNlcl9pZCI6ImppNkoyc1c5WHpMeENzOEZhMTVlWDRrcHFMNDMiLCJzdWIiOiJqaTZKMnNXOVh6THhDczhGYTE1ZVg0a3BxTDQzIiwiaWF0IjoxNTc2MDMzMzUyLCJleHAiOjE1NzYwMzY5NTIsImVtYWlsIjoicnVieWNoQHNnLmlibS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicnVieWNoQHNnLmlibS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.nG6ux4na23pR1Vo6RFLLThfN6u_H_VCGsBPgvqRCb3SXIxuW3o9y-ugt_Zgl5QdPwUV9hexXTp8roydb-YCE_BTLVlmRh7qDeH5HYYmjYM6FsIYLTi4g12KnfvSnmbQ1dNwW9P5NokS6Xyf8yzIDKbTuQKZso44CB_tuT08ES9gq7QGQ5kdfneyD6hBO1IGn598Frd7maao4RmBXvW8tlR0izAxDs_m4CkdcTknI4-ObkyeAXCzGiYCpOuP1M7mK-m-QL37ctI2tjIRVdwLBMqlUtPHfR8MoWYblOEKs-NHI8_C8i7hjOIroH18Zxe1gf0P0g-4LC2jANnIeIK-ALg",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "x-pid",
+										"value": "testparticipant3dev",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/obligations/{{participant1-asset}}",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"obligations",
+										"{{participant1-asset}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Gateway",
+					"item": [
+						{
+							"name": "Retrieve messages from World Wire",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/local/gateway/v1/client/message?type=rdo",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "quotes",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "fee",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "payment",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "rdo"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Participants",
+					"item": [
+						{
+							"name": "Request payment fees from a participant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request_id\": \"23982398\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"asset_settlement\": {\n        \"asset_type\": \"DA\",\n        \"asset_code\": \"USD\",\n        \"issuer_id\": \"{{anchor_id}}\"\n    },\n    \"amount_payout\": 200,\n    \"asset_payout\": \"USD\",\n    \"details_payout_point\": {\n        \"type\": \"Bank\",\n        \"name\": \"CIMBe Bank\",\n        \"currencies_accepted\": [\n            \"USD\",\n            \"JPD\"\n        ],\n        \"image\": \"https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg\",\n        \"url\": \"\",\n        \"telephone\": \"07-418 6258 / 6276\",\n        \"member_of\": [\n            \"BankA\"\n        ],\n        \"address\": {\n            \"street\": \"39A s rahmat\",\n            \"state\": \"changi\",\n            \"city\": \"north east\",\n            \"postal_code\": \"83000\",\n            \"country\": \"sg\",\n            \"building_number\": \"11\"\n        },\n        \"geo\": {\n            \"latitude\": 1.8482097,\n            \"longitude\": 102.93248110000002\n        },\n        \"categories\": [\n            {\n                \"name\": \"delivery\",\n                \"options\": [\n                    {\n                        \"description\": \"Deliver PHP to home address\",\n                        \"terms\": \"Limit of 52,000 PHP\"\n                    },\n                    {\n                        \"description\": \"Deliver USD to home address\",\n                        \"terms\": \"Limit of 1,000 USD\"\n                    }\n                ]\n            },\n            {\n                \"name\": \"agency_pickup\",\n                \"options\": [\n                    {\n                        \"description\": \"Pick-up PHP from kiosk\",\n                        \"terms\": \"Limit of 52,000 PHP per day per identity verified\"\n                    },\n                    {\n                        \"description\": \"Pick-up USD from kiosk\",\n                        \"terms\": \"Limit of 1,000 USD per day per identity verified\"\n                    }\n                ]\n            }\n        ],\n        \"opening_hours\": [\n            {\n                \"day_of_week\": [\n                    \"Monday\",\n                    \"Tuesday\",\n                    \"Wednesday\",\n                    \"Thursday\"\n                ],\n                \"opens\": \"09:15\",\n                \"closes\": \"16:30\"\n            },\n            {\n                \"day_of_week\": [\n                    \"Friday\"\n                ],\n                \"opens\": \"09:15\",\n                \"closes\": \"16:00\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/fee/v1/client/fees/request/{{participant2_id}}",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"fee",
+										"v1",
+										"client",
+										"fees",
+										"request",
+										"{{participant2_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Submit fee response to a participant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount_fee\": 1,\n    \"amount_payout\": 199,\n    \"amount_settlement\": 199,\n    \"asset_code_payout\": \"{{anchor-asset}}\",\n    \"details_asset_settlement\": {\n        \"asset_code\": \"{{anchor-asset}}\",\n        \"asset_type\": \"DO\",\n        \"issuer_id\": \"{{anchor_id}}\"\n    },\n    \"request_id\": \"23982398\"\n}"
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/fee/v1/client/fees/response/{{participant1_id}}",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"fee",
+										"v1",
+										"client",
+										"fees",
+										"response",
+										"{{participant1_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all participants",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/participants?country_code={{participant1_country_code}}",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"participants"
+									],
+									"query": [
+										{
+											"key": "country_code",
+											"value": "{{participant1_country_code}}"
+										},
+										{
+											"key": "asset_code",
+											"value": "{{participant1-asset}}",
+											"disabled": true
+										},
+										{
+											"key": "issuer_id",
+											"value": "{{participant1_id}}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all your whitelisted participants",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Whitelist a participant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/javascript",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{participant2_id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a participant from your whitelist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"participant_id\": \"{{participant2_id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/whitelist/v1/client/participants/whitelist",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"whitelist",
+										"v1",
+										"client",
+										"participants",
+										"whitelist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve a specific participant",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/participants/{{participant1_id}}",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"participants",
+										"{{participant1_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Payout Locations",
+					"item": [
+						{
+							"name": "List all payout locations",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/payout/v1/client/payout?",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"payout",
+										"v1",
+										"client",
+										"payout"
+									],
+									"query": [
+										{
+											"key": "receive_mode",
+											"value": "cash_pickup",
+											"disabled": true
+										},
+										{
+											"key": "receive_mode",
+											"value": "cash_pickup",
+											"disabled": true
+										},
+										{
+											"key": "city",
+											"value": "north EAST",
+											"disabled": true
+										},
+										{
+											"key": "state",
+											"value": "tw",
+											"disabled": true
+										},
+										{
+											"key": "street",
+											"value": "changI",
+											"disabled": true
+										},
+										{
+											"key": "country",
+											"value": "SG",
+											"disabled": true
+										},
+										{
+											"key": "id",
+											"value": "hstf8VDjSQlaSzN0dLTxlpt50KsP4l",
+											"disabled": true
+										},
+										{
+											"key": "address",
+											"value": "sg",
+											"disabled": true
+										},
+										{
+											"key": "parent",
+											"value": "mXTHWcdXY8VU9qhEr77oCyOFbKx3f0",
+											"disabled": true
+										},
+										{
+											"key": "child",
+											"value": "2QpCGkJFHeUd22lfk5MEGVwn06cppB",
+											"disabled": true
+										},
+										{
+											"key": "currency",
+											"value": "Twd",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Quotes",
+					"item": [
+						{
+							"name": "List all quotes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c92a9cf5-06ef-4e77-909b-37775e1b8953",
+										"exec": [
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"quote_id\", jsonData[0].quote_id)",
+											"setTimeout(foo,300)",
+											"function foo(){",
+											"pm.test(\"quote status update to 1\", function () {",
+											"    pm.expect(jsonData[0].status).to.equal(1);",
+											"});",
+											"    ",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"DeleteAllQuotes\": false,\n    \"status\": {\n        \"operator\": \"eq\",\n        \"threshold\": 2\n    },\n    \"exchange_rate\": {\n        \"operator\": \"lt\",\n        \"threshold\": 10\n    },\n    \"ofi_id\": \"{{participant1_id}}\",\n    \"rfi_id\": \"{{participant2_id}}\",\n    \"source_asset\": {\n                   \"asset_code\": \"{{participant1-asset}}\",\n                   \"asset_type\": \"DO\",\n                   \"issuer_id\": \"{{participant1_id}}\"\n               },\n               \"target_asset\": {\n                   \"asset_code\": \"{{participant2-asset}}\",\n                   \"asset_type\": \"DO\",\n                   \"issuer_id\": \"{{participant2_id}}\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/quotes/v1/client/quotes",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel quotes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c92a9cf5-06ef-4e77-909b-37775e1b8953",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"DeleteAllQuotes\": false,\n    \"status\": {\n        \"operator\": \"eq\",\n        \"threshold\": 2\n    },\n    \"exchange_rate\": {\n        \"operator\": \"lt\",\n        \"threshold\": 10\n    },\n    \"ofi_id\": \"{{participant1_id}}\",\n    \"rfi_id\": \"{{participant2_id}}\",\n    \"source_asset\": {\n                   \"asset_code\": \"{{participant1-asset}}\",\n                   \"asset_type\": \"DO\",\n                   \"issuer_id\": \"{{participant1_id}}\"\n               },\n               \"target_asset\": {\n                   \"asset_code\": \"{{participant2-asset}}\",\n                   \"asset_type\": \"DO\",\n                   \"issuer_id\": \"{{participant2_id}}\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/quotes/v1/client/quotes?",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Submit a request for quotes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ecb0d31-6c5e-48c5-9812-fac852708b44",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"request_id\", jsonData.request_id)",
+											"setTimeout(1000)",
+											"postman.setNextRequest('OFI get quotes1')"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"time_expire\": 1644775314,\n  \"limit_max\": 900,\n  \"limit_min\": 20,\n               \"source_asset\": {\n                   \"asset_code\": \"{{participant1-asset}}\",\n                   \"asset_type\": \"DO\",\n                   \"issuer_id\": \"{{participant1_id}}\"\n               },\n               \"target_asset\": {\n                   \"asset_code\": \"{{participant2-asset}}\",\n                   \"asset_type\": \"DO\",\n                   \"issuer_id\": \"{{participant2_id}}\"\n  },\n  \"ofi_id\": \"{{participant1_id}}\"\n}"
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/quotes/v1/client/quotes/request",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"request"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all quotes from a specific request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c92a9cf5-06ef-4e77-909b-37775e1b8953",
+										"exec": [
+											"",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"quote_id\", jsonData[0].quote_id)",
+											"setTimeout(foo,300)",
+											"function foo(){",
+											"pm.test(\"quote status update to 1\", function () {",
+											"    pm.expect(jsonData[0].status).to.equal(1);",
+											"});",
+											"    ",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/global/quotes/v1/client/quotes/request/{{request_id}}?",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"request",
+										"{{request_id}}"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve a specific quote",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c92a9cf5-06ef-4e77-909b-37775e1b8953",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/quotes/v1/client/quotes/{{quote_id}}?",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"{{quote_id}}"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Submit a quote",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f3b6f749-08cc-44e8-94ea-a5b4316b5b00",
+										"exec": [
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quote\": \"{{objJsonB64QuoteR}}\",\n    \"signature\": \"{{signed_payload_RFI}}\"\n}"
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/quotes/v1/client/quotes/{{quote_id}}",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"{{quote_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel a specific quote",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c92a9cf5-06ef-4e77-909b-37775e1b8953",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant2-url}}/global/quotes/v1/client/quotes/{{quote_id}}",
+									"host": [
+										"{{participant2-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"{{quote_id}}"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Signatures",
+					"item": [
+						{
+							"name": "Sign a payload",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "61af4148-ef31-4bdc-90b1-57479988b2ff",
+										"exec": [
+											"",
+											"let obj = {",
+											"    \"account_name_receive\": \"issuing\",",
+											"    \"account_name_send\": \"issuing\",",
+											"    \"exchange_rate\": 1,",
+											"    \"limit_max\": 900,",
+											"    \"quote_id\": pm.environment.get(\"quote_id\"),",
+											"    \"quote_request\": {",
+											"        \"time_expire\": 1644775314,",
+											"        \"limit_max\": 900,",
+											"        \"limit_min\": 20,",
+											"        \"source_asset\": {",
+											"                   \"asset_code\": pm.environment.get(\"participant1-asset\"),",
+											"                   \"asset_type\": \"DO\",",
+											"                   \"issuer_id\": pm.environment.get(\"participant1_id\")",
+											"               },",
+											"               \"target_asset\": {",
+											"                   \"asset_code\": pm.environment.get(\"participant2-asset\"),",
+											"                   \"asset_type\": \"DO\",",
+											"                   \"issuer_id\": pm.environment.get(\"participant2_id\")",
+											"  },",
+											"  \"ofi_id\": pm.environment.get(\"participant1_id\")",
+											"        ",
+											"    },",
+											"    \"rfi_id\": pm.environment.get(\"participant2_id\"),",
+											"    \"time_expire\": 1644775314,",
+											"    \"time_start\": 1544516034",
+											"}",
+											"",
+											"let objJsonStr = JSON.stringify(obj);",
+											"let objJsonB64 = Buffer.from(objJsonStr).toString(\"base64\");",
+											"postman.setEnvironmentVariable(\"objJsonB64QuoteR\", objJsonB64)",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "8a199bb0-b45e-4c66-9704-a1be8f270832",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"signed_payload_RFI\", jsonData.transaction_signed);",
+											"pm.globals.set(\"variable_key\", \"variable_value\");",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"issuing\",\n    \"payload\": \"{{objJsonB64QuoteR}}\"\n}"
+								},
+								"url": {
+									"raw": "{{participant2-url}}/local/crypto/v1/client/sign",
+									"host": [
+										"{{participant2-url}}"
+									],
+									"path": [
+										"local",
+										"crypto",
+										"v1",
+										"client",
+										"sign"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign a payload(XML)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "768dbc69-5980-4d15-8e8c-558423d29027",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"ofi_signed_msg\", jsonData.payload_with_signature)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"payload\": \"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPE1lc3NhZ2UgeG1sbnM9InVybjp3b3JsZHdpcmUiIAogICB4bWxuczpoZWFkPSJ1cm46aXNvOnN0ZDppc286MjAwMjI6dGVjaDp4c2Q6aGVhZC4wMDEuMDAxLjAxIiAKICAgeG1sbnM6cG10Y3hsPSJ1cm46aXNvOnN0ZDppc286MjAwMjI6dGVjaDp4c2Q6Y2FtdC4wNTYuMDAxLjA4Ij4KICAgPEFwcEhkcj4KICAgICAgPGhlYWQ6RnI+CiAgICAgICAgIDxoZWFkOkZJSWQ+CiAgICAgICAgICAgIDxoZWFkOkZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgIDxoZWFkOkJJQ0ZJPklCTVFBSUJNMDAxPC9oZWFkOkJJQ0ZJPgogICAgICAgICAgICAgICA8aGVhZDpPdGhyPgogICAgICAgICAgICAgICAgICA8aGVhZDpJZD5pYm0wMTwvaGVhZDpJZD4KICAgICAgICAgICAgICAgPC9oZWFkOk90aHI+CiAgICAgICAgICAgIDwvaGVhZDpGaW5JbnN0bklkPgogICAgICAgICA8L2hlYWQ6RklJZD4KICAgICAgPC9oZWFkOkZyPgogICAgICA8aGVhZDpUbz4KICAgICAgICAgPGhlYWQ6RklJZD4KICAgICAgICAgICAgPGhlYWQ6RmluSW5zdG5JZD4KICAgICAgICAgICAgICAgPGhlYWQ6QklDRkk+V09STERXSVJFMDA8L2hlYWQ6QklDRkk+CiAgICAgICAgICAgICAgIDxoZWFkOk90aHI+CiAgICAgICAgICAgICAgICAgIDxoZWFkOklkPldXPC9oZWFkOklkPgogICAgICAgICAgICAgICA8L2hlYWQ6T3Rocj4KICAgICAgICAgICAgPC9oZWFkOkZpbkluc3RuSWQ+CiAgICAgICAgIDwvaGVhZDpGSUlkPgogICAgICA8L2hlYWQ6VG8+CiAgICAgIDxoZWFkOkJpek1zZ0lkcj5CMjAxOTEyMTJJQk1RQUlCTTAwMUJBQTUwMjA1NTA8L2hlYWQ6Qml6TXNnSWRyPgogICAgICA8aGVhZDpNc2dEZWZJZHI+Y2FtdC4wNTYuMDAxLjA4PC9oZWFkOk1zZ0RlZklkcj4KICAgICAgPGhlYWQ6Q3JlRHQ+MjAxOS0xMi0xMlQxMDowNTo1M1o8L2hlYWQ6Q3JlRHQ+CiAgIDwvQXBwSGRyPgogICA8RklUb0ZJUG10Q3hsUmVxPgogICAgICA8cG10Y3hsOkFzc2dubXQ+CiAgICAgICAgIDxwbXRjeGw6SWQ+VVNERE8yMDE5MTIxMklCTVFBSUJNMDAxQjkwNDA2MTk3MjQ8L3BtdGN4bDpJZD4KICAgICAgICAgPHBtdGN4bDpBc3NnbnI+CiAgICAgICAgICAgIDxwbXRjeGw6QWd0PgogICAgICAgICAgICAgICA8cG10Y3hsOkZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgICAgIDxwbXRjeGw6QklDRkk+SUJNUUFJQk0wMDE8L3BtdGN4bDpCSUNGST4KICAgICAgICAgICAgICAgICAgPHBtdGN4bDpPdGhyPgogICAgICAgICAgICAgICAgICAgICA8cG10Y3hsOklkPmlibTAxPC9wbXRjeGw6SWQ+CiAgICAgICAgICAgICAgICAgIDwvcG10Y3hsOk90aHI+CiAgICAgICAgICAgICAgIDwvcG10Y3hsOkZpbkluc3RuSWQ+CiAgICAgICAgICAgIDwvcG10Y3hsOkFndD4KICAgICAgICAgPC9wbXRjeGw6QXNzZ25yPgogICAgICAgICA8cG10Y3hsOkFzc2duZT4KICAgICAgICAgICAgPHBtdGN4bDpBZ3Q+CiAgICAgICAgICAgICAgIDxwbXRjeGw6RmluSW5zdG5JZD4KICAgICAgICAgICAgICAgICAgPHBtdGN4bDpCSUNGST5JQk1RQUlCTTAwMjwvcG10Y3hsOkJJQ0ZJPgogICAgICAgICAgICAgICAgICA8cG10Y3hsOk90aHI+CiAgICAgICAgICAgICAgICAgICAgIDxwbXRjeGw6SWQ+aWJtMDI8L3BtdGN4bDpJZD4KICAgICAgICAgICAgICAgICAgPC9wbXRjeGw6T3Rocj4KICAgICAgICAgICAgICAgPC9wbXRjeGw6RmluSW5zdG5JZD4KICAgICAgICAgICAgPC9wbXRjeGw6QWd0PgogICAgICAgICA8L3BtdGN4bDpBc3NnbmU+CiAgICAgICAgIDxwbXRjeGw6Q3JlRHRUbT4yMDE5LTEyLTEyVDEwOjA1OjUzPC9wbXRjeGw6Q3JlRHRUbT4KICAgICAgPC9wbXRjeGw6QXNzZ25tdD4KICAgICAgPHBtdGN4bDpDYXNlPgogICAgICAgICA8cG10Y3hsOklkPlVTRERPMjAxOTEyMTJJQk1RQUlCTTAwMUI5MDQwNjE5NzI0PC9wbXRjeGw6SWQ+CiAgICAgICAgIDxwbXRjeGw6Q3JldHI+CiAgICAgICAgICAgIDxwbXRjeGw6QWd0PgogICAgICAgICAgICAgICA8cG10Y3hsOkZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgICAgIDxwbXRjeGw6QklDRkk+SUJNUUFJQk0wMDE8L3BtdGN4bDpCSUNGST4KICAgICAgICAgICAgICAgICAgPHBtdGN4bDpPdGhyPgogICAgICAgICAgICAgICAgICAgICA8cG10Y3hsOklkPmlibTAxPC9wbXRjeGw6SWQ+CiAgICAgICAgICAgICAgICAgIDwvcG10Y3hsOk90aHI+CiAgICAgICAgICAgICAgIDwvcG10Y3hsOkZpbkluc3RuSWQ+CiAgICAgICAgICAgIDwvcG10Y3hsOkFndD4KICAgICAgICAgPC9wbXRjeGw6Q3JldHI+CiAgICAgIDwvcG10Y3hsOkNhc2U+CiAgICAgIDxwbXRjeGw6VW5kcmx5Zz4KICAgICAgICAgPHBtdGN4bDpPcmdubEdycEluZkFuZEN4bD4KICAgICAgICAgICAgPHBtdGN4bDpPcmdubE1zZ0lkPlVTRERPMTIxMjIwMTlJQk1RQUlCTTAwMTQyMTg5NjgyMzY5PC9wbXRjeGw6T3JnbmxNc2dJZD4KICAgICAgICAgICAgPHBtdGN4bDpPcmdubE1zZ05tSWQ+cGFjcy4wMDguMDAxLjA3PC9wbXRjeGw6T3JnbmxNc2dObUlkPgogICAgICAgICA8L3BtdGN4bDpPcmdubEdycEluZkFuZEN4bD4KICAgICAgICAgPHBtdGN4bDpUeEluZj4KICAgICAgICAgICAgPHBtdGN4bDpPcmdubEluc3RySWQ+VVNERE8yMDE5MTIxMklCTVFBSUJNMDAxQjg5NzExMDg3MDA8L3BtdGN4bDpPcmdubEluc3RySWQ+CiAgICAgICAgICAgIDxwbXRjeGw6T3JnbmxFbmRUb0VuZElkPlVTRERPMTIxMjIwMTlJQk1RQUlCTTAwMTQyMTg5NjgyMzY5PC9wbXRjeGw6T3JnbmxFbmRUb0VuZElkPgogICAgICAgICAgICA8cG10Y3hsOk9yZ25sVHhJZD5VU0RETzEyMTIyMDE5SUJNUUFJQk0wMDE0MjE4OTY4MjM2OTwvcG10Y3hsOk9yZ25sVHhJZD4KICAgICAgICAgICAgPHBtdGN4bDpPcmdubEludHJCa1N0dGxtQW10IENjeT0iVVNERE8iPjI8L3BtdGN4bDpPcmdubEludHJCa1N0dGxtQW10PgogICAgICAgICAgICA8cG10Y3hsOk9yZ25sSW50ckJrU3R0bG1EdD4yMDE5LTEyLTEyPC9wbXRjeGw6T3JnbmxJbnRyQmtTdHRsbUR0PgogICAgICAgICAgICA8cG10Y3hsOkN4bFJzbkluZj4KICAgICAgICAgICAgICAgPHBtdGN4bDpSc24+CiAgICAgICAgICAgICAgICAgIDxwbXRjeGw6UHJ0cnk+QmVuZWZpY2lhcnkgaW5mb3JtYXRpb24gaXMgd3Jvbmc8L3BtdGN4bDpQcnRyeT4KICAgICAgICAgICAgICAgPC9wbXRjeGw6UnNuPgogICAgICAgICAgICA8L3BtdGN4bDpDeGxSc25JbmY+CiAgICAgICAgICAgIDxwbXRjeGw6T3JnbmxUeFJlZj4KICAgICAgICAgICAgICAgPHBtdGN4bDpTdHRsbUluZj4KICAgICAgICAgICAgICAgICAgPHBtdGN4bDpTdHRsbU10ZD5XV0RPPC9wbXRjeGw6U3R0bG1NdGQ+CiAgICAgICAgICAgICAgICAgIDxwbXRjeGw6U3R0bG1BY2N0PgogICAgICAgICAgICAgICAgICAgICA8cG10Y3hsOklkPgogICAgICAgICAgICAgICAgICAgICAgICA8cG10Y3hsOk90aHI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwbXRjeGw6SWQ+aWJtMDE8L3BtdGN4bDpJZD4KICAgICAgICAgICAgICAgICAgICAgICAgPC9wbXRjeGw6T3Rocj4KICAgICAgICAgICAgICAgICAgICAgPC9wbXRjeGw6SWQ+CiAgICAgICAgICAgICAgICAgICAgIDxwbXRjeGw6Tm0+aXNzdWluZzwvcG10Y3hsOk5tPgogICAgICAgICAgICAgICAgICA8L3BtdGN4bDpTdHRsbUFjY3Q+CiAgICAgICAgICAgICAgIDwvcG10Y3hsOlN0dGxtSW5mPgogICAgICAgICAgICA8L3BtdGN4bDpPcmdubFR4UmVmPgogICAgICAgICA8L3BtdGN4bDpUeEluZj4KICAgICAgPC9wbXRjeGw6VW5kcmx5Zz4KICAgPC9GSVRvRklQbXRDeGxSZXE+CjwvTWVzc2FnZT4=\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/crypto/v1/client/payload/sign",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"crypto",
+										"v1",
+										"client",
+										"payload",
+										"sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Transactions",
+					"item": [
+						{
+							"name": "Exchange assets",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e2dcf8ea-53bd-4d4e-bfd9-18626447f504",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "71074b94-e190-4f78-9e2e-be4c0e0afdf0",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"pm.test(\"quote status update to 1\", function () {",
+											"    pm.expect(jsonData.status_exchange).to.equal(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"exchange\": \"{{objJsonB64ExchangeR}}\",\n    \"signature\": \"{{signed_payload_OFI}}\"\n}"
+								},
+								"url": {
+									"raw": "{{participant1-url}}/global/quotes/v1/client/exchange",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"exchange"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all transactions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{participant1-url}}/local/api/v1/client/transactions?start_date=2019-09-01&end_date=2020-12-01&batch=10&page=1&query_type=date_range",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "query_type",
+											"value": "INSTRUCTION_ID",
+											"disabled": true
+										},
+										{
+											"key": "start_date",
+											"value": "2019-09-01"
+										},
+										{
+											"key": "end_date",
+											"value": "2020-12-01"
+										},
+										{
+											"key": "batch",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "query_data",
+											"value": "USDDO20190924SGPLAUSE001B3087442350",
+											"disabled": true
+										},
+										{
+											"key": "query_type",
+											"value": "date_range"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Redeem digital asset",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message_type\": \"iso20022:pacs.009.001.08\",\n    \"message\": \"{{ofi_signed_msg}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/send/v1/client/transactions/redeem",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"redeem"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reply to a payment request",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message_type\": \"iso20022:ibwf.001.001.01\",\n    \"message\": \"{{rfi_signed_msg}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant2-url}}/local/send/v1/client/transactions/reply",
+									"host": [
+										"{{participant2-url}}"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"reply"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send a payment request",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message_type\": \"iso20022:pacs.008.001.07\",\n    \"message\": \"{{ofi_signed_msg}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant1-url}}/local/send/v1/client/transactions/send",
+									"host": [
+										"{{participant1-url}}"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"send"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Trust",
+					"item": [
+						{
+							"name": "Submit asset trust permissions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{p2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"{{participant2-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+								},
+								"url": {
+									"raw": "{{participant2-url}}/local/api/v1/client/trust",
+									"host": [
+										"{{participant2-url}}"
+									],
+									"path": [
+										"local",
+										"api",
+										"v1",
+										"client",
+										"trust"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

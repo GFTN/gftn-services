@@ -1,0 +1,18 @@
+@import "~sass/ibm-style-override";
+
+.filler {
+	background-repeat: repeat-x;
+	background-image: radial-gradient(#212121 20%, transparent 20%);
+	background-size: 10px 10px;
+	background-position: bottom;
+	height: 16px;
+	width: 100%;
+}
+
+.asset-details {
+	min-height: 100px;
+
+	.bx--label {
+		margin-bottom: 0;
+	}
+}

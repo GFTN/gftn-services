@@ -1,0 +1,18 @@
+
+title: exchangeEnvelope
+description: Exchange Envelope
+x-group-m: Models
+type: object
+required:
+  - exchange
+  - signature
+properties:
+  exchange:
+    type: string
+    description: base64 encoded [exchange](??base_url??/docs/??version??/api/participant-api?jump=model__exchange) object
+  signature:
+    type: string
+    description: base64 encoded exchange object signature
+externalDocs:
+  url: '#/definitions/exchangeEnvelope'
+x-go-name: ExchangeEnvelope

@@ -1,0 +1,104 @@
+<section class="bx--tile" fxLayout="column" fxLayoutAlign="center center">
+	<div fxLayout="row">
+		<ibm-progress-indicator [steps]="steps"> </ibm-progress-indicator>
+	</div>
+</section>
+
+<section class="pad-top" fxLayout="column" fxLayoutAlign="center center">
+
+	<div id="main-content" fxLayout="row" fxLayoutAlign="center center">
+		<div id="fixed-modal" class="bx--modal-container">
+
+			<form #confirmForm="ngForm" name="confirm-form" (ngSubmit)="submitConfirmForm()">
+
+				<div class="bx--modal-header" fxLayout="column">
+					<div class="bx--modal-header__label bx--type-delta">
+						<span>{{steps[currentStep].text}}</span>
+					</div>
+					<div class="bx--modal-header__heading bx--type-beta">{{steps[currentStep].desc}}</div>
+					<!-- <div class="bx--type-epsilon" [ngClass]="{'text-danger': timer ==='Expired'}">{{timer}}
+					</div> -->
+				</div>
+
+				<div class="bx--modal-content" fxLayout="column" fxLayoutAlign="center center">
+					<!-- HTML needs to be fully rendered before getQrCode() is called because of ngOnInit lifecycle hooks -->
+					<canvas #qrCodeCanvas fxHide [fxShow]="currentStep === 1"></canvas>
+
+					<!-- Download App -->
+					<div *ngIf="currentStep === 0" fxLayout="column" fxLayoutGap="20px">
+						<div>
+							Download and install an Authenticator App on your phone:
+						</div>
+
+						<div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px">
+							<div fxLayoutGap="20px" fxLayout="row">
+								<div class="app-icon" fxLayout="column" fxLayoutGap="5px">
+									<img src="assets/branding/IBM-Verify-Icon.png" alt="IBM Verify">
+									<div class="bx--type-caption center">IBM Verify</div>
+								</div>
+								<div class="app-icon" fxLayout="column" fxLayoutGap="5px">
+									<img src="assets/icons/Google-Authenticator-icon.png" alt="Google Authenticator">
+									<div class="bx--type-caption center">Google Authenticator</div>
+								</div>
+
+							</div>
+
+							<img id="store-icon" src="assets/icons/app-store-website.jpg" alt="App Store">
+							</div>
+
+						</div>
+
+						<!-- Scan QR Code -->
+						<div *ngIf="currentStep === 1" fxLayout="column">
+
+							<div fxLayout="column" fxLayoutAlign="center center">
+								<span>Scan using your Authenticator App</span>
+							</div>
+
+						</div>
+
+						<div *ngIf="currentStep === 2" fxLayout="column">
+
+							<div fxLayout="column" fxLayoutAlign="center center">
+								<div class="bx--form-item">
+									<p>
+										Enter your 6-digit confirmation code from your authenticator app to finish
+										registration of your two-factor method of authentication for your account.
+									</p>
+									<div class="margin-height"></div>
+									<input ibmText #confirmCodeModel="ngModel" id="confirm-code" name="confirm-code" type="password" [(ngModel)]="confirmCode" [attr.data-invalid]="!(confirmCodeModel.valid || confirmCodeModel.untouched) || confirmError ? true: null" required />
+									<div *ngIf="confirmCodeModel.errors?.required" class="bx--form-requirement">
+										Confirmation of Two-Factor code is required
+									</div>
+									<div *ngIf="confirmError" class="bx--form-requirement">
+										Confirmation of Two-Factor code was incorrect. Please try again.
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="bx--modal-footer" *ngIf="!registered && !qrCodeError">
+
+						<button ibmButton="secondary" (click)="selectStep('prev')" *ngIf="currentStep > 0" type="button">Prev</button>
+						<button ibmButton (click)="selectStep('next')" *ngIf="currentStep < steps.length - 2" type="button">Next</button>
+						<button ibmButton *ngIf="currentStep === 2" [disabled]="!confirmForm.valid" type="submit">Confirm</button>
+					</div>
+
+					<div class="bx--modal-footer" *ngIf="qrCodeError">
+						<!-- <button ibmButton (click)="enable();">enable test</button> -->
+						<button ibmButton [routerLink]="[ '/login']" type="button">Try Again</button>
+					</div>
+
+					<div class="bx--modal-footer" *ngIf="registered">
+						<button ibmButton (click)="login()" type="button">Login</button>
+					</div>
+
+			</form>
+		</div>
+	</div>
+
+</section>

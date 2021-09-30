@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-topic-monitoring
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: create-topic-monitoring
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: create-topic-monitoring
+        image: ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/msk-cli
+        command: ["sh",  "create_monitoring_topic_acl.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: ZOOKEEPER
+          value: 10.0.101.74:2181,10.0.102.193:2181,10.0.103.128:2181
+        - name: DN
+          value: global.worldwire-qa.io

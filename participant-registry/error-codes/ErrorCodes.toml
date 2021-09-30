@@ -1,0 +1,61 @@
+[WW_ERROR]
+    [WW_ERROR.PR-1000]
+        SHORT_MESSAGE = "HTTP request failed"
+        DETAILS = "HTTP request failed:  "
+    [WW_ERROR.PR-1001]
+        SHORT_MESSAGE = "request validation failed"
+        DETAILS = "mandatory request parameters are missing: "
+    [WW_ERROR.PR-1002]
+        SHORT_MESSAGE = "No matching participant was found"
+        DETAILS = "Error: "
+    [WW_ERROR.PR-1003]
+        SHORT_MESSAGE = "Failed to insert the Participant in DB"
+        DETAILS = "insert request failed:  "
+    [WW_ERROR.PR-1004]
+        SHORT_MESSAGE = "Operating account already exists"
+        DETAILS = "Account Name:  "
+    [WW_ERROR.PR-1005]
+        SHORT_MESSAGE = "Operating account does not exist"
+        DETAILS = "Account Name:  "
+    [WW_ERROR.PR-1006]
+        SHORT_MESSAGE = "Failed to save update to the Participant"
+        DETAILS = "update request failed:  "
+    [WW_ERROR.PR-1007]
+        SHORT_MESSAGE = "Encounter error while parsing Mongo DB data"
+        DETAILS = "Failed parsing mongo data"
+    [WW_ERROR.AUTH-1001]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing current request: "
+    [WW_ERROR.AUTH-1002]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing maker request: "
+    [WW_ERROR.AUTH-1003]
+        SHORT_MESSAGE = "Access denied"
+        DETAILS = "Error authorizing checker request: "
+    [WW_ERROR.AUTH-1011]
+        SHORT_MESSAGE = "Invalid FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1012]
+        SHORT_MESSAGE = "Missing FID"
+        DETAILS = "Error validating FID: "
+    [WW_ERROR.AUTH-1013]
+        SHORT_MESSAGE = "Invalid IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1014]
+        SHORT_MESSAGE = "Missing IID"
+        DETAILS = "Error validating IID: "
+    [WW_ERROR.AUTH-1015]
+        SHORT_MESSAGE = "Invalid PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1016]
+        SHORT_MESSAGE = "Missing PID"
+        DETAILS = "Error validating PID: "
+    [WW_ERROR.AUTH-1017]
+        SHORT_MESSAGE = "Invalid token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1018]
+        SHORT_MESSAGE = "Missing token"
+        DETAILS = "Error validating token: "
+    [WW_ERROR.AUTH-1021]
+        SHORT_MESSAGE = "Invalid URL"
+        DETAILS = "Error receiving current request: "

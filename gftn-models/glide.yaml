@@ -1,0 +1,4 @@
+package: github.com/GFTN/gftn-services/gftn-models
+import:
+- package: github.com/op/go-logging
+

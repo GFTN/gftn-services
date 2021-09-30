@@ -1,0 +1,10 @@
+@import "~sass/grid";
+
+.asset-tile {
+	padding: 0;
+
+	.asset-title {
+		background-color: $ui-05;
+		color: $inverse-01;
+	}
+}

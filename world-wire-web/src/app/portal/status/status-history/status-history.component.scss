@@ -1,0 +1,44 @@
+@import "~sass/ibm-style-override";
+
+.restrict-width {
+    max-width: 1000px;
+}
+
+.time {
+    min-width: 75px;
+    text-align: right;
+}
+
+.bx--tile.split {
+    .bx--tile-header {
+        border-bottom: 2px solid $brand-01;
+    }
+
+    &.row {
+        .bx--tile-header {
+            border-right: 2px solid $brand-01;
+            border-bottom: none;
+        }
+    }
+}
+
+.bx--data-table-v2 {
+    border-bottom: none;
+    tr:first-of-type {
+        td {
+            border-top: none;
+        }
+    }
+    td:first-of-type {
+        text-align: right;
+        border-left: none;
+    }
+    td:last-of-type {
+        border-right: none
+    }
+}
+
+#not-found {
+    font-style: italic;
+    text-align: center;
+}

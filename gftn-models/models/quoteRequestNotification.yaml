@@ -1,0 +1,22 @@
+title: quoteRequestNotification
+description: Quote Request
+x-group-m: Models
+type: object
+required:
+  - quote_id
+  - quote_request
+properties:
+  # is this quote_id supposed to actually be request_id? Shouldn' this value be the same as the one the OFI is returned immediately after submiting the quote request?
+  quote_id:
+    type: string
+    description: Unique id for this quote as set by the quote service
+  quote_request:
+    type: object
+    description: The original quote request.
+    $ref: 'quoteRequest.yaml'
+    externalDocs:
+      url: '#/definitions/quoteRequest'
+    x-go-name: QuoteRequest
+externalDocs:
+  url: '#/definitions/quoteRequestNotification'
+x-go-name: QuoteRequestNotification

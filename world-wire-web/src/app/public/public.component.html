@@ -1,0 +1,40 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="page">
+	<div fxFlex fxFlexFill fxLayout="column">
+		<app-site-header></app-site-header>
+
+		<div class="content" fxFlex fxLayout="column">
+			<div class="filler-header"></div>
+			<router-outlet></router-outlet>
+			<div class="filler-footer"></div>
+		</div>
+
+		<app-public-footer></app-public-footer>
+
+	</div>
+</div>
+
+<div data-modal id="modal-side-nav" class="bx--modal " tabindex="-1">
+	<div class="bx--modal-container">
+		<div class="bx--modal-header">
+			<!-- <p class="bx--modal-header__label bx--type-delta">Optional label</p> -->
+			<!-- <p class="bx--modal-header__heading bx--type-beta">Modal heading</p> -->
+			<button class="bx--modal-close" type="button" data-modal-close aria-label="close modal" data-modal-primary-focus>
+				<svg class="bx--modal-close__icon" width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+					<title>Close Modal</title>
+					<path d="M6.32 5L10 8.68 8.68 10 5 6.32 1.32 10 0 8.68 3.68 5 0 1.32 1.32 0 5 3.68 8.68 0 10 1.32 6.32 5z" fill-rule="nonzero"/>
+				</svg>
+			</button>
+		</div>
+
+		<div class="bx--modal-content">
+			<div *ngIf="!authService.auth?.auth?.currentUser; else privateNav">
+				<app-public-nav></app-public-nav>
+			</div>
+
+			<ng-template #privateNav>
+				<app-portal-nav></app-portal-nav>
+			</ng-template>
+		</div>
+
+	</div>
+</div>

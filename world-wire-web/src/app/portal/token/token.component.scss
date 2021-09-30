@@ -1,0 +1,14 @@
+@import "~sass/ibm-style-override";
+@import "~sass/mixins";
+
+.new-lines {
+	white-space: pre-line
+}
+
+.bx--structured-list-svg {
+	fill: $brand-01
+}
+
+.description {
+	min-width: 200px;
+}

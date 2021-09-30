@@ -1,0 +1,15 @@
+@import "~sass/ibm-style-override";
+
+div[fxLayout] h2 {
+  margin: 0px;
+}
+
+section {
+  margin-top: 20px;
+}
+
+.actions {
+	button {
+		padding: 0 0.75rem;
+	}
+}

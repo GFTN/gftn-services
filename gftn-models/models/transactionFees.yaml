@@ -1,0 +1,41 @@
+title: transactionFees
+description: Fees related to a transaction, sent back by a Participant (RFI).
+x-group-m: Models
+type: object
+required:
+  - request_id
+  - amount_fee
+  - amount_settlement
+  - amount_payout
+  - asset_code_payout
+  - details_asset_settlement
+properties:
+  request_id:
+    type: string
+    description: a unique id for this fee request
+  details_asset_settlement:
+    type: object
+    description: Digital asset used to settle the transaction on the ledger.
+    $ref: 'asset.yaml'
+  amount_settlement:
+    type: number
+    multipleOf: 0.0000001
+    description: Amount (in settlement asset) the OFI transfers to the RFI on the ledger (exclusive of RFI Fees).
+  asset_code_payout:
+    type: string
+    description: The 3-letter asset identifier of the payment to the ultimate beneficiary (recipient).
+  amount_payout:
+    type: number
+    multipleOf: 0.0000001
+    description: Amount (in payout asset) the RFI pays ultimate beneficiary (recipient).
+  amount_fee:
+    type: number
+    multipleOf: 0.0000001
+    description: The fee amount (always in asset_settlement), should be a float64 number. Gross_settlement amount will be amount_settlement plus the fee.
+  details_payout_location:
+    type: object
+    description: Where the payout will be paid out to the beneficiary.
+    $ref: 'payoutLocation.yaml'
+externalDocs:
+  url: '#/definitions/transactionFees'
+x-go-name: TransactionFees

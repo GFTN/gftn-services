@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"lib": ["es2017"],
+		"module": "commonjs",
+		"target": "es2015",
+		"noImplicitReturns": true,
+		// "noImplicitAny": true,
+		"removeComments": true,
+		"outDir": "lib",
+		// TODO: remove for production in the future
+		"inlineSourceMap": false,
+		"experimentalDecorators": false,
+		"allowUnreachableCode": false,
+		"alwaysStrict": true,
+		"baseUrl": "functions",
+		"pretty": true,
+		"forceConsistentCasingInFileNames": true,
+		// // allow import of json
+		// // eg: import * as s from './my-json.json';
+
+		// Firebase functions require Node.js 6
+		// and does not support resolveJsonModule
+		// "resolveJsonModule": true,
+
+		// check list of emitted files output to
+		// ensure the correct directory is being built
+		"listEmittedFiles": true
+	},
+	"compileOnSave": false,
+	"include": [
+		"./src"
+		// "json"
+  ],
+	"exclude": [
+    	"./node_modules",
+		"./src/**/*.spec.ts",
+		"./spec/**/*",
+		"./test/**/*"
+  ]
+}

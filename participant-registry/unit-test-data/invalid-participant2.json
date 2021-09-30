@@ -1,0 +1,9 @@
+{
+  "id": "xyz.xzy.payments.gftn.io",
+  "url_api_service": "http://xyz.xyz.api.payments.gftn.io:11000",
+  "url_federation_service": "http://xyz.xyz.federation.payments.gftn.io:11001",
+  "url_compliance_service": "http://xyz.xyz.compliance.payments.gftn.io:11003",
+  "url_quote_service": "http://xyz.xyz.quotes.payments.gftn.io:11002",
+  "status":"test",
+  "country_code": "FJI"
+}

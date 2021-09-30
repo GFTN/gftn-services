@@ -1,0 +1,3238 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Client Facing API for Participants to interact with World Wire.\n",
+    "title": "World Wire Participant Service API",
+    "version": "1.0.0"
+  },
+  "host": "api.worldwire.io",
+  "basePath": "/v1/client",
+  "paths": {
+    "/accounts": {
+      "get": {
+        "description": "Returns a list of accounts created on world wire for you. Issuing account will have name \"issuing\"\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "List all your accounts",
+        "responses": {
+          "200": {
+            "description": "All accounts for the participant created on world wire",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/account"
+              }
+            }
+          },
+          "400": {
+            "description": "Error getting accounts information for this participant"
+          }
+        }
+      }
+    },
+    "/accounts/{account_name}": {
+      "get": {
+        "description": "Returns leger address for requested account\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Account"
+        ],
+        "summary": "Retrieve the ledger address from a specific account",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "a name to identify this account",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found ledger address for requested participant account",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          },
+          "400": {
+            "description": "Error getting account information for this participant"
+          }
+        }
+      }
+    },
+    "/accounts/{account_name}/sweep": {
+      "post": {
+        "description": "Sweeps/Transfers specific asset(s) from multiple/one account(s) to another.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Sweep",
+          "Transfer"
+        ],
+        "summary": "Consolidate funds into one account",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of the operating account where you're going to consolidate/sweep fund into, from other account balances.\n",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Specify the source accounts and related assets that will be swept/ transferred to the target account.",
+            "name": "sweepInstruction",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sweepInstruction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sweep/Transfer successfully. Here's your receipt.",
+            "schema": {
+              "$ref": "#/definitions/sweepReceipt"
+            }
+          },
+          "400": {
+            "description": "Bad Request due to insufficient fund or invalid trust line establishment"
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Accounts"
+      }
+    },
+    "/accounts/{account_name}/{cursor}": {
+      "post": {
+        "description": "Restarts the payment listener service on a specific account based on the cursor you supply. You'd use this in case you want to reprocess transactions for whatever reason (i.e. some kind of transaction glitch). Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Payment",
+          "Cursor"
+        ],
+        "summary": "Reset cursor location on a specific account",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of operating or issuing account",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "last read cursor location for this given operating account",
+            "name": "cursor",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "cursor posted successfully"
+          },
+          "400": {
+            "description": "Error posting Cursor for this account"
+          }
+        },
+        "x-base-url": "/listener",
+        "x-group-e": "Accounts"
+      }
+    },
+    "/assets": {
+      "get": {
+        "description": "Returns a list of all assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "all",
+          "assets",
+          "value",
+          "money"
+        ],
+        "summary": "List all assets",
+        "responses": {
+          "200": {
+            "description": "All assets issued on World Wire",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/asset"
+              }
+            }
+          },
+          "404": {
+            "description": "No assets issued on World Wire",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Assets"
+      },
+      "post": {
+        "description": "Issues a Digital Obligation on World Wire. These are similar to real-life IOUs, in the sense that they are a promise to pay. Participants keep track of amounts owed to one another, and agree to settle at a future date. After issuing a DO, it will be visible to all Participants on the network. Prior to sending or exchanging a DO, a Participant must establish trust. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "assets",
+          "issuance"
+        ],
+        "summary": "Create a digital obligation",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Asset code of the Digital Obligation to be issued. This code should follow the 5 character convention -  the first 3 characters should be a 3-letter ISO currency code (like USD) and the last 2 characters should be DO (Digital Obligation).",
+            "name": "asset_code",
+            "in": "query",
+            "required": true
+          },
+          {
+            "enum": [
+              "DO"
+            ],
+            "type": "string",
+            "description": "A two-letter identifier. In most cases, the asset being issued would be a Digital Obligation (DO) however, Anchor accounts can also create stablecoin Digital Asset (DA) types too.",
+            "name": "asset_type",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The asset has been issued",
+            "schema": {
+              "$ref": "#/definitions/asset"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "The asset could NOT be issued due to error retrieving Issuing Account",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "The asset could NOT be issued due to error communicating with ledger",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/rdo",
+        "x-group-e": "Assets"
+      }
+    },
+    "/assets/accounts/{account_name}": {
+      "get": {
+        "description": "Returns a list of all the assets you're able to receive, in a specified account. Each result indicates that a trust was established with the whitelisted issuing Participant in advance, allowing you to receive it in this specific account. If you have multiple Operating accounts, you must extend a trust from each account in order to hold the asset in each. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "assets",
+          "account"
+        ],
+        "summary": "List your trusted assets from a specific account",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Name of the operating or issuing account. To determine a valid account name, you can make a GET request to the /participants endpoint. At a minimum, there is a \"default\" operating account, but you can also use \"issuing\" to list assets on your Issuing Account.\n",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trusted assets were returned",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/asset"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "Trusted assets were not returned",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Assets"
+      }
+    },
+    "/assets/issued": {
+      "get": {
+        "description": "Returns a list of all your issued assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "all",
+          "assets"
+        ],
+        "summary": "List your issued assets",
+        "responses": {
+          "200": {
+            "description": "All assets issued on World Wire by this participant",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/asset"
+              }
+            }
+          },
+          "404": {
+            "description": "No assets issued on World Wire by this participant",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Assets"
+      }
+    },
+    "/assets/participants/{participant_id}": {
+      "get": {
+        "description": "Returns a list of all assets that a specific Participant on World Wire either trusts, or has issued themselves. You are able to filter these results based on your preferences. Trusted assets (which have been issued by other participants) could be DOs or DAs. Issued assets are only those that the Participant has issued from their issuing account. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "issued",
+          "trusted",
+          "both",
+          "assets"
+        ],
+        "summary": "List a participant's assets",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "The identifier for a specific Participant on the World Wire network. You can see samples if you make a GET request to the /participants endpoint.\n",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Determines what assets you will get back in the response. Allowed values are \"both\", \"issued\", and \"trusted\".",
+            "name": "type",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return issued assets or trusted assets or both for the Participant",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/asset"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "No trusted assets",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Assets"
+      }
+    },
+    "/balances/accounts/{account_name}": {
+      "get": {
+        "description": "Retrieves the balance of a Digital Asset or Obligation in a specified account. Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "current",
+          "amount",
+          "account",
+          "balance"
+        ],
+        "summary": "Retrieve an account's asset balance",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The name of the Operating Account. All accounts have an intially created \"default\" account, but yours will be different if you have other accounts.\n",
+            "name": "account_name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.",
+            "name": "asset_code",
+            "in": "query"
+          },
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Asset issuer required for non-native (non-XLM) assets. To see all available asset issuers you can retrieve participants from the /participants endpoint.\n",
+            "name": "issuer_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current balances of assets in the specified account\n",
+            "schema": {
+              "$ref": "#/definitions/balance"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "There is no matching record found for the given asset and issuer",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Balances"
+      }
+    },
+    "/exchange": {
+      "post": {
+        "description": "Initiates a two-way exchange. After requesting quotes and ultimately choosing one to act on, Participants use this endpoint to perform an atomic swap between their currently held source asset in exchange for the specified target asset from the quote provider.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "atomic",
+          "swap"
+        ],
+        "summary": "Exchange assets",
+        "parameters": [
+          {
+            "description": "This package of information will be sent in the request and detail the quote being acted on, accounts used, and amount to exchange.",
+            "name": "ExchangeEnvelope",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/exchangeEnvelope"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assets exchanged successfully. Here's your receipt.",
+            "schema": {
+              "$ref": "#/definitions/exchangeReceipt"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "Error occurred during exchange",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Transactions"
+      }
+    },
+    "/fees/request/{participant_id}": {
+      "post": {
+        "description": "Submits a request to a specific RFI participant for the fees they would charge you to receive a payment, on behalf of an ultimate beneficiary. Learn more about Fees in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cost",
+          "price",
+          "fee"
+        ],
+        "summary": "Request payment fees from a participant",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "The identifier for a specific Participant (RFI) on the World Wire network.\n",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "FeesRequest",
+            "description": "This model is sent sent to the RFI to calculate the transaction fees for a payment",
+            "name": "FeesRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/feesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved fees."
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/fee",
+        "x-group-e": "Participants"
+      }
+    },
+    "/fees/response/{participant_id}": {
+      "post": {
+        "description": "The Participant (RFI) uses this to submit their fees back to another Participant (OFI).\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cost",
+          "price",
+          "fee"
+        ],
+        "summary": "Submit fee response to a participant",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "The identifier for a specific Participant (OFI) on the World Wire network.\n",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "TransactionFees",
+            "description": "The details of the RFI's fees which is sent to the OFI as a response.\n",
+            "name": "FeesResponse",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/transactionFees"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully sent out the fee response."
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/fee",
+        "x-group-e": "Participants"
+      }
+    },
+    "/message": {
+      "get": {
+        "description": "Returns a list of messages from Participants being sent to you. You filter these messages by including a query parameter. Options include \"fee\", \"transactions\", \"payment\", and \"quotes\".\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "gateway",
+          "message"
+        ],
+        "summary": "Retrieve messages from World Wire",
+        "parameters": [
+          {
+            "enum": [
+              "transactions",
+              "quotes",
+              "payment",
+              "fee"
+            ],
+            "type": "string",
+            "description": "This can be used to specify which type of message to retrieve from World Wire",
+            "name": "type",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query completes successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/gatewayResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/gateway",
+        "x-group-e": "Gateway"
+      }
+    },
+    "/obligations": {
+      "get": {
+        "description": "Retrieves a list of digital obligations and their corresponding cumulative balances that you've issued across World Wire, from your Issuing account. Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "current",
+          "amount",
+          "account",
+          "balance"
+        ],
+        "summary": "Retrieve your digital obligation balances",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.",
+            "name": "asset_code",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of World Wire participants that are able to hold your issued asset and the balances they currently hold.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/balance"
+              }
+            }
+          },
+          "401": {
+            "description": "issuer in input is not authorized to view this information",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "no account found with an outstanding balance for the given asset code and issuer",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Balances"
+      }
+    },
+    "/obligations/{asset_code}": {
+      "get": {
+        "description": "Retrieves a list of Participants on World Wire who hold a specified digital obligation issued by you. Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "current",
+          "amount",
+          "account",
+          "obligations"
+        ],
+        "summary": "Retrieve a list of participants holding your specific obligation",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.",
+            "name": "asset_code",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of all obligations owed to me by other participants.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/obligation"
+              }
+            }
+          },
+          "400": {
+            "description": "asset_code is not valid.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "no asset found for a given issuer and asset code",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Balances"
+      }
+    },
+    "/participants": {
+      "get": {
+        "description": "Retrieves a list of all active Participants and associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "all",
+          "Banks",
+          "PSPs",
+          "Institutions"
+        ],
+        "summary": "List all participants",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The 2-digit code of the country where the Participants are located.",
+            "name": "country_code",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.",
+            "name": "asset_code",
+            "in": "query"
+          },
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Identifier of the Issuer of this asset.\n",
+            "name": "issuer_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved Participants on World Wire",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/participant"
+              }
+            }
+          },
+          "404": {
+            "description": "No Participants found on World Wire",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Participants"
+      }
+    },
+    "/participants/whitelist": {
+      "get": {
+        "description": "Retrieves a list of all Participants you have added to your whitelist. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "participants",
+          "whitelist"
+        ],
+        "summary": "List all your whitelisted participants",
+        "responses": {
+          "200": {
+            "description": "Participant ID array that is on your whitelist",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "error - failed to check if Participant is in the whitelist",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/whitelist",
+        "x-group-e": "Participants"
+      },
+      "post": {
+        "description": "Adds the supplied Participant to your whitelist. Learn more about Whitelists in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "tags": [
+          "participants",
+          "whitelist"
+        ],
+        "summary": "Whitelist a participant",
+        "parameters": [
+          {
+            "description": "The paticipant ID that will be added to whitelist.",
+            "name": "participant_id",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 32,
+              "minLength": 5,
+              "pattern": "^[a-zA-Z0-9-]{5,32}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant was added to whitelist"
+          },
+          "404": {
+            "description": "Cannot add the given Participant to the source account's whitelist",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "406": {
+            "description": "Participant previously added to the source account's whitelist",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/whitelist",
+        "x-group-e": "Participants"
+      },
+      "delete": {
+        "description": "Removes the specified Participant from your whitelist. This stops the Participant from being able to transact with your accounts. Between two transacting parties, only one of the participants will ever need to remove the other from their whitelist, in order to prevent both from transacting. Learn more about Whitelists in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "tags": [
+          "participants",
+          "whitelist"
+        ],
+        "summary": "Remove a participant from your whitelist",
+        "parameters": [
+          {
+            "description": "The paticipant ID that will be removed from whitelist.",
+            "name": "participant_id",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 32,
+              "minLength": 5,
+              "pattern": "^[a-zA-Z0-9-]{5,32}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant removed from whitelist"
+          },
+          "404": {
+            "description": "Failed to remove Participant from whitelist",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "406": {
+            "description": "Participant was not found on the source account's whitelist",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/whitelist",
+        "x-group-e": "Participants"
+      }
+    },
+    "/participants/{participant_id}": {
+      "get": {
+        "description": "Retrieves a specific Participant and their associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "participants",
+          "id"
+        ],
+        "summary": "Retrieve a specific participant",
+        "parameters": [
+          {
+            "maxLength": 32,
+            "minLength": 5,
+            "pattern": "^[a-zA-Z0-9-]{5,32}$",
+            "type": "string",
+            "description": "Identifier of a WorldWire Participant. To get a list of all participants, make a GET request to /participants.\n",
+            "name": "participant_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved a WorldWire Participant.",
+            "schema": {
+              "$ref": "#/definitions/participant"
+            }
+          },
+          "404": {
+            "description": "Whoops, no Participant found with that ID on World Wire.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Participants"
+      }
+    },
+    "/payload/sign": {
+      "post": {
+        "description": "Sign a ISO2002 complianant payload using enveloping signatures",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sign",
+          "payload"
+        ],
+        "summary": "Sign a payload",
+        "parameters": [
+          {
+            "description": "The payload needs to be signed",
+            "name": "Payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/requestPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed XML payload using enveloping digital signature",
+            "schema": {
+              "$ref": "#/definitions/payloadWithSignature"
+            }
+          },
+          "404": {
+            "description": "Your payload is incorrect.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/crypto",
+        "x-group-e": "Signatures"
+      }
+    },
+    "/payout": {
+      "get": {
+        "description": "Returns a list of all payout locations and their associated details on World Wire. We have followed the schema defined at https://schema.org/LocalBusiness. Learn more about Payout Locations in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "payout",
+          "location"
+        ],
+        "summary": "List all payout locations",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The id of the payout location",
+            "name": "id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The name of the payout location",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The type of the payout location",
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The image url of the payout location",
+            "name": "image",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The url of the payout location",
+            "name": "url",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The telephone of the payout location",
+            "name": "telephone",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The currency accepted by the payout location",
+            "name": "currency",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The child locations of the payout location",
+            "name": "child",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The parent location of the payout location",
+            "name": "parent",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The financial institutions that the payout location belongs to",
+            "name": "member",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The payout method provided by the payout location",
+            "name": "receive_mode",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The city of the payout location",
+            "name": "city",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The state of the payout location",
+            "name": "state",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The street of the payout location",
+            "name": "street",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The country of the payout location",
+            "name": "country",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The postal code of the payout location",
+            "name": "postal_code",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Find the payout locations nearby the given address",
+            "name": "address",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The geo locations of the payout location",
+            "name": "geo",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved Payout Locations on World Wire",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/payoutLocation"
+              }
+            }
+          },
+          "400": {
+            "description": "missing or invalid parameters in the request"
+          },
+          "404": {
+            "description": "Payout location not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "x-base-url": "/payout",
+        "x-group-e": "Payout Locations"
+      }
+    },
+    "/quotes": {
+      "get": {
+        "description": "Retrieves all or specific active quotes on World Wire based on filters you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "get",
+          "quote"
+        ],
+        "summary": "List all quotes",
+        "parameters": [
+          {
+            "name": "QuoteFilter",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/quoteFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quotes retrieved successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/quoteStatus"
+              }
+            }
+          },
+          "404": {
+            "description": "Could not find quotes. You probably don't have any.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Quotes"
+      },
+      "post": {
+        "description": "Retrieves all or specific active quotes on World Wire based on filters you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "get",
+          "quote"
+        ],
+        "summary": "List all quotes",
+        "parameters": [
+          {
+            "name": "QuoteFilter",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/quoteFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quotes retrieved successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/quoteStatus"
+              }
+            }
+          },
+          "404": {
+            "description": "Could not find quotes. You probably don't have any.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Cancels all or specific active quotes on World Wire based on filters you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cancel",
+          "quote"
+        ],
+        "summary": "Cancel quotes",
+        "parameters": [
+          {
+            "name": "QuoteFilter",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/quoteFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quotes were cancelled successfully."
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request"
+          },
+          "404": {
+            "description": "Didn't find any quotes to cancel."
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Quotes"
+      }
+    },
+    "/quotes/request": {
+      "post": {
+        "description": "Posts a request for quotes from trusted, whitelisted Participants on World Wire, and simultaneously retrieves an identifier for the inquiry. You can use this identifier on the /quotes/request/{request_id} endpoint to retrieve all the corresponding quotes received. Some Participants will reply with a quote faster than others. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "price",
+          "cost",
+          "detail",
+          "proposal",
+          "option"
+        ],
+        "summary": "Submit a request for quotes",
+        "parameters": [
+          {
+            "x-go-name": "QuoteRequest",
+            "description": "This model is sent as a package and contains details of source asset, target asset, and desired limit to exchange.",
+            "name": "QuoteRequest",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/quoteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully requested quotes. Here's your receipt.",
+            "schema": {
+              "$ref": "#/definitions/quoteRequestReceipt"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Quotes"
+      }
+    },
+    "/quotes/request/{request_id}": {
+      "get": {
+        "description": "Retrieves all quotes related to a previously made quote request. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "get",
+          "quote"
+        ],
+        "summary": "List all quotes from a specific request",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Unique identifier for the request (for quotes from other Participants) made by a Participant (OFI) in the World Wire network.",
+            "name": "request_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quotes retrieved successfully.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/quoteStatus"
+              }
+            }
+          },
+          "404": {
+            "description": "Given request_id not found on WorldWire"
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Quotes"
+      }
+    },
+    "/quotes/{quote_id}": {
+      "get": {
+        "description": "Retrieves a specific quote and it's associated terms by the identifier that you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "get",
+          "quote"
+        ],
+        "summary": "Retrieve a specific quote",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Unique identifier for the quote.",
+            "name": "quote_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quote retrieved successfully.",
+            "schema": {
+              "$ref": "#/definitions/quoteStatus"
+            }
+          },
+          "404": {
+            "description": "Could not find your quote_id.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Quotes"
+      },
+      "post": {
+        "description": "The Participant (RFI) uses this to submit a quote to another Participant (OFI). Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire. \n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "submit",
+          "quote"
+        ],
+        "summary": "Submit a quote",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Unique identifier for a quote as requested by a Participant (RFI) in the World Wire network.",
+            "name": "quote_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "This package of information will be sent in the request and detail the quote being acted on, accounts used, and amount to exchange.",
+            "name": "QuoteEnvelope",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/quoteEnvelope"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "quote was sent successfully"
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request"
+          },
+          "404": {
+            "description": "Given quote_id not found on World Wire"
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Quotes"
+      },
+      "delete": {
+        "description": "The Participant (RFI) uses this to cancel a currently active quote previously provided to another Participant (OFI). Keep in mind if the quote you are trying to cancel has already been acted upon, you cannot cancel it. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cancel",
+          "quote"
+        ],
+        "summary": "Cancel a specific quote",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Unique identifier for a quote as requested by a Participant (RFI) in the World Wire network.",
+            "name": "quote_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete quote successfully"
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request"
+          },
+          "404": {
+            "description": "Given quote_id not found on World Wire"
+          }
+        },
+        "x-base-url": "/quotes",
+        "x-group-e": "Quotes"
+      }
+    },
+    "/sign": {
+      "post": {
+        "description": "Signs a variety of payloads and returns a cryptographically signed version back.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sign",
+          "payload"
+        ],
+        "summary": "Sign a payload",
+        "parameters": [
+          {
+            "description": "The payload that needs to be signed.",
+            "name": "Payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/requestPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Signed successfully. Here's you go.",
+            "schema": {
+              "$ref": "#/definitions/signature"
+            }
+          },
+          "404": {
+            "description": "Your payload is incorrect.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/crypto",
+        "x-group-e": "Signatures"
+      }
+    },
+    "/token/refresh": {
+      "get": {
+        "description": "Retrieves a new token, and a new 15 minute expiration window. You may update your tokens faster than our standard, but please note, authentication tokens are only valid for 15 minutes. If your authentication token expires, you will need your administrator to generate a new one by logging in with their IBM ID and IBM Verify 2FA token.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "token",
+          "jwt",
+          "refresh"
+        ],
+        "summary": "Refresh a token",
+        "parameters": [
+          {
+            "description": "This is the current token you want to refresh.",
+            "name": "token",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully refreshed token. The token is valid for 15 minutes.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "401": {
+            "description": "Unauthorized, account name and jwt token is invalid",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "There is no matching record found for the given account name",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/auth",
+        "x-group-e": "Auth"
+      }
+    },
+    "/transactions": {
+      "get": {
+        "description": "Retrieves a list of your transactions and their details based on filters you supply. Learn more about Transactions in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "transaction status",
+          "transaction details"
+        ],
+        "summary": "List all transactions",
+        "parameters": [
+          {
+            "enum": [
+              "INSTRUCTION_ID",
+              "TRANSACTION_ID",
+              "DATE_RANGE"
+            ],
+            "type": "string",
+            "description": "This identifier will filter transactions based on what you supply. You can filter by date range by using `DATE_RANGE`, an `INSTRUCTION_ID` (which is generated by the OFI at the start of a transaction and may exist even if the transaction ultimately fails), or a `TRANSACTION_ID` which the ledger generates when transactions are successfully posted to the ledger, and will only exist if the ledger is successfully updated.\n",
+            "name": "query_type",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Transaction request detailing information for transaction queries. Either the `INSTRUCTION_ID` value or `LEDGER_ID` value",
+            "name": "query_data",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "date",
+            "description": "Full-date formatted as `YYYY-MM-DD` that indicates start of the query range, required for query_type=`DATE_RANGE`",
+            "name": "start_date",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "date",
+            "description": "Full-date format as `YYYY-MM-DD` that indicates end of the query range, required for query_type=`DATE_RANGE`",
+            "name": "end_date",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "The number of transactions in one single response page",
+            "name": "batch",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "The page of transaction history",
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found Transactions matching your filter(s). Here you go.\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/transaction"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "No transaction details found based on query criteria",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Transactions"
+      }
+    },
+    "/transactions/redeem": {
+      "post": {
+        "description": "Returns a digital asset you're holding for it's corresponding value off the network. To do this, send the amount of the asset you wish to redeem back to Anchor. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "stable coins",
+          "setup",
+          "redeem",
+          "cashout"
+        ],
+        "summary": "Redeem digital asset",
+        "parameters": [
+          {
+            "description": "This will include the message id, message type, encoded message and anchor id.",
+            "name": "sendPacs",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully sent. Here's your receipt.",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          },
+          "404": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        },
+        "x-base-url": "/send",
+        "x-group-e": "Transactions"
+      }
+    },
+    "/transactions/reply": {
+      "post": {
+        "description": "An Receiving Financial Institution (RFI) uses this to reply to an Originating Financial Institution (OFI) payment request. After an RFI receives a PACS008 request from an OFI on World Wire, it will complete federation and compliance checks internally on their backend system. Once the checks complete, the RFI will submit an IBWF001 message to the OFI with a confirmation or rejection status. Learn more about Sending Payments in the [Guides](??base_url??/docs/??version??/guides) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Reply to a payment request",
+        "parameters": [
+          {
+            "description": "This will include the message id of the request, message type, encoded message and OFI participant id.",
+            "name": "sendPacs",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction response was successfully sent to the Kafka broker.",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          },
+          "404": {
+            "description": "Error occured during response handling.",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        },
+        "x-base-url": "/send",
+        "x-group-e": "Transactions"
+      }
+    },
+    "/transactions/send": {
+      "post": {
+        "description": "An Originating Financial Institution (OFI) uses this to submit a one-way payment request on behalf of their customer to a Receiving Financial Institution (RFI) on behalf of their ultimate beneficiary. Learn more about Sending Payments in the [Guides](??base_url??/docs/??version??/guides) section of World Wire.\n",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "clear",
+          "init",
+          "execute",
+          "transact"
+        ],
+        "summary": "Send a payment request",
+        "parameters": [
+          {
+            "description": "This will include the message id, message type, encoded message and RFI participant id.",
+            "name": "sendPacs",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully sent. Here's your receipt.",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          },
+          "404": {
+            "description": "Missing or invalid parameters in the request",
+            "schema": {
+              "$ref": "#/definitions/sendPacs"
+            }
+          }
+        },
+        "x-base-url": "/send",
+        "x-group-e": "Transactions"
+      }
+    },
+    "/trust": {
+      "post": {
+        "description": "Changes the trust relationship you have with another Participant. Request, allow, or revoke permission to transact with another Participant in a specific asset by supplying a permission. Learn more about Trust in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.\n",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "asset trust"
+        ],
+        "summary": "Submit asset trust permissions",
+        "parameters": [
+          {
+            "x-go-name": "Trust",
+            "description": "Indicate who you are trusting",
+            "name": "Trust",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/trust"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trust parameter changes have succeeded"
+          },
+          "404": {
+            "description": "Cannot change or allow trust",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        },
+        "x-base-url": "/api",
+        "x-group-e": "Trust"
+      }
+    }
+  },
+  "definitions": {
+    "account": {
+      "description": "Account",
+      "type": "object",
+      "title": "account",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "description": "The address that was created on the ledger.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"address\""
+        },
+        "name": {
+          "description": "A name to identify this account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"name\""
+        }
+      },
+      "x-go-name": "Account",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/account"
+      }
+    },
+    "address": {
+      "description": "Address",
+      "type": "object",
+      "title": "address",
+      "required": [
+        "building_number",
+        "street",
+        "city",
+        "state",
+        "postal_code",
+        "country"
+      ],
+      "properties": {
+        "building_number": {
+          "description": "The building number or identifier.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"building_number\""
+        },
+        "city": {
+          "description": "Name of the city or town.",
+          "type": "string"
+        },
+        "country": {
+          "description": "Country code of the location.",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "Postal code for the location.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"postal_code\""
+        },
+        "state": {
+          "description": "Name of the state.",
+          "type": "string"
+        },
+        "street": {
+          "description": "The street name.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "Address",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/address"
+      }
+    },
+    "asset": {
+      "description": "Details of the asset being transacted",
+      "type": "object",
+      "title": "asset",
+      "required": [
+        "asset_type",
+        "asset_code"
+      ],
+      "properties": {
+        "asset_code": {
+          "description": "Alphanumeric code for the asset - USD, XLM, etc",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"asset_code\""
+        },
+        "asset_type": {
+          "description": "The type of asset. Options include digital obligation, \"DO\", digital asset \"DA\", or a cryptocurrency \"native\".",
+          "type": "string",
+          "enum": [
+            "DO",
+            "DA",
+            "native"
+          ],
+          "x-go-custom-tag": "bson:\"asset_type\""
+        },
+        "issuer_id": {
+          "description": "The asset issuer's participant id.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"issuer_id\""
+        }
+      },
+      "x-go-name": "Asset",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/asset"
+      }
+    },
+    "balance": {
+      "description": "Balance",
+      "type": "object",
+      "title": "balance",
+      "required": [
+        "asset_code",
+        "balance",
+        "account_name"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "The name of the account, operting account name or \"issuing\" for issuing account",
+          "type": "string"
+        },
+        "asset_code": {
+          "description": "A name to identify the asset",
+          "type": "string"
+        },
+        "balance": {
+          "description": "Balance for a given asset",
+          "type": "string"
+        },
+        "issuer_id": {
+          "description": "Participant id to identify the issuer for this asset",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        }
+      },
+      "x-go-name": "AssetBalance",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/balance"
+      }
+    },
+    "comparison": {
+      "description": "Comparison",
+      "type": "object",
+      "title": "comparison",
+      "required": [
+        "operator",
+        "threshold"
+      ],
+      "properties": {
+        "operator": {
+          "description": "The type of logical comparison. The default option is \"eq\" (equal to), but other options include \"gt\" (greater than), \"lt\" (less than), \"ge\" (greater than or equal to), and \"le\" (less than or equal to).\n",
+          "type": "string"
+        },
+        "threshold": {
+          "description": "The amount you want to compare.",
+          "type": "number",
+          "minimum": 1,
+          "x-nullable": true
+        }
+      },
+      "x-go-name": "Comparison",
+      "externalDocs": {
+        "url": "#/definitions/comparison"
+      }
+    },
+    "coordinate": {
+      "description": "Geographic coordinates for a location. Based on https://schema.org/geo",
+      "type": "object",
+      "title": "coordinate",
+      "required": [
+        "lat",
+        "long"
+      ],
+      "properties": {
+        "lat": {
+          "description": "The latitude of the geo coordinates",
+          "type": "number"
+        },
+        "long": {
+          "description": "The longitude of the geo coordinates",
+          "type": "number"
+        }
+      },
+      "x-go-name": "Coordinate",
+      "externalDocs": {
+        "url": "#/definitions/coordinate"
+      }
+    },
+    "error": {
+      "description": "Error",
+      "type": "object",
+      "title": "error",
+      "required": [
+        "message",
+        "details",
+        "time_stamp"
+      ],
+      "properties": {
+        "build_version": {
+          "description": "build version string of micro service",
+          "type": "string"
+        },
+        "code": {
+          "description": "Error code reference.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Detailed message description about error.",
+          "type": "string"
+        },
+        "message": {
+          "description": "Short message description about error.",
+          "type": "string"
+        },
+        "participant_id": {
+          "description": "participant id, same as home domain as set by environment variables",
+          "type": "string"
+        },
+        "service": {
+          "description": "name of micro service",
+          "type": "string"
+        },
+        "time_stamp": {
+          "description": "The timestamp of the occurance.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "type": {
+          "description": "Type is for query purposes, it an identifier to assist with troubleshooting where an error came from (eg, containing func name) tells us if it is originating from NotifyWWError vs. NotFound vs. some other spot",
+          "type": "string"
+        },
+        "url": {
+          "description": "Url of endpoint that failed.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "WorldWireError",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/error"
+      }
+    },
+    "exchange": {
+      "description": "Exchange",
+      "type": "object",
+      "title": "exchange",
+      "required": [
+        "quote",
+        "amount",
+        "account_name_send",
+        "account_name_receive"
+      ],
+      "properties": {
+        "account_name_receive": {
+          "description": "OFI Participant operating or issuing account for receiving target asset.\n",
+          "type": "string"
+        },
+        "account_name_send": {
+          "description": "OFI Participant operating or issuing account for source asset transmit.\n",
+          "type": "string"
+        },
+        "amount": {
+          "description": "Amount of source asset to be exchanged.",
+          "type": "number"
+        },
+        "quote": {
+          "$ref": "#/definitions/quote"
+        }
+      },
+      "x-go-name": "Exchange",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/exchange"
+      }
+    },
+    "exchangeEnvelope": {
+      "description": "Exchange Envelope",
+      "type": "object",
+      "title": "exchangeEnvelope",
+      "required": [
+        "exchange",
+        "signature"
+      ],
+      "properties": {
+        "exchange": {
+          "description": "base64 encoded [exchange](??base_url??/docs/??version??/api/participant-api?jump=model__exchange) object",
+          "type": "string"
+        },
+        "signature": {
+          "description": "base64 encoded exchange object signature",
+          "type": "string"
+        }
+      },
+      "x-go-name": "ExchangeEnvelope",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/exchangeEnvelope"
+      }
+    },
+    "exchangeReceipt": {
+      "description": "Exchange Receipt",
+      "type": "object",
+      "title": "exchangeReceipt",
+      "required": [
+        "exchange",
+        "status_exchange",
+        "transacted_amount_target",
+        "transacted_amount_source",
+        "transaction_hash"
+      ],
+      "properties": {
+        "exchange": {
+          "$ref": "#/definitions/exchange"
+        },
+        "status_exchange": {
+          "description": "Options are \"OK\" or \"Denied\".",
+          "type": "string",
+          "enum": [
+            "OK",
+            "Denied"
+          ]
+        },
+        "time_executed": {
+          "description": "Timestamp when the exchange occured.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "transacted_amount_source": {
+          "description": "Transacted amount of source asset.",
+          "type": "number"
+        },
+        "transacted_amount_target": {
+          "description": "Transacted amount of target asset.",
+          "type": "number"
+        },
+        "transaction_hash": {
+          "description": "Transacted hash.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "ExchangeReceipt",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/exchangeReceipt"
+      }
+    },
+    "fee": {
+      "description": "Fee",
+      "type": "object",
+      "title": "fee",
+      "required": [
+        "cost",
+        "costasset"
+      ],
+      "properties": {
+        "cost": {
+          "description": "The fee amount, should be a float64 number",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "costasset": {
+          "$ref": "#/definitions/asset"
+        }
+      },
+      "x-go-name": "Fee",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/fee"
+      }
+    },
+    "feesRequest": {
+      "description": "The information required to determine the fees related to a payment a Participant would like to execute.\n",
+      "type": "object",
+      "title": "feesRequest",
+      "required": [
+        "request_id",
+        "asset_settlement",
+        "asset_payout",
+        "participant_id"
+      ],
+      "properties": {
+        "amount_gross": {
+          "description": "Amount the OFI sends to the RFI on the ledger (not inclusive of RFI Fees). The recipient will receive this amount minus the RFI fees. If this attribute is set, amount_payout should not be filled in.\n",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "amount_payout": {
+          "description": "Amount (in payout asset) the sender would like the recipient to receive from the RFI. This is different from the amount_gross parameter since the sender will need to confirm that they are willing to pay the RFI's fee to make the payment to the recipient. If this attribute is set, amount_gross should not be set.\n",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "amount_settlement": {
+          "description": "Amount (in settlement asset) the OFI gives to the RFI on the ledger (inclusive of RFI Fees).\n",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "asset_payout": {
+          "description": "The three-letter asset code of the fiat payment which will be made by the Participant to their ultimate beneficiary.\n",
+          "type": "string"
+        },
+        "asset_settlement": {
+          "$ref": "#/definitions/asset"
+        },
+        "details_payout_location": {
+          "$ref": "#/definitions/payoutLocation"
+        },
+        "participant_id": {
+          "description": "Identifier of the Participant who initiated the fee request.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "request_id": {
+          "description": "Unique identifier for this fee request.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "FeesRequest",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/feesRequest"
+      }
+    },
+    "gatewayResponse": {
+      "description": "The message payload for participant to post data to World Wire",
+      "type": "object",
+      "title": "gatewayResponse",
+      "required": [
+        "timestamp",
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "description": "The set of data to be posted to World Wire.",
+          "type": "array",
+          "items": {
+            "description": "The message data.",
+            "type": "object",
+            "title": "gatewayMessage"
+          }
+        },
+        "timestamp": {
+          "description": "The unix timestamp of the message being retrieved\n",
+          "type": "string"
+        }
+      },
+      "x-go-name": "GatewayResponse",
+      "externalDocs": {
+        "url": "#/definitions/gatewayResponse"
+      }
+    },
+    "geo": {
+      "description": "Geographic coordinates for a location. Based on https://schema.org/geo",
+      "type": "object",
+      "title": "geo",
+      "required": [
+        "coordinates",
+        "type"
+      ],
+      "properties": {
+        "coordinates": {
+          "description": "The geo coordinates",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/coordinate"
+          }
+        },
+        "type": {
+          "description": "The type of location. Options include \"point\" if the location is a single pickup location, or \"area\" if it's a region.\n",
+          "type": "string",
+          "enum": [
+            "area",
+            "point"
+          ]
+        }
+      },
+      "x-go-name": "Geo",
+      "externalDocs": {
+        "url": "#/definitions/geo"
+      }
+    },
+    "obligation": {
+      "description": "Obligation",
+      "type": "object",
+      "title": "obligation",
+      "properties": {
+        "balance": {
+          "$ref": "#/definitions/balance"
+        },
+        "participant_id": {
+          "description": "Identifier of the Participant who owes the balance.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        }
+      },
+      "x-go-name": "Obligation",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/obligation"
+      }
+    },
+    "participant": {
+      "description": "Participant",
+      "type": "object",
+      "title": "participant",
+      "required": [
+        "id",
+        "country_code",
+        "role",
+        "bic"
+      ],
+      "properties": {
+        "bic": {
+          "description": "The business identifier code of each participant",
+          "type": "string",
+          "maxLength": 11,
+          "minLength": 11,
+          "pattern": "^[A-Z]{3}[A-Z]{3}[A-Z2-9]{1}[A-NP-Z0-9]{1}[A-Z0-9]{3}$",
+          "x-go-custom-tag": "bson:\"bic\""
+        },
+        "country_code": {
+          "description": "Participant's country of residence, country code in ISO 3166-1 format",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 3,
+          "x-go-custom-tag": "bson:\"country_code\""
+        },
+        "id": {
+          "description": "The participant id for the participant",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"id\""
+        },
+        "issuing_account": {
+          "description": "The ledger address belonging to the issuing account.",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"issuing_account\""
+        },
+        "operating_accounts": {
+          "description": "Accounts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/account"
+          },
+          "x-go-custom-tag": "bson:\"operating_accounts\""
+        },
+        "role": {
+          "description": "The Role of this registered participant, it can be MM for Market Maker and IS for Issuer or anchor",
+          "type": "string",
+          "maxLength": 2,
+          "minLength": 2,
+          "enum": [
+            "MM",
+            "IS"
+          ],
+          "x-go-custom-tag": "bson:\"role\""
+        },
+        "status": {
+          "description": "Participant active status on WW network, inactive, active, suspended",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"status\""
+        }
+      },
+      "x-go-name": "Participant",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/participant"
+      }
+    },
+    "payloadWithSignature": {
+      "description": "PayloadWithSignature",
+      "type": "object",
+      "title": "payloadWithSignature",
+      "required": [
+        "payload_with_signature"
+      ],
+      "properties": {
+        "payload_with_signature": {
+          "description": "Signed ISO 20022 message.",
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "x-go-name": "PayloadWithSignature",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/payloadWithSignature"
+      }
+    },
+    "payoutLocation": {
+      "description": "Details of each payout location. Based on https://schema.org/LocalBusiness",
+      "type": "object",
+      "title": "payoutLocation",
+      "required": [
+        "type",
+        "name",
+        "currencies_accepted",
+        "image",
+        "url",
+        "telephone",
+        "member_of",
+        "geo",
+        "opening_hours",
+        "category",
+        "payout_child",
+        "payout_parent"
+      ],
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/address"
+        },
+        "category": {
+          "$ref": "#/definitions/payoutLocationCategory"
+        },
+        "currencies_accepted": {
+          "description": "The currency accepted.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"currencies_accepted\""
+        },
+        "geo": {
+          "$ref": "#/definitions/geo"
+        },
+        "id": {
+          "description": "The unique identifier of the location.",
+          "type": "string"
+        },
+        "image": {
+          "description": "An image of the item. This can be a URL or a fully described ImageObject.",
+          "type": "string"
+        },
+        "member_of": {
+          "description": "The financial institute that this location belongs to.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"member_of\""
+        },
+        "name": {
+          "description": "The name of the location.",
+          "type": "string"
+        },
+        "opening_hours": {
+          "description": "The opening hours of the location.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/payoutLocationOpeningHours"
+          },
+          "x-go-custom-tag": "bson:\"opening_hours\""
+        },
+        "payout_child": {
+          "description": "The collection of identifiers for locations which belong to the location - these can include areas, and points.\n",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"payout_child\""
+        },
+        "payout_parent": {
+          "description": "The collection of identifiers for the parents of the locations - it can be only areas.\n",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"payout_parent\""
+        },
+        "routing_number": {
+          "description": "Optional routing information, also known as BIC (bank id code).",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"routing_number\""
+        },
+        "telephone": {
+          "description": "The phone number of the location.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of location. Options include: \"Bank\", \"Non-Bank Financial Institution\", \"Mobile Network Operator\", or \"Other\".\n",
+          "type": "string",
+          "enum": [
+            "Bank",
+            "Non-Bank Financial Institution",
+            "Mobile Network Operator",
+            "Other"
+          ]
+        },
+        "url": {
+          "description": "The URL of the location.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "PayoutLocation",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocation"
+      }
+    },
+    "payoutLocationCategory": {
+      "description": "Details of each payout location offer category. Based on https://schema.org/hasOfferCatalog",
+      "type": "object",
+      "title": "payoutLocationCategory",
+      "required": [
+        "name",
+        "options"
+      ],
+      "properties": {
+        "name": {
+          "description": "name of the category",
+          "type": "string",
+          "enum": [
+            "delivery",
+            "cash_pickup",
+            "agency_pickup",
+            "mobile",
+            "bank_account"
+          ]
+        },
+        "options": {
+          "description": "offer list of the category",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/payoutLocationOption"
+          }
+        }
+      },
+      "x-go-name": "PayoutLocationCategory",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocationCategory"
+      }
+    },
+    "payoutLocationOpeningHours": {
+      "description": "The opening hours of each payout location. Based on https://schema.org/OpeningHoursSpecification",
+      "type": "object",
+      "title": "payoutLocationOpeningHours",
+      "required": [
+        "day_of_week",
+        "opens",
+        "closes"
+      ],
+      "properties": {
+        "closes": {
+          "description": "The closing hour of the payout location on the given day(s) of the week",
+          "type": "string"
+        },
+        "day_of_week": {
+          "description": "The day of the week for which these opening hours are valid",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-custom-tag": "bson:\"day_of_week\""
+        },
+        "opens": {
+          "description": "The opening hour of the payout location on the given day(s) of the week",
+          "type": "string"
+        }
+      },
+      "x-go-name": "PayoutLocationOpeningHour",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocationOpeningHours"
+      }
+    },
+    "payoutLocationOption": {
+      "description": "Details of each payout location offer. Based on https://schema.org/hasOfferCatalog",
+      "type": "object",
+      "title": "payoutLocationOption",
+      "required": [
+        "description",
+        "terms"
+      ],
+      "properties": {
+        "description": {
+          "description": "name of the service",
+          "type": "string"
+        },
+        "terms": {
+          "description": "service detail",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"terms\""
+        }
+      },
+      "x-go-name": "PayoutLocationOption",
+      "externalDocs": {
+        "url": "#/definitions/payoutLocationOption"
+      }
+    },
+    "quote": {
+      "description": "Quote",
+      "type": "object",
+      "title": "quote",
+      "required": [
+        "exchange_rate",
+        "quote_id",
+        "rfi_id",
+        "account_name_send",
+        "account_name_receive",
+        "time_start",
+        "time_expire",
+        "limit_max",
+        "quote_request",
+        "status"
+      ],
+      "properties": {
+        "account_name_receive": {
+          "description": "rfi operating or issuing account to receive source asset",
+          "type": "string"
+        },
+        "account_name_send": {
+          "description": "rfi operating or issuing account to send back target asset",
+          "type": "string"
+        },
+        "exchange_rate": {
+          "description": "The source-asset price of the target asset",
+          "type": "number"
+        },
+        "limit_max": {
+          "description": "Maximum units for which this quote is valid",
+          "type": "number",
+          "minimum": 1
+        },
+        "limit_min": {
+          "description": "Minimum units for which this quote is valid",
+          "type": "number",
+          "minimum": 1,
+          "x-nullable": true
+        },
+        "quote_id": {
+          "description": "Unique id for this quote as set by the quote service",
+          "type": "string"
+        },
+        "quote_request": {
+          "$ref": "#/definitions/quoteRequest"
+        },
+        "rfi_id": {
+          "description": "The ID that identifies the RFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).\n",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "time_expire": {
+          "description": "End-time for this quote to be valid.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "time_start": {
+          "description": "Start time for this quote to be valid.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        }
+      },
+      "x-go-name": "Quote",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/quote"
+      }
+    },
+    "quoteEnvelope": {
+      "description": "Quote Envelope",
+      "type": "object",
+      "title": "quoteEnvelope",
+      "required": [
+        "quote",
+        "signature"
+      ],
+      "properties": {
+        "quote": {
+          "description": "base64 encoded [quote](??base_url??/docs/??version??/api/participant-client-api?jump=model_quote) object",
+          "type": "string"
+        },
+        "signature": {
+          "description": "base64 encoded quote object signature",
+          "type": "string"
+        }
+      },
+      "x-go-name": "QuoteEnvelope",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/quoteEnvelope"
+      }
+    },
+    "quoteFilter": {
+      "description": "A set of options you can supply to filter the results of quotes you receive from the /quotes endpoint.\n",
+      "type": "object",
+      "title": "quoteFilter",
+      "properties": {
+        "delete_all_quotes": {
+          "description": "This one's special, so be careful! If you set this to true, it will override all other filters and delete all your quotes. Only used for delete quotes",
+          "type": "boolean",
+          "x-nullable": true
+        },
+        "exchange_rate": {
+          "$ref": "#/definitions/comparison"
+        },
+        "ofi_id": {
+          "description": "Filter by requestor Participant's identifier.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-nullable": true
+        },
+        "rfi_id": {
+          "description": "Filter by Participant's identifier that provided the quote.",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-nullable": true
+        },
+        "source_asset": {
+          "$ref": "#/definitions/asset"
+        },
+        "status": {
+          "$ref": "#/definitions/comparison"
+        },
+        "target_asset": {
+          "$ref": "#/definitions/asset"
+        },
+        "time_expire_rfi": {
+          "$ref": "#/definitions/comparison"
+        }
+      },
+      "x-go-name": "QuoteFilter",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/quoteFilter"
+      }
+    },
+    "quoteRequest": {
+      "description": "Quote Request",
+      "type": "object",
+      "title": "quoteRequest",
+      "required": [
+        "asset_source",
+        "asset_target",
+        "time_expire",
+        "ofi_id",
+        "limit_max"
+      ],
+      "properties": {
+        "limit_max": {
+          "description": "Maximum units of the target asset for which this quote is valid",
+          "type": "number"
+        },
+        "limit_min": {
+          "description": "Minimum units of the target asset for which this quote is valid",
+          "type": "number",
+          "x-nullable": true
+        },
+        "ofi_id": {
+          "description": "The ID that identifies the OFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "source_asset": {
+          "$ref": "#/definitions/asset"
+        },
+        "target_asset": {
+          "$ref": "#/definitions/asset"
+        },
+        "time_expire": {
+          "description": "End-time for this quote request to be valid",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        }
+      },
+      "x-go-name": "QuoteRequest",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/quoteRequest"
+      }
+    },
+    "quoteRequestReceipt": {
+      "description": "Quote Receipt",
+      "type": "object",
+      "title": "quoteRequestReceipt",
+      "required": [
+        "request_id",
+        "time_request"
+      ],
+      "properties": {
+        "request_id": {
+          "description": "Unique id for the original quote request as set by the quote giver.",
+          "type": "string"
+        },
+        "time_request": {
+          "description": "The timestamp when the quote request happened.",
+          "type": "number",
+          "format": "int64"
+        }
+      },
+      "x-go-name": "quoteRequestReceipt",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/quoteRequestReceipt"
+      }
+    },
+    "quoteStatus": {
+      "description": "Quote Status",
+      "type": "object",
+      "title": "quoteStatus",
+      "required": [
+        "exchange_rate",
+        "quote_id",
+        "rfi_id",
+        "account_name_send",
+        "account_name_receive",
+        "time_start",
+        "time_expire",
+        "limit_max",
+        "quote_request",
+        "status"
+      ],
+      "properties": {
+        "quote_id": {
+          "description": "quote id for this quote as set by the quote giver",
+          "type": "string"
+        },
+        "quote_response": {
+          "$ref": "#/definitions/quote"
+        },
+        "request_id": {
+          "description": "request id for this quote as set by the quote service",
+          "type": "string"
+        },
+        "rfi_id": {
+          "description": "The ID that identifies the RFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).\n",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "status": {
+          "description": "quote status of a quote request [1 = pending, 2 = updated,3 = executing 4 = executed, 98 = failed, 99 = cancelled]",
+          "type": "number"
+        },
+        "time_quote": {
+          "description": "Time when RFI response to the quote.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "time_request": {
+          "description": "Request time for this quote request.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        }
+      },
+      "x-go-name": "QuoteStatus",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/quoteStatus"
+      }
+    },
+    "requestPayload": {
+      "description": "requestPayload",
+      "type": "object",
+      "title": "requestPayload",
+      "required": [
+        "payload",
+        "account_name"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "The name of the account with which the payload needs to be signed",
+          "type": "string"
+        },
+        "payload": {
+          "description": "unsigned request payload to be signed",
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "x-go-name": "RequestPayload",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/requestPayload"
+      }
+    },
+    "sendPacs": {
+      "description": "Send Pacs format",
+      "type": "object",
+      "title": "sendPacs",
+      "required": [
+        "message_type",
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "description": "This will be the encoded base 64 format xml message. Sending a transaction request will need to encode a pacs.008 xml message. Reacting on a received transaction request will need to encode an ibwf.001 xml message.",
+          "type": "string"
+        },
+        "message_type": {
+          "description": "This will be the type of the xml message. There are three types of message. First, pacs.008 for sending a transaction request. Second, ibwf.001 for reacting on a received transaction request. Finally, any response from the service will be a pacs.002 message.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "SendPacs",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/sendPacs"
+      }
+    },
+    "signature": {
+      "description": "signature",
+      "type": "object",
+      "title": "signature",
+      "required": [
+        "transaction_signed"
+      ],
+      "properties": {
+        "transaction_signed": {
+          "description": "Transaction signed by Participant.",
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "x-go-name": "signature",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/signature"
+      }
+    },
+    "sweep": {
+      "description": "Sweep",
+      "type": "object",
+      "title": "sweep",
+      "required": [
+        "account_name",
+        "amount",
+        "asset"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "A name to identify this source account.",
+          "type": "string"
+        },
+        "amount": {
+          "description": "Amount of the asset.",
+          "type": "number",
+          "format": "decimal"
+        },
+        "asset": {
+          "$ref": "#/definitions/asset"
+        }
+      },
+      "x-go-name": "Sweep",
+      "externalDocs": {
+        "url": "#/definitions/sweep"
+      }
+    },
+    "sweepInstruction": {
+      "description": "SweepInstruction",
+      "type": "array",
+      "title": "sweepInstruction",
+      "items": {
+        "$ref": "#/definitions/sweep"
+      },
+      "x-go-name": "SweepInstruction",
+      "externalDocs": {
+        "url": "#/definitions/sweepInstruction"
+      }
+    },
+    "sweepReceipt": {
+      "description": "Sweep Receipt",
+      "type": "object",
+      "title": "SweepReceipt",
+      "required": [
+        "transaction_hash"
+      ],
+      "properties": {
+        "balance_result": {
+          "description": "Source account balances, after sweeping.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sweep"
+          }
+        },
+        "time_executed": {
+          "description": "Timestamp when the exchange occurred.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "transaction_hash": {
+          "description": "Transacted hash.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "SweepReceipt",
+      "externalDocs": {
+        "url": "#/definitions/sweepReceipt"
+      }
+    },
+    "transaction": {
+      "description": "Transaction",
+      "type": "object",
+      "title": "transaction",
+      "required": [
+        "transaction_details",
+        "transaction_receipt"
+      ],
+      "properties": {
+        "transaction_details": {
+          "$ref": "#/definitions/transactionDetails"
+        },
+        "transaction_receipt": {
+          "description": "The transaction receipt.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transactionReceipt"
+          },
+          "x-go-name": "TransactionReceipt",
+          "externalDocs": {
+            "url": "#/definitions/transactionReceipt"
+          }
+        }
+      },
+      "x-go-name": "FItoFITransaction",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transaction"
+      }
+    },
+    "transactionDetails": {
+      "description": "Transaction Details",
+      "type": "object",
+      "title": "transactionDetails",
+      "required": [
+        "amount_beneficiary",
+        "amount_settlement",
+        "asset_code_beneficiary",
+        "assetsettlement",
+        "feecreditor",
+        "feedebtor",
+        "rfi_id",
+        "ofi_id",
+        "settlement_method"
+      ],
+      "properties": {
+        "amount_beneficiary": {
+          "description": "The amount the beneficiary should receive in beneficiary currency",
+          "type": "number",
+          "multipleOf": 1e-7,
+          "x-go-custom-tag": "bson:\"amount_beneficiary\""
+        },
+        "amount_settlement": {
+          "description": "The amount of the settlement.",
+          "type": "number",
+          "multipleOf": 1e-7,
+          "x-go-custom-tag": "bson:\"amount_settlement\""
+        },
+        "asset_code_beneficiary": {
+          "description": "The asset code for the beneficiary",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"asset_code_beneficiary\""
+        },
+        "assetsettlement": {
+          "$ref": "#/definitions/asset"
+        },
+        "feecreditor": {
+          "$ref": "#/definitions/fee"
+        },
+        "ofi_id": {
+          "description": "The ID that identifies the OFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"ofi_id\""
+        },
+        "rfi_id": {
+          "description": "The ID that identifies the RFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$",
+          "x-go-custom-tag": "bson:\"rfi_id\""
+        },
+        "settlement_method": {
+          "description": "The preferred settlement method for this payment request (DA, DO, or XLM)",
+          "type": "string",
+          "x-go-custom-tag": "bson:\"settlement_method\""
+        }
+      },
+      "x-go-name": "transactionDetails",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transactionDetails"
+      }
+    },
+    "transactionFees": {
+      "description": "Fees related to a transaction, sent back by a Participant (RFI).",
+      "type": "object",
+      "title": "transactionFees",
+      "required": [
+        "request_id",
+        "amount_fee",
+        "amount_settlement",
+        "amount_payout",
+        "asset_code_payout",
+        "details_asset_settlement"
+      ],
+      "properties": {
+        "amount_fee": {
+          "description": "The fee amount (always in asset_settlement), should be a float64 number. Gross_settlement amount will be amount_settlement plus the fee.",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "amount_payout": {
+          "description": "Amount (in payout asset) the RFI pays ultimate beneficiary (recipient).",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "amount_settlement": {
+          "description": "Amount (in settlement asset) the OFI transfers to the RFI on the ledger (exclusive of RFI Fees).",
+          "type": "number",
+          "multipleOf": 1e-7
+        },
+        "asset_code_payout": {
+          "description": "The 3-letter asset identifier of the payment to the ultimate beneficiary (recipient).",
+          "type": "string"
+        },
+        "details_asset_settlement": {
+          "$ref": "#/definitions/asset"
+        },
+        "details_payout_location": {
+          "$ref": "#/definitions/payoutLocation"
+        },
+        "request_id": {
+          "description": "a unique id for this fee request",
+          "type": "string"
+        }
+      },
+      "x-go-name": "TransactionFees",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transactionFees"
+      }
+    },
+    "transactionReceipt": {
+      "description": "Transaction Receipt",
+      "type": "object",
+      "title": "transactionReceipt",
+      "required": [
+        "transactionstatus",
+        "transactionid",
+        "timestamp"
+      ],
+      "properties": {
+        "timestamp": {
+          "description": "The timestamp of the transaction.",
+          "type": "number",
+          "format": "int64",
+          "example": 1547092408123
+        },
+        "transactionid": {
+          "description": "A unique transaction identifier generated by the ledger.",
+          "type": "string"
+        },
+        "transactionstatus": {
+          "description": "This would capture the new status of a transaction while transaction travel through payment flow.",
+          "type": "string"
+        }
+      },
+      "x-go-name": "transactionReceipt",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/transactionReceipt"
+      }
+    },
+    "trust": {
+      "description": "Trust",
+      "type": "object",
+      "title": "trust",
+      "required": [
+        "participant_id",
+        "account_name",
+        "asset_code",
+        "permission"
+      ],
+      "properties": {
+        "account_name": {
+          "description": "This is account name that is trusting of the asset. Options include \"default\", \"issuing\", or another string that identifies another operating account.\n",
+          "type": "string"
+        },
+        "asset_code": {
+          "description": "The 3-letter code identifying the asset being trusted. For a list of assets retrieve all World Wire assets from the [/assets](??base_url??/docs/??version??/api/participant-client-api?jump=path_get__assets) endpoint.\n",
+          "type": "string"
+        },
+        "end_to_end_id": {
+          "description": "Generated by requester, a unique ID for this entire trust flow",
+          "type": "string"
+        },
+        "limit": {
+          "description": "The trust limit for this asset between source and issuer. This parameter is only necessary when the trust permission you are submitting is \"request\".\n",
+          "type": "integer",
+          "default": 100,
+          "minimum": 1
+        },
+        "participant_id": {
+          "description": "When the permission submitted by an OFI is \"request\", this is the identifier of the RFI who issued the asset. However, when the permission submitted by an RFI is \"allow\", this is the OFI's identifier (i.e., uk.yourbankintheUK.payments.ibm.com). Make sure you request trust first to the RFI's issuing account, and then also their operating account.\n",
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 5,
+          "pattern": "^[a-zA-Z0-9-]{5,32}$"
+        },
+        "permission": {
+          "description": "This string identifier represents the level of trust you would like to set with another participant in your trust object. Options are \"request\", \"allow\", or \"revoke\".\n",
+          "type": "string"
+        }
+      },
+      "x-go-name": "Trust",
+      "x-group-m": "Models",
+      "externalDocs": {
+        "url": "#/definitions/trust"
+      }
+    }
+  }
+}

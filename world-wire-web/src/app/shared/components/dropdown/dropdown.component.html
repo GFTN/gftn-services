@@ -1,0 +1,14 @@
+<label *ngIf="label" class="bx--label">{{ label }}</label>
+<ul #dropDownElm data-dropdown data-value class="bx--dropdown bx--dropdown--light" [class.disabled]="disabled" tabindex="0" (onchange)="ngOnChanges()" (click)="onTouched()">
+	<li #dropdownText class="bx--dropdown-text">{{ placeholder }}</li>
+	<svg class="bx--dropdown__arrow" width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
+		<path d="M10 0L5 5 0 0z"></path>
+	</svg>
+	<li>
+		<ul class="bx--dropdown-list">
+			<li *ngFor="let option of options; index as i;" data-option [attr.data-value]="option.value" class="bx--dropdown-item">
+				<a [id]="option.name + '-' + i" class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1">{{ option.displayText }}</a>
+			</li>
+		</ul>
+	</li>
+</ul>

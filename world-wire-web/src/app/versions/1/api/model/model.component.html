@@ -1,0 +1,56 @@
+<div class="bx--type-gamma" [innerHtml]="model.value.title"></div>
+<section class="bx--structured-list">
+
+	<div class="bx--structured-list-thead">
+		<div class="bx--structured-list-row bx--structured-list-row--header-row">
+			<div class="bx--structured-list-th tight">Name</div>
+			<div class="bx--structured-list-th tight">Type</div>
+			<div class="bx--structured-list-th expand pad-left">Description</div>
+		</div>
+	</div>
+
+	<div *ngIf="!model.value.properties" class="caption">
+		<p class="italic">Unable to parse model.</p>
+	</div>
+	<div class="bx--structured-list-row" *ngFor="let prop of model.value.properties | keyvalue">
+
+		<div class="bx--structured-list-td tight">
+			<span [innerHtml]="prop.key"> </span>
+			<!-- is included in required array -->
+			<div class="text-danger bx--type-caption" *ngIf="prop.value?.required">REQUIRED</div>
+		</div>
+
+		<div class="bx--structured-list-td tight" fxLayout="column">
+			<!-- is an object -->
+			<div class="text-center" *ngIf="prop.value?.$ref">
+				<a class="no-line" [innerHtml]="prop.value?.model?.title" (click)="swaggerService.jumpTo('model', '', prop.value?.model?.title)">link to object</a>
+			</div>
+
+			<!-- is an array -->
+			<div class="text-center" *ngIf="prop.value?.type === 'array'">
+
+				<!-- array of object -->
+				<a *ngIf="(prop.value?.items?.type === 'object' || prop.value?.items?.$ref); else primitiveArray" class="no-line" (click)="swaggerService.jumpTo('model', '', prop.value?.items.model?.title)" [innerHtml]="'array [' + prop.value?.items.model?.title + ']'"></a>
+
+				<ng-template #primitiveArray>
+					<!-- array of primitive-->
+					<span [innerHtml]="'array [' + prop.value?.items.type + ']'"></span>
+				</ng-template>
+
+			</div>
+
+			<!-- not array or object (ie: regular primitive) -->
+			<div class="text-center" *ngIf="prop.value?.type !== 'object' && prop.value?.type !== 'array'">
+				<span [innerHtml]="prop.value?.type"></span>
+			</div>
+
+		</div>
+
+		<!-- definition -->
+		<div class="bx--structured-list-td expand">
+			<div [innerHtml]="prop.value?.description"></div>
+		</div>
+
+	</div>
+
+</section>

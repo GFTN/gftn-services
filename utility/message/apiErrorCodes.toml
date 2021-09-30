@@ -1,0 +1,7 @@
+[WW_ERROR]
+    [WW_ERROR.API-1001]
+        SHORT_MESSAGE = "user request validation failed"
+        DETAILS = "mandatory request parameters are missing"
+    [WW_ERROR.API-1002]
+        SHORT_MESSAGE = "Some short message2"
+        DETAILS = "Some details 2"

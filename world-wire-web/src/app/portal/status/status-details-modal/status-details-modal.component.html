@@ -1,0 +1,9 @@
+<ibm-modal>
+	<ibm-modal-header class="bx--modal-header__heading bx--type-beta" (closeSelect)="closeModal()">{{ detailsObject.date }}</ibm-modal-header>
+	<section class="bx--modal-content">
+		<app-status-details [detailsObj]="detailsObject"></app-status-details>
+	</section>
+	<ibm-modal-footer>
+		<button class="bx--btn bx--btn--primary" modal-primary-focus (click)="closeModal()">Close</button>
+	</ibm-modal-footer>
+</ibm-modal>

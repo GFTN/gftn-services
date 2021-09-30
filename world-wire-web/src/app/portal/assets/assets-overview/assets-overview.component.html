@@ -1,0 +1,72 @@
+
+<div *ngIf="!participantAuthorized">
+	<ibm-notification [notificationObj]="{
+		type: 'error',
+		title: 'Unauthorized',
+		message: 'You must be authorized by the participant to view this data.'}">
+	</ibm-notification>
+</div>
+
+<!-- TODO: This is temporary. Eventually, we will have asset details even for anchors, once those endpoints become available for client use. -->
+<div *ngIf="participantAuthorized && isAnchor">
+	<app-anchor-assets [issuedAssetsLoaded]="issuedAssetsLoaded" [error]="error"></app-anchor-assets>
+</div>
+
+<div *ngIf="participantAuthorized && !isAnchor" class="margin-height margin-width">
+	<div fxLayout="row" class="row title" fxLayoutAlign="space-between center">
+		<h3 class="bx--type-gamma">Issued Assets</h3>
+		<button ibmButton="primary" size="sm" (click)="openAssetModal(issuedAssetType)">
+        <span>Issue New Asset</span>
+        <svg class="bx--btn__icon"  width="16" height="16" viewBox="0 0 16 16">
+      <path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+      </svg>
+    </button>
+	</div>
+
+	<div *ngIf="error">
+		<ibm-notification [notificationObj]="{
+				type: 'error',
+				title: 'Server Error',
+				message: 'Could not load data from server. Please contact an administrator.'}">
+		</ibm-notification>
+	</div>
+
+	<ng-container *ngIf="!error">
+		<div *ngIf="pendingAssetRequests && pendingAssetRequests.length > 0" fxLayout="column" class="margin-height"
+			fxLayoutGap="20px">
+
+			<ng-container *ngFor="let asset of pendingAssetRequests">
+				<app-notification-tile fxFlexFill type="warning" title="Pending" [content]="requestTemplate"
+					[hasAction]="true" (click)="openAssetModal('DO', asset)">
+				</app-notification-tile>
+
+				<ng-template #requestTemplate>
+					<p><label class="bx--label">New Asset Request</label></p>
+					<p>A request to issue a new asset: <span class="bx--label">{{ asset.asset_code }}</span> is pending
+						admin approval.</p>
+				</ng-template>
+			</ng-container>
+		</div>
+
+		<!-- Loader -->
+		<div *ngIf="!issuedAssetsLoaded" fxLayout="row" fxLayoutAlign="center center">
+			<ibm-loading [overlay]="false"></ibm-loading>
+		</div>
+
+		<!-- Request is loaded. Display assets. -->
+		<div *ngIf="issuedAssetsLoaded" fxLayout="row wrap" class="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+
+			<app-asset-card *ngFor="let asset of accountService.issuedAssets" [asset]="asset"
+				fxFlex.gt-md="0 0 calc(100%/3 - 20px)" fxFlex.gt-xs="0 0 calc(50% - 20px)" fxFlex.xs="0 0 100%"
+				(modalOpened)="openAssetModal(asset.type, asset)">
+			</app-asset-card>
+
+			<div *ngIf="!accountService.issuedAssets || accountService.issuedAssets.length === 0" class="row"
+				fxFlexFill>
+				<div class="center italic tall">
+					No issued assets found for this participant.
+				</div>
+			</div>
+		</div>
+	</ng-container>
+</div>

@@ -1,0 +1,54 @@
+<div fxLayout="column">
+
+	<div fxLayout="column">
+
+		<div fxLayout="row">
+			<div fxFlex fxLayout="row" class="full-width title-container" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+				<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width">
+					<h1 class="bx--type-alpha">Endpoints</h1>
+				</div>
+			</div>
+			<div fxFlex fxHide.lt-lg class="bg-dark" *ngIf="false"></div>
+		</div>
+
+		<div *ngIf="swaggerService.navPaths">
+
+			<div fxLayout="column" *ngFor="let item of swaggerService.navPaths | keyvalue">
+
+				<div fxLayout="column">
+
+					<div class="operation" *ngFor="let navPath of item.value">
+						<app-operation [navPath]="navPath"></app-operation>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div>
+
+		<div fxLayout="row" class="full-width title-container" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+			<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width">
+				<h1>Models</h1>
+			</div>
+		</div>
+
+		<div *ngFor="let model of swaggerService._jsonSpec.definitions | keyvalue" fxLayoutAlign="center center">
+
+			<div fxLayout="column" class="full-width restrict-width" ngClass.gt-xs="margin-width">
+
+				<div class="schema" [id]="swaggerService.jumpText('model', '', model.value.title)"></div>
+
+				<app-model [model]="model"></app-model>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

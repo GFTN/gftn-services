@@ -1,0 +1,18 @@
+title: payoutLocationUpdateRequest
+description: List of updated payout location attributes. Based on https://schema.org/LocalBusiness
+type: object
+required:
+  - update_type
+  - id
+  - updated_payload
+properties:
+  updated_payload:
+    description: The updated payout location payload
+    $ref: 'payoutLocation.yaml'
+  id:
+    type: string
+    description: The identifier of the payout location
+    
+externalDocs:
+  url: '#/definitions/payoutLocationUpdateRequest'
+x-go-name: PayoutLocationUpdateRequest

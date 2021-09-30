@@ -1,0 +1,1500 @@
+swagger: "2.0"
+info:
+  title: World Wire Participant Service API
+  description: >
+    Client Facing API for Participants to interact with World Wire.
+  version: 1.0.0
+host: api.worldwire.io
+basePath: /v1/client
+schemes:
+  - https
+paths:
+
+  /accounts:
+    get:
+      tags:
+        - Accounts
+      summary: List all your accounts
+      description: >
+        Returns a list of accounts created on world wire for you. Issuing account will have name "issuing"
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: All accounts for the participant created on world wire
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/account.yaml'
+        400:
+          description: Error getting accounts information for this participant
+
+  /accounts/{account_name}:
+    get:
+      tags:
+        - Account
+      summary: Retrieve the ledger address from a specific account
+      description: >
+        Returns leger address for requested account
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: account_name
+          type: string
+          required: true
+          description: a name to identify this account
+      responses:
+        200:
+          description: Found ledger address for requested participant account
+          schema:
+             $ref: '../gftn-models/models/account.yaml'
+        400:
+          description: Error getting account information for this participant
+
+  /accounts/{account_name}/{cursor}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    post:
+      x-base-url: /listener
+      x-group-e: Accounts
+      tags:
+        - Payment
+        - Cursor
+      summary: Reset cursor location on a specific account
+      description: >
+        Restarts the payment listener service on a specific account based on the cursor you supply. You'd use this in case you want to reprocess transactions for whatever reason (i.e. some kind of transaction glitch). Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: account_name
+          required: true
+          description: Name of operating or issuing account
+          type: string
+        - in: path
+          name: cursor
+          required: true
+          type: string
+          description: last read cursor location for this given operating account
+      responses:
+        200:
+          description: cursor posted successfully
+        400:
+          description: Error posting Cursor for this account
+  
+  /accounts/{account_name}/sweep:
+  
+    # 
+    #  Developer: @Aaron
+    #
+  
+    post:
+      x-base-url: /api
+      x-group-e: Accounts
+      tags:
+        - Sweep
+        - Transfer
+      summary: Consolidate funds into one account
+      description: >
+          Sweeps/Transfers specific asset(s) from multiple/one account(s) to another.
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          required: true
+          name: account_name
+          type: string
+          description: >
+            Name of the operating account where you're going to consolidate/sweep fund into, from other account balances.
+        - in: body
+          name: sweepInstruction
+          required: true
+          description: Specify the source accounts and related assets that will be swept/ transferred to the target account.
+          schema:
+            $ref: '../gftn-models/models/sweepInstruction.yaml'
+      responses:
+        200:
+          description: Sweep/Transfer successfully. Here's your receipt.
+          schema:
+            $ref: '../gftn-models/models/sweepReceipt.yaml'
+        400:
+          description: Bad Request due to insufficient fund or invalid trust line establishment
+
+  /assets:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Assets
+      tags:
+        - all
+        - assets
+        - value
+        - money
+      summary: List all assets
+      description: >
+        Returns a list of all assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: All assets issued on World Wire
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/asset.yaml'
+        404:
+          description: No assets issued on World Wire
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+    post:
+      x-base-url: /rdo
+      x-group-e: Assets
+      tags:
+        - assets
+        - issuance
+      summary: Create a digital obligation
+      description: >
+        Issues a Digital Obligation on World Wire. These are similar to real-life IOUs, in the sense that they are a promise to pay. Participants keep track of amounts owed to one another, and agree to settle at a future date. After issuing a DO, it will be visible to all Participants on the network. Prior to sending or exchanging a DO, a Participant must establish trust. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          required: true
+          name: asset_code
+          type: string
+          description: Asset code of the Digital Obligation to be issued. This code should follow the 5 character convention -  the first 3 characters should be a 3-letter ISO currency code (like USD) and the last 2 characters should be DO (Digital Obligation).
+        - in: query
+          required: true
+          name: asset_type
+          type: string
+          enum:
+            - DO
+          description: A two-letter identifier. In most cases, the asset being issued would be a Digital Obligation (DO) however, Anchor accounts can also create stablecoin Digital Asset (DA) types too.
+      responses:
+        200:
+          description: The asset has been issued
+          schema:
+            $ref: '../gftn-models/models/asset.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: The asset could NOT be issued due to error retrieving Issuing Account
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        500:
+          description: The asset could NOT be issued due to error communicating with ledger
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /assets/participants/{participant_id}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Assets
+      tags:
+        - issued
+        - trusted
+        - both
+        - assets
+      summary: List a participant's assets
+      description: >
+        Returns a list of all assets that a specific Participant on World Wire either trusts, or has issued themselves. You are able to filter these results based on your preferences. Trusted assets (which have been issued by other participants) could be DOs or DAs. Issued assets are only those that the Participant has issued from their issuing account. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          description: >
+            The identifier for a specific Participant on the World Wire network. You can see samples if you make a GET request to the /participants endpoint.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+        - in: query
+          name: type
+          # should this be an enum with these string options?
+          required: true
+          type: string
+          description: Determines what assets you will get back in the response. Allowed values are "both", "issued", and "trusted".
+      responses:
+        200:
+          description: Return issued assets or trusted assets or both for the Participant
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/asset.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: No trusted assets
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /assets/issued:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Assets
+      tags:
+        - all
+        - assets
+      summary: List your issued assets
+      description: >
+        Returns a list of all your issued assets on World Wire. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: All assets issued on World Wire by this participant
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/asset.yaml'
+        404:
+          description: No assets issued on World Wire by this participant
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /assets/accounts/{account_name}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Assets
+      tags:
+        - assets
+        - account
+      summary: List your trusted assets from a specific account
+      description: >
+        Returns a list of all the assets you're able to receive, in a specified account. Each result indicates that a trust was established with the whitelisted issuing Participant in advance, allowing you to receive it in this specific account. If you have multiple Operating accounts, you must extend a trust from each account in order to hold the asset in each. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          required: true
+          name: account_name
+          type: string
+          description: >
+            Name of the operating or issuing account. To determine a valid account name, you can make a GET request to the /participants endpoint. At a minimum, there is a "default" operating account, but you can also use "issuing" to list assets on your Issuing Account.
+      responses:
+        200:
+          description: Trusted assets were returned
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/asset.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: Trusted assets were not returned
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /balances/accounts/{account_name}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Balances
+      tags:
+        - current
+        - amount
+        - account
+        - balance
+      summary: Retrieve an account's asset balance
+      description: >
+        Retrieves the balance of a Digital Asset or Obligation in a specified account. Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          required: true
+          name: account_name
+          type: string
+          description: >
+            The name of the Operating Account. All accounts have an intially created "default" account, but yours will be different if you have other accounts.
+        - in: query
+          required: false
+          name: asset_code
+          type: string
+          description: The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.
+        - in: query
+          name: issuer_id
+          description: >
+            Asset issuer required for non-native (non-XLM) assets. To see all available asset issuers you can retrieve participants from the /participants endpoint.
+          required: false
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+      responses:
+        200:
+          description: >
+            Current balances of assets in the specified account
+          schema:
+            $ref: '../gftn-models/models/balance.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: There is no matching record found for the given asset and issuer
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /exchange:
+
+    # 
+    #  Developer: @Aaron
+    #
+
+    # TODO: (v3.0.0.0) this needs to be moved to /transactions/exchange
+    # this description is a special case that shouldnt be writtend as a template as much as the others, the send will probably be the same
+    # NOTE: I've nested this under the Transactions group ahead of the the actual endpoint path change in v3.0.0.0
+    post:
+      x-base-url: /quotes
+      x-group-e: Transactions
+      tags:
+        - atomic
+        - swap
+      summary: Exchange assets
+      description: >
+        Initiates a two-way exchange. After requesting quotes and ultimately choosing one to act on, Participants use this endpoint to perform an atomic swap between their currently held source asset in exchange for the specified target asset from the quote provider.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: ExchangeEnvelope
+          required: true
+          description: This package of information will be sent in the request and detail the quote being acted on, accounts used, and amount to exchange.
+          schema:
+            $ref: '../gftn-models/models/exchangeEnvelope.yaml'
+      responses:
+        200:
+          description: Assets exchanged successfully. Here's your receipt.
+          schema:
+            $ref: '../gftn-models/models/exchangeReceipt.yaml'
+        404:
+          description: Error occurred during exchange
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        400:
+          description: Missing or invalid parameters in request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /fees/request/{participant_id}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    post:
+      x-base-url: /fee
+      x-group-e: Participants
+      tags:
+        - cost
+        - price
+        - fee
+      summary: Request payment fees from a participant
+      description: >
+        Submits a request to a specific RFI participant for the fees they would charge you to receive a payment, on behalf of an ultimate beneficiary. Learn more about Fees in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          description: >
+            The identifier for a specific Participant (RFI) on the World Wire network.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+        - in: body
+          name: FeesRequest
+          required: true
+          description: This model is sent sent to the RFI to calculate the transaction fees for a payment
+          schema:
+            $ref: '../gftn-models/models/feesRequest.yaml'
+          x-go-name: FeesRequest
+      responses:
+        200:
+          description: Successfully retrieved fees.
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /fees/response/{participant_id}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    post:
+      x-base-url: /fee
+      x-group-e: Participants
+      tags:
+        - cost
+        - price
+        - fee
+      summary: Submit fee response to a participant
+      description: >
+        The Participant (RFI) uses this to submit their fees back to another Participant (OFI).
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          description: >
+            The identifier for a specific Participant (OFI) on the World Wire network.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+        - in: body
+          name: FeesResponse
+          required: true
+          description: >
+            The details of the RFI's fees which is sent to the OFI as a response.
+          schema:
+            $ref: '../gftn-models/models/transactionFees.yaml'
+          x-go-name: TransactionFees
+      responses:
+        200:
+          description: Successfully sent out the fee response.
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /message:
+
+    # 
+    #  Developer: @John
+    #
+
+    get:
+      x-base-url: /gateway
+      x-group-e: Gateway
+      tags:
+        - gateway
+        - message
+      summary: Retrieve messages from World Wire
+      description: >
+        Returns a list of messages from Participants being sent to you. You filter these messages by including a query parameter. Options include "fee", "transactions", "payment", and "quotes".
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          required: true
+          name: type
+          type: string
+          enum:
+            - transactions
+            - quotes
+            - payment
+            - fee
+          description: This can be used to specify which type of message to retrieve from World Wire
+      responses:
+        200:
+          description: Query completes successfully
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/gatewayResponse.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        500:
+          description: Internal server error
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /obligations:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Balances
+      tags:
+        - current
+        - amount
+        - account
+        - balance
+      summary: Retrieve your digital obligation balances
+      description: >
+        Retrieves a list of digital obligations and their corresponding cumulative balances that you've issued across World Wire, from your Issuing account. Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          required: false
+          name: asset_code
+          type: string
+          description: The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.
+      responses:
+        200:
+          description: >
+            Returns a list of World Wire participants that are able to hold your issued asset and the balances they currently hold.
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/balance.yaml'
+        401:
+          description: issuer in input is not authorized to view this information
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: no account found with an outstanding balance for the given asset code and issuer
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /obligations/{asset_code}:
+
+    # 
+    #  Developer: @Aaron
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Balances
+      tags:
+        - current
+        - amount
+        - account
+        - obligations
+      summary: Retrieve a list of participants holding your specific obligation
+      description: >
+        Retrieves a list of Participants on World Wire who hold a specified digital obligation issued by you. Learn more about Accounts in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: asset_code
+          required: true
+          type: string
+          description: The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.
+      responses:
+        200:
+          description: >
+            Returns a list of all obligations owed to me by other participants.
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/obligation.yaml'
+        400:
+          description: asset_code is not valid.
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: no asset found for a given issuer and asset code
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /participants:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Participants
+      tags:
+        - all
+        - Banks
+        - PSPs
+        - Institutions
+      summary: List all participants
+      description: >
+        Retrieves a list of all active Participants and associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: country_code
+          type: string
+          required: false
+          description: The 2-digit code of the country where the Participants are located.
+        - in: query
+          name: asset_code
+          type: string
+          required: false
+          description: The identifier of the asset balance being queried. For a list of assets, retrieve all World Wire assets from the /assets endpoint.
+        - in: query
+          name: issuer_id
+          description: >
+            Identifier of the Issuer of this asset.
+          required: false
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+      responses:
+        200:
+          description: Retrieved Participants on World Wire
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/participant.yaml'
+        404:
+          description: No Participants found on World Wire
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /participants/{participant_id}:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Participants
+      tags:
+        - participants
+        - id
+      summary: Retrieve a specific participant
+      description: >
+        Retrieves a specific Participant and their associated data on World Wire. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          description: >
+            Identifier of a WorldWire Participant. To get a list of all participants, make a GET request to /participants.
+          required: true
+          type: string
+          maxLength: 32
+          minLength: 5
+          pattern: '^[a-zA-Z0-9-]{5,32}$'
+      responses:
+        200:
+          description: Successfully retrieved a WorldWire Participant.
+          schema:
+            $ref: '../gftn-models/models/participant.yaml'
+        404:
+          description: Whoops, no Participant found with that ID on World Wire.
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /participants/whitelist:
+
+    # 
+    #  Developer: @Aaron
+    #
+
+    # TODO: need to move the POST and DELETE into /participants/{participant_id}/whitelist
+    get:
+      x-base-url: /whitelist
+      x-group-e: Participants
+      tags:
+        - participants
+        - whitelist
+      summary: List all your whitelisted participants
+      description: >
+        Retrieves a list of all Participants you have added to your whitelist. Learn more about Participants in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Participant ID array that is on your whitelist
+          schema:
+            type: array
+            items:
+              type: string
+
+        404:
+          description: error - failed to check if Participant is in the whitelist
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+    post:
+      x-base-url: /whitelist
+      x-group-e: Participants
+      tags:
+        - participants
+        - whitelist
+      summary: Whitelist a participant
+      description: >
+        Adds the supplied Participant to your whitelist. Learn more about Whitelists in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      parameters:
+        - in: body
+          name: participant_id
+          description: The paticipant ID that will be added to whitelist.
+          required: true
+          schema:
+            type: string
+            maxLength: 32
+            minLength: 5
+            pattern: '^[a-zA-Z0-9-]{5,32}$'
+      responses:
+        200:
+          description: Participant was added to whitelist
+        404:
+          description: Cannot add the given Participant to the source account's whitelist
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        406:
+          description: Participant previously added to the source account's whitelist
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+    delete:
+      x-base-url: /whitelist
+      x-group-e: Participants
+      tags:
+        - participants
+        - whitelist
+      summary: Remove a participant from your whitelist
+      description: >
+        Removes the specified Participant from your whitelist. This stops the Participant from being able to transact with your accounts. Between two transacting parties, only one of the participants will ever need to remove the other from their whitelist, in order to prevent both from transacting. Learn more about Whitelists in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      parameters:
+        - in: body
+          name: participant_id
+          description: The paticipant ID that will be removed from whitelist.
+          required: true
+          schema:
+            type: string
+            maxLength: 32
+            minLength: 5
+            pattern: '^[a-zA-Z0-9-]{5,32}$'
+      responses:
+        200:
+          description: Participant removed from whitelist
+        404:
+          description: Failed to remove Participant from whitelist
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        406:
+          description: Participant was not found on the source account's whitelist
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /payload/sign:
+    post:
+      x-base-url: /crypto
+      x-group-e: Signatures
+      tags:
+        - sign
+        - payload
+      summary: Sign a payload
+      description: Sign a ISO2002 complianant payload using enveloping signatures
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Payload
+          required: true
+          description: The payload needs to be signed
+          schema:
+            $ref: '../gftn-models/models/requestPayload.yaml'
+      responses:
+        200:
+          description: Signed XML payload using enveloping digital signature
+          schema:
+            $ref: '../gftn-models/models/payloadWithSignature.yaml'
+        404:
+          description: Your payload is incorrect.
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /payout:
+
+    # 
+    #  Developer: @John
+    #
+
+    get:
+      x-base-url: /payout
+      x-group-e: Payout Locations
+      tags:
+        - payout
+        - location
+      summary: List all payout locations
+      description: >
+        Returns a list of all payout locations and their associated details on World Wire. We have followed the schema defined at https://schema.org/LocalBusiness. Learn more about Payout Locations in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          type: string
+          required: false
+          description: The id of the payout location
+        - in: query
+          name: name
+          type: string
+          required: false
+          description: The name of the payout location
+        - in: query
+          name: type
+          type: string
+          required: false
+          description: The type of the payout location
+        - in: query
+          name: image
+          type: string
+          required: false
+          description: The image url of the payout location
+        - in: query
+          name: url
+          type: string
+          required: false
+          description: The url of the payout location
+        - in: query
+          name: telephone
+          type: string
+          required: false
+          description: The telephone of the payout location
+        - in: query
+          name: currency
+          type: string
+          required: false
+          description: The currency accepted by the payout location
+        - in: query
+          name: child
+          type: string
+          required: false
+          description: The child locations of the payout location
+        - in: query
+          name: parent
+          type: string
+          required: false
+          description: The parent location of the payout location
+        - in: query
+          name: member
+          type: string
+          required: false
+          description: The financial institutions that the payout location belongs to 
+        - in: query
+          name: receive_mode
+          type: string
+          required: false
+          description: The payout method provided by the payout location 
+        - in: query
+          name: city
+          type: string
+          required: false
+          description: The city of the payout location 
+        - in: query
+          name: state
+          type: string
+          required: false
+          description: The state of the payout location 
+        - in: query
+          name: street
+          type: string
+          required: false
+          description: The street of the payout location
+        - in: query
+          name: country
+          type: string
+          required: false
+          description: The country of the payout location  
+        - in: query
+          name: postal_code
+          type: string
+          required: false
+          description: The postal code of the payout location 
+        - in: query
+          name: address
+          type: string
+          required: false
+          description: Find the payout locations nearby the given address
+        - in: query
+          name: geo
+          type: string
+          required: false
+          description: The geo locations of the payout location 
+      responses:
+        200:
+          description: Retrieved Payout Locations on World Wire
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/payoutLocation.yaml'
+        400:
+          description: missing or invalid parameters in the request
+        404:
+          description: Payout location not found
+        500:
+          description: Internal server error
+  
+  /quotes:
+
+    # 
+    #  Developer: @Aaron
+    #
+
+    get:
+      x-base-url: /quotes
+      x-group-e: Quotes
+      tags:
+        - get
+        - quote
+      summary: List all quotes
+      description: >
+        Retrieves all or specific active quotes on World Wire based on filters you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: QuoteFilter
+          required: false
+          schema:
+            $ref: '../gftn-models/models/quoteFilter.yaml'
+      responses:
+        200:
+          description: Quotes retrieved successfully.
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/quoteStatus.yaml'
+        404:
+          description: Could not find quotes. You probably don't have any.
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+    post:
+      # keeping the below commented so this POST request doesnt show up in the docs. It will support Participants who's SDKs don't support GET requests with body payloads.
+      ###############################
+      # x-base-url: /quotes
+      # x-group-e: Quotes
+      tags:
+        - get
+        - quote
+      summary: List all quotes
+      description: >
+        Retrieves all or specific active quotes on World Wire based on filters you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: QuoteFilter
+          required: false
+          schema:
+            $ref: '../gftn-models/models/quoteFilter.yaml'
+      responses:
+        200:
+          description: Quotes retrieved successfully.
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/quoteStatus.yaml'
+        404:
+          description: Could not find quotes. You probably don't have any.
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+    delete:
+      x-base-url: /quotes
+      x-group-e: Quotes
+      tags:
+        - cancel
+        - quote
+      summary: Cancel quotes
+      description: >
+        Cancels all or specific active quotes on World Wire based on filters you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: QuoteFilter
+          required: true
+          schema:
+            $ref: '../gftn-models/models/quoteFilter.yaml'
+      responses:
+        200:
+          description: Quotes were cancelled successfully.
+        400:
+          description: Missing or invalid parameters in the request
+        404:
+          description: Didn't find any quotes to cancel.
+
+  /quotes/{quote_id}:
+
+    # 
+    #  Developer: @Aaron
+    #
+
+    get:
+      x-base-url: /quotes
+      x-group-e: Quotes
+      tags:
+        - get
+        - quote
+      summary: Retrieve a specific quote
+      description: >
+        Retrieves a specific quote and it's associated terms by the identifier that you supply. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: quote_id
+          required: true
+          type: string
+          description: Unique identifier for the quote.
+      responses:
+        200:
+          description: Quote retrieved successfully.
+          schema:
+            $ref: '../gftn-models/models/quoteStatus.yaml'
+        404:
+          description: Could not find your quote_id.
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+    delete:
+      x-base-url: /quotes
+      x-group-e: Quotes
+      tags:
+        - cancel
+        - quote
+      summary: Cancel a specific quote
+      description: >
+        The Participant (RFI) uses this to cancel a currently active quote previously provided to another Participant (OFI). Keep in mind if the quote you are trying to cancel has already been acted upon, you cannot cancel it. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: quote_id
+          required: true
+          type: string
+          description: Unique identifier for a quote as requested by a Participant (RFI) in the World Wire network.
+      responses:
+        200:
+          description: Delete quote successfully
+        400:
+          description: Missing or invalid parameters in the request
+        404:
+          description: Given quote_id not found on World Wire
+    post:
+      x-base-url: /quotes
+      x-group-e: Quotes
+      tags:
+        - submit
+        - quote
+      summary: Submit a quote
+      description: >
+        The Participant (RFI) uses this to submit a quote to another Participant (OFI). Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire. 
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: quote_id
+          required: true
+          type: string
+          description: Unique identifier for a quote as requested by a Participant (RFI) in the World Wire network.
+        - in: body
+          name: QuoteEnvelope
+          required: true
+          description: This package of information will be sent in the request and detail the quote being acted on, accounts used, and amount to exchange.
+          schema:
+            $ref: '../gftn-models/models/quoteEnvelope.yaml'
+      responses:
+        200:
+          description: quote was sent successfully
+        400:
+          description: Missing or invalid parameters in the request
+        404:
+          description: Given quote_id not found on World Wire
+
+  /quotes/request:
+
+    # 
+    #  Developer: @Aaron
+    #
+
+    post:
+      x-base-url: /quotes
+      x-group-e: Quotes
+      tags:
+        - price
+        - cost
+        - detail
+        - proposal
+        - option
+      summary: Submit a request for quotes
+      description: >
+        Posts a request for quotes from trusted, whitelisted Participants on World Wire, and simultaneously retrieves an identifier for the inquiry. You can use this identifier on the /quotes/request/{request_id} endpoint to retrieve all the corresponding quotes received. Some Participants will reply with a quote faster than others. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: QuoteRequest
+          required: true
+          description: This model is sent as a package and contains details of source asset, target asset, and desired limit to exchange.
+          schema:
+            $ref: '../gftn-models/models/quoteRequest.yaml'
+          x-go-name: QuoteRequest
+      responses:
+        200:
+          description: Successfully requested quotes. Here's your receipt.
+          schema:
+            $ref: '../gftn-models/models/quoteRequestReceipt.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /quotes/request/{request_id}:
+
+    # 
+    #  Developer: @Aaron
+    #
+
+    # this will get merged into the /quotes endpoint as an optional param in the QuoteFilter model soon
+    get:
+      x-base-url: /quotes
+      x-group-e: Quotes
+      tags:
+        - get
+        - quote
+      summary: List all quotes from a specific request
+      description: >
+        Retrieves all quotes related to a previously made quote request. Learn more about Quotes in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: request_id
+          required: true
+          type: string
+          description: Unique identifier for the request (for quotes from other Participants) made by a Participant (OFI) in the World Wire network.
+      responses:
+        200:
+          description: Quotes retrieved successfully.
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/quoteStatus.yaml'
+        404:
+          description: Given request_id not found on WorldWire
+
+  /sign:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    # probably want to make the name of the body param match the model, so rename the requestPayload model to payload.yaml
+    post:
+      x-base-url: /crypto
+      x-group-e: Signatures
+      tags:
+        - sign
+        - payload
+      summary: Sign a payload
+      description: >
+        Signs a variety of payloads and returns a cryptographically signed version back.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Payload
+          required: true
+          description: The payload that needs to be signed.
+          schema:
+            $ref: '../gftn-models/models/requestPayload.yaml'
+      responses:
+        200:
+          description: Signed successfully. Here's you go.
+          schema:
+            $ref: '../gftn-models/models/signature.yaml'
+        404:
+          description: Your payload is incorrect.
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /token/refresh:
+
+    # 
+    #  Developer: @Chase
+    #
+
+    # TODO: refactor these to /auth/refresh
+    get:
+      x-base-url: /auth
+      x-group-e: Auth
+      tags:
+        - token
+        - jwt
+        - refresh
+      summary: Refresh a token
+      description: >
+        Retrieves a new token, and a new 15 minute expiration window. You may update your tokens faster than our standard, but please note, authentication tokens are only valid for 15 minutes. If your authentication token expires, you will need your administrator to generate a new one by logging in with their IBM ID and IBM Verify 2FA token.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: token
+          description: This is the current token you want to refresh.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully refreshed token. The token is valid for 15 minutes.
+          schema:
+            type: string
+        401:
+          description: Unauthorized, account name and jwt token is invalid
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: There is no matching record found for the given account name
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /transactions:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    get:
+      x-base-url: /api
+      x-group-e: Transactions
+      tags:
+        - transaction status
+        - transaction details
+      summary: List all transactions
+      description: >
+        Retrieves a list of your transactions and their details based on filters you supply. Learn more about Transactions in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: query_type
+          type: string
+          enum:
+            - INSTRUCTION_ID
+            - TRANSACTION_ID
+            - DATE_RANGE
+          required: true
+          description: >
+            This identifier will filter transactions based on what you supply. You can filter by date range by using `DATE_RANGE`, an `INSTRUCTION_ID` (which is generated by the OFI at the start of a transaction and may exist even if the transaction ultimately fails), or a `TRANSACTION_ID` which the ledger generates when transactions are successfully posted to the ledger, and will only exist if the ledger is successfully updated.
+        - in: query
+          name: query_data
+          type: string
+          description: Transaction request detailing information for transaction queries. Either the `INSTRUCTION_ID` value or `LEDGER_ID` value
+        - in: query
+          name: start_date
+          type: string
+          format: date
+          description: Full-date formatted as `YYYY-MM-DD` that indicates start of the query range, required for query_type=`DATE_RANGE`
+        - in: query
+          name: end_date
+          type: string
+          format: date
+          description: Full-date format as `YYYY-MM-DD` that indicates end of the query range, required for query_type=`DATE_RANGE`
+        - in: query
+          name: batch
+          type: integer
+          description: The number of transactions in one single response page
+        - in: query
+          name: page
+          type: integer
+          description: The page of transaction history
+      responses:
+        200:
+          description: >
+            Successfully found Transactions matching your filter(s). Here you go.
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/transaction.yaml'
+        400:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+        404:
+          description: No transaction details found based on query criteria
+          schema:
+            $ref: '../gftn-models/models/error.yaml'
+
+  /transactions/redeem:
+
+    # 
+    #  Developer: @John
+    #
+
+    post:
+      x-base-url: /send
+      x-group-e: Transactions
+      tags:
+        - stable coins
+        - setup
+        - redeem
+        - cashout
+      summary: Redeem digital asset
+      description: >
+        Returns a digital asset you're holding for it's corresponding value off the network. To do this, send the amount of the asset you wish to redeem back to Anchor. Learn more about Assets in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: sendPacs
+          required: true
+          description: This will include the message id, message type, encoded message and anchor id.
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+      responses:
+        200:
+          description: Successfully sent. Here's your receipt.
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+        404:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+
+  /transactions/reply:
+
+    # 
+    #  Developer: @Peter
+    #
+
+    # probably should write this a little more friendly
+    post:
+      x-base-url: /send
+      x-group-e: Transactions
+      summary: Reply to a payment request
+      description: >
+        An Receiving Financial Institution (RFI) uses this to reply to an Originating Financial Institution (OFI) payment request. After an RFI receives a PACS008 request from an OFI on World Wire, it will complete federation and compliance checks internally on their backend system. Once the checks complete, the RFI will submit an IBWF001 message to the OFI with a confirmation or rejection status. Learn more about Sending Payments in the [Guides](??base_url??/docs/??version??/guides) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: sendPacs
+          required: true
+          description: This will include the message id of the request, message type, encoded message and OFI participant id.
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+      responses:
+        200:
+          description: Transaction response was successfully sent to the Kafka broker.
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+        404:
+          description: Error occured during response handling.
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+
+  /transactions/send:
+
+    # 
+    #  Developer: @Peter
+    #
+
+    post:
+      x-base-url: /send
+      x-group-e: Transactions
+      tags:
+        - clear
+        - init
+        - execute
+        - transact
+      summary: Send a payment request
+      description: >
+        An Originating Financial Institution (OFI) uses this to submit a one-way payment request on behalf of their customer to a Receiving Financial Institution (RFI) on behalf of their ultimate beneficiary. Learn more about Sending Payments in the [Guides](??base_url??/docs/??version??/guides) section of World Wire.
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: sendPacs
+          required: true
+          description: This will include the message id, message type, encoded message and RFI participant id.
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+      responses:
+        200:
+          description: Successfully sent. Here's your receipt.
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+        404:
+          description: Missing or invalid parameters in the request
+          schema:
+            $ref: '../gftn-models/models/sendPacs.yaml'
+
+  /trust:
+
+    # 
+    #  Developer: @Seema
+    #
+
+    # TODO: this wil get relocated under the Accounts resource group in v3.0.0.0
+    post:
+      x-base-url: /api
+      x-group-e: Trust
+      tags:
+        - asset trust
+      summary: Submit asset trust permissions
+      description: >
+        Changes the trust relationship you have with another Participant. Request, allow, or revoke permission to transact with another Participant in a specific asset by supplying a permission. Learn more about Trust in the [Concepts](??base_url??/docs/??version??/concepts) section of World Wire.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          required: true
+          name: Trust
+          description: Indicate who you are trusting
+          schema:
+            $ref: '../gftn-models/models/trust.yaml'
+          x-go-name: Trust
+      responses:
+        200:
+          description: Trust parameter changes have succeeded
+        404:
+          description: Cannot change or allow trust
+          schema:
+            $ref: '../gftn-models/models/error.yaml'

@@ -1,0 +1,13 @@
+<div ngClass.lt-md="margin-height">
+
+	<div fxLayout="column">
+
+		<a class="nav-link" routerLink="accounts" routerLinkActive="active-link">Participant Accounts</a>
+
+		<!-- Only super admins that are ADMINS can manage super users -->
+		<a class="nav-link" *ngIf="show(['admin'])" routerLink="users" routerLinkActive="active-link">Super Users</a>
+
+		<a class="nav-link" routerLink="blocklist" routerLinkActive="active-link">Manage Blocklist</a>
+
+	</div>
+</div>

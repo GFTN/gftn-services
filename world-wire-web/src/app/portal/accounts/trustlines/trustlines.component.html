@@ -1,0 +1,273 @@
+<div id="notification"></div>
+
+<div class="margin-width">
+	<ibm-tabs class="bordered">
+		<ibm-tab *ngFor="let type of supportedRequestTypes" [heading]="type.key" [active]="currRequestType === type.key"
+			(selected)="getRequestsByType(type.key)">
+		</ibm-tab>
+	</ibm-tabs>
+
+	<div class="row">
+		<!-- Filters -->
+		<section class="bx--tile" id="filters" fxLayout="column">
+			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+				<legend fxFlex="15%" fxFlex.gt-sm="100px" class="bx--label text-right">Status:</legend>
+
+				<div fxLayout="row wrap" ngClass.gt-sm="filterRow" fxLayoutGap="20px">
+					<ng-container *ngIf="!statusFilters">
+						<div *ngFor="let item of ' '.repeat(2).split(''); let i = index;"
+							class="bx--form-item bx--checkbox-wrapper" fxLayout="row" fxLayoutAlign="start center">
+							<input type="checkbox" class="bx--checkbox" [id]="'loader-' + i"
+							name="loader-option" disabled />
+							<label fxFlex="100px" class="bx--checkbox-label" [for]="'asset-' + i"><p class="loading"></p></label>
+						</div>
+					</ng-container>
+					<!-- List of Status Filters. Different set for each request type. -->
+					<ng-container *ngIf="statusFilters">
+						<div class="bx--form-item bx--checkbox-wrapper"
+							*ngFor="let status of statusFilters; let i = index;">
+							<input #statusFilterOption type="checkbox" class="bx--checkbox" [id]="'status-filter-' + i" name="status-filter-option" [(ngModel)]="status.checked" (change)="filterByStatus()">
+							<label class="bx--checkbox-label" [for]="'status-filter-' + i">{{status.label}}</label>
+						</div>
+					</ng-container>
+					<!-- View All Checkbox -->
+					<div class="bx--form-item bx--checkbox-wrapper">
+						<input #statusFilterOption type="checkbox" class="bx--checkbox" id="statusAll" name="status-all" [(ngModel)]="statusAll" (change)="selectAllStatuses()">
+						<label class="bx--checkbox-label" for="statusAll">View All</label>
+					</div>
+				</div>
+			</div>
+
+			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+				<legend fxFlex="15%" fxFlex.gt-sm="100px" class="bx--label text-right">Date:</legend>
+				<div class="bx--form-item">
+					<div class="bx--radio-button-group">
+						<!-- Date Filters -->
+						<ng-container *ngFor="let date of dateFilters; let i = index;">
+							<input [id]="'date-filter-' + i" class="bx--radio-button" type="radio" [value]="date.name" name="radio-button" tabindex="0" [(ngModel)]="currDateFilter" (change)="sortByDate()">
+							<label [for]="'date-filter-' + i" class="bx--radio-button__label">
+							<span class="bx--radio-button__appearance"></span>
+							<span>{{date.name}}</span>
+						</label>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- spacer to account for margin/padding on tabs -->
+		<div class="space"></div>
+	</div>
+
+	<div class="row" fxLayout="column" fxLayoutGap="20px" [ngSwitch]="currRequestType">
+		<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+			<div>
+				<h4 class="bx--label">Request Details</h4>
+			</div>
+			<div [ngClass.gt-sm]="'actions'" fxLayout="row" fxLayoutAlign.lt-md="end">
+				<h4 class="bx--label" [ngClass.lt-md]="'text-right'">Actions</h4>
+			</div>
+		</div>
+
+		<!-- Outgoing Requests -->
+		<ng-container *ngSwitchCase="'outgoing'">
+			<div *ngFor="let request of filteredRequests" [ngSwitch]="request.status" fxLayout="row" fxLayoutGap="1px"
+				fxLayoutGap.gt-sm="20px">
+				<app-notification-tile *ngIf="!request.loaded" fxFlexFill [content]="loadingNotificationTemplate">
+				</app-notification-tile>
+				<ng-container *ngIf="request.loaded">
+					<!-- create new template for each request -->
+					<ng-template #outgoingReqTemplate>
+						<p>
+							<label class="bx--label">Last Updated:</label>&nbsp;<span>{{utils.toLocaleDateTime(request.time_updated)}}</span>
+							<span *ngIf="request.requestInitiatedBy">
+									<br/>
+									<label class="bx--label">Request Creator:</label>&nbsp;
+									{{request.requestInitiatedBy}}
+							</span>
+							<span *ngIf="request.requestApprovedBy"> | <label class="bx--label">Request Approver:</label>&nbsp;{{request.requestApprovedBy}}</span>
+							<span *ngIf="request.rejectApprovedBy && !request.requestApprovedBy">
+								<br/>
+								<label class="bx--label">Rejected By:</label> {{ request.rejectApprovedBy }}
+							</span>
+						</p>
+						<br/>
+						<p>Request to hold
+							<span>{{request.limit}}</span>&nbsp;<span class="bx--label">{{request.asset_code}}</span>
+							issued by <span class="bx--label">{{request.issuer_id}}</span> in
+							<span class="bx--label">{{request.account_name}}</span>
+							<span *ngSwitchCase="'initiated'"> is pending admin approval.</span>
+							<span *ngSwitchCase="'requested'"> has been approved by an admin and has been sent to the asset issuer.</span>
+							<!-- Intermediary Pending Step (Outgoing View) -->
+							<span *ngSwitchCase="'allowed'"> has been approved by an admin and has been sent to the asset issuer.</span>
+							<span *ngSwitchCase="'approved'"> was approved by the issuer.</span>
+							<span *ngIf="request.status == 'rejected' && (request.approval_ids && request.approval_ids.length > 0)"> was rejected by the issuer.</span>
+							<span *ngIf="request.status == 'rejected' && !(request.approval_ids && request.approval_ids.length > 0)"> failed.</span>
+							<span *ngSwitchCase="'revoked'"> was revoked by the issuer.</span>
+						</p>
+						<!-- Only show reason for rejection when in rejected state -->
+						<p *ngSwitchCase="'rejected'">
+							<label class="bx--label">Reason for rejection:</label>&nbsp;<span>{{request.reason_rejected ? request.reason_rejected : 'N/A'}}</span>
+						</p>
+					</ng-template>
+
+					<!-- TODO: ADD [link] to tile after participant reputation profile is finished, so we can allow participants to get more information about the requestor/issuer of the trust -->
+					<app-notification-tile fxFlex [type]="getStatusType(request.status)"
+						[title]="getStatusTitle(request.status)" [content]="outgoingReqTemplate">
+					</app-notification-tile>
+					<div fxHide.lt-md ngClass.gt-sm="actions" fxLayout="column" fxLayoutGap="10px">
+						<ng-template [ngTemplateOutlet]="outgoingActionsTemplate"
+							[ngTemplateOutletContext]="{ request: request }"></ng-template>
+					</div>
+					<div class="bx--tile" fxFlex="50px" fxHide.gt-sm>
+						<ibm-overflow-menu [flip]="true" *ngIf="request.status === 'initiated'">
+							<ng-template [ngTemplateOutlet]="outgoingActionsTemplate"
+								[ngTemplateOutletContext]="{ overflow: true, request: request }">
+							</ng-template>
+						</ibm-overflow-menu>
+					</div>
+				</ng-container>
+			</div>
+		</ng-container>
+
+		<!-- Incoming Requests -->
+		<ng-container *ngSwitchCase="'incoming'">
+			<div *ngFor="let request of filteredRequests" [ngSwitch]="request.status" fxLayout="row" fxLayoutGap="1px"
+				fxLayoutGap.gt-sm="20px">
+				<app-notification-tile *ngIf="!request.loaded" fxFlexFill [content]="loadingNotificationTemplate">
+				</app-notification-tile>
+
+				<!-- Only show loaded, successfully requested requests for incoming view -->
+				<ng-container *ngIf="request.loaded && request.requestApprovedBy">
+					<ng-template #incomingReqTemplate>
+						<p>
+							<label class="bx--label">Last Updated:</label>&nbsp;<span>{{utils.toLocaleDateTime(request.time_updated)}}</span>
+						</p>
+						<!-- users of 'Allow' action -->
+						<p *ngIf="request.status === 'allowed' || request.status === 'approved'">
+							<span *ngIf="request.allowInitiatedBy">
+															<label class="bx--label">Allow Initiated By:</label>&nbsp;
+															<span>{{request.allowInitiatedBy}}</span>
+							</span>
+							<span *ngIf="request.allowApprovedBy"> | <label class="bx--label">Allow Approved By:</label>&nbsp;<span>{{request.allowApprovedBy}}</span></span>
+						</p>
+						<p *ngIf="request.status === 'revokePending' || request.status === 'revoked'">
+							<span *ngIf="request.revokeInitiatedBy">
+																<label class="bx--label">Revoke Initiated By:</label>&nbsp;
+																<span>{{request.revokeInitiatedBy}}</span>
+							</span>
+							<span *ngIf="request.revokeApprovedBy"> | <label class="bx--label">Revoke Approved By:</label>&nbsp;<span>{{request.revokeApprovedBy}}</span></span>
+						</p>
+						<!-- users of 'Reject' action -->
+						<p *ngSwitchCase="'rejected'">
+							<span *ngIf="request.rejectInitiatedBy">
+														<label class="bx--label">Rejection Initiated By:</label>&nbsp;
+														<span>{{request.rejectInitiatedBy}}</span>
+							</span>
+							<span *ngIf="request.rejectApprovedBy"> | <label class="bx--label">Rejection Approved By:</label>&nbsp;<span>{{request.rejectApprovedBy}}</span></span>
+						</p>
+						<br/>
+						<p>
+							<span class="bx--label">{{request.requestor_id}}</span>
+							<span *ngSwitchCase="'requested'"> requests </span>
+							<span *ngSwitchCase="'allowed'"> requests </span>
+							<span *ngSwitchCase="'approved'"> was approved </span>
+							<span *ngSwitchCase="'rejected'"> was rejected </span>
+							<span *ngSwitchCase="'revoked'">'s approved request </span>
+							to hold
+							<span>{{request.limit}}</span>&nbsp;<span class="bx--label">{{request.asset_code}}</span>
+							for
+							{{ request.account_name === 'issuing' ? 'their issuing account' : 'one of their operating accounts' }}
+							<span *ngSwitchCase="'revoked'"> has been revoked</span>.
+						</p>
+						<!-- Only show reason for rejection when in rejected state -->
+						<p *ngSwitchCase="'rejected'">
+							<label class="bx--label">Reason for rejection:</label>&nbsp;<span>{{request.reason_rejected ? request.reason_rejected : 'N/A'}}</span>
+						</p>
+					</ng-template>
+
+					<!-- TODO: ADD [link] to tile after participant reputation profile is finished, so we can allow participants to get more information about the requestor/issuer of the trust -->
+					<app-notification-tile fxFlex [type]="getStatusType(request.status)"
+						[title]="getStatusTitle(request.status)" [content]="incomingReqTemplate">
+					</app-notification-tile>
+					<div fxHide.lt-md ngClass.gt-sm="actions" fxLayout="column" fxLayoutGap="10px">
+						<ng-template *ngIf="currRequestType === 'incoming'" [ngTemplateOutlet]="incomingActionsTemplate"
+							[ngTemplateOutletContext]="{ request: request }"></ng-template>
+					</div>
+					<div class="bx--tile" fxFlex="50px" fxHide.gt-sm>
+						<ibm-overflow-menu [flip]="true"  *ngIf="request.status !== 'rejected' && request.status !== 'revoked'">
+							<ng-template [ngTemplateOutlet]="incomingActionsTemplate"
+								[ngTemplateOutletContext]="{ overflow: true, request: request }">
+							</ng-template>
+						</ibm-overflow-menu>
+					</div>
+				</ng-container>
+			</div>
+		</ng-container>
+
+		<ibm-loading *ngIf="!allRequests" [overlay]="false"></ibm-loading>
+
+		<p *ngIf="allRequests && (!filteredRequests || filteredRequests.length === 0)" class="italic">No
+			{{ currRequestType }} requests found for this participant.</p>
+		<div class="margin-height"></div>
+	</div>
+</div>
+
+<ibm-loading *ngIf="loadingRequest" [overlay]="true"></ibm-loading>
+
+<!-- Outgoing Actions -->
+<ng-template #outgoingActionsTemplate let-overflow="overflow" let-request="request">
+	<ng-container [ngSwitch]="request.status">
+		<ng-container *ngSwitchCase="'initiated'">
+			<li class="bx--overflow-menu-options__option">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--primary'" [disabled]="request.requestInitiatedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId, this.sessionService.currentNode.participantId)" (click)="approveCreatedTrustline(request)">Approve</button>
+			</li>
+			<!-- Rejection can be done by either the requestor (user), or participant admin -->
+			<li class="bx--overflow-menu-options__option bx--overflow-menu-options__option--danger">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--danger'" [disabled]="request.requestInitiatedBy !== authService.userProfile.profile.email && !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId, this.sessionService.currentNode.participantId)" (click)="rejectTrustline(request, 'Rejected by Admin.')">Reject</button>
+			</li>
+		</ng-container>
+	</ng-container>
+</ng-template>
+
+<!-- Incoming Actions -->
+<ng-template #incomingActionsTemplate let-overflow="overflow" let-request="request">
+	<ng-container [ngSwitch]="request.status">
+		<ng-container *ngSwitchCase="'requested'">
+			<li class="bx--overflow-menu-options__option">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--primary'" [disabled]="!this.authService.userIsParticipantManagerOrHigher(this.sessionService.institution.info.institutionId)" (click)="allowTrustline(request)">Allow</button>
+			</li>
+			<li class="bx--overflow-menu-options__option bx--overflow-menu-options__option--danger">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--danger'" [disabled]="!this.authService.userIsParticipantManagerOrHigher(this.sessionService.institution.info.institutionId)" (click)="rejectTrustline(request, 'Rejected by Issuer', true)">Reject</button>
+			</li>
+		</ng-container>
+		<ng-container *ngSwitchCase="'allowed'">
+			<li class="bx--overflow-menu-options__option">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--primary'" [disabled]="request.allowInitiatedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="approveAllowedTrustline(request)">Approve</button>
+			</li>
+			<li class="bx--overflow-menu-options__option bx--overflow-menu-options__option--danger">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--danger'" [disabled]="request.allowInitiatedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="rejectTrustline(request)">Cancel</button>
+			</li>
+		</ng-container>
+		<ng-container *ngSwitchCase="'approved'">
+			<li class="bx--overflow-menu-options__option">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--primary'" [disabled]="!this.authService.userIsParticipantManagerOrHigher(this.sessionService.institution.info.institutionId)" (click)="revokeTrustline(request)">Revoke</button>
+			</li>
+		</ng-container>
+		<ng-container *ngSwitchCase="'revokePending'">
+			<li class="bx--overflow-menu-options__option">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--primary'" [disabled]="request.revokeInitiatedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="approveRevokedTrustline(request)">Approve</button>
+			</li>
+			<li class="bx--overflow-menu-options__option">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--danger'" [disabled]="request.revokeInitiatedBy === authService.userProfile.profile.email || !this.authService.userIsParticipantAdmin(this.sessionService.institution.info.institutionId)" (click)="rejectTrustline(request)">Cancel</button>
+			</li>
+		</ng-container>
+	</ng-container>
+</ng-template>
+
+<ng-template #loadingNotificationTemplate>
+	<div fxLayout="column" fxLayoutGap="10px">
+		<p class="loading"></p>
+		<p class="loading"></p>
+		<p class="loading"></p>
+	</div>
+</ng-template>

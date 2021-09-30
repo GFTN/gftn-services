@@ -1,0 +1,237 @@
+<!-- request -->
+<form *ngIf="data.action === 'request'" #tokenForm="ngForm" name="tokenForm" (submit)="request(tokenForm)">
+
+	<div class="full-screen-dialog">
+
+		<div class="bx--modal-container" fxLayout="column">
+
+			<div class="bx--modal-header">
+				<p class="bx--modal-header__label bx--type-delta">
+					API Access Tokens
+				</p>
+				<p class="bx--modal-header__heading bx--type-beta">
+					<span class="capitalize">{{data.action}}</span> Access
+				</p>
+			</div>
+
+			<div class="bx--modal-content" fxFlex>
+
+				<div class="margin-width" fxLayout="column">
+
+					<!-- aud: participant id per the PR -->
+					<div *ngIf="!initNode" class="bx--form-item bx--text-input-wrapper">
+						<label for="aud" class="bx--label">Participant ID
+							<span class="text-danger">*</span>
+						</label>
+						<div class="bx--form__helper-text" [class.static]="initNode">
+							This is your ID in the Participant Registry for the selected environment. This will be
+							prefilled for you depending on what node you have selected.
+						</div>
+						<input *ngIf="!initNode" id="aud" type="text" name="aud" class="bx--text-input" placeholder="participant-a" [(ngModel)]="aud" [disabled]="aud" required>
+					</div>
+
+						<div *ngIf="initNode">Creating JWT token for: <span class="bx--label">{{aud}}</span>.</div>
+						<br/>
+
+						<!-- description text area -->
+						<div class="bx--form-item">
+							<label for="description" class="bx--label">Description <span class="text-danger">*</span></label>
+							<div class="bx--form__helper-text">
+								Describe usage for this token, e.g. 'Test' token for John Smith. (max 200 characters)
+							</div>
+							<textarea #descriptionModel="ngModel" id="description" name="description" class="bx--text-area bx--text-area--v2" rows="4" cols="50" placeholder="This is a test token for John Smith." [(ngModel)]="description" [pattern]="tokenRegexes.description.pattern" maxlength="200" [attr.data-invalid]="descriptionModel.invalid && descriptionModel.touched ? true : null" required></textarea>
+							<div *ngIf="descriptionModel.errors?.required" class="bx--form-requirement">
+								Required
+							</div>
+							<div *ngIf="descriptionModel.errors?.pattern" class="bx--form-requirement">
+								{{ tokenRegexes.description.validationText }}
+							</div>
+						</div>
+
+						<!-- api version select -->
+						<div class="bx--form-item" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start end">
+
+							<div class="bx--select">
+								<label for="version-select" class="bx--label">Version <span class="text-danger">*</span>
+								</label>
+								<select #versionSelectModel="ngModel" id="version-select" class="bx--select-input" name="version-select" [(ngModel)]="module" (change)="listEndpoints(module)">
+									<option class="bx--select-option" *ngFor="let i of versions | keyvalue" [ngValue]="i.value.module">{{i.value.releaseTag}}</option>
+								</select>
+								<svg class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5">
+									<path d="M0 0l5 4.998L10 0z" fill-rule="evenodd" />
+								</svg>
+							</div>
+
+							<div *ngIf="versionSelectModel.errors?.required" class="bx--form-requirement">
+								Required
+							</div>
+						</div>
+						<div class="margin-height"></div>
+						<div class="margin-height" fxLayout="column" fxLayoutGap="10px">
+							<label class="bx--type-gamma">Select Endpoints <span class="text-danger">*</span></label>
+							<br/>
+							<!-- <button class="bx--btn bx--btn--primary" (click)="selectAll()"></button> -->
+							<input type="checkbox" class="bx--checkbox" id="checkAll" name="checkAll" (click)="selectAll()" />
+							<label class="bx--checkbox-label" for="checkAll">Select all</label>
+						</div>
+						<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px">
+
+							<!-- checkbox endpoints -->
+							<div *ngFor="let api of paths | keyvalue" fxFlex.xs="0 0 100%"
+								fxFlex.sm="0 0 calc(50% - 10px)" fxFlex.gt-sm="auto" ngClass.gt-xs="pathsColumn">
+
+								<fieldset class="bx--fieldset" fxFlex>
+									<legend class="bx--label">{{api.key}}</legend>
+									<div *ngFor="let path of api.value; index as i;"
+										class="bx--form-item bx--checkbox-wrapper">
+										<input
+										type="checkbox"
+										class="bx--checkbox"
+										[id]="api.key + i"
+										name="pathOptions"
+										(change)="updateEndpoints(path.name, path.value)"
+										[checked]="path.checked"
+										/>
+										<label class="bx--checkbox-label" [for]="api.key + i">{{path.name}}</label>
+									</div>
+								</fieldset>
+
+							</div>
+
+						</div>
+
+						<!-- list of accounts -->
+						<div class="bx--form-item">
+							<label for="accounts" class="bx--label">Accounts <span class="text-danger">*</span></label>
+							<div class="bx--form__helper-text">
+								Separate account names by commas.
+							</div>
+							<textarea id="accounts" name="accounts" #accountsModel="ngModel" class="bx--text-area bx--text-area--v2" rows="4" cols="50" placeholder="account1, account2, account3..." [(ngModel)]="accounts" [pattern]="tokenRegexes.accountNameList.pattern" [attr.data-invalid]="accountsModel.invalid && accountsModel.touched ? true : null" required></textarea>
+
+							<div *ngIf="accountsModel.errors?.required" class="bx--form-requirement">
+								Required
+							</div>
+							<div *ngIf="accountsModel.errors?.pattern" class="bx--form-requirement">
+								{{ tokenRegexes.accountNameList.validationText }}
+							</div>
+						</div>
+
+						<!-- list of ip -->
+						<div class="bx--form-item">
+							<label for="ips" class="bx--label">Allowable IP Addresses <span class="text-danger">*</span></label>
+							<div class="bx--form__helper-text">
+								Separate IP addresses by commas.
+							</div>
+							<textarea #ipsModel="ngModel" id="ips" name="ips" class="bx--text-area bx--text-area--v2" rows="4" cols="50" placeholder="192.0.1.1, 192.0.1.2, 192.0.1.3..." [(ngModel)]="ips" [pattern]="tokenRegexes.ipV4List.pattern" [attr.data-invalid]="ipsModel.invalid && ipsModel.touched ? true : null" required></textarea>
+
+							<div *ngIf="ipsModel.errors?.required" class="bx--form-requirement">
+								Required
+							</div>
+
+							<div *ngIf="ipsModel.errors?.pattern" class="bx--form-requirement">
+								{{ tokenRegexes.ipV4List.validationText }}
+							</div>
+						</div>
+
+						<div id="notification"></div>
+
+					</div>
+
+				</div>
+
+				<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+					<button class="bx--btn bx--btn--primary" type="submit" [disabled]="tokenForm.form.invalid">Save</button>
+					<button class="bx--btn bx--btn--secondary" (click)="close()" type="button">Cancel</button>
+				</div>
+
+			</div>
+
+		</div>
+
+</form>
+
+<!-- approve, reject, revoke -->
+<div *ngIf="data.action === 'approve' || data.action === 'reject' || data.action === 'revoke'"
+	class="bx--modal-container" fxLayout="column">
+
+	<div class="bx--modal-header">
+		<p class="bx--modal-header__label bx--type-delta">
+			API Access Tokens
+		</p>
+		<p class="bx--modal-header__heading bx--type-beta">
+			<span class="capitalize">{{data.action}}</span>
+		</p>
+	</div>
+
+	<div class="bx--modal-content" fxFlex>
+		<p *ngIf="data.action === 'approve'">Are your sure you want to approve this request?</p>
+		<p *ngIf="data.action === 'reject'">Are your sure you want to reject this request?</p>
+		<p *ngIf="data.action === 'revoke'">
+			Are your sure you want to revoke this token?
+			Users and systems will no longer be able to use this token to authenticate
+		</p>
+
+	</div>
+
+	<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+		<button class="bx--btn bx--btn--primary cap" type="button" (click)="action()">{{data.action}}</button>
+		<button class="bx--btn bx--btn--secondary" (click)="close()" type="button">Cancel</button>
+	</div>
+
+</div>
+
+<!-- generate -->
+<div *ngIf="data.action === 'generate'" class="full-screen-dialog">
+
+	<div class="bx--modal-container" fxLayout="column">
+		<div class="bx--modal-header">
+			<p class="bx--modal-header__label bx--type-delta">
+				API Access Tokens
+			</p>
+			<p class="bx--modal-header__heading bx--type-beta">
+				<span class="capitalize">{{data.action}}</span>
+			</p>
+		</div>
+
+		<div class="bx--modal-content" fxFlex fxLayout="column" fxLayoutAlign="center">
+
+			<div *ngIf="data.action === 'generate'" class="restrict-width">
+
+				<div *ngIf="!jwtCode">
+					<p>
+						Are your sure you want to generate this <strong>one-time</strong> token?
+						<br>
+						<span class="bx--type-caption">
+							To initiate the session of this token you must refresh the token within the next 24 hours.
+							Once initiated, your token must be refreshed every 15 minutes (or sooner) thereafter to
+							keep the session alive. Failure to refresh the token results in the token automatically being revoked.
+						</span>
+					</p>
+				</div>
+
+				<div *ngIf="jwtCode">
+					<div class="bx--type-epsilon">Here is your generated token</div>
+					<ibm-code-snippet display="multi">{{jwtCode}}</ibm-code-snippet>
+					<p>
+						Please write down this token and store it in a secure place. You will <strong>not</strong> be
+						able
+						to recover the token after closing this dialog.
+						Include this token in the header of your HTTP request as a bearer token to start
+						making authenticated requests. You <strong>must</strong> refresh the token within the next 24
+						hours.
+						Failure to refresh the token every 15 minutes thereafter will automatically revoke the token.
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+			<button *ngIf="!jwtCode" class="bx--btn bx--btn--primary cap" type="button" (click)="generate()">{{data.action}}</button>
+			<button *ngIf="!jwtCode" class="bx--btn bx--btn--primary" (click)="close()" type="button">Cancel</button>
+			<button *ngIf="jwtCode" class="bx--btn bx--btn--secondary" (click)="close()" type="button">Close</button>
+		</div>
+	</div>
+
+</div>

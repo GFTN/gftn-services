@@ -1,0 +1,21 @@
+{
+  "name": "worldwire-anchor-funding",
+  "version": "1.0.0",
+  "description": "Demo",
+  "main": "fundingWWapi",
+  "dependencies": {
+    "request": "^2.88.0",
+    "should": "^13.2.3",
+    "stellar-sdk": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "WorldWire",
+    "API",
+    "Anchor"
+  ],
+  "license": "ISC"
+}

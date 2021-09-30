@@ -1,0 +1,25 @@
+{
+  "name": "networkload",
+  "version": "1.0.0",
+  "description": "mocha,docker,worldwire,blockchain,docker",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/  --reporter mochawesome --reporter-options reportDir=Report,reportFilename=networkLoading"
+  },
+  "keywords": [
+    "mocha",
+    "docker",
+    "worldwire",
+    "blockchain",
+    "docker"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "loadtest": "^3.0.4",
+    "mocha": "^5.2.0",
+    "mocha-stress": "^1.0.0",
+    "mochawesome": "^3.1.1",
+    "request": "^2.88.0",
+    "should": "^13.2.3"
+  }
+}

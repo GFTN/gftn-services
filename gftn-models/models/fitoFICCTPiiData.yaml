@@ -1,0 +1,22 @@
+title: fitoFICCTPiiData
+description: FI to FI CCT Pii Data - contains PII information
+type: object
+required:
+  - creditor_information
+  - debtor_information
+properties:
+  creditor_information:
+    type: object
+    description: Information about the creditor (the beneficiary/receiving actor)
+    $ref: 'actor.yaml'
+    externalDocs:
+      url: '#/definitions/paymentActor'
+    x-go-name: PaymentActor
+  debtor_information:
+    type: object
+    description: Information about the debtor (the originating/sending actor)
+    $ref: 'actor.yaml'
+    externalDocs:
+      url: '#/definitions/paymentActor'
+    x-go-name: PaymentActor
+x-go-name: FItoFICCTPiiData

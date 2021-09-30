@@ -1,0 +1,14 @@
+[
+  {
+    "participant_domain": "xyz.xyz.payments.gftn.io",
+    "api_service_url": "http://xyz.xyz.api.payments.gftn.io:11000",
+    "federation_service_url": "http://xyz.xyz.federation.payments.gftn.io:11001",
+    "compliance_service_url": "http://xyz.xyz.compliance.payments.gftn.io:11003",
+    "quote_service_url": "http://xyz.xyz.quotes.payments.gftn.io:11002",
+    "country_code": "NZL",
+    "rdo_service_url": "http://xyz.xyz.rdo.service.gftn.io:11004",
+    "active_status": {
+      "participant_status": "active"
+    }
+  }
+]

@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ PARTICIPANT_ID }}-onboard-cert-generation
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: {{ PARTICIPANT_ID }}-onboard-cert-generation
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: {{ PARTICIPANT_ID }}-onboard-cert-generation
+        image: {{ DOCKER_REGISTRY_URL }}/gftn/aws-cli
+        command: ["sh",  "generate_push_sign_cert_participant.sh", "{{ ENVIRONMENT }}", "{{ PARTICIPANT_ID }}"]
+        imagePullPolicy: Always
+        env:
+        - name: KAFKA_KEY_PASSWORD
+          value: {{ KAFKA_KEY_PASSWORD }}
+        - name: PARTICIPANT_ID
+          value: {{ PARTICIPANT_ID }}
+        - name: STORE_LOCATION
+          value: {{ STORE_LOCATION }}
+        - name: ENVIRONMENT
+          value: {{ ENVIRONMENT }}
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: awssecret-global
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: awssecret-global
+              key: aws-secret-access-key
+        - name:  AWS_REGION
+          value: ap-southeast-1
+---
+

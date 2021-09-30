@@ -1,0 +1,26 @@
+{
+    "builders": [{
+        "name": "alpine-linux-image",
+        "type": "docker",
+        "image": "alpine:latest",
+        "commit": true,
+        "changes": [],
+        "run_command": ["-d", "-i", "-t", "{{.Image}}", "/bin/sh"]
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+            "apk update && apk upgrade",
+            "apk --no-cache add ca-certificates",
+            "sleep 30"
+        ],
+        "only": ["alpine-linux-image"]
+    }],
+    "post-processors": [
+        [{
+            "type": "docker-tag",
+            "repository": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/alpine",
+            "tag": "latest"
+        }]
+    ]
+}

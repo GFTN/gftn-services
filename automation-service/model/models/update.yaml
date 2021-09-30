@@ -1,0 +1,17 @@
+title: Update
+description: Update model
+type: object
+required:
+- participants
+- version
+properties:
+  participants:
+    type: array
+    items:
+      $ref: 'participant.yaml'
+  version:
+    type: string
+
+externalDocs:
+  url: '#/definitions/update'
+x-go-name: Update

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Message xmlns="urn:worldwire" xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:roi="urn:iso:std:iso:20022:tech:xsd:camt.029.001.09">
+   <AppHdr>
+      <head:Fr>
+         <head:FIId>
+            <head:FinInstnId>
+               <head:BICFI>SGPTTEST004</head:BICFI>
+               <head:Othr>
+                  <head:Id>testparticipant4dev</head:Id>
+               </head:Othr>
+            </head:FinInstnId>
+         </head:FIId>
+      </head:Fr>
+      <head:To>
+         <head:FIId>
+            <head:FinInstnId>
+               <head:BICFI>WORLDWIRE00</head:BICFI>
+               <head:Othr>
+                  <head:Id>WW</head:Id>
+               </head:Othr>
+            </head:FinInstnId>
+         </head:FIId>
+      </head:To>
+      <head:BizMsgIdr>B20190819SGPTTEST003BAA1069314</head:BizMsgIdr>
+      <head:MsgDefIdr>camt.029.001.09</head:MsgDefIdr>
+      <head:CreDt>2019-05-02T16:00:00Z</head:CreDt>
+      <head:Sgntr>
+         <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+               <CanonicalizationMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+               <SignatureMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2009/xmldsig11#rsa-sha256" />
+               <Reference xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <Transforms xmlns="http://www.w3.org/2000/09/xmldsig#">
+                     <Transform xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                     <Transform xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                  </Transforms>
+                  <DigestMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                  <DigestValue xmlns="http://www.w3.org/2000/09/xmldsig#">d4LwrZRI+UvjiGIX+Or0W4O96TbBKrRDyxhh3QcF4oE=</DigestValue>
+               </Reference>
+            </SignedInfo>
+            <SignatureValue xmlns="http://www.w3.org/2000/09/xmldsig#">QXQD5E/NOBU8lTgMUQTqSH6dx44BzUKZl5+7rwwYdn+b+nSoD+OIpDG9E+xpyrCZINBp2YFbCpVqXYj+sr1JDg==</SignatureValue>
+            <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+               <X509Data xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <X509Certificate xmlns="http://www.w3.org/2000/09/xmldsig#">GCT5LR2C5IA35WIBF43KESB2426XMPYMQ6IEMS6WV7LDRCCJ5R7LOPWX</X509Certificate>
+               </X509Data>
+            </KeyInfo>
+         </Signature>
+      </head:Sgntr>
+   </AppHdr>
+   <RsltnOfInvstgtn>
+      <roi:Assgnmt>
+         <roi:Id>SGDDO20190819SGPTTEST003B3889747114</roi:Id>
+         <roi:Assgnr>
+            <roi:Agt>
+               <roi:FinInstnId>
+                  <roi:BICFI>SGPIBMWW002</roi:BICFI>
+                  <roi:Othr>
+                     <roi:Id>testparticipant4dev</roi:Id>
+                  </roi:Othr>
+               </roi:FinInstnId>
+            </roi:Agt>
+         </roi:Assgnr>
+         <roi:Assgne>
+            <roi:Agt>
+               <roi:FinInstnId>
+                  <roi:BICFI>PHLRCBCP107</roi:BICFI>
+                  <roi:Othr>
+                     <roi:Id>testparticipant3dev</roi:Id>
+                  </roi:Othr>
+               </roi:FinInstnId>
+            </roi:Agt>
+         </roi:Assgne>
+         <roi:CreDtTm>2019-05-24T07:23:32</roi:CreDtTm>
+      </roi:Assgnmt>
+      <roi:Sts>
+         <roi:Conf>RJCR</roi:Conf>
+      </roi:Sts>
+      <roi:CxlDtls>
+         <roi:OrgnlGrpInfAndSts>
+            <roi:OrgnlMsgId>XLMXX02052019USAIBMWW00100000000001</roi:OrgnlMsgId>
+            <roi:OrgnlMsgNmId>pacs.008.001.07</roi:OrgnlMsgNmId>
+         </roi:OrgnlGrpInfAndSts>
+         <roi:TxInfAndSts>
+            <roi:OrgnlInstrId>SGDDO20190819SGPTTEST003B3889747111</roi:OrgnlInstrId>
+            <roi:OrgnlTxRef>
+               <roi:SttlmInf>
+                  <roi:SttlmMtd>XLM</roi:SttlmMtd>
+                  <roi:SttlmAcct>
+                     <roi:Id>
+                        <roi:Othr>
+                           <roi:Id>testparticipant4dev</roi:Id>
+                        </roi:Othr>
+                     </roi:Id>
+                     <roi:Nm>default</roi:Nm>
+                  </roi:SttlmAcct>
+               </roi:SttlmInf>
+            </roi:OrgnlTxRef>
+         </roi:TxInfAndSts>
+      </roi:CxlDtls>
+   </RsltnOfInvstgtn>
+</Message>

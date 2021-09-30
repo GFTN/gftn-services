@@ -1,0 +1,73 @@
+# Send Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: participant_id_variable-send
+  labels:
+    app: participant_id_variable-send
+spec:
+  replicas: replica_variable
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: participant_id_variable-send
+  template:
+    metadata:
+      labels:
+        app: participant_id_variable-send
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - env:
+        - name: SERVICE_NAME
+          value: "send-service"
+        - name: HOME_DOMAIN_NAME
+          value: "participant_id_variable"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: participant_id_variable-send-service-aws-iam-key
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: participant_id_variable-send-service-aws-iam-key
+              key: aws-secret-access-key
+        - name: FIREBASE_CREDENTIALS
+          valueFrom:
+            secretKeyRef:
+              name: next-firebase-credential
+              key: next-firebase-credential
+        - name: WW_JWT_PEPPER_OBJ
+          valueFrom:
+            secretKeyRef:
+              name: jwtpepperobject
+              key: pepper-object
+        image: docker_registry_url/gftn/send-service:docker_tag_variable
+        imagePullPolicy: Always
+        name: participant_id_variable-send
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "0.1"
+          limits:
+            memory: "2Gi"
+            cpu: "0.25"
+        ports:
+        - containerPort: 8888
+        envFrom:
+        - configMapRef:
+            name: env-config-global
+        volumeMounts:
+        - mountPath: /var/private/ssl/
+          name: kafka-secret
+          readOnly: true
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+      volumes:
+      - name: kafka-secret
+        secret:
+          secretName: kafka-secret-participant_id_variable

@@ -1,0 +1,32 @@
+    
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: participant1-pv
+  labels:
+    type: local
+    name: participant1-volume
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/store"
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: participant1-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
+  storageClassName: ""
+  selector:
+    matchLabels:
+      name: participant1-volume

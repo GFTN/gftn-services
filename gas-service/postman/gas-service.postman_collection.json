@@ -1,0 +1,546 @@
+{
+	"info": {
+		"_postman_id": "58618029-e47e-f996-86ca-70780ccab40a",
+		"name": "gas-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Topic",
+			"item": [
+				{
+					"name": "getTopics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/getTopics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getTopics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTopics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"TopicName\":\"Group4\",\n        \"DisplayName\":\"Group4\"\n    }\n\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/createTopics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"createTopics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTopic",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"TopicArn\": \"arn:aws:sns:us-east-1:000000000000:Group2\",\n        \"TopicName\": \"TestGroup\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/deleteTopic",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteTopic"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contacts",
+			"item": [
+				{
+					"name": "create\bContacts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n        {\n            \"topicName\": \"Group1\",\n            \"email\":\"your.user@your.domain\",\n            \"phoneNumber\":\"+9999999999\"\n        },\n        {\n            \"topicName\": \"Group2\",\n            \"email\":\"your.user@your.domain\",\n            \"phoneNumber\":\"+000000000000\"\n        }\n    ]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/createContacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"createContacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/getContacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getContacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteContact",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"email\": \"test@ibm.com\",\n        \"topicName\": \"TestGroup\"\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/deleteContact",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteContact"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "createAccounts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n        {\n            \"key\": {\n                \"Object\": \"IBM_TOKEN_ACCOUNT_ADDRESS_1\"\n            },\n            \"seed\": {\n                \"Object\": \"IBM_TOKEN_ACCOUNT_SEED_1\"\n            },\n            \"accountStatus\": true,\n            \"topicName\": \"Group4\"\n            \n            \n        },\n        {\n            \"key\": {\n                \"Object\": \"IBM_TOKEN_ACCOUNT_ADDRESS_2\"\n            },\n            \"seed\": {\n                \"Object\": \"IBM_TOKEN_ACCOUNT_SEED_2\"\n            },\n            \"accountStatus\": true,\n            \"topicName\": \"Group2\"\n            \n        }\n    ]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/createAccounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"createAccounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAccount",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pkey\":\"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/deleteAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"deleteAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unlockAccount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pkey\":\"GBYYNSO5QYTZD6YFY63CGHGTFPUPQZHJOSKNIRBDZM6MPC3QP7OPIQ5E\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/unlockAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unlockAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "signAndExecute",
+			"item": [
+				{
+					"name": "signXDRAndExecuteXDR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oneSignedXDR\": \"AAAAAHGGyd2GJ5H7Bce2IxzTK+j4ZOl0lNREI8s8x4twf9z0AAAAyAANRhwAAAARAAAAAAAAAAAAAAACAAAAAQAAAAA8Bp8cC5OSns7bO+e1r+uH6SxF4SHFUcWtPIkAkNG6lQAAAAEAAAAAcYbJ3YYnkfsFx7YjHNMr6Phk6XSU1EQjyzzHi3B/3PQAAAAAAAAAAACYloAAAAABAAAAAHGGyd2GJ5H7Bce2IxzTK+j4ZOl0lNREI8s8x4twf9z0AAAAAQAAAAA8Bp8cC5OSns7bO+e1r+uH6SxF4SHFUcWtPIkAkNG6lQAAAAAAAAAAATEtAAAAAAAAAAABkNG6lQAAAEAvyWqg04pS16Nx3krlJcuftq5t8J0DdYLjJF8hGAZUKmezogg871QrLqJ5+qKYgXdnZYKsMDX1DCmG3HDNz7cO\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/signXDRAndExecuteXDR",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"signXDRAndExecuteXDR"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "locakAccount",
+			"item": [
+				{
+					"name": "lockaccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38f4438d-7c47-4260-be05-20e11ad13320",
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pkey\":\"\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/lockAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"lockAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "unlockAccount",
+			"item": [
+				{
+					"name": "unlockaccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38f4438d-7c47-4260-be05-20e11ad13320",
+								"exec": [
+									"pm.test(\"response is ok\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pkey\":\"GARAU4JHLLMGMNKSNOFGGJCF3LV5GJHSHK5BRNNVQQ7TGNTEW4ABB4ZC\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/unlockAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unlockAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getMockTx",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"sequenceNumber\": \"3736260770267152\",\n\t\"from\": {\n\t\t\"pkey\": \"GA6ANHY4BOJZFHWO3M56PNNP5OD6SLCF4EQ4KUOFVU6ISAEQ2G5JKRIZ\",\n\t\t\"secret\": \"SCSQZEMCE4JW23JW22YI7OZLZB4SRMOGHPOVK3XBC2AJHA4RP7ST3TKD\",\n\t\t\"asset\": {\n\t\t\t\"code\": \"\",\n\t\t\t\"issuer\": \"GARQZQKXTOTWP22UFUEHSYU7BEJIPP7TK2EM27P55HA3GH5E6SSPIDFE\",\n\t\t\t\"amount\": \"1\"\n\t\t}\n\t},\n\t\"to\": {\n\t\t\"pkey\": \"GBYYNSO5QYTZD6YFY63CGHGTFPUPQZHJOSKNIRBDZM6MPC3QP7OPIQ5E\",\n\t\t\"asset\": {\n\t\t\t\"code\": \"\",\n\t\t\t\"issuer\": \"SCIOZJEUGAO7PYYYHPBU7O7VKG7FZCA2RS3AR66L4UNTE4DW64PDKL4W\",\n\t\t\t\"amount\": \"2\"\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/getMockTx",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getMockTx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vault get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://3.0.15.221/AIMWebService/api/Accounts?AppID=SSLcert&Safe=IBM&Folder=Root&Object=IBM_TOKEN_ACCOUNT_ADDRESS_1",
+					"protocol": "https",
+					"host": [
+						"3",
+						"0",
+						"15",
+						"221"
+					],
+					"path": [
+						"AIMWebService",
+						"api",
+						"Accounts"
+					],
+					"query": [
+						{
+							"key": "AppID",
+							"value": "SSLcert"
+						},
+						{
+							"key": "Safe",
+							"value": "IBM"
+						},
+						{
+							"key": "Folder",
+							"value": "Root"
+						},
+						{
+							"key": "Object",
+							"value": "IBM_TOKEN_ACCOUNT_ADDRESS_1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendGrid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "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",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personalizations\": [\n        {\n            \"to\": [\n                {\n                    \"email\": \"your.user@your.domain\",\n                    \"name\": \"John Doe\"\n                }\n            ],\n            \"subject\": \"Hello, World!\"\n        }\n    ],\n    \"content\": [\n        {\n            \"type\": \"text/plain\",\n            \"value\": \"Heya!\"\n        }\n    ],\n    \"from\": {\n        \"email\": \"your.user@your.domain\",\n        \"name\": \"Sam Smith\"\n    },\n    \"reply_to\": {\n        \"email\": \"your.user@your.domain\",\n        \"name\": \"Sam Smith\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://api.sendgrid.com/v3/mail/send",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sendgrid",
+						"com"
+					],
+					"path": [
+						"v3",
+						"mail",
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

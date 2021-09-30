@@ -1,0 +1,124 @@
+{
+    "request_id": "23982398",
+    "participant_id": "test2",
+    "asset_settlement": {
+        "asset_type": "DA",
+        "asset_code": "USD",
+        "issuer_id": "testibmanchor3qa"
+    },
+    "amount_payout": 10,
+    "asset_payout": "USD",
+    "details_payout_location": {
+        "address": {
+            "building_number": "123",
+            "city": "center",
+            "country": "TW",
+            "postal_code": "19333",
+            "state": "dowtown",
+            "street": "45 telok road"
+        },
+        "category": {
+            "name": "delivery",
+            "options": [{
+                    "description": "Deliver PHP to home address",
+                    "terms": "Limit of 1212 PHP"
+                },
+                {
+                    "description": "Deliver PHP to home address",
+                    "terms": "Limit of 1212 PHP"
+                }
+            ]
+        },
+        "currencies_accepted": [
+            "RMB",
+            "NTD",
+            "SGD"
+        ],
+        "geo": {
+            "coordinates": [{
+                    "lat": 1.3831130248377246,
+                    "long": 103.677978515625
+                },
+                {
+                    "lat": 1.435625513519856,
+                    "long": 103.7771987915039
+                },
+                {
+                    "lat": 1.435625513519856,
+                    "long": 103.677978515625
+                },
+                {
+                    "lat": 1.3831130248377246,
+                    "long": 103.677978515625
+                },
+                {
+                    "lat": 1.3831130248377246,
+                    "long": 103.7771987915039
+                }
+            ],
+            "type": "area"
+        },
+        "id": "38izUef3Ct93QHWtGbhN0Ndr9nvekF",
+        "image": "image.jpg",
+        "member_of": [
+            "WIREX",
+            "RCBC"
+        ],
+        "name": "Location B",
+        "opening_hours": [{
+                "closes": "17:30",
+                "day_of_week": [
+                    "monday"
+                ],
+                "opens": "12:00"
+            },
+            {
+                "closes": "17:35",
+                "day_of_week": [
+                    "saturday"
+                ],
+                "opens": "12:00"
+            },
+            {
+                "closes": "17:32",
+                "day_of_week": [
+                    "wednesday"
+                ],
+                "opens": "12:00"
+            },
+            {
+                "closes": "17:36\r",
+                "day_of_week": [
+                    "sunday"
+                ],
+                "opens": "12:00"
+            },
+            {
+                "closes": "17:31",
+                "day_of_week": [
+                    "tuesday"
+                ],
+                "opens": "12:00"
+            },
+            {
+                "closes": "17:33",
+                "day_of_week": [
+                    "thursday"
+                ],
+                "opens": "12:00"
+            },
+            {
+                "closes": "17:34",
+                "day_of_week": [
+                    "friday"
+                ],
+                "opens": "12:00"
+            }
+        ],
+        "payout_child": [],
+        "payout_parent": [],
+        "telephone": "966-2421",
+        "type": "Mobile Network Operator",
+        "url": "google.com"
+    }
+}

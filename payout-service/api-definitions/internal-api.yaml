@@ -1,0 +1,82 @@
+swagger: "2.0"
+info:
+  title: Payout location API
+  description: API endpoints for querying the details of payout location locations
+  version: 1.0.0
+host: payout.worldwire.io
+basePath: /v1/admin/payout
+schemes:
+  - https
+paths:
+  /:
+    post:
+      tags:
+        - Create new payout location
+      summary: Called when participant wants to create a new payout location
+      description: |
+        If there doesn't have an existing payout location. participants can use this endpoint to create the payout location
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: payout location
+          required: true
+          description: The payout location that needs to be added.
+          schema:
+            $ref: '../../gftn-models/models/payoutLocation.yaml'
+      responses:
+        200:
+          description: Payout location created
+        400:
+          description: Payout location could not be created due to payout location already exists or malformed payload
+        404:
+          description: Payout location could not be created
+        500:
+          description: Internal server error
+    patch:
+      tags:
+        - Update an existing payout location
+      summary: Called when participant wants to update an existing payout location
+      description: |
+        If there is an existing payout location. participants can use this endpoint to update the payout location
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: payout location
+          required: true
+          description: The payout location that needs to be updated.
+          schema:
+            $ref: '../../gftn-models/models/payoutLocationUpdateRequest.yaml'
+      responses:
+        200:
+          description: Payout location updated
+        400:
+          description: Failed updating the payout location
+        404:
+          description: Cannot find the payout location
+        500:
+          description: Internal server error
+    delete:
+      tags:
+        - Delete existing payout location
+      summary: delete a payout location
+      description: |
+        delete the payout location with given id
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          type: string
+          required: true
+          description: the id of the payout location you want to delete
+      responses:
+        200:
+          description: Payout location deleted
+        400:
+          description: missing or invalid parameters in the request
+        404:
+          description: The payout location could not be found
+        500:
+          description: Internal server error

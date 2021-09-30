@@ -1,0 +1,31 @@
+{
+    "swagger": {
+        "info": {
+            "description": "Used primarily by the World Wire Portal - manages JWT, 2fa, user management, IBMId, automated deployment.",
+            "version": "1.0.0",
+            "title": "World Wire Auth Service"
+        },
+        "schemes": [
+            "https"
+        ],
+        "outputDirectory": "./authentication/def",
+        "entryFile": "authentication/src/app.ts",
+        "host": "live-gftn.appspot.com",
+        "basePath": "/",
+        "securityDefinitions": {
+            "api_key": {
+                "description": "A generic api key included on requests from the portal that is used to call commmon public endpoints like /login. A quota is set on the use of this key to limit the amount of requests in a certain period of time. Api key issued by gcloud for use with gcloud Endpoints product, see https://cloud.google.com/endpoints/docs/openapi/get-started-app-engine#deploy_backend. IMPORTANT: This alone is not a secure authentication method and should be used in conjunction with either Oauth or JWT",
+                "type": "apiKey",
+                "name": "key",
+                "in": "query"
+            }
+        }
+    },
+    "routes": {
+        "basePath": "/",
+        "entryFile": "authentication/src/app.ts",
+        "middleware": "express",
+        "routesDir": "authentication/src",
+        "authenticationModule": "authentication/src/middleware/authentication.ts"
+    }
+}

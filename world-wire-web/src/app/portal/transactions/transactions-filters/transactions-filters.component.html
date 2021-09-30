@@ -1,0 +1,168 @@
+<section class="margin-width container">
+	<form #filterForm="ngForm" (ngSubmit)="onSubmit(filterForm)" ngClass.gt-xs="margin-width">
+
+		<!-- Transfers Filter Form -->
+		<div *ngIf="transactionTypeDetails.key === 'transfer'" fxLayout.lt-md="column" fxLayout.gt-sm="row" class="row">
+			<!-- Transaction Status filter options -->
+			<div fxFlex.lt-md="100" fxFlex.gt-sm="25" ngClass.lt-md="row" ngClass.gt-sm="column">
+				<ng-template [ngTemplateOutlet]="statusTemplate"></ng-template>
+			</div>
+			<div fxFlex.lt-md="100" fxFlex.gt-sm="25" ngClass.lt-md="row" ngClass.gt-sm="column">
+				<!-- Transaction Types (Direction for one-way transfers) filter options -->
+				<ng-template [ngTemplateOutlet]="transactionDirectionTemplate"></ng-template>
+			</div>
+			<div fxFlex.lt-md="100" fxFlex.gt-sm="50" fxLayout="column" ngClass.lt-md="row" ngClass.gt-sm="column">
+				<!-- Settlement filter options -->
+				<div fxLayout="column" class="row" fxLayoutGap="10px">
+					<ng-template [ngTemplateOutlet]="assetTemplate" [ngTemplateOutletContext]="{ name: 'settlement', assetType: 'settlement' }"></ng-template>
+				</div>
+
+				<div class="row" fxLayout="row" fxLayoutGap="5px">
+					<ng-template [ngTemplateOutlet]="dateTemplate"></ng-template>
+				</div>
+			</div>
+		</div>
+
+		<!-- Exchanges Filter Form -->
+		<div *ngIf="transactionTypeDetails.key === 'exchange'" fxLayout.lt-md="column" fxLayout.gt-sm="row" class="row">
+			<div fxFlex.lt-md="100" fxFlex.gt-sm="33" ngClass.lt-md="row" ngClass.gt-sm="column">
+
+				<!-- Sent Asset filter options -->
+				<div fxLayout="column" fxLayoutGap="10px">
+					<ng-template [ngTemplateOutlet]="assetTemplate" [ngTemplateOutletContext]="{ name: 'sent', assetType: 'sent', vertical: true }"></ng-template>
+				</div>
+			</div>
+
+			<div fxFlex.lt-md="100" fxFlex.gt-sm="33" ngClass.lt-md="row" ngClass.gt-sm="column">
+				<!-- Received Asset filter options -->
+				<div fxLayout="column" fxLayoutGap="10px">
+					<ng-template [ngTemplateOutlet]="assetTemplate" [ngTemplateOutletContext]="{ name: 'received', assetType: 'received', vertical: true }"></ng-template>
+				</div>
+			</div>
+
+			<div fxFlex.lt-md="100" fxFlex.gt-sm="34" ngClass.lt-md="row" ngClass.gt-sm="column">
+				<!-- Transaction Status filter options -->
+				<div class="row">
+					<ng-template [ngTemplateOutlet]="statusTemplate"></ng-template>
+				</div>
+
+				<div class="row" fxLayout="row" fxLayoutGap="5px">
+					<ng-template [ngTemplateOutlet]="dateTemplate"></ng-template>
+				</div>
+			</div>
+		</div>
+		<!-- Filter Form Actions -->
+		<div class="row" fxLayout="row" fxLayoutAlign="end">
+			<div fxLayout="row">
+				<button class="bx--btn bx--btn--secondary" type="button" (click)="closeMenu()">Cancel</button>
+				<button class="bx--btn bx--btn--primary" type="submit" [disabled]="!filterForm.valid || isDataUpdated()">Apply</button>
+			</div>
+		</div>
+	</form>
+</section>
+
+<ng-template #statusTemplate>
+	<fieldset class="bx--fieldset">
+		<legend class="bx--label">Transaction Status</legend>
+		<!-- input + label -->
+		<div *ngFor="let option of filterFormData.transactionStatuses" class="bx--form-item bx--checkbox-wrapper">
+			<input [id]="'bx--checkbox-' + option.name" class="bx--checkbox" type="checkbox" [name]="option.name" [(ngModel)]="option.checked">
+			<label [attr.for]="'bx--checkbox-' + option.name" class="bx--checkbox-label">{{option.label}}</label>
+		</div>
+	</fieldset>
+</ng-template>
+
+<ng-template #transactionDirectionTemplate>
+	<fieldset class="bx--fieldset">
+		<legend class="bx--label">Transaction Type</legend>
+		<!-- input + label -->
+		<div *ngFor="let option of filterFormData.transactionDirections" class="bx--form-item bx--checkbox-wrapper">
+			<input [id]="'bx--checkbox-' + option.name" class="bx--checkbox" type="checkbox" [name]="option.name" [(ngModel)]="option.checked">
+			<label [attr.for]="'bx--checkbox-' + option.name" class="bx--checkbox-label">{{option.label}}</label>
+		</div>
+	</fieldset>
+</ng-template>
+
+<ng-template #assetTemplate let-name="name" let-assetType="assetType" let-vertical="vertical">
+	<label class="bx--label capitalize">{{name + ' Asset'}}</label>
+	<!-- Asset Amount -->
+	<div fxFlex="none" fxLayout="column" [fxLayout.sm]="vertical ? 'column' : 'row'" [fxLayout.gt-md]="vertical ? 'column' : 'row'"
+	 fxLayoutAlign="start" fxLayoutGap="10px">
+		<div fxLayout="row" fxLayoutGap="10px">
+			<div class="bx--form-item bx--checkbox-wrapper" ngClass.xs="block" ngClass.md="block" fxFlex="none">
+				<input [id]="'bx--checkbox-' + name + '-amount'" class="bx--checkbox" type="checkbox" [name]="name + '-amount-checked'" [(ngModel)]="filterFormData.assetFilters[assetType].amountChecked">
+				<label [attr.for]="'bx--checkbox-' + name + '-amount'" class="bx--checkbox-label capitalize">{{ name }} Amount</label>
+			</div>
+			<ibm-dropdown type="single" [theme]="'dark'" [inline]="true" [appendInline]="true" [placeholder]="logicDropOptions[0].content"
+			 [disabled]="!logicDropOptions" [(ngModel)]="filterFormData.assetFilters[assetType].amountLogic" [name]="name + '-amount-logic'"
+			 value="content">
+				<ibm-dropdown-list [items]="logicDropOptions"></ibm-dropdown-list>
+			</ibm-dropdown>
+		</div>
+		<div fxFlex>
+			<input #assetAmount="ngModel" [name]="name + '-amount'" type="number" step="0.5" class="bx--text-input bx--text-input--light" placeholder="0.00" [(ngModel)]="filterFormData.assetFilters[assetType].amount" [attr.data-invalid]="!(assetAmount.valid || assetAmount.untouched) ? true : null" [disabled]="!filterFormData.assetFilters[assetType].amountChecked" [required]="filterFormData.assetFilters[assetType].amountChecked">
+			<div *ngIf="assetAmount.errors?.required" class="bx--form-requirement">
+				<span class="capitalize">{{ name }} Amount</span> is required
+			</div>
+		</div>
+	</div>
+
+	<!-- Asset Type -->
+	<div fxFlex="none" class="row" fxLayout="column" [fxLayout.sm]="vertical ? 'column' : 'row'" [fxLayout.gt-md]="vertical ? 'column' : 'row'"
+	 fxLayoutAlign="start" fxLayoutGap="10px">
+		<div class="bx--form-item bx--checkbox-wrapper" ngClass.xs="block" ngClass.md="block" fxFlex fxFlex="25%" style="max-width: 166px">
+			<input [id]="'bx--checkbox-' + name + '-asset'" class="bx--checkbox" type="checkbox" [name]="name + '-asset-checked'" [(ngModel)]="filterFormData.assetFilters[assetType].assetChecked" [disabled]="filterFormData.assetFilters[assetType].assetOptions.length == 0">
+			<label [attr.for]="'bx--checkbox-' + name + '-asset'" class="bx--checkbox-label capitalize">{{ name }} Asset Type</label>
+		</div>
+		<div fxFlex>
+			<ibm-dropdown type="multi" placeholder="Asset Types" theme="light" [appendInline]="true" [disabled]="!filterFormData.assetFilters[assetType].assetChecked || filterFormData.assetFilters[assetType].assetOptions.length == 0"
+			 (selected)="selectAssets($event, assetType)">
+				<ibm-dropdown-list [items]="filterFormData.assetFilters[assetType].assetOptions"></ibm-dropdown-list>
+			</ibm-dropdown>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #dateTemplate>
+	<!-- Date Checkbox -->
+	<input id="bx--checkbox-date" class="bx--checkbox" type="checkbox" name="date-checked" [(ngModel)]="filterFormData.dateChecked">
+	<label for="bx--checkbox-date" class="bx--checkbox-label" [class.top-filler]="dateFrom.errors"></label>
+
+	<!-- Date Range -->
+	<div class="bx--form-item" id="filter-date-picker" data-date-picker data-date-picker-type="range" fxLayout="row"
+	 fxLayoutAlign="start center" fxLayoutGap="15px">
+		<div class="bx--date-picker bx--date-picker--range" ngClass.xs="mobile" fxLayout.xs="column" fxLayoutGap="10px">
+			<!-- Start Date -->
+			<div class="bx--date-picker-container">
+				<label for="date-from" class="bx--label">From</label>
+				<input #dateFrom="ngModel" #dateFromRef type="text" id="date-from" class="bx--date-picker__input bx--text-input--light" name="date-from" [(ngModel)]="filterFormData.dateFrom" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="mm/dd/yyyy"
+	  data-date-picker-input-from [attr.data-invalid]="dateFrom.invalid ? true : null" [required]="filterFormData.dateChecked" />
+				<div *ngIf="dateFrom.errors?.required" class="bx--form-requirement">
+					Start Date is required
+				</div>
+				<div *ngIf="dateFrom.errors?.pattern" class="bx--form-requirement">
+					Invalid date format for Start Date
+				</div>
+			</div>
+			<!-- End Date -->
+			<div class="bx--date-picker-container">
+				<label for="date-to" class="bx--label">To</label>
+				<input #dateTo="ngModel" #dateToRef type="text" id="date-to" class="bx--date-picker__input bx--text-input--light" name="date-to" [(ngModel)]="filterFormData.dateTo" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="mm/dd/yyyy"
+	  data-date-picker-input-to [attr.data-invalid]="dateTo.invalid && dateTo.touched ? true : null" [required]="filterFormData.dateChecked" />
+				<div *ngIf="dateTo.errors?.required" class="bx--form-requirement">
+					End Date is required
+				</div>
+				<div *ngIf="dateTo.errors?.pattern" class="bx--form-requirement">
+					Invalid date format for End Date
+				</div>
+			</div>
+		</div>
+		<!-- Date Picker Icon (Carbon) -->
+		<div>
+			<svg class="bx--date-picker__icon" data-date-picker-icon width="14" height="16" viewBox="0 0 14 16">
+				<path d="M0 5h14v1H0V5zm3-5h1v4H3V0zm7 0h1v4h-1V0zM0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 0 14.5v-12zm1 0v12a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5z"
+				 fill-rule="nonzero" />
+			</svg>
+		</div>
+	</div>
+</ng-template>

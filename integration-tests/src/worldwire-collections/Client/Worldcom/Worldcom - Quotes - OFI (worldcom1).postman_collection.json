@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "174ac26d-d280-4cae-8f8e-64372a4ddcc3",
+		"name": "Worldcom - Quotes - OFI (worldcom1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 1 - request quotes from RFIs",
+					"item": [
+						{
+							"name": "/client/quotes/request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3ecb0d31-6c5e-48c5-9812-fac852708b44",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"request_id\", jsonData.request_id)",
+											"setTimeout(1000)",
+											"postman.setNextRequest('OFI get quotes1')"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{worldcom1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"time_expire\":1644516034,\n    \"limit_max\": 90,\n    \"limit_min\": 20,\n    \"source_asset\": {\n        \"asset_code\": \"{{source_asset_code}}\",\n        \"asset_type\": \"{{source_asset_type}}\",\n        \"issuer_id\": \"{{source_issuer_id}}\"\n    },\n    \"target_asset\": {\n        \"asset_code\": \"{{target_asset_code}}\",\n        \"asset_type\": \"{{target_asset_type}}\",\n        \"issuer_id\": \"{{target_issuer_id}}\"\n    },\n    \"ofi_id\": \"{{worldcom1-id}}\"\n}"
+								},
+								"url": {
+									"raw": "worldcom1.worldwire-st.io/global/quotes/v1/client/quotes/request",
+									"host": [
+										"worldcom1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"request"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 2 - retrieve quotes from RFIs",
+					"item": [
+						{
+							"name": "/client/quotes/request/{{request_id}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c92a9cf5-06ef-4e77-909b-37775e1b8953",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{worldcom1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "worldcom1.worldwire-st.io/global/quotes/v1/client/quotes/request/{{request_id}}?",
+									"host": [
+										"worldcom1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"request",
+										"{{request_id}}"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJzdWIiOiJ0ZXN0IiwiZG9tYWluIjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyIsImFjY250IjoiaGsub25lLnBheW1lbnRzLndvcmxkd2lyZS5pbyJ9.E2SrAQ9KdHjdGxlOpbo6IOVVEgZKJ86WGMwBGhjNPtE",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

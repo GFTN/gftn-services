@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "b1f912b0-6871-4330-aff4-c7d01d68d3a1",
+		"name": "API-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sweeping 1-to-1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"target_account\": \"issuing\",\n\t\"source_accounts\":[\n\t{\"account\":\"default\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\t\n\t{\"account\":\"default2\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default3\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default4\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\t\n\t{\"account\":\"default5\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default6\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default7\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default8\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default9\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t}]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/client/sweep",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"client",
+						"sweep"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sweeping 1-to-1 DO",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"target_account\": \"issuing\",\n\t\"source_accounts\":[\n\t{\"account\":\"default\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\t\n\t{\"account\":\"default2\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default3\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default4\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\t\n\t{\"account\":\"default5\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default6\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default7\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default8\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default9\",\n\t\t\"amount\":1,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t}]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/client/sweep",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"client",
+						"sweep"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sweeping 9-to-1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"target_account\": \"issuing\",\n\t\"source_accounts\":[\n\t{\"account\":\"default\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\t\n\t{\"account\":\"default2\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default3\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default4\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\t\n\t{\"account\":\"default5\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default6\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default7\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default8\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t},\n\t{\"account\":\"default9\",\n\t\t\"amount\":0.001,\n\t\t\"asset\":{\n\t\t\t\"asset_code\":\"USD\",\n\t\t\t\"issuer_id\":\"ibmanchor\",\n\t\t\t\"asset_type\":\"DA\"\n\t\t}\n\t}]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/v1/client/sweep",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"client",
+						"sweep"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/client/balances/accounts/{account_name} default USDDA",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{p2-jwt-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{participant2-api-url}}/{{service-version}}/client/balances/accounts/default?asset_code=USDDA&issuer_id={{anchor_id}}",
+					"host": [
+						"{{participant2-api-url}}"
+					],
+					"path": [
+						"{{service-version}}",
+						"client",
+						"balances",
+						"accounts",
+						"default"
+					],
+					"query": [
+						{
+							"key": "asset_code",
+							"value": "USDDA"
+						},
+						{
+							"key": "issuer_id",
+							"value": "{{anchor_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

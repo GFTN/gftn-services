@@ -1,0 +1,17 @@
+title: payoutLocationOption
+description: Details of each payout location offer. Based on https://schema.org/hasOfferCatalog
+type: object
+required:
+  - description
+  - terms
+properties:
+  description:
+    type: string
+    description: name of the service
+  terms:
+    type: string
+    x-go-custom-tag: "bson:\"terms\""
+    description: service detail
+externalDocs:
+  url: '#/definitions/payoutLocationOption'
+x-go-name: PayoutLocationOption

@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "9fc5ff80-17d5-42b5-ad2c-e825e297038e",
+		"name": "DEMO - Payment Workflow - OFI (qwikwire1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step \b0 - request payout location",
+					"item": [
+						{
+							"name": "/client/payout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "22f5dd1b-8849-4b5f-8f40-b42c7be5ea19",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/global/payout/v1/client/payout?",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"payout",
+										"v1",
+										"client",
+										"payout"
+									],
+									"query": [
+										{
+											"key": "receive_mode",
+											"value": "cash_pickup",
+											"disabled": true
+										},
+										{
+											"key": "receive_mode",
+											"value": "cash_pickup",
+											"disabled": true
+										},
+										{
+											"key": "city",
+											"value": "north west",
+											"disabled": true
+										},
+										{
+											"key": "state",
+											"value": "tw",
+											"disabled": true
+										},
+										{
+											"key": "street",
+											"value": "changI",
+											"disabled": true
+										},
+										{
+											"key": "country",
+											"value": "SG",
+											"disabled": true
+										},
+										{
+											"key": "id",
+											"value": "ssfrPxbD7VQjscx4CqFLewVGwcyjgl",
+											"disabled": true
+										},
+										{
+											"key": "address",
+											"value": "sg",
+											"disabled": true
+										},
+										{
+											"key": "parent",
+											"value": "mXTHWcdXY8VU9qhEr77oCyOFbKx3f0",
+											"disabled": true
+										},
+										{
+											"key": "child",
+											"value": "2QpCGkJFHeUd22lfk5MEGVwn06cppB",
+											"disabled": true
+										},
+										{
+											"key": "currency",
+											"value": "Twd",
+											"disabled": true
+										},
+										{
+											"key": "image",
+											"value": "123123123",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "CIMB Bank9ee",
+											"disabled": true
+										},
+										{
+											"key": "telephone",
+											"value": "0911222111",
+											"disabled": true
+										},
+										{
+											"key": "url",
+											"value": "123",
+											"disabled": true
+										},
+										{
+											"key": "member",
+											"value": "BankB",
+											"disabled": true
+										},
+										{
+											"key": "geo",
+											"value": "point",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "Mobile Network Operator",
+											"disabled": true
+										},
+										{
+											"key": "postal_code",
+											"value": "999999",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 1 - request fees calculation from RFI to accept payment",
+					"item": [
+						{
+							"name": "/client/fees/{{participant2_id}} request fees from ubofph1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2c656526-6e91-42f8-ba6d-ed9b2e6ec7f2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request_id\": \"{{fee_request_id}}\",\n    \"participant_id\": \"{{qwikwire1-id}}\",\n    \"asset_settlement\": {\n        \"asset_type\": \"DA\",\n        \"asset_code\": \"PHP\",\n        \"issuer_id\": \"isubofph\"\n    },\n    \"amount_payout\": 0.02,\n    \"asset_payout\": \"PHP\",\n    \"details_payout_point\": {\n        \"type\": \"Bank\",\n        \"name\": \"CIMBe Bank\",\n        \"currencies_accepted\": [\n            \"PHP\",\n            \"JPD\"\n        ],\n        \"image\": \"https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg\",\n        \"url\": \"\",\n        \"telephone\": \"07-418 6258 / 6276\",\n        \"member_of\": [\n            \"BankA\"\n        ],\n        \"address\": {\n            \"street\": \"39A s rahmat\",\n            \"state\": \"changi\",\n            \"city\": \"north east\",\n            \"postal_code\": \"83000\",\n            \"country\": \"sg\",\n            \"building_number\": \"11\"\n        },\n        \"geo\": {\n            \"latitude\": 1.8482097,\n            \"longitude\": 102.93248110000002\n        },\n        \"categories\": [\n            {\n                \"name\": \"delivery\",\n                \"options\": [\n                    {\n                        \"description\": \"Deliver PHP to home address\",\n                        \"terms\": \"Limit of 52,000 PHP\"\n                    },\n                    {\n                        \"description\": \"Deliver USD to home address\",\n                        \"terms\": \"Limit of 1,000 USD\"\n                    }\n                ]\n            },\n            {\n                \"name\": \"agency_pickup\",\n                \"options\": [\n                    {\n                        \"description\": \"Pick-up PHP from kiosk\",\n                        \"terms\": \"Limit of 52,000 PHP per day per identity verified\"\n                    },\n                    {\n                        \"description\": \"Pick-up USD from kiosk\",\n                        \"terms\": \"Limit of 1,000 USD per day per identity verified\"\n                    }\n                ]\n            }\n        ],\n        \"opening_hours\": [\n            {\n                \"day_of_week\": [\n                    \"Monday\",\n                    \"Tuesday\",\n                    \"Wednesday\",\n                    \"Thursday\"\n                ],\n                \"opens\": \"09:15\",\n                \"closes\": \"16:30\"\n            },\n            {\n                \"day_of_week\": [\n                    \"Friday\"\n                ],\n                \"opens\": \"09:15\",\n                \"closes\": \"16:00\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/global/fee/v1/client/fees/request/ubofph1",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"fee",
+										"v1",
+										"client",
+										"fees",
+										"request",
+										"ubofph1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 1.1 - get fees from RFI to accept payment",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/gateway/v1/client/message?type=fee",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "fee"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "prepare pacs008 message manually :(",
+					"item": [],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 2 - send payment to RFI",
+					"item": [
+						{
+							"name": "/transactions/send",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message_type\": \"iso20022:pacs.008.001.07\",\n\t\"message\": \"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPE1lc3NhZ2UgeG1sbnM9InVybjp3b3JsZHdpcmUiIAogICAgeG1sbnM6Y2N0PSJ1cm46aXNvOnN0ZDppc286MjAwMjI6dGVjaDp4c2Q6cGFjcy4wMDguMDAxLjA3IiAKICAgIHhtbG5zOmhlYWQ9InVybjppc286c3RkOmlzbzoyMDAyMjp0ZWNoOnhzZDpoZWFkLjAwMS4wMDEuMDEiPgogICAgPEFwcEhkcj4KICAgICAgICA8aGVhZDpGcj4KICAgICAgICAgICAgPGhlYWQ6RklJZD4KICAgICAgICAgICAgICAgIDxoZWFkOkZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgICAgICAgPGhlYWQ6QklDRkk+UEhMUVdJS1cwMDE8L2hlYWQ6QklDRkk+CiAgICAgICAgICAgICAgICAgICAgPGhlYWQ6T3Rocj4KICAgICAgICAgICAgICAgICAgICAgICAgPGhlYWQ6SWQ+cXdpa3dpcmUxPC9oZWFkOklkPgogICAgICAgICAgICAgICAgICAgIDwvaGVhZDpPdGhyPgogICAgICAgICAgICAgICAgPC9oZWFkOkZpbkluc3RuSWQ+CiAgICAgICAgICAgIDwvaGVhZDpGSUlkPgogICAgICAgIDwvaGVhZDpGcj4KICAgICAgICA8aGVhZDpUbz4KICAgICAgICAgICAgPGhlYWQ6RklJZD4KICAgICAgICAgICAgICAgIDxoZWFkOkZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgICAgICAgPGhlYWQ6QklDRkk+V09STERXSVJFMDA8L2hlYWQ6QklDRkk+CiAgICAgICAgICAgICAgICAgICAgPGhlYWQ6T3Rocj4KICAgICAgICAgICAgICAgICAgICAgICAgPGhlYWQ6SWQ+V1c8L2hlYWQ6SWQ+CiAgICAgICAgICAgICAgICAgICAgPC9oZWFkOk90aHI+CiAgICAgICAgICAgICAgICA8L2hlYWQ6RmluSW5zdG5JZD4KICAgICAgICAgICAgPC9oZWFkOkZJSWQ+CiAgICAgICAgPC9oZWFkOlRvPgogICAgICAgIDxoZWFkOkJpek1zZ0lkcj5CMjAxOTA5MTBQSExRV0lLVzAwMUJBQTc4NjAzNTQ8L2hlYWQ6Qml6TXNnSWRyPgogICAgICAgIDxoZWFkOk1zZ0RlZklkcj5wYWNzLjAwOC4wMDEuMDc8L2hlYWQ6TXNnRGVmSWRyPgogICAgICAgIDxoZWFkOkNyZUR0PjIwMTktMDktMDlUMjA6NDY6MjBaPC9oZWFkOkNyZUR0PgogICAgPC9BcHBIZHI+CiAgICA8RklUb0ZJQ3N0bXJDZHRUcmY+CiAgICAgICAgPGNjdDpHcnBIZHI+CiAgICAgICAgICAgIDxjY3Q6TXNnSWQ+VVNEMTAwOTIwMTlQSExRV0lLVzAwMTEyOTI0NDY5MzE3MTU8L2NjdDpNc2dJZD4KICAgICAgICAgICAgPGNjdDpDcmVEdFRtPjIwMTktMDktMDlUMjA6NDY6MjA8L2NjdDpDcmVEdFRtPgogICAgICAgICAgICA8Y2N0Ok5iT2ZUeHM+MTwvY2N0Ok5iT2ZUeHM+CiAgICAgICAgICAgIDxjY3Q6U3R0bG1JbmY+CiAgICAgICAgICAgICAgICA8Y2N0OlN0dGxtTXRkPldXREE8L2NjdDpTdHRsbU10ZD4KICAgICAgICAgICAgICAgIDxjY3Q6U3R0bG1BY2N0PgogICAgICAgICAgICAgICAgICAgIDxjY3Q6SWQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjY3Q6T3Rocj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjY3Q6SWQ+cXdpa3dpcmUxPC9jY3Q6SWQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2N0Ok90aHI+CiAgICAgICAgICAgICAgICAgICAgPC9jY3Q6SWQ+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpObT5kZWZhdWx0PC9jY3Q6Tm0+CiAgICAgICAgICAgICAgICA8L2NjdDpTdHRsbUFjY3Q+CiAgICAgICAgICAgIDwvY2N0OlN0dGxtSW5mPgogICAgICAgICAgICA8Y2N0OlBtdFRwSW5mPgogICAgICAgICAgICAgICAgPGNjdDpTdmNMdmw+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpQcnRyeT5pc3Vib2ZwaDwvY2N0OlBydHJ5PgogICAgICAgICAgICAgICAgPC9jY3Q6U3ZjTHZsPgogICAgICAgICAgICA8L2NjdDpQbXRUcEluZj4KICAgICAgICAgICAgPGNjdDpJbnN0Z0FndD4KICAgICAgICAgICAgICAgIDxjY3Q6RmluSW5zdG5JZD4KICAgICAgICAgICAgICAgICAgICA8Y2N0OkJJQ0ZJPlBITFFXSUtXMDAxPC9jY3Q6QklDRkk+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpPdGhyPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2N0OklkPnF3aWt3aXJlMTwvY2N0OklkPgogICAgICAgICAgICAgICAgICAgIDwvY2N0Ok90aHI+CiAgICAgICAgICAgICAgICA8L2NjdDpGaW5JbnN0bklkPgogICAgICAgICAgICA8L2NjdDpJbnN0Z0FndD4KICAgICAgICAgICAgPGNjdDpJbnN0ZEFndD4KICAgICAgICAgICAgICAgIDxjY3Q6RmluSW5zdG5JZD4KICAgICAgICAgICAgICAgICAgICA8Y2N0OkJJQ0ZJPlBITFVCT0ZQMDAxPC9jY3Q6QklDRkk+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpPdGhyPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2N0OklkPnVib2ZwaDE8L2NjdDpJZD4KICAgICAgICAgICAgICAgICAgICA8L2NjdDpPdGhyPgogICAgICAgICAgICAgICAgPC9jY3Q6RmluSW5zdG5JZD4KICAgICAgICAgICAgPC9jY3Q6SW5zdGRBZ3Q+CiAgICAgICAgPC9jY3Q6R3JwSGRyPgogICAgICAgIDxjY3Q6Q2R0VHJmVHhJbmY+CiAgICAgICAgICAgIDxjY3Q6UG10SWQ+CiAgICAgICAgICAgICAgICA8Y2N0Okluc3RySWQ+VVNEWFgyMDE5MDkxMFBITFFXSUtXMDAxQjEwMDQ3NjM4MTI8L2NjdDpJbnN0cklkPgogICAgICAgICAgICAgICAgPGNjdDpFbmRUb0VuZElkPlVTRDEwMDkyMDE5UEhMUVdJS1cwMDExMjkyNDQ2OTMxNzE1PC9jY3Q6RW5kVG9FbmRJZD4KICAgICAgICAgICAgICAgIDxjY3Q6VHhJZD5VU0QxMDA5MjAxOVBITFFXSUtXMDAxMTI5MjQ0NjkzMTcxNTwvY2N0OlR4SWQ+CiAgICAgICAgICAgIDwvY2N0OlBtdElkPgogICAgICAgICAgICA8Y2N0OkludHJCa1N0dGxtQW10IENjeT0iUEhQIj4wLjAyPC9jY3Q6SW50ckJrU3R0bG1BbXQ+CiAgICAgICAgICAgIDxjY3Q6SW50ckJrU3R0bG1EdD4yMDE5LTA5LTEwPC9jY3Q6SW50ckJrU3R0bG1EdD4KICAgICAgICAgICAgPGNjdDpJbnN0ZEFtdCBDY3k9IlBIUCI+MC4wMjwvY2N0Okluc3RkQW10PgogICAgICAgICAgICA8Y2N0OlhjaGdSYXRlPjE8L2NjdDpYY2hnUmF0ZT4KICAgICAgICAgICAgPGNjdDpDaHJnQnI+REVCVDwvY2N0OkNocmdCcj4KICAgICAgICAgICAgPGNjdDpDaHJnc0luZj4KICAgICAgICAgICAgICAgIDxjY3Q6QW10IENjeT0iUEhQIj4wPC9jY3Q6QW10PgogICAgICAgICAgICAgICAgPGNjdDpBZ3Q+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpGaW5JbnN0bklkPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2N0OkJJQ0ZJPlBITFVCT0ZQMDAxPC9jY3Q6QklDRkk+CiAgICAgICAgICAgICAgICAgICAgICAgIDxjY3Q6T3Rocj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjY3Q6SWQ+cXdpa3dpcmUxPC9jY3Q6SWQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvY2N0Ok90aHI+CiAgICAgICAgICAgICAgICAgICAgPC9jY3Q6RmluSW5zdG5JZD4KICAgICAgICAgICAgICAgIDwvY2N0OkFndD4KICAgICAgICAgICAgPC9jY3Q6Q2hyZ3NJbmY+CiAgICAgICAgICAgIDxjY3Q6RGJ0cj4KICAgICAgICAgICAgICAgIDxjY3Q6Tm0+QUJDIENvcnBvcmF0aW9uPC9jY3Q6Tm0+CiAgICAgICAgICAgICAgICA8Y2N0OlBzdGxBZHI+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpTdHJ0Tm0+VGltZXMgU3F1YXJlPC9jY3Q6U3RydE5tPgogICAgICAgICAgICAgICAgICAgIDxjY3Q6QmxkZ05iPjc8L2NjdDpCbGRnTmI+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpQc3RDZD4xNjg5Nzc8L2NjdDpQc3RDZD4KICAgICAgICAgICAgICAgICAgICA8Y2N0OlR3bk5tPk5ldyBZb3JrPC9jY3Q6VHduTm0+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpDdHJ5PlVTPC9jY3Q6Q3RyeT4KICAgICAgICAgICAgICAgIDwvY2N0OlBzdGxBZHI+CiAgICAgICAgICAgIDwvY2N0OkRidHI+CiAgICAgICAgICAgIDxjY3Q6RGJ0ckFndD4KICAgICAgICAgICAgICAgIDxjY3Q6RmluSW5zdG5JZD4KICAgICAgICAgICAgICAgICAgICA8Y2N0OkJJQ0ZJPlBITFFXSUtXMDAxPC9jY3Q6QklDRkk+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpPdGhyPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2N0OklkPnF3aWt3aXJlMTwvY2N0OklkPgogICAgICAgICAgICAgICAgICAgIDwvY2N0Ok90aHI+CiAgICAgICAgICAgICAgICA8L2NjdDpGaW5JbnN0bklkPgogICAgICAgICAgICA8L2NjdDpEYnRyQWd0PgogICAgICAgICAgICA8Y2N0OkNkdHJBZ3Q+CiAgICAgICAgICAgICAgICA8Y2N0OkZpbkluc3RuSWQ+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpCSUNGST5QSExVQk9GUDAwMTwvY2N0OkJJQ0ZJPgogICAgICAgICAgICAgICAgICAgIDxjY3Q6T3Rocj4KICAgICAgICAgICAgICAgICAgICAgICAgPGNjdDpJZD51Ym9mcGgxPC9jY3Q6SWQ+CiAgICAgICAgICAgICAgICAgICAgPC9jY3Q6T3Rocj4KICAgICAgICAgICAgICAgIDwvY2N0OkZpbkluc3RuSWQ+CiAgICAgICAgICAgIDwvY2N0OkNkdHJBZ3Q+CiAgICAgICAgICAgIDxjY3Q6Q2R0cj4KICAgICAgICAgICAgICAgIDxjY3Q6Tm0+REVGIEVsZWN0cm9uaWNzPC9jY3Q6Tm0+CiAgICAgICAgICAgICAgICA8Y2N0OlBzdGxBZHI+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpTdHJ0Tm0+TWFyayBMYW5lPC9jY3Q6U3RydE5tPgogICAgICAgICAgICAgICAgICAgIDxjY3Q6QmxkZ05iPjU1PC9jY3Q6QmxkZ05iPgogICAgICAgICAgICAgICAgICAgIDxjY3Q6UHN0Q2Q+MTE1ODc2PC9jY3Q6UHN0Q2Q+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpUd25ObT5Mb25kb248L2NjdDpUd25ObT4KICAgICAgICAgICAgICAgICAgICA8Y2N0OkN0cnk+U0c8L2NjdDpDdHJ5PgogICAgICAgICAgICAgICAgICAgIDxjY3Q6QWRyTGluZT5Db3JuIEV4Y2hhbmdlIDV0aCBGbG9vcjwvY2N0OkFkckxpbmU+CiAgICAgICAgICAgICAgICA8L2NjdDpQc3RsQWRyPgogICAgICAgICAgICA8L2NjdDpDZHRyPgogICAgICAgICAgICA8Y2N0OlNwbG10cnlEYXRhPgogICAgICAgICAgICAgICAgPGNjdDpQbGNBbmRObT5wYXlvdXQ8L2NjdDpQbGNBbmRObT4KICAgICAgICAgICAgICAgIDxjY3Q6RW52bHA+CiAgICAgICAgICAgICAgICAgICAgPGNjdDpJZD4zOGl6VWVmM0N0OTNRSFd0R2JoTjBOZHI5bnZla0Y8L2NjdDpJZD4KICAgICAgICAgICAgICAgIDwvY2N0OkVudmxwPgogICAgICAgICAgICA8L2NjdDpTcGxtdHJ5RGF0YT4KICAgICAgICAgICAgPGNjdDpTcGxtdHJ5RGF0YT4KICAgICAgICAgICAgICAgIDxjY3Q6UGxjQW5kTm0+ZmVlPC9jY3Q6UGxjQW5kTm0+CiAgICAgICAgICAgICAgICA8Y2N0OkVudmxwPgogICAgICAgICAgICAgICAgICAgIDxjY3Q6SWQ+MjM5ODIzOTg8L2NjdDpJZD4KICAgICAgICAgICAgICAgIDwvY2N0OkVudmxwPgogICAgICAgICAgICA8L2NjdDpTcGxtdHJ5RGF0YT4KICAgICAgICA8L2NjdDpDZHRUcmZUeEluZj4KICAgIDwvRklUb0ZJQ3N0bXJDZHRUcmY+CjwvTWVzc2FnZT4=\"\n}"
+								},
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/send/v1/client/transactions/send",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"send"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 3 - receive confirmation of sending payment to RFI",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 4 - receive stellar hash payment result",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/gateway/v1/client/message?type=payment",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "payment"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

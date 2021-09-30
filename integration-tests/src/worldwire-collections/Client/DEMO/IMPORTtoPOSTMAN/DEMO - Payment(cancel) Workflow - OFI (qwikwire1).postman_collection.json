@@ -1,0 +1,659 @@
+{
+	"info": {
+		"_postman_id": "62d79d82-ce39-49e1-9836-fa6bc33412e0",
+		"name": "DEMO - Payment(cancel) Workflow - OFI (qwikwire1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step \b0 - request payout location",
+					"item": [
+						{
+							"name": "/client/payout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "22f5dd1b-8849-4b5f-8f40-b42c7be5ea19",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/global/payout/v1/client/payout?",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"payout",
+										"v1",
+										"client",
+										"payout"
+									],
+									"query": [
+										{
+											"key": "receive_mode",
+											"value": "cash_pickup",
+											"disabled": true
+										},
+										{
+											"key": "receive_mode",
+											"value": "cash_pickup",
+											"disabled": true
+										},
+										{
+											"key": "city",
+											"value": "north west",
+											"disabled": true
+										},
+										{
+											"key": "state",
+											"value": "tw",
+											"disabled": true
+										},
+										{
+											"key": "street",
+											"value": "changI",
+											"disabled": true
+										},
+										{
+											"key": "country",
+											"value": "SG",
+											"disabled": true
+										},
+										{
+											"key": "id",
+											"value": "ssfrPxbD7VQjscx4CqFLewVGwcyjgl",
+											"disabled": true
+										},
+										{
+											"key": "address",
+											"value": "sg",
+											"disabled": true
+										},
+										{
+											"key": "parent",
+											"value": "mXTHWcdXY8VU9qhEr77oCyOFbKx3f0",
+											"disabled": true
+										},
+										{
+											"key": "child",
+											"value": "2QpCGkJFHeUd22lfk5MEGVwn06cppB",
+											"disabled": true
+										},
+										{
+											"key": "currency",
+											"value": "Twd",
+											"disabled": true
+										},
+										{
+											"key": "image",
+											"value": "123123123",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "CIMB Bank9ee",
+											"disabled": true
+										},
+										{
+											"key": "telephone",
+											"value": "0911222111",
+											"disabled": true
+										},
+										{
+											"key": "url",
+											"value": "123",
+											"disabled": true
+										},
+										{
+											"key": "member",
+											"value": "BankB",
+											"disabled": true
+										},
+										{
+											"key": "geo",
+											"value": "point",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "Mobile Network Operator",
+											"disabled": true
+										},
+										{
+											"key": "postal_code",
+											"value": "999999",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 1 - request fees calculation from RFI to accept payment",
+					"item": [
+						{
+							"name": "/client/fees/{{participant2_id}} request fees from ubofph1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2c656526-6e91-42f8-ba6d-ed9b2e6ec7f2",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"amountFee = JSON.stringify(jsonData.amount_fee);",
+											"assetCode = JSON.stringify(jsonData.details_asset_settlement.asset_code);",
+											"assetType = JSON.stringify(jsonData.details_asset_settlement.asset_type);",
+											"reqId = JSON.stringify(jsonData.request_id);",
+											"payoutAmount = JSON.stringify(jsonData.amount_payout);",
+											"settlementAmount = JSON.stringify(jsonData.amount_settlement);",
+											"",
+											"pm.environment.set(\"amount_fee\", amountFee);",
+											"pm.environment.set(\"asset_code\", assetCode);",
+											"pm.environment.set(\"asset_type\", assetType);",
+											"pm.environment.set(\"fee_request_id\", reqId);",
+											"pm.environment.set(\"amount_payout\", payoutAmount);",
+											"pm.environment.set(\"amount_settlement\", settlementAmount);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request_id\": \"{{fee_request_id}}\",\n    \"participant_id\": \"{{qwikwire1-id}}\",\n    \"asset_settlement\": {\n        \"asset_type\": \"DA\",\n        \"asset_code\": \"USD\",\n        \"issuer_id\": \"{{anchor_id}}\"\n    },\n    \"amount_payout\": 200,\n    \"asset_payout\": \"USD\",\n    \"details_payout_point\": {\n        \"type\": \"Bank\",\n        \"name\": \"CIMBe Bank\",\n        \"currencies_accepted\": [\n            \"USD\",\n            \"JPD\"\n        ],\n        \"image\": \"https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg\",\n        \"url\": \"\",\n        \"telephone\": \"07-418 6258 / 6276\",\n        \"member_of\": [\n            \"BankA\"\n        ],\n        \"address\": {\n            \"street\": \"39A s rahmat\",\n            \"state\": \"changi\",\n            \"city\": \"north east\",\n            \"postal_code\": \"83000\",\n            \"country\": \"sg\",\n            \"building_number\": \"11\"\n        },\n        \"geo\": {\n            \"latitude\": 1.8482097,\n            \"longitude\": 102.93248110000002\n        },\n        \"categories\": [\n            {\n                \"name\": \"delivery\",\n                \"options\": [\n                    {\n                        \"description\": \"Deliver PHP to home address\",\n                        \"terms\": \"Limit of 52,000 PHP\"\n                    },\n                    {\n                        \"description\": \"Deliver USD to home address\",\n                        \"terms\": \"Limit of 1,000 USD\"\n                    }\n                ]\n            },\n            {\n                \"name\": \"agency_pickup\",\n                \"options\": [\n                    {\n                        \"description\": \"Pick-up PHP from kiosk\",\n                        \"terms\": \"Limit of 52,000 PHP per day per identity verified\"\n                    },\n                    {\n                        \"description\": \"Pick-up USD from kiosk\",\n                        \"terms\": \"Limit of 1,000 USD per day per identity verified\"\n                    }\n                ]\n            }\n        ],\n        \"opening_hours\": [\n            {\n                \"day_of_week\": [\n                    \"Monday\",\n                    \"Tuesday\",\n                    \"Wednesday\",\n                    \"Thursday\"\n                ],\n                \"opens\": \"09:15\",\n                \"closes\": \"16:30\"\n            },\n            {\n                \"day_of_week\": [\n                    \"Friday\"\n                ],\n                \"opens\": \"09:15\",\n                \"closes\": \"16:00\"\n            }\n        ]\n    }\n}"
+								},
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/global/fee/v1/client/fees/ubofph1",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"fee",
+										"v1",
+										"client",
+										"fees",
+										"ubofph1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 1.1 - get fees from RFI to accept payment",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "qwikwire1.worldwire-qa.io/local/gateway/v1/client/message?type=fee",
+									"host": [
+										"qwikwire1",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "fee"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "(run before step 2 - prepare pacs008 message)",
+					"item": [
+						{
+							"name": "generate PACS008 (increments EndToEnd_ID & encodes on backend)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "57ed1bf3-4829-4315-a3a2-6a3dec9ca44a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6adbfcbe-5f21-45e6-80fa-6d5ae7d342ff",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"savedData = JSON.stringify(jsonData.message);",
+											"",
+											"pm.environment.set(\"send-payload\", savedData);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"settlement_method\": {{asset_type}},\n\t\"settlement_amount\": {{amount_settlement}},\n\t\"payout_amount\": {{amount_payout}},\n\t\"settlement_asset_code\": {{asset_code}},\n\t\"settlement_account_name\": \"default\",\n\t\"fee\": {\n\t\t\"asset_code\": {{asset_code}},\n\t\t\"amount\": {{amount_fee}},\n\t\t\"exchange_rate\": 1.0\n\t},\n\t\"asset_issuer_id\": \"{{anchor_id}}\",\n\t\"debtor\": {\n\t\t\"name\": \"debtor_name\",\n\t\t\"id\": \"{{qwikwire1-id}}\",\n\t\t\"bic\": \"{{qwikwire1_bic}}\",\n\t\t\"account_id\" : \"00125574999\"\n\t},\n\t\"creditor\": {\n\t\t\"name\": \"creditor_name\",\n\t\t\"id\": \"{{ubofph1-id}}\",\n\t\t\"bic\": \"{{ubofph1_bic}}\",\n\t\t\"account_id\" : \"23683707994215\"\n\t},\n\t\"payout_id\": \"2AzD0sPp1KuUK7HIqwZMe7Dws0YVH0\",\n\t\"fee_request_id\": {{fee_request_id}}\n}"
+								},
+								"url": {
+									"raw": "http://send-payload-generator.worldwire-st.io:6666/v1/client/generate/pacs008",
+									"protocol": "http",
+									"host": [
+										"send-payload-generator",
+										"worldwire-st",
+										"io"
+									],
+									"port": "6666",
+									"path": [
+										"v1",
+										"client",
+										"generate",
+										"pacs008"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 2 - send payment to RFI",
+					"item": [
+						{
+							"name": "/transactions/send",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message_type\": \"iso20022:pacs.008.001.07\",\n\t\"message\": {{send-payload}}\n}"
+								},
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/send/v1/client/transactions/send",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"send"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 3 - receive confirmation of sending payment to RFI",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 4 - receive stellar hash payment result",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/gateway/v1/client/message?type=payment",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "payment"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 5 - send payment cancel request to RFI",
+					"item": [
+						{
+							"name": "/transactions/send",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message_type\": \"iso20022:camt.056.001.08\",\n\t\"message\": {{send-payload}}\n}"
+								},
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/send/v1/client/transactions/send",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"send"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 6 - receive cancel confirmation of payment cancel request to RFI",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{qwikwire1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "qwikwire1.worldwire-st.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"qwikwire1",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

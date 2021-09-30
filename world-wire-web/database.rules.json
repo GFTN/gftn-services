@@ -1,0 +1,162 @@
+{
+  "rules": {
+    "2fa": {
+      "$uid": {
+        "registered": {
+          ".read": "auth.uid == $uid == true"
+        }
+      }
+    },
+    "asset_requests": {
+      "$participantId": {
+        ".read": "((root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true && (root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true)",
+        ".write": "((root.child('totp').child(auth.uid).child('registered').val() == true && (((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true)) == true && (root.child('totp').child(auth.uid).child('registered').val() == true && (((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true)) == true)"
+      }
+    },
+    "account_requests": {
+      "$participantId": {
+        ".read": "((root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) == true",
+        ".write": "((root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) == true"
+      }
+    },
+    "blocklist_requests": {
+      ".read": "((root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) == true",
+      ".write": "((root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) == true"
+    },
+    "jwt_info": {
+      "$institutionId": {
+        ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true)) == true"
+      }
+    },
+    "nodes": {
+      "$participantId": {
+        ".read": "auth.uid != null"
+      }
+    },
+    "participant_permissions": {
+      "$userId": {
+        "$institutionId": {
+          "roles": {
+            "$permission": {
+              ".validate": "(newData.val() == true && (($permission == 'manager' || $permission == 'admin') || $permission == 'viewer'))"
+            },
+            ".validate": "newData.hasChildren()"
+          },
+          ".validate": "newData.hasChildren(['roles'])",
+          "$other": {
+            ".validate": "false"
+          },
+          ".write": "((data.val() != null && newData.val() == null) && (root.child('totp').child(auth.uid).child('registered').val() == true && ((root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('admin').val() == true || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true)))"
+        },
+        ".validate": "newData.hasChildren()"
+      },
+      ".validate": "newData.hasChildren()",
+      ".read": "auth.uid != null == true"
+    },
+    "participant_approvals": {
+      ".write": "((data.val() != null && newData.val() != null) && root.child('totp').child(auth.uid).child('registered').val() == true)",
+      ".read": "root.child('totp').child(auth.uid).child('registered').val() == true"
+    },
+    "participants": {
+      "$institutionId": {
+        "info": {
+          ".validate": "newData.hasChildren()",
+          ".write": "((data.val() == null && ((root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) == true) || ((data.val() != null && newData.val() != null) && (root.child('totp').child(auth.uid).child('registered').val() == true && (((root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true)) == true))"
+        },
+        "users": {
+          ".validate": "newData.hasChildren()",
+          ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true"
+        },
+        "nodes": {
+          ".validate": "newData.hasChildren()",
+          ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child($institutionId).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true",
+          ".write": "((root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) == true"
+        }
+      },
+      ".read": "root.child('totp').child(auth.uid).child('registered').val() == true"
+    },
+    "slugs": {
+      ".read": "auth.uid != null == true"
+    },
+    "super_approvals": {
+      ".write": "((data.val() != null && newData.val() != null) && (root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) == true)",
+      ".read": "(((root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true) == true"
+    },
+    "super_permissions": {
+      "$userId": {
+        "roles": {
+          "$permission": {
+            ".validate": "(newData.val() == true && (($permission == 'manager' || $permission == 'admin') || $permission == 'viewer'))"
+          },
+          ".validate": "newData.hasChildren()"
+        },
+        ".validate": "newData.hasChildren()",
+        ".write": "((data.val() != null && newData.val() == null) && (root.child('totp').child(auth.uid).child('registered').val() == true && root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true))"
+      },
+      ".validate": "newData.hasChildren()",
+      ".read": "auth.uid != null == true"
+    },
+    "trust_requests": {
+      ".read": "auth.uid != null == true",
+      ".write": "(auth.uid != null == true && root.child('totp').child(auth.uid).child('registered').val() == true)",
+      ".indexOn": [
+        "requestor_id",
+        "issuer_id"
+      ]
+    },
+    "users": {
+      "$userId": {
+        "participant_permissions": {
+          ".validate": "newData.hasChildren()"
+        },
+        "super_permissions": {
+          ".validate": "newData.hasChildren()"
+        },
+        "profile": {
+          ".validate": "newData.hasChildren(['email'])",
+          "email": {
+            ".validate": "newData.isString()"
+          },
+          "$other": {
+            ".validate": "false"
+          },
+          ".read": "auth.uid == $userId == true",
+          ".write": "(root.child('totp').child(auth.uid).child('registered').val() == true && auth.uid == $userId == true)"
+        },
+        ".read": "(auth.uid != null == true && root.child('totp').child(auth.uid).child('registered').val() == true)"
+      }
+    },
+    "v1": {
+      "txn": {
+        "exchange": {
+          "$participantId": {
+            ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true"
+          }
+        },
+        "logs": {
+          "$participantId": {
+            ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true"
+          }
+        },
+        "transfer": {
+          "$participantId": {
+            ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true"
+          }
+        },
+        ".read": "root.child('totp').child(auth.uid).child('registered').val() == true"
+      }
+    },
+    "whitelist_requests": {
+      "$participantId": {
+        ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true",
+        ".write": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true)) == true"
+      }
+    },
+    "killswitch_requests": {
+      "$participantId": {
+        ".read": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('viewer').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('viewer').val() == true)) == true",
+        ".write": "(root.child('totp').child(auth.uid).child('registered').val() == true && (((root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('admin').val() == true || root.child('participant_permissions').child(auth.uid).child(root.child('nodes').child($participantId).val()).child('roles').child('manager').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('admin').val() == true) || root.child('super_permissions').child(auth.uid).child('roles').child('manager').val() == true)) == true"
+      }
+    }
+  }
+}

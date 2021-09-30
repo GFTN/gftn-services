@@ -1,0 +1,193 @@
+<form #participantForm="ngForm" name="participantForm" (ngSubmit)="submit()">
+
+	<div class="full-screen-dialog">
+
+		<div class="bx--modal-container" fxLayout="column">
+
+			<div class="bx--modal-header">
+				<p class="bx--modal-header__label bx--type-delta">
+					<span>{{data.action}}</span> Participant
+				</p>
+				<p class="bx--modal-header__heading bx--type-beta"> Participant Profile</p>
+			</div>
+
+			<div class="bx--modal-content" fxFlex>
+
+				<div fxLayout="column" class="margin-width">
+
+					<div class="bx--form-item">
+						<label for="name" class="bx--label">
+							Participant Name
+							<span class="text-danger">*</span>
+						</label>
+						<div class="bx--form__helper-text" *ngIf="institution.model?.info.slug">
+							{{'Identifier: ' + institution.model?.info.slug}}&nbsp;
+							<a class="bx--link" (click)="confirmSlugChange()">Update</a>
+						</div>
+						<input #nameElement id="name" name="name" #name="ngModel"
+							[attr.data-invalid]="name.invalid && name.touched ? true : null" required
+							[(ngModel)]="institution.model.info.name" type="text" class="bx--text-input"
+							(keyup)="updateSlug($event)" appInstitutionIdValid
+							[institutionSlug]="institution.model?.info.slug"
+							[institutionId]="institution.model?.info.institutionId">
+						<div *ngIf="name.errors?.required" class="bx--form-requirement">
+							Required
+						</div>
+						<div *ngIf="name.errors?.slugExists" class="bx--form-requirement">
+							Slug for this institution already exists. Please update participant name and/or slug itself
+							so that slug is unique.
+						</div>
+					</div>
+
+					<!-- <div class="bx--form-item">
+								<input id="short" name="short" [(ngModel)]="institution.model.short" type="text" class="bx--text-input">
+								<label for="short" class="bx--label">Abbreviated Name</label>
+							</div> -->
+
+					<div class="bx--form-item">
+						<label for="address1" class="bx--label">Address 1
+							<span class="text-danger">*</span>
+						</label>
+						<div class="bx--form__helper-text">Street Address, Company Name, P.O. Box</div>
+						<input id="address1" name="address1" #address1="ngModel"
+							[attr.data-invalid]="address1.invalid && address1.touched ? true : null" required
+							[(ngModel)]="institution.model.info.address1" type="text" class="bx--text-input">
+						<div class="bx--form-requirement">
+							Required
+						</div>
+					</div>
+
+					<div class="bx--form-item">
+						<label for="address2" class="bx--label">Address 2</label>
+						<div class="bx--form__helper-text">Apartment, Building, Floor, Suite, Unit, etc.</div>
+						<input id="address2" name="address2" [(ngModel)]="institution.model.info.address2" type="text"
+							class="bx--text-input">
+
+					</div>
+
+						<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+
+							<div class="bx--form-item" fxFlex fxFlex.lt-md="none">
+								<div class="bx--select">
+									<label for="country" class="bx--label">Country
+									<span class="text-danger">*</span>
+								</label>
+									<select id="country" name="country" #country="ngModel"
+									[attr.data-invalid]="country.invalid && country.touched ? true : null" required
+									class="bx--select-input" [(ngModel)]="institution.model.info.country">
+									<option class="bx--select-option" ngValue="" disabled selected hidden>Select a
+										Country</option>
+									<!-- Country options sorted by name -->
+									<option class="bx--select-option" *ngFor="let country of countries | keyvalue: valueAscOrder" [value]="getAlpha3Code(country.key)">
+										{{ country.value }}</option>
+								</select>
+									<div class="bx--form-requirement">
+										Required
+									</div>
+									<svg class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5">
+										<path d="M0 0l5 4.998L10 0z" fill-rule="evenodd" />
+									</svg>
+								</div>
+							</div>
+
+							<div class="bx--form-item" fxFlex fxFlex.lt-md="none">
+								<input id="city" name="city" #city="ngModel"
+								[attr.data-invalid]="city.invalid && city.touched ? true : null" required
+								[(ngModel)]="institution.model.info.city" type="text" class="bx--text-input">
+								<label for="city" class="bx--label">City
+								<span class="text-danger">*</span>
+							</label>
+								<div class="bx--form-requirement">
+									Required
+								</div>
+							</div>
+
+
+						</div>
+
+						<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="10px">
+
+							<div class="bx--form-item" fxFlex fxFlex.lt-md="none">
+								<input id="state" name="state" #state="ngModel"
+								[attr.data-invalid]="state.invalid && state.touched ? true : null"
+								[(ngModel)]="institution.model.info.state" type="text" class="bx--text-input">
+								<label for="state" class="bx--label">State/Province/Region
+								<!-- <span class="text-danger">*</span> -->
+							</label>
+								<!-- <div class="bx--form-requirement">
+								Required
+							</div> -->
+							</div>
+
+
+							<div class="bx--form-item" fxFlex fxFlex.lt-md="none">
+								<input id="zip" name="zip" #zip="ngModel"
+								[attr.data-invalid]="zip.invalid && zip.touched ? true : null"
+								[(ngModel)]="institution.model.info.zip" type="text" class="bx--text-input">
+								<label for="zip" class="bx--label">Zip/Postal Code</label>
+								<!-- Not required since some countries don't have postal codes/zips -->
+							</div>
+
+						</div>
+
+						<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
+
+							<div class="bx--form-item" fxFlex fxFlex.xs="none">
+								<div class="bx--select">
+									<label for="kind" class="bx--label">Type
+									<span class="text-danger">*</span>
+								</label>
+									<select id="kind" name="kind" #kind="ngModel"
+									[attr.data-invalid]="kind.invalid && kind.touched ? true : null" required
+									class="bx--select-input" [(ngModel)]="institution.model.info.kind">
+									<option class="bx--select-option" *ngFor="let i of institution.types" [value]="i">
+										{{i}}</option>
+								</select>
+									<div class="bx--form-requirement">
+										Required
+									</div>
+									<svg class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5">
+										<path d="M0 0l5 4.998L10 0z" fill-rule="evenodd" />
+									</svg>
+
+								</div>
+
+							</div>
+
+							<div class="bx--form-item" fxFlex fxFlex.xs="none">
+								<!-- <div class="bx--select">
+								<label for="status" class="bx--label">Status<span class="text-danger">*</span></label>
+								<select id="status" name="status" #status="ngModel"
+									[attr.data-invalid]="status.invalid && status.touched ? true : null" required
+									class="bx--select-input" [(ngModel)]="institution.model.info.status">
+									<option class="bx--select-option" *ngFor="let i of institution.status" [value]="i">
+										{{i}}</option>
+								</select>
+								<div class="bx--form-requirement">
+									Required
+								</div>
+								<svg class="bx--select__arrow" width="10" height="5" viewBox="0 0 10 5">
+									<path d="M0 0l5 4.998L10 0z" fill-rule="evenodd" />
+								</svg>
+							</div> -->
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="bx--modal-footer" fxLayout="row" fxLayoutGap="10px">
+					<button class="bx--btn bx--btn--primary" type="submit"
+					[disabled]="participantForm.form.invalid || !isFormUpdated()">Save</button>
+					<button class="bx--btn bx--btn--secondary" type="button" (click)="cancel()">Cancel</button>
+				</div>
+
+			</div>
+
+		</div>
+
+</form>
+
+<ibm-placeholder></ibm-placeholder>

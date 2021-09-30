@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Message xmlns="urn:worldwire" xmlns:fcr="urn:iso:std:iso:20022:tech:xsd:ibwf.001.001.01" xmlns:head="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+   <AppHdr>
+      <head:Fr>
+         <head:FIId>
+            <head:FinInstnId>
+               <head:BICFI>SGPTTEST004</head:BICFI>
+               <head:Othr>
+                  <head:Id>testparticipant4dev</head:Id>
+               </head:Othr>
+            </head:FinInstnId>
+         </head:FIId>
+      </head:Fr>
+      <head:To>
+         <head:FIId>
+            <head:FinInstnId>
+               <head:BICFI>WORLDWIRE00</head:BICFI>
+               <head:Othr>
+                  <head:Id>WW</head:Id>
+               </head:Othr>
+            </head:FinInstnId>
+         </head:FIId>
+      </head:To>
+      <head:BizMsgIdr>B20190819SGPTTEST003BAA1069314</head:BizMsgIdr>
+      <head:MsgDefIdr>ibwf.001.001.01</head:MsgDefIdr>
+      <head:CreDt>2019-08-19T13:12:36Z</head:CreDt>
+      <head:Sgntr>
+         <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+               <CanonicalizationMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+               <SignatureMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2009/xmldsig11#rsa-sha256" />
+               <Reference xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <Transforms xmlns="http://www.w3.org/2000/09/xmldsig#">
+                     <Transform xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                     <Transform xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                  </Transforms>
+                  <DigestMethod xmlns="http://www.w3.org/2000/09/xmldsig#" Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                  <DigestValue xmlns="http://www.w3.org/2000/09/xmldsig#">pjnI7fNvrP3PuIFds+f4cRMUiYkz4hr7ea5Tmqj2v/s=</DigestValue>
+               </Reference>
+            </SignedInfo>
+            <SignatureValue xmlns="http://www.w3.org/2000/09/xmldsig#">WgSWOB4Hbldmbs7pwlv+O54KpEgsX2tLM1w9AhWOvoO4MamXDwyPP3VhA76hRdNFPfYr6AYl7Cje4KKh4mjKBA==</SignatureValue>
+            <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+               <X509Data xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <X509Certificate xmlns="http://www.w3.org/2000/09/xmldsig#">GCT5LR2C5IA35WIBF43KESB2426XMPYMQ6IEMS6WV7LDRCCJ5R7LOPWX</X509Certificate>
+               </X509Data>
+            </KeyInfo>
+         </Signature>
+      </head:Sgntr>
+   </AppHdr>
+   <FedCompRes>
+      <fcr:GrpHdr>
+         <fcr:MsgId>SGDDO20190819SGPTTEST003B3889747112</fcr:MsgId>
+         <fcr:CreDtTm>2019-08-19T13:12:36</fcr:CreDtTm>
+         <fcr:NbOfTxs>1</fcr:NbOfTxs>
+         <fcr:SttlmInf>
+            <fcr:SttlmMtd>WWDO</fcr:SttlmMtd>
+            <fcr:SttlmAcct>
+               <fcr:Id>
+                  <fcr:Othr>
+                     <fcr:Id>testparticipant4dev</fcr:Id>
+                  </fcr:Othr>
+               </fcr:Id>
+               <fcr:Nm>issuing</fcr:Nm>
+            </fcr:SttlmAcct>
+         </fcr:SttlmInf>
+         <fcr:InstgAgt>
+            <fcr:FinInstnId>
+               <fcr:BICFI>SGPTTEST004</fcr:BICFI>
+               <fcr:Othr>
+                  <fcr:Id>testparticipant4dev</fcr:Id>
+               </fcr:Othr>
+            </fcr:FinInstnId>
+         </fcr:InstgAgt>
+         <fcr:InstdAgt>
+            <fcr:FinInstnId>
+               <fcr:BICFI>SGPTTEST003</fcr:BICFI>
+               <fcr:Othr>
+                  <fcr:Id>testparticipant3dev</fcr:Id>
+               </fcr:Othr>
+            </fcr:FinInstnId>
+         </fcr:InstdAgt>
+      </fcr:GrpHdr>
+      <fcr:ResBody>
+         <fcr:FedRes>
+            <fcr:AccId>GCT5LR2C5IA35WIBF43KESB2426XMPYMQ6IEMS6WV7LDRCCJ5R7LOPWX</fcr:AccId>
+            <fcr:FedSts>ACTC</fcr:FedSts>
+            <fcr:PmtId>
+               <fcr:InstrId>SGDDO20190819SGPTTEST003B3889747111</fcr:InstrId>
+               <fcr:EndToEndId>SGDDO19082019SGPTTEST00377793380333</fcr:EndToEndId>
+            </fcr:PmtId>
+         </fcr:FedRes>
+         <fcr:CmpRes>
+            <fcr:InfSts>ACTC</fcr:InfSts>
+            <fcr:TxnSts>ACTC</fcr:TxnSts>
+            <fcr:PmtId>
+               <fcr:InstrId>SGDDO20190819SGPTTEST003B3889747111</fcr:InstrId>
+               <fcr:EndToEndId>SGDDO19082019SGPTTEST00377793380333</fcr:EndToEndId>
+            </fcr:PmtId>
+         </fcr:CmpRes>
+      </fcr:ResBody>
+   </FedCompRes>
+</Message>

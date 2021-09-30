@@ -1,0 +1,18 @@
+
+title: quoteEnvelope
+description: Quote Envelope
+x-group-m: Models
+type: object
+required:
+  - quote
+  - signature
+properties:
+  quote:
+    type: string
+    description: base64 encoded [quote](??base_url??/docs/??version??/api/participant-client-api?jump=model_quote) object
+  signature:
+    type: string
+    description: base64 encoded quote object signature
+externalDocs:
+  url: '#/definitions/quoteEnvelope'
+x-go-name: QuoteEnvelope

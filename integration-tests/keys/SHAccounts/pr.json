@@ -1,0 +1,74 @@
+{
+  "participants": [
+    {
+      "api_service_url": "https://one-hk-staging.worldwire.io:8080",
+      "compliance_service_url": "https://one-hk-staging.worldwire.io:11003",
+      "country_code": "HK",
+      "federation_service_url": "https://one-hk-staging.worldwire.io:11001",
+      "issuing_account": "GA3R6DKDA2B554KHCQIEJE5FLTXRMRIAD3O236JBUEXLA3764C4D4NKV",
+      "operating_accounts": [
+        {
+          "account_name": "default",
+          "stellar_network_address": "GDTKBZ2AZROVIKRH37A2VNHHC3UADOMBC3IJFF5PJBGB7OJEFTTVIYXL"
+        }
+      ],
+      "participant_domain": "hk.one.payments.worldwire.io",
+      "quote_service_url": "https://one-hk-staging.worldwire.io:11002",
+      "rdo_service_url": "https://one-hk-staging.worldwire.io:7070",
+      "status": "active"
+    },
+    {
+      "api_service_url": "https://one-ie-staging.worldwire.io:8080",
+      "compliance_service_url": "https://one-ie-staging.worldwire.io:11003",
+      "country_code": "IE",
+      "federation_service_url": "https://one-ie-staging.worldwire.io:11001",
+      "issuing_account": "GDMD5T5BTXKXF6UWD5HKEJZO32UDPO3IEEV46NZPYIQINM37BK5NMSM3",
+      "operating_accounts": [
+        {
+          "account_name": "default",
+          "stellar_network_address": "GAER34EGTS6GES5Y7HPNP65Y2FDWXI2ENEM4IIDY72UDS6MSKE3MPELN"
+        }
+      ],
+      "participant_domain": "ie.one.payments.worldwire.io",
+      "quote_service_url": "https://one-ie-staging.worldwire.io:11002",
+      "rdo_service_url": "https://one-ie-staging.worldwire.io:7070",
+      "status": "active"
+    },
+    {
+      "api_service_url": "",
+      "compliance_service_url": "",
+      "country_code": "NZ",
+      "federation_service_url": "",
+      "issuing_account": "GDZMBCWAGKIAYWJAMSHXYCQOHSC6HP77W757PSVP55TCRCUBZH5WUDAA",
+      "operating_accounts": [],
+      "participant_domain": "nzd.nz.stronghold.co",
+      "quote_service_url": "",
+      "rdo_service_url": "",
+      "status": "inactive"
+    },
+    {
+      "api_service_url": "",
+      "compliance_service_url": "",
+      "country_code": "NZ",
+      "federation_service_url": "",
+      "issuing_account": "GD5B5NTQ2USB5I4QQ7KWNMZ7SSOJRHHJFFYFYTSIWKBQWXUBLU6YPUB4",
+      "operating_accounts": [],
+      "participant_domain": "usd.us.stronghold.co",
+      "quote_service_url": "",
+      "rdo_service_url": "",
+      "status": "inactive"
+    },
+    {
+      "api_service_url": "",
+      "compliance_service_url": "",
+      "country_code": "NZ",
+      "federation_service_url": "",
+      "issuing_account": "GBPY3DENYN7H5CCITKH7MMVPTOSO3TNY5ZQQSQLDMTARTTMMPNAHBWOW",
+      "operating_accounts": [],
+      "participant_domain": "bc.da.stronghold.co",
+      "quote_service_url": "",
+      "rdo_service_url": "",
+      "status": "inactive"
+    }
+  ]
+}

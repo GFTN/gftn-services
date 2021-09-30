@@ -1,0 +1,26 @@
+ibm-progress-indicator{
+    min-width: 600px
+}
+
+#fixed-modal {
+    .bx--modal-content {
+        overflow: visible;
+    }
+}
+
+.app-icon {
+    width: 50%;
+    max-width: 100px;
+    img {
+        width: 100%;
+    }
+}
+
+#store-icon {
+    width: 35%;
+    max-width: 150px;
+}
+
+#main-content {
+    max-width: 1024px;
+}

@@ -1,0 +1,25 @@
+@import "~sass/ibm-style-override";
+
+// limits the page's maximum width
+$max-width: 1440px;
+
+// min-padding for mobile device viewing
+$min-padding: 10px;
+
+.inline-logo {
+	height: 80px;
+	width: 100px;
+	background-color: #000;
+	padding: 20px;
+}
+
+.outer {
+	min-height: 100vh;
+	padding: 0 $min-padding; // left and right min-padding (for mobile viewing)
+	max-width: $max-width;
+	width: 100%;
+	
+	a.no-line {
+		color: $text-01
+	}
+}

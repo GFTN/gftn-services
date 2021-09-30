@@ -1,0 +1,21 @@
+
+title: internalDraft
+description: draft
+type: object
+required:
+  - transaction_unsigned
+  - account_name
+properties:
+  transaction_id:
+    type: string
+    description: Identifier for transaction.
+  account_name:
+    type: string
+    description: The name of the account with which the transactions needs to be signed
+  transaction_unsigned:
+    type: string
+    format: byte
+    description: The unsigned transaction envelope to be signed by IBM account.
+externalDocs:
+  url: '#/definitions/InternalDraft'
+x-go-name: internalDraft

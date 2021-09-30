@@ -1,0 +1,25 @@
+{
+   "Version": "2012-10-17",
+   "Statement": [
+       {
+           "Sid": "VisualEditor0",
+           "Effect": "Allow",
+           "Action": [
+               "secretsmanager:GetSecretValue",
+               "dynamodb:PutItem",
+             "dynamodb:Scan",
+            "dynamodb:Query",
+            "dynamodb:UpdateItem"
+           ],
+           "Resource": [
+               "arn:aws:secretsmanager:<region>:<accountId>:secret:<service_secret>",
+               "arn:aws:secretsmanager:<region>:<accountId>:secret:<participant_secret>",
+               "arn:aws:secretsmanager:<region>:<accountId>:secret:<account_secret>",
+               "arn:aws:dynamodb:<db_region>:<accountId>:table/<env>_IBM_GAS_ACCOUNTS",
+               "arn:aws:dynamodb:<db_region>:<accountId>:table/<env>_IBM_CONTACTS",
+               "arn:aws:dynamodb:<db_region>:<accountId>:table/<env>_IBM_GROUPS"
+
+           ]
+       }
+   ]
+}

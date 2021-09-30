@@ -1,0 +1,26 @@
+title: accountCustomer
+description: Account customer
+type: object
+required:
+  - account_number
+  - account_type
+  - routing_number
+properties:
+  account_number:
+    type: string
+    description: Identifier for the customer account
+    x-go-custom-tag: "bson:\"account_number\""
+  account_type:
+    type: string
+    description: Account type for customer account
+    enum:
+      - checking
+      - savings
+    x-go-custom-tag: "bson:\"account_type\""
+  routing_number:
+    type: string
+    description: A routing number to an institution
+    x-go-custom-tag: "bson:\"routing_number\""
+externalDocs:
+  url: '#/definitions/accountCustomer'
+x-go-name: AccountCustomer

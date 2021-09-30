@@ -1,0 +1,54 @@
+
+[DISTRIBUTION_ACCOUNTS]
+
+  [DISTRIBUTION_ACCOUNTS.default]
+    NODE_ADDRESS = "GDYOPXVFROUVZHXNT43TB7QBWETSNJWGG5ZQFHLYO7Q3NZJIK6MH3L34"
+    NODE_PASS_CODE = "97f712d6f56cbb3b538395adfd5a8bddf9f74fe8902f30e58cab9e04addea8004d07f6fba16fe6f9b167a97fb84f0c552bf9294d7effd2f937debe172c174160"
+    NODE_SEED = "(seed value)"
+    PrivateKeyLabel = ""
+    PublicKeyLabel = ""
+
+  [DISTRIBUTION_ACCOUNTS.test]
+    NODE_ADDRESS = "GCTIYZNXM2XGR5YPWKFE66SXV7ICG7ZHASS7BK2O7CBAPGJ3EMTXYCDC"
+    NODE_PASS_CODE = "null"
+    NODE_SEED = "(seed value)"
+    PrivateKeyLabel = "null"
+    PublicKeyLabel = "null"
+
+  [DISTRIBUTION_ACCOUNTS.test1]
+    NODE_ADDRESS = "GBMWDOY2RGEJVT4PTLSI5ARYPHRXY46FJHR5CFYJDN6ZVQ72GF6EVVTZ"
+    NODE_PASS_CODE = "null"
+    NODE_SEED = "(seed value)"
+    PrivateKeyLabel = "null"
+    PublicKeyLabel = "null"
+
+  [DISTRIBUTION_ACCOUNTS.test2]
+    NODE_ADDRESS = "GCJ2XNDTRAK63ZRG7PBUMXKD4YH6HVXOPEIPJTNEH3KNPBPQSC5XQEZZ"
+    NODE_PASS_CODE = "null"
+    NODE_SEED = "(seed value)"
+    PrivateKeyLabel = "null"
+    PublicKeyLabel = "null"
+
+  [DISTRIBUTION_ACCOUNTS.test3]
+    NODE_ADDRESS = "GBJTGFE5QMHQ4RVAO2CD5UU2G3ON4NGQLJLRZEU3LQOH7J6WGDXRP7W4"
+    NODE_PASS_CODE = "null"
+    NODE_SEED = "(seed value)"
+    PrivateKeyLabel = "null"
+    PublicKeyLabel = "null"
+
+[IBM_TOKEN_ACCOUNT]
+  NODE_ADDRESS = "GB6KMNQODYL5QGS3NFXAQYNFDK6RSDKWNV4BTPP6AQZTKURUFBB2KMY4"
+  NODE_PASS_CODE = ""
+  NODE_SEED = "(seed value)"
+  PrivateKeyLabel = ""
+  PublicKeyLabel = ""
+
+[ISSUING_ACCOUNT]
+  NODE_ADDRESS = "GBLXXX6W6RUYBBVDHEXN5XNBBKE7VZVXYSAPZPLLJO3ZQSJAIQOAAUNB"
+  NODE_PASS_CODE = "null"
+  NODE_SEED = "(seed value)"
+  PrivateKeyLabel = "null"
+  PublicKeyLabel = "null"
+
+[WHITE_LIST]
+  PARTICIPANT_DOMAINS = "fj.one.payments.gftn.io;ie.one.payments.worldwire.io"

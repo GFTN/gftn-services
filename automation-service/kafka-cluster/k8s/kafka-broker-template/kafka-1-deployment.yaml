@@ -1,0 +1,80 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose-3zk-3b-ssl.yaml
+    kompose.version: 1.17.0 ()
+  creationTimestamp: null
+  labels:
+    app: kafka-1
+  name: kafka-1
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kafka-1
+    spec:
+      nodeSelector:
+        failure-domain.beta.kubernetes.io/zone: {{ AWS_AZ_ZONE }}a
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - env:
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: INTERNAL://kafka-1:19092,EXTERNAL://kafka-1:9091
+        - name: KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND
+          value: "true"
+        - name: KAFKA_AUTHORIZER_CLASS_NAME
+          value: kafka.security.auth.SimpleAclAuthorizer
+        - name: KAFKA_BROKER_ID
+          value: "1"
+        - name: KAFKA_INTER_BROKER_LISTENER_NAME
+          value: INTERNAL
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: INTERNAL:SSL,EXTERNAL:SSL
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "2"
+        - name: KAFKA_SSL_CLIENT_AUTH
+          value: required
+        - name: KAFKA_SSL_KEYSTORE_LOCATION
+          value: /var/private/ssl/kafka.kafka-1.keystore.jks
+        - name: KAFKA_SSL_KEYSTORE_PASSWORD
+          value: Worldwire-teststore
+        - name: KAFKA_SSL_KEY_PASSWORD
+          value: Worldwire-teststore
+        - name: KAFKA_SSL_TRUSTSTORE_LOCATION
+          value: /var/private/ssl/kafka.kafka-1.truststore.jks
+        - name: KAFKA_SSL_TRUSTSTORE_PASSWORD
+          value: Worldwire-teststore
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: zookeeper-1:32181,zookeeper-2:32181,zookeeper-3:32181
+        image: docker_registry_url/gftn/cp-kafka:latest
+        name: kafka-1
+        ports:
+        - containerPort: 9091
+        - containerPort: 19092
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/private/ssl/
+          name: kafka-secret
+          readOnly: true
+#        - mountPath: /var/private/ssl
+#          name: kafka-1-claim0
+        - mountPath: /var/lib/kafka
+          name: kafka-1-claim1
+      restartPolicy: Always
+      volumes:
+      - name: kafka-secret
+        secret:
+          secretName: kafka-store-generation-secret-kafka-1
+      - name: kafka-1-claim0
+        persistentVolumeClaim:
+          claimName: kafka-1-claim0
+      - name: kafka-1-claim1
+        persistentVolumeClaim:
+          claimName: kafka-1-claim1
+status: {}

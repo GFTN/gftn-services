@@ -1,0 +1,33 @@
+@import "~sass/grid";
+
+#filters {
+
+	// use CSS to capitalize labels
+	// so we can keep the values lowercase
+	.bx--checkbox-label,
+	.bx--radio-button__label {
+		text-transform: capitalize;
+	}
+
+	.bx--form-item.bx--checkbox-wrapper:first-of-type {
+		// realigning first checkbox to the row
+		margin-top: 10px
+	}
+
+	.filterRow {
+
+		// override styling for row of checkboxes
+		.bx--form-item.bx--checkbox-wrapper:last-of-type {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+.actions {
+    max-width: 200px;
+    width: 20%;
+
+    button {
+        width: 100%
+    }
+}

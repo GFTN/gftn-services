@@ -1,0 +1,67 @@
+<div fxLayout="row" class="page">
+
+	<div fxFlex="noshrink" fxLayout="column">
+
+		<app-site-header></app-site-header>
+
+		<div fxLayout="column">
+			<div class="filler-header"></div>
+			<div fxLayout="row" class="page-header full-width" ngClass.gt-xs="gt-xs" fxLayoutAlign="center center">
+				<div class="margin-width" fxLayout="row">
+					<div class="grid-container-left">
+						<div class="grid-1"></div>
+					</div>
+					<div class="spacer"></div>
+					<div class="page-title" fxLayoutAlign="start center">
+						<h1 class="bx--type-alpha" ngClass.lt-md="bx--type-beta">{{ title ? title : 'Admin' }}</h1>
+					</div>
+					<div class="spacer"></div>
+					<div class="grid-container-right">
+						<div class="grid-2"></div>
+					</div>
+				</div>
+			</div>
+
+			<div fxLayout="row" class="full-width">
+				<div class="side-nav" fxHide.lt-md fxLayout="column">
+					<div class="side-nav-inner" fxLayout="column" fxHide.lt-md>
+						<div fxFlex class="side-nav-content">
+							<app-office-side-nav fxLayout="column"></app-office-side-nav>
+						</div>
+					</div>
+				</div>
+
+				<div fxFlex fxLayout="column" ngClass.gt-sm="content-gt-sm">
+					<div fxLayout="row" ngClass.lt-md="full-width" fxLayoutAlign="center center">
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- <app-public-footer></app-public-footer> -->
+
+		<app-notification></app-notification>
+
+	</div>
+
+</div>
+
+<div data-modal id="modal-side-nav" class="bx--modal " tabindex="-1">
+	<div class="bx--modal-container">
+		<div class="bx--modal-header">
+			<button class="bx--modal-close" type="button" data-modal-close aria-label="close modal" data-modal-primary-focus>
+				<svg class="bx--modal-close__icon" width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+					<title>Close Modal</title>
+					<path d="M6.32 5L10 8.68 8.68 10 5 6.32 1.32 10 0 8.68 3.68 5 0 1.32 1.32 0 5 3.68 8.68 0 10 1.32 6.32 5z" fill-rule="nonzero"/>
+				</svg>
+			</button>
+		</div>
+
+		<div class="bx--modal-content">
+			<app-portal-nav fxLayout="column"></app-portal-nav>
+			<app-office-side-nav fxLayout="column"></app-office-side-nav>
+		</div>
+
+	</div>
+</div>

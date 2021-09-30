@@ -1,0 +1,29 @@
+
+[DISTRIBUTION_ACCOUNTS]
+
+  [DISTRIBUTION_ACCOUNTS.DA1]
+    NODE_ADDRESS = "GCDQYLY7QH7YMVRJVGRGT5LKMRQLREMQYLCVZZVP3REFIDN2UEVX5LTH"
+    NODE_SEED = "(seed value)"
+
+  [DISTRIBUTION_ACCOUNTS.OperatingAcc1]
+    NODE_ADDRESS = "FakeOperatingAccount1NodeAddr"
+    NODE_SEED = "Secret1"
+
+  [DISTRIBUTION_ACCOUNTS.OperatingAcc2]
+    NODE_ADDRESS = "FakeOperatingAccount2NodeAddr"
+    NODE_SEED = "Secret2"
+
+  [DISTRIBUTION_ACCOUNTS.default]
+    NODE_ADDRESS = "FakeOperatingAccountDefaultNodeAddr"
+    NODE_SEED = "SecretDefault"
+
+[IBM_TOKEN_ACCOUNT]
+  NODE_ADDRESS = "FakeIBMAcc"
+  NODE_SEED = "(seed value)"
+
+[ISSUING_ACCOUNT]
+  NODE_ADDRESS = "FakeIssuingAccount"
+  NODE_SEED = "(seed value)"
+
+[WHITE_LIST]
+  PARTICIPANT_DOMAINS = ""

@@ -1,0 +1,15 @@
+
+title: signature
+description: signature
+x-group-m: Models
+type: object
+required:
+  - transaction_signed
+properties:
+  transaction_signed:
+    type: string
+    format: byte
+    description: Transaction signed by Participant.
+externalDocs:
+  url: '#/definitions/signature'
+x-go-name: signature

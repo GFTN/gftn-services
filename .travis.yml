@@ -1,0 +1,975 @@
+notifications:
+  slack:
+    rooms:
+      - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+      - secure: "dleX8FbaO7hZJLlqMPdUwG++T1wNdFLJ3jpB0kwhpW5nJi80/qxG3+XaJZYGoKzKsSsDsJMs5mEgp0R3bBDZyhhlTPL+d6NF5uikMkwcs/KB51TnAoh28H88a59uG7hdB8+VqIRDpcZEd6k8xc8Uo6CzM4g89XZR+BFh2l+qWtoDo++uCAop4Ea+9khoyyMyHO4VMOp/sR0kn6S5oVI/kG9cJ0jk5gq7DR0rVtUO9xuLIIX1EQmgp9GdrUd5ouyCT0zUMwjPmk4BdR0aAQkCbQeYU0kfPl3edf94XeFkOIDLU6QpkgpYUPKrr0LS1T7DdElbs2y9mmDDW0203G+rNApLZ2+Y3VJew0P79oGqQbYKiv7s1ZbYcdNZPPOBFXeW93CWe6mH8M1iVbJ3iGEzkNsKbKqsOe6BWpN0evSEhTNDFoZJ914V44lkwiPIhgoAwuJn8/REVtnhXRF/IGihRPXNlK92cJiK5Of7VJLRdam8iVa0W3VzieT9puDbImwPgE74pY++S3QLkIjcqyjs2imblIfVlTMfvTDmjkpgn30CrKLymJbBBIHIn77Ip2jFGXso9Pifh5TytxO9XNpLZwwKj+uiKbx3arolEd7wQGwopNFLY79dstqbQdF7H8YR7tBQJPy3QzmYV2tWrj/IQohd/3GSW0qoq5jXKZsWJzA="
+    on_success: always
+    on_failure: always
+    on_pull_requests: true
+    template:
+      - "Build <%{build_url}|#%{build_number}>" 
+      - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+      - "%{result} in %{duration}"
+
+env:
+  global:
+  - secure: fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4=
+  - secure: dleX8FbaO7hZJLlqMPdUwG++T1wNdFLJ3jpB0kwhpW5nJi80/qxG3+XaJZYGoKzKsSsDsJMs5mEgp0R3bBDZyhhlTPL+d6NF5uikMkwcs/KB51TnAoh28H88a59uG7hdB8+VqIRDpcZEd6k8xc8Uo6CzM4g89XZR+BFh2l+qWtoDo++uCAop4Ea+9khoyyMyHO4VMOp/sR0kn6S5oVI/kG9cJ0jk5gq7DR0rVtUO9xuLIIX1EQmgp9GdrUd5ouyCT0zUMwjPmk4BdR0aAQkCbQeYU0kfPl3edf94XeFkOIDLU6QpkgpYUPKrr0LS1T7DdElbs2y9mmDDW0203G+rNApLZ2+Y3VJew0P79oGqQbYKiv7s1ZbYcdNZPPOBFXeW93CWe6mH8M1iVbJ3iGEzkNsKbKqsOe6BWpN0evSEhTNDFoZJ914V44lkwiPIhgoAwuJn8/REVtnhXRF/IGihRPXNlK92cJiK5Of7VJLRdam8iVa0W3VzieT9puDbImwPgE74pY++S3QLkIjcqyjs2imblIfVlTMfvTDmjkpgn30CrKLymJbBBIHIn77Ip2jFGXso9Pifh5TytxO9XNpLZwwKj+uiKbx3arolEd7wQGwopNFLY79dstqbQdF7H8YR7tBQJPy3QzmYV2tWrj/IQohd/3GSW0qoq5jXKZsWJzA=
+     
+after_failure:
+  # dump the last 2000 lines of our build to show error
+  - tail -n 2000 build.log
+
+after_success:
+  # Log that the build was a success
+  - echo "build succeeded.."
+
+jobs:
+  include:
+##################################### Begin Image Hardening Cron Jobs #####################################
+
+  # Build for the hardened alpine linux image
+    - stage: Create Base Packer Builds
+      if: "(branch = development) AND (type = cron)"
+      notifications:
+        slack:
+          rooms:
+            - secure: "dleX8FbaO7hZJLlqMPdUwG++T1wNdFLJ3jpB0kwhpW5nJi80/qxG3+XaJZYGoKzKsSsDsJMs5mEgp0R3bBDZyhhlTPL+d6NF5uikMkwcs/KB51TnAoh28H88a59uG7hdB8+VqIRDpcZEd6k8xc8Uo6CzM4g89XZR+BFh2l+qWtoDo++uCAop4Ea+9khoyyMyHO4VMOp/sR0kn6S5oVI/kG9cJ0jk5gq7DR0rVtUO9xuLIIX1EQmgp9GdrUd5ouyCT0zUMwjPmk4BdR0aAQkCbQeYU0kfPl3edf94XeFkOIDLU6QpkgpYUPKrr0LS1T7DdElbs2y9mmDDW0203G+rNApLZ2+Y3VJew0P79oGqQbYKiv7s1ZbYcdNZPPOBFXeW93CWe6mH8M1iVbJ3iGEzkNsKbKqsOe6BWpN0evSEhTNDFoZJ914V44lkwiPIhgoAwuJn8/REVtnhXRF/IGihRPXNlK92cJiK5Of7VJLRdam8iVa0W3VzieT9puDbImwPgE74pY++S3QLkIjcqyjs2imblIfVlTMfvTDmjkpgn30CrKLymJbBBIHIn77Ip2jFGXso9Pifh5TytxO9XNpLZwwKj+uiKbx3arolEd7wQGwopNFLY79dstqbQdF7H8YR7tBQJPy3QzmYV2tWrj/IQohd/3GSW0qoq5jXKZsWJzA="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Cron Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      language: go
+      go: "1.12"
+      services:
+        - docker
+      sudo: true
+      env:
+        - BUILD_CONTEXT=create-alpine-linux
+      script: 
+        - cd travis/hardened-alpine
+        - bash -x build-and-launch.sh || exit 1
+
+  # Build for the hardened node alpine linux image
+    - stage: Create Base Packer Builder Images
+      if: "(branch = development) AND (type = cron)"
+      notifications:
+        slack:
+          rooms:
+            - secure: "dleX8FbaO7hZJLlqMPdUwG++T1wNdFLJ3jpB0kwhpW5nJi80/qxG3+XaJZYGoKzKsSsDsJMs5mEgp0R3bBDZyhhlTPL+d6NF5uikMkwcs/KB51TnAoh28H88a59uG7hdB8+VqIRDpcZEd6k8xc8Uo6CzM4g89XZR+BFh2l+qWtoDo++uCAop4Ea+9khoyyMyHO4VMOp/sR0kn6S5oVI/kG9cJ0jk5gq7DR0rVtUO9xuLIIX1EQmgp9GdrUd5ouyCT0zUMwjPmk4BdR0aAQkCbQeYU0kfPl3edf94XeFkOIDLU6QpkgpYUPKrr0LS1T7DdElbs2y9mmDDW0203G+rNApLZ2+Y3VJew0P79oGqQbYKiv7s1ZbYcdNZPPOBFXeW93CWe6mH8M1iVbJ3iGEzkNsKbKqsOe6BWpN0evSEhTNDFoZJ914V44lkwiPIhgoAwuJn8/REVtnhXRF/IGihRPXNlK92cJiK5Of7VJLRdam8iVa0W3VzieT9puDbImwPgE74pY++S3QLkIjcqyjs2imblIfVlTMfvTDmjkpgn30CrKLymJbBBIHIn77Ip2jFGXso9Pifh5TytxO9XNpLZwwKj+uiKbx3arolEd7wQGwopNFLY79dstqbQdF7H8YR7tBQJPy3QzmYV2tWrj/IQohd/3GSW0qoq5jXKZsWJzA="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Cron Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      language: go
+      go: "1.12"
+      services:
+        - docker
+      sudo: true
+      env:
+        - BUILD_CONTEXT=create-node-alpine-linux
+      script: 
+        - cd travis/hardened-node
+        - bash -x build-and-launch.sh || exit 1        
+
+##################################### End Image Hardening Cron Jobs #####################################
+
+#################################### Begin Portal Test All Environments #####################################
+
+  # Build and Lint
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      branches:
+        only:
+        - development
+      language: node_js
+      node_js:
+        - '10'
+      dist: xenial
+      sudo: true
+      env:
+        - BUILD_CONTEXT=build-and-lint-portal
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      cache:
+        directories:
+        - node_modules
+      before_install:
+      - cd gftn-web
+      install:
+      - bash ../travis/scripts/travis-common.sh installDependencies || travis_terminate 1;
+      script:
+      - bash ../travis/scripts/travis-common.sh lintAndCompile || travis_terminate 1;
+    
+  # Build and Unit/Integration Test
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      branches:
+        only:
+        - development
+      language: node_js
+      node_js:
+        - '10'
+      dist: xenial
+      sudo: true
+      env:
+        - BUILD_CONTEXT=unit-and-integration-test-portal
+      addons:
+        chrome: stable
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      cache:
+        directories:
+        - node_modules
+      before_install:
+      - cd gftn-web
+      - bash ../travis/scripts/travis-common.sh beforeInstall || travis_terminate 1;
+      install:
+      - bash ../travis/scripts/travis-common.sh installDependencies || travis_terminate 1;
+      script:
+      - bash ../travis/scripts/travis-common.sh testHeadless || travis_terminate 1;
+    
+  # Build and End-to-End Test
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      branches:
+        only:
+        - development
+      language: node_js
+      node_js:
+      - '10'
+      dist: xenial
+      sudo: true
+      env:
+        - BUILD_CONTEXT=end-to-end-test-portal
+      addons:
+        chrome: stable
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      cache:
+        directories:
+        - node_modules
+      before_install:
+      - cd gftn-web
+      - bash ../travis/scripts/travis-common.sh beforeInstall || travis_terminate 1;
+      install:
+      - bash ../travis/scripts/travis-common.sh installDependencies || travis_terminate 1;
+      script:
+      - bash ../travis/scripts/travis-common.sh testEndToEnd || travis_terminate 1;
+
+##################################### End Portal Test All Environments #####################################
+
+##################################### Begin Security Rules #####################################
+    
+  # Build for the Security Rules
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: node_js
+      node_js:
+        - '10'
+      sudo: true
+      env:
+        - BUILD_CONTEXT=gen-bolt-rules
+      
+      install: 
+        - cd gftn-web
+        # globals
+        - npm i -g firebase-bolt
+        # locals
+        - npm i 
+        - cd ${TRAVIS_BUILD_DIR}
+        
+      script:
+        - cd gftn-web
+        - firebase-bolt database.rules.bolt || travis_terminate 1;
+        - cd ${TRAVIS_BUILD_DIR}
+      
+  # Deploy for the Portal, Security Rules, Functions, and Microservices
+    - stage: Deploy Portal and Restart Micro-service Pods (only deploy branches)
+      if: "(branch = dev-gftn) OR (branch = qa-gftn) OR (branch = staging-gftn) OR (branch = test-gftn) OR (branch = live-gftn)"
+      language: node_js
+      node_js:
+        - '10'
+      sudo: true
+      dist: xenial
+      before_install:
+        - pwd ; ls 
+        - cd auth-service
+        - sh ./secret-mgmt/cicd/decrypt.sh ./cicd-cred-v29.tgz.enc ${CICD_CRED_KEY_V29} ${CICD_CRED_IV_V29}
+        - cd ${TRAVIS_BUILD_DIR}  
+      install: 
+        - gcloud version || true
+        - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+        - source /home/travis/google-cloud-sdk/path.bash.inc
+        - gcloud version
+      script:
+        - cd auth-service
+        - bash ./deployment/deploy.sh # only deploys if conditions in script it met, see ./auth-service/deploy.sh
+        - cd ../travis/scripts
+        # TODO FOR DANIEL: the following is erroring out in travis
+        # - bash travis-update-microservices.sh updateAWSSecret || travis_terminate 1; # update AWS secret for all the services; will delete the old one first and then create new secret
+        # - bash travis-update-microservices.sh updateIAMPolicy || travis_terminate 1; # update AWS IAM for all the services; will delete the old one first and then create new IAM
+        # - bash travis-update-microservices.sh updateServiceVersion || travis_terminate 1; # update image version for all the services; will update config map first and then update all the microservices
+        - cd ${TRAVIS_BUILD_DIR} 
+      cache:
+        directories:
+          - node_modules
+          - "$HOME/google-cloud-sdk/"  
+
+##################################### End Portal, Security Rules, Triggers Development Deploy (All Envs) #####################################
+
+##################################### Begin Microservices Update process #####################################
+
+  # Update microservices with new AWS secret
+    - stage: Update configurations for microservices
+      if: "(branch = dev-gftn) OR (branch = qa-gftn) OR (branch = staging-gftn) OR (branch = test-gftn) OR (branch = live-gftn)"
+      language: python
+      python:
+      - "3.6"
+      sudo: true
+      env:
+        - BUILD_CONTEXT=AWS secret
+      install:
+        - sudo apt-get update
+        - sudo apt-get install python3-pip
+        - sudo pip3 install --upgrade setuptools pip
+        - sudo pip3 install --upgrade awscli
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+        - chmod +x ./kubectl
+        - sudo mv ./kubectl /usr/local/bin/kubectl
+        - cd ${TRAVIS_BUILD_DIR}
+
+      script:
+        - cd travis/scripts
+        - bash travis-update-microservices.sh updateAWSSecret || travis_terminate 1; # update AWS secret for all the services; will delete the old one first and then create new secret
+        - cd ${TRAVIS_BUILD_DIR}
+
+  # Update microservices with new AWS IAM policy
+    - stage: Update configurations for microservices
+      if: "(branch = dev-gftn) OR (branch = qa-gftn) OR (branch = staging-gftn) OR (branch = test-gftn) OR (branch = live-gftn)"
+      language: python
+      python:
+      - "3.6"
+      sudo: true
+      env:
+        - BUILD_CONTEXT=AWS IAM policy
+      install:
+        - sudo apt-get update
+        - sudo apt-get install python3-pip
+        - sudo pip3 install --upgrade setuptools pip
+        - sudo pip3 install --upgrade awscli
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+        - chmod +x ./kubectl
+        - sudo mv ./kubectl /usr/local/bin/kubectl
+        - cd ${TRAVIS_BUILD_DIR}
+
+      script:
+        - cd travis/scripts
+        - bash travis-update-microservices.sh updateIAMPolicy || travis_terminate 1; # update AWS IAM for all the services; will delete the old one first and then create new IAM
+        - cd ${TRAVIS_BUILD_DIR}
+
+    # Update microservices with new AWS API-gateway
+    - stage: Update configurations for microservices
+      if: "(branch = dev-gftn) OR (branch = qa-gftn) OR (branch = staging-gftn) OR (branch = test-gftn) OR (branch = live-gftn)"
+      language: python
+      python:
+        - "3.6"
+      sudo: true
+      env:
+        - BUILD_CONTEXT=AWS API-gateway
+      install:
+        - sudo apt-get update
+        - sudo apt-get install python3-pip
+        - sudo pip3 install --upgrade setuptools pip
+        - sudo pip3 install --upgrade awscli
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+        - chmod +x ./kubectl
+        - sudo mv ./kubectl /usr/local/bin/kubectl
+        - cd ${TRAVIS_BUILD_DIR}
+
+      script:
+        - cd travis/scripts
+        - bash travis-update-microservices.sh updateAPIGateway || travis_terminate 1; # update AWS API-Gateway for all the services; will delete the old one first and then create new API-Gateway
+        - cd ${TRAVIS_BUILD_DIR}
+
+    # Update microservices with new image version
+    - stage: Update image version
+      if: "(branch = dev-gftn) OR (branch = qa-gftn) OR (branch = staging-gftn) OR (branch = test-gftn) OR (branch = live-gftn)"
+      language: python
+      python:
+        - "3.6"
+      sudo: true
+      env:
+        - BUILD_CONTEXT=image version
+      install:
+        - sudo apt-get update
+        - sudo apt-get install python3-pip
+        - sudo pip3 install --upgrade setuptools pip
+        - sudo pip3 install --upgrade awscli
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+        - chmod +x ./kubectl
+        - sudo mv ./kubectl /usr/local/bin/kubectl
+        - cd ${TRAVIS_BUILD_DIR}
+
+      script:
+        - cd travis/scripts
+        - bash travis-update-microservices.sh updateServiceVersion || travis_terminate 1; # update image version for all the services; will update config map first and then update all the microservices
+        - cd ${TRAVIS_BUILD_DIR}
+
+##################################### End Microservices Update process #####################################
+
+  ##################################### Begin Microservices Build #####################################
+    
+  # Build Admin Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=admin-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runAdministrationService || travis_terminate 1;
+    
+  # Build Anchor Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=anchor-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runAnchorService || travis_terminate 1;
+    
+  # Build API Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=api-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runApiService || travis_terminate 1;
+   
+  # Build Automation Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=automation-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runAutomationService || travis_terminate 1;
+
+  # Build Auth Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: node_js
+      node_js:
+        - '10'
+      dist: xenial
+      sudo: true
+      env:
+        - BUILD_CONTEXT=auth-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true         
+      # before_install:
+      #   - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      install: 
+        - gcloud version || true
+        - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+        - source /home/travis/google-cloud-sdk/path.bash.inc
+        - gcloud version
+      script:
+        - bash travis/scripts/travis-microservices.sh runAuthService || travis_terminate 1;
+      cache:
+        directories:
+          - node_modules
+          - "$HOME/google-cloud-sdk/"  
+
+  # Build Crypto Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=crypto-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runCryptoService || travis_terminate 1;
+      
+  # Build Fee Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=fee-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runFeeService || travis_terminate 1;
+    
+  # Build Gas Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=gas-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      script:
+        - bash travis/scripts/travis-microservices.sh runGasService || travis_terminate 1;
+    
+  # Build Global Whitelist Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=global-whitelist-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runGlobalWhitelistService || travis_terminate 1;
+    
+  # Build Participant Registry
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=participant-registry-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runParticipantRegistry || travis_terminate 1;
+    
+  # Build Payment Listener
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=payment-listener-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runPaymentListener || travis_terminate 1;
+    
+  # Build Payout Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=payout-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runPayoutService || travis_terminate 1;
+    
+  # Build Quotes Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=quotes-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runQuotesService || travis_terminate 1;
+    
+  # Build Send Service
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=send-service-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runSendService || travis_terminate 1;
+    
+  # Build WW Gateway
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=ww-gateway-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>" 
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runWWGateway || travis_terminate 1;
+
+  # Build MSK cli images
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=msk-cli-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>"
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runMSKCLI || travis_terminate 1;
+
+  # Build MSK monitoring server images
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=msk-monitoring-server-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>"
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runMSKMonitoringServer || travis_terminate 1;
+
+  # Build MSK monitoring ui images
+    - stage: Compile and Test Code
+      if: "(branch = development) OR (branch = publish-docker-images)"
+      language: go
+      go: "1.12"
+      sudo: false
+      install: true
+      env:
+        - BUILD_CONTEXT=msk-monitoring-ui-containers
+        - DOCKER_COMPOSE_VERSION=1.23.2
+        - DOCKER_VERSION=5:18.09.1~3-0~ubuntu-xenial
+      notifications:
+        slack:
+          rooms:
+            - secure: "fRVoMbcE2qgfaZ9e6Iw8Q+FcXbVx0ZqwvYXn311LGQrwWbbiWKXvoglsxHYqr0PRWP/aNYZQ/MblhAyGYF2FMzULnIMxx7H5U5LqS0PKMH/oIggUBPrCn7l9RL3h6mXzyprLBBdmdkwJ7sfb2vhKIdCVbmSiJhdwgHNsIpEkgLBGNT6r2vDKp4MxKwq0aUSKYDpdcBzvYrG9QuZlAcFGxhmBBzpuyLrywFq0xD34pruBJLz1HF2YVgJnFYK4lUIWx4Nv5pFc+Mhm4BfXia2/VE7xjM33d3AvG5YrQgcMAj8BEH4eeMyZjtCio2wRST3f7KmXO93VCSdju5l/Xg+r+Gl6V0sbCen+13ZgIxAsGltEaqTYvfs1+GFWuCGAMgUJmhuSaFhUyyQlbyQCznrFkJB9slefQfvvL/zhi42GEhpKd50yvGAWdhssWYW0JQ5c2QH6Y1ikjo1bAJZ25RO2xM8jLItmAAx3md2bLDt/S+YW03gJyZWH6gpLUutL6i5/iXXCO1z8Xos7+B7Y8FgJMj0Z8CH3yaAHyDKUD3Bmzs4VL6cvY+LLiVTlOzZJp5hBvh6pT+8eKToHz5WqgyTt9Nz09ENOhurOAJPjaNsyGjKxmvel60lJ0b6fbfmZorsmVkhuUwa8NJBCYsVCnyZI1DLS7u/mSqnQQuPVCdcCgK4="
+          on_success: always
+          on_failure: always
+          on_pull_requests: true
+          template:
+            - "Build <%{build_url}|#%{build_number}>"
+            - "(<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author}"
+            - "%{result} in %{duration}"
+      services:
+        - docker
+      addons:
+        apt:
+          update: true
+          config:
+            retries: true
+      before_install:
+        - bash travis/scripts/travis-microservices.sh beforeInstall || travis_terminate 1;
+      script:
+        - bash travis/scripts/travis-microservices.sh runMSKMonitoringUI || travis_terminate 1;
+##################################### End Microservices Build #####################################

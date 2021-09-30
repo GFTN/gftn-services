@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ PARTICIPANT_ID }}-delete-topic-participant
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: {{ PARTICIPANT_ID }}-delete-topic-participant
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: delete-topic-participant-{{ PARTICIPANT_ID }}
+        image: {{ DOCKER_REGISTRY_URL }}/gftn/msk-cli:{{ VERSION }}
+        command: ["sh",  "delete_part_topic_acl.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: PARTICIPANT_ID
+          value: {{ PARTICIPANT_ID }}
+        - name: ZOOKEEPER
+          value: {{ ZOOKEEPER }}
+        - name: DN
+          value: {{ DN }}

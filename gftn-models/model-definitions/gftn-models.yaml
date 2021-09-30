@@ -1,0 +1,331 @@
+swagger: "2.0"
+info:
+  title: The Model definitions for GFTN
+  description: This is the sdk for all model definitions for GFTN
+  version: 1.0.0
+
+basePath: /v1
+schemes:
+  - https
+tags:
+  - name: The Model definitions for GFTN
+    description: This is the sdk for all model definitions for GFTN
+paths:
+  /internal/pr/service_check:
+    get:
+      responses:
+        200:
+        404:
+          description: not found
+
+responses:
+  Account:
+    description: Account
+    schema:
+      $ref: '../../gftn-models/models/account.yaml'
+  AccountCustomer:
+    description: customer account details
+    schema:
+      $ref: '../../gftn-models/models/accountCustomer.yaml'
+  AccountFoundResponse:
+    description: Account Found Response
+    schema:
+      $ref: '../../gftn-models/models/accountFoundResponse.yaml'
+  Actor:
+    description: Payment Actor
+    schema:
+      $ref: '../../gftn-models/models/actor.yaml'
+  Address:
+    description: Address
+    schema:
+      $ref: '../../gftn-models/models/address.yaml'
+  AddressLedger:
+    description: response to Anchor Service Discover Participant request
+    schema:
+      $ref: '../../gftn-models/models/addressLedger.yaml'
+  Asset:
+    description: Asset
+    schema:
+      $ref: '../../gftn-models/models/asset.yaml'
+  Balance:
+    description: Asset balance
+    schema:
+      $ref: '../../gftn-models/models/balance.yaml'
+  Blocklist:
+    description: Blocklist
+    schema:
+      $ref: '../../gftn-models/models/blocklist.yaml'
+  Compliance:
+    description: Compliance
+    schema:
+      $ref: '../../gftn-models/models/compliance.yaml'
+  ComplianceReceipt:
+   description: Compliance Receipt
+   schema:
+     $ref: '../../gftn-models/models/complianceReceipt.yaml'
+  Coordinate:
+    description: Location coordinate
+    schema:
+      $ref: '../../gftn-models/models/coordinate.yaml'
+  Cursor:
+    description: Cursor
+    schema:
+      $ref: '../../gftn-models/models/cursor.yaml'
+  Customer:
+    description: Payment Address
+    schema:
+      $ref: '../../gftn-models/models/customer.yaml'
+  Error:
+    description: Error on World Wire
+    schema:
+      $ref: '../../gftn-models/models/error.yaml'
+  WWResponse:
+    description: Generic Response from World Wire Micro service
+    schema:
+      $ref: '../../gftn-models/models/wwResponse.yaml'    
+  Exchange:
+    description: FI to FI Exchange Request
+    schema:
+      $ref: '../../gftn-models/models/exchange.yaml'
+  ExchangeEnvelope:
+    description: Exchange Envelope with base64 encoded exchange request and signature
+    schema:
+      $ref: '../../gftn-models/models/exchangeEnvelope.yaml'
+  ExchangeReceipt:
+    description: Exchange Check Response
+    schema:
+      $ref: '../../gftn-models/models/exchangeReceipt.yaml'
+  feesRequest:
+    description: Fees Request
+    schema:
+      $ref: '../../gftn-models/models/feesRequest.yaml'
+  FItoFITransactionRequest:
+    description: Contains info that will go into the transaction query
+    schema:
+      $ref: '../../gftn-models/models/fitoFITransactionRequest.yaml'
+  Funding:
+    description: Funding
+    schema:
+      $ref: '../../gftn-models/models/funding.yaml'
+  FundingInstruction:
+    description: Funding Instruction
+    schema:
+      $ref: '../../gftn-models/models/fundingInstruction.yaml'
+  FundingReceipt:
+    description: Funding Receipt
+    schema:
+      $ref: '../../gftn-models/models/fundingReceipt.yaml'
+  GatewayResponse:
+    description: The response payload posted to World Wire
+    schema:
+      $ref: '../../gftn-models/models/gatewayResponse.yaml'
+  Geo:
+    description: Location Geo
+    schema:
+      $ref: '../../gftn-models/models/geo.yaml'
+  Institution:
+    description: Financial Institution
+    schema:
+      $ref: '../../gftn-models/models/institution.yaml'
+  InternalComplianceCheckRequest:
+    description: Internal Compliance Check Request
+    schema:
+      $ref: '../../gftn-models/models/internalComplianceCheckRequest.yaml'
+  InternalComplianceCheckResponse:
+    description: Internal Compliance Check Response
+    schema:
+      $ref: '../../gftn-models/models/internalComplianceCheckResponse.yaml'
+  InternalAdminDraft:
+    description: A request that needs to be signed by IBM account.
+    schema:
+      $ref: '../../gftn-models/models/internalAdminDraft.yaml'
+  InternalDraft:
+    description: A request that needs to be signed by participants account.
+    schema:
+      $ref: '../../gftn-models/models/internalDraft.yaml'
+  Obligation:
+    description: A Balance that is owed.
+    schema:
+      $ref: '../../gftn-models/models/obligation.yaml'
+  OperatingAccount:
+    description: Operating Account
+    schema:
+      $ref: '../../gftn-models/models/operatingAccount.yaml'
+  Participant:
+    description: Participant
+    schema:
+      $ref: '../../gftn-models/models/participant.yaml'
+  ParticipantStatus:
+    description: Participant Status
+    schema:
+      $ref: '../../gftn-models/models/participantStatus.yaml'
+  PaymentLogRecord:
+    description: Contains info that will go into the transaction memo
+    schema:
+      $ref: '../../gftn-models/models/paymentLogRecord.yaml'
+  PayoutLocation:
+    description: Payout Location
+    schema:
+      $ref: '../../gftn-models/models/payoutLocation.yaml'
+  PayoutLocationCategory:
+    description: payout location offer category
+    schema:
+      $ref: '../../gftn-models/models/payoutLocationCategory.yaml'
+  PayoutLocationOption:
+    description: payout location offer category options
+    schema:
+      $ref: '../../gftn-models/models/payoutLocationOption.yaml'
+  PayoutLocationOpeningHours:
+    description: payout location opening hours details
+    schema:
+      $ref: '../../gftn-models/models/payoutLocationOpeningHours.yaml'
+  PayoutLocationUpdateRequest:
+    description: update payout location
+    schema:
+      $ref: '../../gftn-models/models/payoutLocationUpdateRequest.yaml'
+  Quote:
+    description: Quote
+    schema:
+      $ref: '../../gftn-models/models/quote.yaml'
+  QuoteEnvelope:
+    description: Quote Envelope with base64 encoded quote response and signature
+    schema:
+      $ref: '../../gftn-models/models/quoteEnvelope.yaml'
+  QuoteFilter:
+    description: Supplied to filter quotes.
+    schema:
+      $ref: '../../gftn-models/models/quoteFilter.yaml'
+  QuoteStatus:
+    description: QuoteStatus
+    schema:
+      $ref: '../../gftn-models/models/quoteStatus.yaml'
+  QuoteRequest:
+    description: Supplied to request quotes from other Participants.
+    schema:
+      $ref: '../../gftn-models/models/quoteRequest.yaml'
+  QuoteRequestReceipt:
+    description: Received to identify a request for quotes.
+    schema:
+      $ref: '../../gftn-models/models/quoteRequestReceipt.yaml'
+  QuoteRequestNotification:
+    description: Quote Request Notification to RFI
+    schema:
+      $ref: '../../gftn-models/models/quoteRequestNotification.yaml'
+  Receive:
+    description: Payment Clearing Notification
+    schema:
+      $ref: '../../gftn-models/models/receive.yaml'
+  registerAnchorRequest:
+    description: register anchor domain on WW
+    schema:
+      $ref: '../../gftn-models/models/registerAnchorRequest.yaml'
+  requestPayload:
+    description: sign payload request
+    schema:
+      $ref: '../../gftn-models/models/requestPayload.yaml'
+  Send:
+    description: Send
+    schema:
+      $ref: '../../gftn-models/models/send.yaml'
+  SendPacs:
+    description: Send
+    schema:
+      $ref: '../../gftn-models/models/sendPacs.yaml'
+  Settlement:
+    description: Request to return DA back to anchor to be settled with a customer
+    schema:
+      $ref: '../../gftn-models/models/settlement.yaml'
+  SettlementReceipt:
+    description: Response to withdraw request to return DA back to anchor to be settled with a customer
+    schema:
+      $ref: '../../gftn-models/models/settlementReceipt.yaml'
+  Signature:
+    description: A signed request.
+    schema:
+      $ref: '../../gftn-models/models/signature.yaml'
+  Sweep:
+    description: Sweep
+    schema:
+      $ref: '../../gftn-models/models/sweep.yaml'
+  SweepInstruction:
+    description: Sweep Instruction
+    schema:
+      $ref: '../../gftn-models/models/sweepInstruction.yaml'
+  SweepReceipt:
+    description: Sweep Receipt
+    schema:
+      $ref: '../../gftn-models/models/sweepReceipt.yaml'
+  Transaction:
+    description: Transaction on World Wire.
+    schema:
+      $ref: '../../gftn-models/models/transaction.yaml'
+  TransactionDetails:
+    description: Transaction Details
+    schema:
+      $ref: '../../gftn-models/models/transactionDetails.yaml'
+  TransactionFees:
+    description: Transaction Fees
+    schema:
+      $ref: '../../gftn-models/models/transactionFees.yaml'
+  TransactionReceipt:
+    description: Transaction Receipt
+    schema:
+      $ref: '../../gftn-models/models/transactionReceipt.yaml'
+  Trust:
+    description: Trust
+    schema:
+      $ref: '../../gftn-models/models/trust.yaml'
+
+# INTERNAL MODELS GO BELOW HERE
+  DestInfo:
+    description: Destination Info
+    schema:
+      $ref: '../../gftn-models/models/destInfo.yaml'
+  Draft:
+    description: A request that needs to be signed.
+    schema:
+      $ref: '../../gftn-models/models/draft.yaml'
+  FederationProtocolError:
+    description: Federation Protocol Error
+    schema:
+      $ref: '../../gftn-models/models/federationProtocolError.yaml'
+  FederationProtocolResponse:
+    description: Federation Protocol Response
+    schema:
+      $ref: '../../gftn-models/models/federationProtocolResponse.yaml'
+  FItoFICCTMemoData:
+    description: Contains info that will go into the transaction memo
+    schema:
+      $ref: '../../gftn-models/models/fitoFICCTMemoData.yaml'
+  FItoFICCTNonPiiData:
+    description: Contains non-PII information from the FItoFICustomerCreditTransferRequest
+    schema:
+      $ref: '../../gftn-models/models/fitoFICCTNonPiiData.yaml'
+  FItoFICCTPiiData:
+    description: Contains PII information from the FItoFICustomerCreditTransferRequest
+    schema:
+      $ref: '../../gftn-models/models/fitoFICCTPiiData.yaml'
+  StrongholdWithdrawRequest:
+    description: Request to return DA back to strong hold anchor to be settled with customer
+    schema:
+      $ref: '../../gftn-models/models/strongholdWithdrawRequest.yaml'
+  StrongholdWithdrawResponse:
+    description: Response to withdrawal from SH anchor
+    schema:
+      $ref: '../../gftn-models/models/strongholdWithdrawResponse.yaml'
+  signedTransaction:
+    description: signed Transaction
+    schema:
+      $ref: '../../gftn-models/models/signedTransaction.yaml'
+  StellarComplianceData:
+    description: Stellar Compliance Data
+    schema:
+      $ref: '../../gftn-models/models/stellarComplianceData.yaml'
+  StellarComplianceResponse:
+    description: Stellar Compliance Response
+    schema:
+      $ref: '../../gftn-models/models/stellarComplianceResponse.yaml'
+  PayloadWithSignature:
+    description: Signed ISO 20022 payload
+    schema:
+      $ref: '../../gftn-models/models/payloadWithSignature.yaml'

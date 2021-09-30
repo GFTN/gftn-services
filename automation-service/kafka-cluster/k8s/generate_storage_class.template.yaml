@@ -1,0 +1,47 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: kafka-cert-a
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+  iopsPerGB: "10"
+  fsType: ext4
+  zone: {{ AWS_AZ_ZONE }}a
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: kafka-cert-b
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+  iopsPerGB: "10"
+  fsType: ext4
+  zone: {{ AWS_AZ_ZONE }}b
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: kafka-cert-c
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+  iopsPerGB: "10"
+  fsType: ext4
+  zone: {{ AWS_AZ_ZONE }}c

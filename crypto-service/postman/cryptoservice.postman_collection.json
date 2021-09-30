@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "f61d3e8e-24e5-4c61-a3e2-af4906bcab23",
+		"name": "cryptoservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "generate account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/v1/internal/account/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"internal",
+						"account",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign payload orghk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account_name\": \"issuing\",\n \"payload\" : \"test\"}"
+				},
+				"url": {
+					"raw": "localhost:9999/v1/client/request/sign",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"v1",
+						"client",
+						"request",
+						"sign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request sign tx orghk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account_name\": \"test\",\n \"id_signed\" : \"aHBCuT1weYzMeAu3OsAKvnzxZeFeqnqbKON+RtNvPlh319r6RRxKp8vRuaekzqnkKj2Ok9IDuYruNf4dx/8JCw==\",\n \"id_unsigned\":\"test\",\n \"transaction_unsigned\":\"AAAAACIKcSda2GY1UmuKYyRF2uvTJPI6uhi1tYQ/MzZktwAQAAAAyAANhhcAAAAeAAAAAQAAAAAAAAAAAAAAAGIFUsIAAAAAAAAAAgAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAABAAAAAF49wJinSedEzsd5aWgwQWSQs2akIOI9+A8HnQemh+B6AAAAAlNHRERPAAAAAAAAAAAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAAAmJaAAAAAAQAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAACVEhCRE8AAAAAAAAAAAAAADeejl4wHhR4holiIiVAKHJySt7VOsJtycVH2pIkx0jZAAAAAABcQ4oAAAAAAAAAARgTQP0AAABArwzwn8y5CJ+3ZIAL3QormRzmbgdrsWJWdr0jiS8USGV/SR1IQRfDuF06cQLpI9NhtYRB4SHPtqPPdNKfSCR8Bg==\"}"
+				},
+				"url": {
+					"raw": "localhost:8888/v1/internal/sign",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"internal",
+						"sign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request participant sign tx orghk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account_name\": \"test\",\n \"transaction_unsigned\":\"AAAAACIKcSda2GY1UmuKYyRF2uvTJPI6uhi1tYQ/MzZktwAQAAAAyAANhhcAAAAeAAAAAQAAAAAAAAAAAAAAAGIFUsIAAAAAAAAAAgAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAABAAAAAF49wJinSedEzsd5aWgwQWSQs2akIOI9+A8HnQemh+B6AAAAAlNHRERPAAAAAAAAAAAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAAAmJaAAAAAAQAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAACVEhCRE8AAAAAAAAAAAAAADeejl4wHhR4holiIiVAKHJySt7VOsJtycVH2pIkx0jZAAAAAABcQ4oAAAAAAAAAARgTQP0AAABArwzwn8y5CJ+3ZIAL3QormRzmbgdrsWJWdr0jiS8USGV/SR1IQRfDuF06cQLpI9NhtYRB4SHPtqPPdNKfSCR8Bg==\"}"
+				},
+				"url": {
+					"raw": "localhost:8888/v1/internal/participant/sign",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"internal",
+						"participant",
+						"sign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign payload orgie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account_name\": \"issuing\",\n \"payload\" : \"test\"}"
+				},
+				"url": {
+					"raw": "localhost:9999/v1/client/request/sign",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"v1",
+						"client",
+						"request",
+						"sign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request sign tx orgie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account_name\": \"issuing\",\n \"id_signed\" : \"\",\n \"id_unsigned\":\"\",\n \"transaction_unsigned\":\"AAAAACIKcSda2GY1UmuKYyRF2uvTJPI6uhi1tYQ/MzZktwAQAAAAyAANhhcAAAAeAAAAAQAAAAAAAAAAAAAAAGIFUsIAAAAAAAAAAgAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAABAAAAAF49wJinSedEzsd5aWgwQWSQs2akIOI9+A8HnQemh+B6AAAAAlNHRERPAAAAAAAAAAAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAAAmJaAAAAAAQAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAACVEhCRE8AAAAAAAAAAAAAADeejl4wHhR4holiIiVAKHJySt7VOsJtycVH2pIkx0jZAAAAAABcQ4oAAAAAAAAAAA==\"}"
+				},
+				"url": {
+					"raw": "localhost:8888/v1/internal/sign",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"internal",
+						"sign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request sign tx orghk test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"account_name\": \"issuing\",\n \"id_signed\" : \"SUxsp6HteFUhDGb8jYq4g4i564tr81tj4xoqbOpEc2gd3pqPOu1bDWCryBL9YziO9N4YbzUNJRtOAPKTfQ1IAw==\",\n \"id_unsigned\":\"{{objJsonB64}}\",\n \"transaction_unsigned\":\"AAAAACIKcSda2GY1UmuKYyRF2uvTJPI6uhi1tYQ/MzZktwAQAAAAyAANhhcAAAAeAAAAAQAAAAAAAAAAAAAAAGIFUsIAAAAAAAAAAgAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAABAAAAAF49wJinSedEzsd5aWgwQWSQs2akIOI9+A8HnQemh+B6AAAAAlNHRERPAAAAAAAAAAAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAAAmJaAAAAAAQAAAABePcCYp0nnRM7HeWloMEFkkLNmpCDiPfgPB50HpofgegAAAAEAAAAAN56OXjAeFHiGiWIiJUAocnJK3tU6wm3JxUfakiTHSNkAAAACVEhCRE8AAAAAAAAAAAAAADeejl4wHhR4holiIiVAKHJySt7VOsJtycVH2pIkx0jZAAAAAABcQ4oAAAAAAAAAAA==\"}"
+				},
+				"url": {
+					"raw": "localhost:8888/v1/internal/sign",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"internal",
+						"sign"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,98 @@
+<div class="bx--structured-list-row">
+
+	<div class="bx--structured-list-td tight">
+		<span [innerHtml]="parametersDef.name"></span>
+		<div class="bx--type-caption text-danger" *ngIf="parametersDef.required" [innerHtml]="parametersDef.required ? 'REQUIRED' : 'OPTIONAL'"></div>
+		<div class="bx--type-caption">
+			<span>Include in </span>
+			<span [innerHtml]="parametersDef.in"></span>
+		</div>
+	</div>
+
+	<div class="bx--structured-list-td tight">
+		<!-- 
+			If in is "body": there should always be a 'schema' and therefore the type is either type 'object' or 'array'
+			https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameterObject 
+		-->
+		<div fxLayout="column" *ngIf="parametersDef.in === 'body'">
+
+			<!-- is object -->
+			<div *ngIf="parametersDef.schema?.$ref">
+				<a class="no-line" *ngIf="parametersDef.schema?.$ref" (click)="swaggerService.jumpTo('model', '', parametersDef.model?.title)" [innerHtml]="parametersDef.model?.title"></a>
+			</div>
+
+			<!-- is array -->
+			<div *ngIf="parametersDef.schema?.items">
+				<a class="no-line" (click)="swaggerService.jumpTo('model', '', parametersDef.model?.title)" [innerHtml]="'array [' + parametersDef.model?.title + ']'"></a>
+			</div>
+
+			<!-- is primitive -->
+			<div *ngIf="parametersDef.schema?.type">
+				<span [innerHtml]="parametersDef.schema.type"></span>
+			</div>
+
+		</div>
+
+		<!-- 
+			If in is any value other than "body": then type is a 'primitive'
+			https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameterObject
+		-->
+		<div class="break-word" fxLayout="column" *ngIf="parametersDef.in !== 'body'">
+			<span *ngIf="parametersDef.type" [innerHtml]="parametersDef.type"></span>
+			<span *ngIf="parametersDef.type === 'array'" [innerHtml]="'[' + parametersDef.items.type + ']'"></span>
+		</div>
+
+	</div>
+
+	<div class="bx--structured-list-td expand">
+
+		<div fxLayout="column">
+
+			<div *ngIf="parametersDef.description" [innerHtml]="parametersDef.description"></div>
+
+			<!-- see comment above about body -->
+			<p *ngIf="parametersDef.in !== 'body'" fxLayout="column" class="bx--type-caption">
+
+				<!-- https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameterObject -->
+
+				<span *ngIf="parametersDef.format" [innerHtml]="parametersDef.format"></span>
+
+				<span class="bx--type-caption" *ngIf="parametersDef.allowEmptyValue" [innerHtml]="'empty allowed: '+ parametersDef.allowEmptyValue"></span>
+
+				<span class="bx--type-caption" *ngIf="parametersDef.collectionFormat" [innerHtml]="'format: '+ parametersDef.collectionFormat"></span>
+
+				<span *ngIf="parametersDef.default" [innerHtml]="'default: '+ parametersDef.default"></span>
+
+				<span *ngIf="parametersDef.maximum" [innerHtml]="'maximum: '+ parametersDef.maximum"></span>
+
+				<span *ngIf="parametersDef.exclusiveMaximum" [innerHtml]="'exclusive maximum: '+ parametersDef.exclusiveMaximum"></span>
+
+				<span *ngIf="parametersDef.maxLength" [innerHtml]="'max length: '+ parametersDef.maxLength"></span>
+
+				<span *ngIf="parametersDef.minimum" [innerHtml]="'minimum: '+ parametersDef.minimum"></span>
+
+				<span *ngIf="parametersDef.exclusiveMinimum" [innerHtml]="'exclusive minimum: '+ parametersDef.exclusiveMinimum"></span>
+
+				<span *ngIf="parametersDef.minLength" [innerHtml]="'min length: '+ parametersDef.minLength"></span>
+
+				<span *ngIf="parametersDef.pattern" [innerHtml]="'pattern: '+ parametersDef.pattern"></span>
+
+				<span *ngIf="parametersDef.maxItems" [innerHtml]="'max items: '+ parametersDef.maxItems"></span>
+
+				<span *ngIf="parametersDef.minItems" [innerHtml]="'min items: '+ parametersDef.minItems"></span>
+
+				<span *ngIf="parametersDef.uniqueItems" [innerHtml]="'unique items: '+ parametersDef.uniqueItems"></span>
+
+				<span *ngIf="parametersDef.multipleOf" [innerHtml]="'multiple of: '+ parametersDef.multipleOf"></span>
+
+				<!-- if type array display items -->
+
+				<!-- <span>[NEED TO HANDLE ENUM]</span> -->
+
+			</p>
+
+		</div>
+
+	</div>
+
+</div>

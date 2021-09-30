@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "58202fa7-2fa5-4391-996c-76d15df4b97a",
+		"name": "PTC - Payment(cancel) Workflow - OFI (ptcpt1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 5.0 - sign payment cancel request",
+					"item": [
+						{
+							"name": "/client/payload/sign",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "768dbc69-5980-4d15-8e8c-558423d29027",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"ofi_signed_msg\", jsonData.payload_with_signature)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"payload\": \"<step1: assemble camt 56 xml file>\n\t\t\t\t<step2: base64 encode it>\n\t\t\t\t<step3: paste it here between quotes>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "ptcpt1.worldwire-qa.io/local/crypto/v1/client/payload/sign",
+									"host": [
+										"ptcpt1",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"crypto",
+										"v1",
+										"client",
+										"payload",
+										"sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 5.1 - send payment cancel request to RFI",
+					"item": [
+						{
+							"name": "/transactions/send",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"message_type\": \"iso20022:camt.056.001.08\",\n\t\"message\": \"{{ofi_signed_msg}}\"\n}"
+								},
+								"url": {
+									"raw": "ptcpt1.worldwire-qa.io/local/send/v1/client/transactions/send",
+									"host": [
+										"ptcpt1",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"send",
+										"v1",
+										"client",
+										"transactions",
+										"send"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 6 - receive cancel confirmation of payment cancel request to RFI",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt1-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ptcpt1.worldwire-qa.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"ptcpt1",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fdf70db-2ca5-4610-8dd9-f4f7a2253c32",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6df0765-e25e-4a2a-b978-33b693243f59",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

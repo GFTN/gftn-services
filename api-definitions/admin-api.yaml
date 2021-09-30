@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  title: Admin API
+  description: This is admin api endpoints protected by jwt tokens
+  version: 1.0.0
+basePath: /v1/admin
+schemes:
+  - https
+tags:
+  - name: Admin API
+    description: APIs for registering and getting config details for participants
+paths:
+
+  /pr/domain/{participant_id}:
+    get:
+      tags:
+        - Participant Registry API
+      summary: Get the configuration details for the participant idenfied by his participant domain
+      description: Get the configuration details for the participant idenfied by his participant domain
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: participant_id
+          required: true
+          description: the participant domain for this participant
+          type: string
+      responses:
+        200:
+          description: Found participant for this domain
+          schema:
+            $ref: '../gftn-models/models/participant.yaml'
+        404:
+          description: there is no participant for this participant_id
+
+
+  /pr:
+    post:
+      tags:
+        - Participant Registry API
+      summary: Create a new participant
+      description: |
+        Sends a request to the Participant Registry to create an participant
+      operationId: createParticipant
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: The participant data
+          schema:
+            $ref: '../gftn-models/models/participant.yaml'
+      responses:
+        200:
+          description: Participant created successfully
+        404:
+          description: Participant could not be created
+
+    get:
+      tags:
+        - Participant Registry API
+      summary: Get list of all participants on WW
+      description: |
+        Get list of all participants on WW
+      operationId: getParticipants
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: all Participants on World Wire
+          schema:
+            type: array
+            items:
+              $ref: '../gftn-models/models/participant.yaml'
+        404:
+          description: there is no participant for this country
+
+  /pr/{participant_id}:
+    put:
+      tags:
+        - Participant Registry API
+      summary: Update an existing participant
+      description: |
+        Sends a request to the Participant Registry to to update an existing participant
+      operationId: updateParticipant
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: participant_id
+          in: path
+          description: participant domain for the participant
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: The participant data
+          schema:
+            $ref: '../gftn-models/models/participant.yaml'
+      responses:
+        200:
+          description: participant successfully updated
+        404:
+          description: Participant not found
+
+  /pr/{participant_id}/status:
+     put:
+       tags:
+         - Participant Registry API
+       summary: Save Participant WW network status, using this admin api
+       description: |
+         Saves Participant WW network status
+       operationId: updateStatus
+       produces:
+         - application/json
+       consumes:
+         - application/json
+       parameters:
+        - name: participant_id
+          in: path
+          description: participant domain for the participant
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          description: The participant status
+          schema:
+            $ref: '../gftn-models/models/participantStatus.yaml'
+       responses:
+         200:
+          description: Participant network status updated successfully
+
+

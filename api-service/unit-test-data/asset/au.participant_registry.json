@@ -1,0 +1,17 @@
+{
+  "api_service_url": "https://test-au.worldwire-ibm.com:8080",
+  "compliance_service_url": "http://test-au.worldwire-ibm.com:11003",
+  "country_code": "AU",
+  "distribution_accounts": [
+    {
+      "account_name": "default",
+      "stellar_network_address": "GDPCVTQQH423VSBLM6VAJOCEKU2PT5MCZNDL7PNMMJTCCJA3O56ORGXD"
+    }
+  ],
+  "federation_service_url": "http://test-au.worldwire-ibm.com:11001",
+  "issuing_account": "GDNTT3VZN7KASCNETM7SC4BB5KHG6MUPZVKFV6FSVMERHAWLQTX7WM5L",
+  "participant_domain": "au.one.payments.gftn.io",
+  "quote_service_url": "http://test-au.worldwire-ibm.com:11002",
+  "rdo_service_url": "https://test-au.worldwire-ibm.com:7070",
+  "status": "active"
+}

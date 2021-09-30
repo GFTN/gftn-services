@@ -1,0 +1,74 @@
+@import "~sass/ibm-style-override";
+
+.full-height {
+	height: 100vh;
+}
+
+.filler {
+	height: 50px;
+	width: 100%;
+}
+
+.active-link {
+	border-left: solid 5px $brand-01;
+
+	&.nav-link, a.nav-link {
+		color: $brand-01;
+		padding-left: 15px; // 20 - 5px. prevents 5px offset resulting from border
+	}
+}
+
+.nav-link {
+	padding: 10px 20px; // TODO: change to SASS var
+	text-decoration-line: none;
+	color: $text-02;
+	min-height: 20px;
+	display: block;
+	cursor: pointer;
+
+	&.bx--type-epsilon, &.bx--type-epsilon:hover {
+		color: black
+	}
+
+	&:hover {
+		color: $brand-01
+	}
+
+	&.bx--accordion__title {
+		margin-left: 0;
+	}
+}
+
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.bx--type-epsilon {
+	// margin-top: 5px;
+	padding-left: 10px;
+}
+
+// Accordion style overrides for use with side nav
+.bx--accordion__heading {
+	padding: 0;
+}
+
+.bx--accordion__item {
+	border-bottom: 0;
+	border-top: 0;
+}
+
+.bx--accordion__arrow {
+	margin-right: 10px;
+}
+
+.bx--accordion__content, .sub-menu {
+	padding: 0;
+	.nav-link {
+		font-size: 0.85em;
+	}
+	li {
+		padding-left: 15px;
+	}
+}

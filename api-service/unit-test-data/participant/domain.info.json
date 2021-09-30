@@ -1,0 +1,20 @@
+{
+  "api_service_url": "http://one-au.worldwire.io:8080",
+  "compliance_service_url": "http://one-au.worldwire.io:11003",
+  "country_code": "AU",
+  "distribution_accounts": [
+    {
+      "account_name": "default",
+      "stellar_network_address": "GDPCVTQQH423VSBLM6VAJOCEKU2PT5MCZNDL7PNMMJTCCJA3O56ORGXD"
+    },
+    {
+      "account_name": "da1",
+      "stellar_network_address": "GDBIAFVTAUBPP3MNNXPED3BDAE6E7BBLS537ZS2NEE27P6H3SRJMN7CH"
+    }
+  ],
+  "federation_service_url": "http://one-au.worldwire.io:11001",
+  "issuing_account": "GA3UQQ7HQC4JJZCQO5IWZDZRJV2UHY5SS6MOU36H2QSIBNATZAXJZSMK",
+  "participant_domain": "au.one.payments.gftn.io",
+  "quote_service_url": "http://one-au.worldwire.io:11002",
+  "rdo_service_url": ""
+}

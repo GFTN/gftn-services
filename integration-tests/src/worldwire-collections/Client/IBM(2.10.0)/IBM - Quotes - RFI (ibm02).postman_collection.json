@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "de804a03-a66d-46eb-87ba-85f1d84e9bee",
+		"name": "IBM - Quotes - RFI (ibm02)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 1 - receive request for quotes from OFI",
+					"item": [
+						{
+							"name": "/client/message",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3fac8534-04bc-4755-b2da-f643fb963fa3",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"quote_id\", jsonData.data[0].quote_id)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/gateway/v1/client/message?type=quotes",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "quotes"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 2 - sign quote before sending to OFI",
+					"item": [
+						{
+							"name": "/client/sign",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "61af4148-ef31-4bdc-90b1-57479988b2ff",
+										"exec": [
+											"",
+											"let obj = {",
+											"    \"account_name_receive\": \"default\",",
+											"    \"account_name_send\": \"default\",",
+											"    \"exchange_rate\": 50,",
+											"    \"limit_max\": 1000,",
+											"    \"quote_id\": pm.environment.get(\"quote_id\"),",
+											"    \"quote_request\": {",
+											"        \"time_expire\":1644516034,",
+											"        \"limit_max\": 90,",
+											"        \"limit_min\": 20,",
+											"        \"source_asset\": {",
+											"            \"asset_code\": pm.environment.get(\"source_asset_code\"),",
+											"            \"asset_type\": \"DA\",",
+											"            \"issuer_id\": pm.environment.get(\"source_issuer_id\")",
+											"        },",
+											"        \"target_asset\": {",
+											"            \"asset_code\": pm.environment.get(\"target_asset_code\"),",
+											"            \"asset_type\": \"DA\",",
+											"            \"issuer_id\": pm.environment.get(\"target_issuer_id\")",
+											"        },",
+											"        \"ofi_id\": pm.environment.get(\"ibm01-id\")",
+											"    },",
+											"    \"rfi_id\": pm.environment.get(\"ibm02-id\"),",
+											"    \"time_expire\": 1644516034,",
+											"    \"time_start\": 1544516034",
+											"}",
+											"",
+											"let objJsonStr = JSON.stringify(obj);",
+											"let objJsonB64 = Buffer.from(objJsonStr).toString(\"base64\");",
+											"postman.setEnvironmentVariable(\"objJsonB64QuoteR\", objJsonB64)",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "8a199bb0-b45e-4c66-9704-a1be8f270832",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"signed_payload_RFI\", jsonData.transaction_signed);",
+											"pm.globals.set(\"variable_key\", \"variable_value\");",
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"account_name\": \"default\",\n    \"payload\": \"{{objJsonB64QuoteR}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/local/crypto/v1/client/sign",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"local",
+										"crypto",
+										"v1",
+										"client",
+										"sign"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 3 - send quote to OFI",
+					"item": [
+						{
+							"name": "/client/quotes/{{quote_id}}",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f3b6f749-08cc-44e8-94ea-a5b4316b5b00",
+										"exec": [
+											"pm.test(\"response is ok\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ibm02-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quote\": \"{{objJsonB64QuoteR}}\",\n    \"signature\": \"{{signed_payload_RFI}}\"\n}"
+								},
+								"url": {
+									"raw": "ibm02.worldwire-st.io/global/quotes/v1/client/quotes/{{quote_id}}",
+									"host": [
+										"ibm02",
+										"worldwire-st",
+										"io"
+									],
+									"path": [
+										"global",
+										"quotes",
+										"v1",
+										"client",
+										"quotes",
+										"{{quote_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

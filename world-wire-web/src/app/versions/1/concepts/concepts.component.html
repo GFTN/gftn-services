@@ -1,0 +1,103 @@
+<div fxLayout="row" class="title-container full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width">
+		<h1 id="Concepts" class="bx--type-beta page-title">Concepts</h1>
+	</div>
+</div>
+
+<div fxLayout="row" class="full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width" fxLayout="column">
+		<div>
+			<!-- BEGIN THE RESOURCE DESCRIPTIONS HERE. LATER WE WILL RELOCATE THEM INTO HEADINGS IN THE API -->
+			<h3 class="bx--type-beta">Concepts</h3>
+			<p>
+				Below are a few of the key concepts underpinning World Wire. Make sure you read through them and don't
+				hesitate to
+				contact us if you have any questions.
+				<br>
+				<br>
+				<span class="bx--type-delta">Accounts:</span>
+				<br>
+					World Wire participants are provided accounts to exchange value and perform transactions with other participants on the network. You can think of them like virtual wallets. Each participant will have two types of accounts. They will be provided only one Issuing Account and one or more Operating Accounts.   How do these differ? Your Issuing Account is used to issue assets on the network i.e., extend credit to other Participants. So the balance of your Issuing account is really just the value of what you owe others on the network. Conversely, your Operating Accounts can hold many different Digital Asset (DAs) types concurrently - for instance, stablecoins, CBDCs, XLM, etc. However, it's important to note that your Operating Accounts will not be able to hold Digital Obligations (DOs).
+				<br>
+				<br>
+				<span class="bx--type-delta">Assets:</span>
+				<br>
+					Assets are the tokens of value that are issued, transferred, exchanged, and burned between Participants on the World Wire Network. World Wire allows for the use of a variety of assets when transacting, including the native cryptocurrency (XLM), Digital Assets (DAs) such as stablecoins, and eventually central bank digital currencies (CBDCs). Assets issued by a World Wire Participant are unique according to three attributes – its issuer, the fiat currency it represents, and its asset type.
+				<br>
+				<br>
+					For participants who may not initially be comfortable with the use of Digital Assets (DAs) in cross-border transactions, World Wire offers an alternative settlement method using an asset type referred to as Digital Obligations (DOs). A DO is issued by a Participant and is a digitally encoded representation of a ‘promise to pay’ or 'IOU' (guaranteeing that the corresponding fiat equivalent exists off the network) that serves as an agreed-upon store of value between the two transacting parties until payment obligations are fulfilled with finality off the network. DOs are single-use instruments and can only be transferred between the Issuer and a single intended Participant.
+				<br>
+				<br>
+					The presence of numerous asset types on the network allows participants the flexibility to choose how they wish to exchange value and settle transactions on the World Wire network.
+				<br>
+				<br>
+				<span class="bx--type-delta">Compliance:</span>
+				<br>
+					Complying with Anti-Money Laundering (AML) and Know Your Customer (KYC) laws requires payment service providers to know not only who their customers are sending money to, but who their customers are receiving money from as well. Prior to sending a payment on World Wire, participants must confirm that all necessary compliance checks have been conducted on the sender and recipient of a payment.
+				<br>
+				<br>
+				<span class="bx--type-delta">Fundings:</span>
+				<br>
+					Funding is when an Anchor participant sends freshly issued Digital Assets, such as stablecoins, to a World Wire participant via the Anchor Service.  These assets are reusable and capable of being transferred and exchanged among all other World Wire Participants.  Funding is one of 3 transactions that an Anchor can perform with other World Wire Participants.
+				<br>
+				<br>
+				<span class="bx--type-delta">Ledger:</span>
+				<br>
+					World Wire transactions are recorded on a set of distributed ledgers supported by Stellar Development Foundation’s blockchain software. The ledger is an indelible record of every transaction made on the network and by extension, represents the state of the World Wire universe at a given point in time. It serves as a single source of truth over value transferred and provides the technological foundation for functions such as atomic swaps when Participants exchange assets. To facilitate this process, World Wire is supported by 9 IBM-validator nodes on the network that are responsible for maintaining a copy of the ledger, as well as communicating and staying in sync with other ledgers on the network. This mechanism is also referred to as consensus.
+				<br>
+				<br>
+				<span class="bx--type-delta">Participants:</span>
+				<br>
+					IBM is committed to forming a trusted and reliable network of participants and thoroughly evaluates all prospective participants against a set of validated business rules and regulatory criteria. It is the coordinated and collective action of trusted World Wire network participants that provides the basis for exchanging value around the globe in an efficient, reliable, and secure way in near real-time. On World Wire, each will be unique in the currencies they transact with, geographies they span, and markets they service.
+				<br>
+				<br>
+					An entry to the Participant Directory is added for every Participant during the onboarding process. This Participant Directory is then called during the execution of a transaction to retrieve information relevant and necessary to facilitating transactions between Participants, e.g., REST endpoint URLs. While most Participants will make use of the Participant API, some will make use of the Anchor service to issue Digital Assets like stablecoins or CBDCs. Anchor participants fulfill a vital role in the World Wire network by ensuring there is sufficient liquidity available for purchase in the required asset or currency to fulfill payment obligations and support real-time settlement
+				<br>
+				<br>
+				<span class="bx--type-delta">Payout Point:</span>
+				<br>
+					In the context of World Wire, this refers to how funds are ultimately disbursed by the Receiving Financial Institution to the recipient of a payment, the ultimate beneficiary. At present, the only Payout Point option available is limited to the financial institution acting on behalf of the recipient. However in the future, Participants will be able to select from a variety of Payout options including mobile, cash counters, and various pick up locations to more accurately address their clients' needs.
+				<br>
+				<br>
+				</p>
+
+				<p>
+					<!-- perhaps use this in the future in the heading of the "Transactions" resource group, then link to the the concepts for "Sending Payments" and "Exchanging Assets"
+
+					<span class="bx--type-delta">Transactions:</span>
+					<br>
+					By integrating the payment instruction messaging and the chosen digital asset to settle a proposed transaction into a single network, Participants are able to act on behalf of their customers to send and receive cross-border payments at a fraction of the time and cost associated with traditional correspondent banking. All transactions performed on the network are recorded on the ledger.
+					<br>
+					<br>
+					<span class="bx--type-zeta">Monitoring</span><br>
+					Participants have the ability to retrieve their entire transaction history and apply desired filters to further drill down to identify and monitor specific information.
+					<br>
+					<br> -->
+				</p>
+				<p>
+					<span class="bx--type-delta">Trust:</span>
+					<br>
+					In order to hold or transact with any given asset, you must first confirm you feel confident that you would be able to redeem that asset with the Issuer in the future. To do this, you create a trust, which is a permissioned relationship between two participants. By creating a trust with an Issuer, you will be able to accept that given asset in a specified account. An Account is only able to hold and transact with trusted assets, so therefore if you have multiple Accounts you would like to hold a particular asset in, you must extend a trust to the Asset Issuer from each Account. It is important to note the difference between Trusts and Whitelists. Accounts create Trusts with Asset Issuers to accept an asset, wherein Participants Whitelist other Participants as an indication they're willing to transact with them. So for instance, it is possible to Whitelist a Participant, but not establish a Trust from one of your Accounts. This could mean you're willing to transact with them, however you're not willing to hold a particular asset they've issued in one of your accounts. Conversely, it is not possible to establish a Trust with an Issuer without previously Whitelisting them.
+					<br>
+					<br>
+					Anchors participants issuing stablecoins or other Digital Assets cannot establish new trusts. Instead they allow or revoke requests sent by Participants to hold the assets that they have issued on World Wire.
+					<br>
+					<br>
+					<span class="bx--type-delta">Whitelists:</span>
+					<br>
+					<!-- <iframe src="//player.vimeo.com/video/320634432?byline=0&amp;portrait=0" width="600" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+					<br> -->
+					To ensure that your organization's extent of interaction is limited only to
+					Participants you have previously vetted and are willing to conduct business
+					with, your entity will establish a Whitelist. By adding a Participant to
+					your Whitelist, you are indicating you're willing to interact with them on
+					the World Wire network. However, they must also add you to their Whitelist
+					in return. So unless both Participants exist on each other's Whitelist,
+					neither counterparty will be able to transact and exchange value. If a
+					Participant is not on your Whitelist or vice versa, you will not be able to
+					send or receive payments, quotes, or exchange requests.
+				</p>
+		</div>
+		<div class="margin-height"></div>
+	</div>
+</div>

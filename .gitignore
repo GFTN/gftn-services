@@ -1,0 +1,123 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+.idea
+node_modules
+*.exe
+*debug
+anchor-service/logs/anchor-service.log
+api-service/logs/logs.txt
+callback-service/logs/logs.txt
+compliance-service/logs/logs.txt
+crypto-service/logs/logs.txt
+federation-service/logs/logs.txt
+gas-service/logs/logs.txt
+payment-listener/logs/logs.txt
+rdo-service/logs/logs.txt
+quotes-service/logs/logs.txt
+*vendor*
+.vendor-new
+app.yaml
+.DS_Store
+logs.txt
+rdo-client
+*.log
+nohup.out
+.vscode
+log.txt
+# rdo-service
+# payout-service
+# callback-service
+# payment-listener
+# anchor-service
+# participant-registry
+# fee-service
+
+
+# compiled output
+gftn-web/dist
+gftn-web/tmp
+gftn-web/out-tsc
+gftn-webfunctions/lib
+gftn-webfunctions/db
+gftn-webfunctions/def
+gftn-webfunctions/node_modules
+gftn-webfunctions/spec
+gftn-web.firebase
+
+# dependencies
+gftn-webnode_modules
+
+# IDEs and editors
+gftn-web/.idea
+gftn-web.project
+gftn-web.classpath
+gftn-web.c9/
+gftn-web*.launch
+gftn-web.settings/
+gftn-web*.sublime-workspace
+
+# IDE - VSCode
+gftn-web/.vscode/*
+!gftn-web/.vscode/settings.json
+!gftn-web/.vscode/tasks.json
+!gftn-web/.vscode/launch.json
+!gftn-web/.vscode/extensions.json
+
+# misc
+gftn-web/.sass-cache
+gftn-web/connect.lock
+gftn-web/coverage
+gftn-web/libpeerconnection.log
+gftn-web/npm-debug.log
+gftn-web/testem.log
+gftn-web/typings
+
+# e2e
+gftn-web/e2e/*.map
+
+# System Files
+gftn-web/.DS_Store
+gftn-web/Thumbs.db
+
+# Auth Service environment file
+*firebase-adminsdk*
+*credentials*
+auth-service/google-cloud-sdk/**/*
+auth-service/authorization/env.go
+auth-service/service-account-cred.json
+auth-service/micro-services/*
+auth-service/.credentials/
+auth-service/authorization/authorization
+auth-service/.vscode/launch_old.json
+auth-service/node_modules
+auth-service/deployment/node_modules
+auth-service/deployment/gcp_endpoints/node_modules
+auth-service/travis-setup/node_modules
+auth-service/secret-mgmt/test
+auth-service/secret-mgmt/cicdtest
+
+auth-service/credentials.tar
+auth-service/credentials.zip
+auth-service/provisionAdminUser.json
+
+# delete shared dir (ie: copy from another dir at debug runtime)
+auth-service/authentication/src/shared/**/*
+auth-service/deployment/src/shared/**/*
+
+# build dir except .vscode (ignoring compiled /build js files)
+/auth-service/**/*.js
+/auth-service/**/*.map
+/auth-service/authentication/build/*
+# /auth-service/authentication/build/.vscode
+!/auth-service/**/jest.config.js
+auth-service/authorization/middleware/permissions/permissions.go
+auth-service/authorization/__debug_bin
+auth-service/authentication/.ibmid-certs/*
+auth-service/**/tmp/*
+
+# Infra related ignores
+infrastructure/kubernetes/eks-dev/istio/
+infrastructure/kubernetes/eks-qa/istio/
+infrastructure/kubernetes/eks-pen/istio/
+infrastructure/kubernetes/eks-st/istio/
+infrastructure/kubernetes/eks-prod/istio/

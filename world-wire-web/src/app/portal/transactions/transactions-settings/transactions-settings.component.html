@@ -1,0 +1,33 @@
+<table class="margin-height bx--data-table-v2 no-borders">
+	<tr class="static">
+		<td>
+			<label class="full-width right">Display Density</label>
+		</td>
+		<td>
+			<div id="display-settings" data-content-switcher class="bx--content-switcher" role="tablist" aria-label="Display Density Options">
+				<button *ngFor="let option of transactionService.tableDisplayOptions" class="bx--content-switcher-btn" [class.bx--content-switcher--selected]="option.selected" role="tab" [attr.aria-selected]="option.selected" (click)="selectDisplayOption(option.id)">
+				<span>{{option.name}}</span>
+				</button>
+			</div>
+		</td>
+	</tr>
+	<tr class="static">
+		<td>
+			<label class="full-width right">Records Per Load</label>
+		</td>
+		<td>
+			<ibm-dropdown [theme]="'dark'" [inline]="true" [appendInline]="true" placeholder="Select"
+			 [(ngModel)]="transactionService.perLoad" [placeholder]="dropDownOptions[0].content" value="value" (selected)="selectLoadOption($event)">
+				<ibm-dropdown-list [items]="dropDownOptions"></ibm-dropdown-list>
+			</ibm-dropdown>
+		</td>
+	</tr>
+	<tr class="static">
+		<td>
+			<label class="full-width right">Striped Rows</label>
+		</td>
+		<td>
+			<ibm-toggle size="sm" [checked]="transactionService.stripedRows" (change)="updateStripedRows()"></ibm-toggle>
+		</td>
+	</tr>
+</table>

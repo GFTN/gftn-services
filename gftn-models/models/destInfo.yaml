@@ -1,0 +1,16 @@
+title: destInfo
+description: Dest Info
+type: object
+required:
+  - compliance_identification
+  - aml_kyc_info
+properties:
+  compliance_identification:
+    type: string
+    description: The unique identifier for the compliance check done prior to this payment
+  aml_kyc_info:
+    type: string
+    description: AML/KYC/Sanctions info of the recipient
+externalDocs:
+  url: '#/definitions/destInfo'
+x-go-name: DestInfo

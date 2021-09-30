@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "1a64a153-9456-4787-975e-ec7f0d2176a8",
+		"name": "payout",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post payout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Non-Bank Financial Institution\",\r\n    \"payout_child\":[],\r\n    \"payout_parent\":[],\r\n    \"name\": \"testetst1234\",\r\n    \"currencies_accepted\":[\"USD\", \"JPD\"],\r\n    \"image\": \"https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg\",\r\n    \"url\": \"\",\r\n    \"telephone\": \"07-418 6258 / 6276\",\r\n    \"member_of\": [\"BankA\"],\r\n    \"address\": {\r\n      \"street\": \"39A sg rah\",\r\n      \"state\": \"changi\",\r\n      \"city\": \"north east\",\r\n      \"postal_code\": \"83000cs\",\r\n      \"country\": \"sg\",\r\n      \"building_number\":\"11\"\r\n    },\r\n    \"geo\": {\r\n      \"type\":\"area\",\r\n      \"coordinates\": [{\"lat\":1.4256401412652768, \"long\":104.05985673945315},{\"lat\":1.2025391833372383, \"long\":104.08114275019534},{\"lat\":1.3255224992393246, \"long\":103.56605489103222}]\r\n    },\r\n    \"category\": \r\n         {\r\n              \"name\": \"delivery\",\r\n              \"options\": [\r\n                  {\r\n                    \"description\": \"Deliver PHP to home address\",\r\n                     \"terms\": \"Limit of 1212 PHP\"\r\n           \r\n                  },\r\n                  {\r\n                    \"description\": \"Deliver USD to home address\",\r\n                    \"terms\": \"Limit of 1,000 USD\"\r\n                  }\r\n              ]\r\n          },\r\n    \"opening_hours\": [{\r\n      \"day_of_week\": [\r\n        \"Monday\",\r\n        \"Tuesday\",\r\n        \"Wednesday\",\r\n        \"Thursday\"\r\n      ],\r\n      \"opens\": \"09:15\",\r\n      \"closes\": \"16:30\"\r\n    },{\r\n      \"day_of_week\": [\"Friday\"],\r\n      \"opens\": \"09:15\",\r\n      \"closes\": \"16:00\"\r\n    }]\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{payout_url}}/v1/admin/payout",
+					"host": [
+						"{{payout_url}}"
+					],
+					"path": [
+						"v1",
+						"admin",
+						"payout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post payout(point)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2MiOlsiaXNzdWluZyIsImRlZmF1bHQiLCJ0ZXN0Il0sInZlciI6InYyLjkuMC4xX2FscGhhIiwiaXBzIjpbIjEyNy4wLjAuMSIsIjo6MSJdLCJlbnYiOiJzdCIsImVucCI6WyIvYWRkcmVzcy9zdGVsbGFyIiwiL2Fzc2V0cyIsIi9hc3NldHMvYWNjb3VudHMve2FjY291bnRfbmFtZX0iLCIvYXNzZXRzL2lzc3VlZCIsIi9hc3NldHMvcGFydGljaXBhbnRzL3twYXJ0aWNpcGFudF9pZH0iLCIvYmFsYW5jZXMvYWNjb3VudHMve2FjY291bnRfbmFtZX0iLCIvYmFsYW5jZXMvZG8iLCIvY29tcGxpYW5jZSIsIi9leGNoYW5nZS92ZXJpZnkiLCIvZmVlcyIsIi9mZWVzL3thc3NldH0iLCIvcGFydGljaXBhbnRzIiwiL3BhcnRpY2lwYW50cy9hc3NldCIsIi9wYXJ0aWNpcGFudHMvYmVuZWZpY2lhcnkiLCIvcGFydGljaXBhbnRzL3doaXRlbGlzdCIsIi9wYXJ0aWNpcGFudHMve3BhcnRpY2lwYW50X2lkfSIsIi9wYXltZW50IiwiL3BheW1lbnQvc3Vic2NyaWJlL3thY2NvdW50X25hbWV9IiwiL3F1b3RlIiwiL3F1b3RlL3txdW90ZV9pZH0iLCIvcXVvdGVzIiwiL3F1b3Rlcy97cXVvdGVfaWR9IiwiL3Jkby9hY3Rpdml0eSIsIi9yZG8vY2xvc2UiLCIvcmRvL2ZpdG9maS9zdGFydCIsIi9yZG8vbm90aWZ5IiwiL3Jkby9wYXltZW50IiwiL3Jkby90cmFuc2FjdGlvbi97ZW5kX3RvX2VuZF9pZH0iLCIvdHJhbnNhY3Rpb25zIiwiL3RyYW5zYWN0aW9ucy9leGNoYW5nZSIsIi90cmFuc2FjdGlvbnMvc2VuZCIsIi90cmFuc2FjdGlvbnMvc2V0dGxlL2RhIiwiL3RyYW5zYWN0aW9ucy9zZXR0bGUvZG8iLCIvdHJ1c3QiLCIvdmVyaWZ5X2FjY291bnRfaWRlbnRpZmllciIsIi93aGl0ZWxpc3QvcGFydGljaXBhbnRzL3twYXJ0aWNpcGFudF9pZH0iXSwibiI6MCwiaWF0IjoxNTQ4ODMxOTI2LCJuYmYiOjE1NDg4MzE5MzEsImV4cCI6MTU0ODkxODMyNiwiYXVkIjoibnoub25lLnBheW1lbnRzLmdmdG4uaW8iLCJzdWIiOiItTFBtckYwUWdnNmZzaHpMYzQ4aSIsImp0aSI6Ii1MWFNZbkZ4MmJWTzdCS005THUyIn0.DnYVcEZr90hl8_9Gdbmf9m23mjGQFEQtg2YhdAUqUdo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Non-Bank Financial Institution\",\r\n    \"payout_child\":[],\r\n    \"payout_parent\":[],\r\n    \"name\": \"bank zd\",\r\n    \"currencies_accepted\":[\"USD\", \"JPD\"],\r\n    \"image\": \"https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg\",\r\n    \"url\": \"\",\r\n    \"telephone\": \"07-418 6258 / 6276\",\r\n    \"member_of\": [\"BankA\"],\r\n    \"address\": {\r\n      \"street\": \"39A sg rah\",\r\n      \"state\": \"changi\",\r\n      \"city\": \"north east\",\r\n      \"postal_code\": \"83000cs\",\r\n      \"country\": \"sg\",\r\n      \"building_number\":\"11\"\r\n    },\r\n    \"geo\": {\r\n      \"type\":\"point\",\r\n      \"coordinates\": [{\"lat\":1314.8482097, \"long\":102.93435002}]\r\n    },\r\n    \"category\": \r\n         {\r\n              \"name\": \"cash_pickup\",\r\n              \"options\": [\r\n                  {\r\n                    \"description\": \"Deliver PHP to home address\",\r\n                     \"terms\": \"Limit of 1212 PHP\"\r\n           \r\n                  },\r\n                  {\r\n                    \"description\": \"Deliver USD to home address\",\r\n                    \"terms\": \"Limit of 1,000 USD\"\r\n                  }\r\n              ]\r\n          },\r\n    \"opening_hours\": [{\r\n      \"day_of_week\": [\r\n        \"xxxddd\",\r\n        \"Tuesday\",\r\n        \"Wednesday\",\r\n        \"Thursday\"\r\n      ],\r\n      \"opens\": \"09:15\",\r\n      \"closes\": \"16:30\"\r\n    },{\r\n      \"day_of_week\": [\"Friday\"],\r\n      \"opens\": \"09:15\",\r\n      \"closes\": \"16:00\"\r\n    }]\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{payout_url}}/v1/admin/payout",
+					"host": [
+						"{{payout_url}}"
+					],
+					"path": [
+						"v1",
+						"admin",
+						"payout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post payout(csv)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{payout_url}}/v1/admin/payout/csv",
+					"host": [
+						"{{payout_url}}"
+					],
+					"path": [
+						"v1",
+						"admin",
+						"payout",
+						"csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update payout",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"htVXUgGOcHtOmRzWnsIZnN2mO1XxyX\",\n\t\"updated_payload\": {\n    \"type\": \"Non-Bank Financial Institution\",\n    \"payout_child\":[\"kNKWGRziWDSde38F0diF2rW9kZXfUP\"],\n    \"payout_parent\":[],\n    \"name\": \"bank c\",\n    \"currencies_accepted\":[\"USD\"],\n    \"image\": \"https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg\",\n    \"url\": \"\",\n    \"telephone\": \"07-418 6258 / 6276\",\n    \"member_of\": [\"BankA\"],\n    \"address\": {\n      \"street\": \"39A sg rah\",\n      \"state\": \"changi\",\n      \"city\": \"north east\",\n      \"postal_code\": \"83000cs\",\n      \"country\": \"sg\",\n      \"building_number\":\"11\"\n    },\n    \"geo\": {\n      \"type\":\"area\",\n      \"coordinates\": [{\"lat\":1314.8482097, \"long\":102.93435002},{\"lat\":131.8482097, \"long\":222.93435002}]\n    },\n    \"category\": \n         {\n              \"name\": \"delivery\",\n              \"options\": [\n                  {\n                    \"description\": \"Deliver PHP to home address\",\n                     \"terms\": \"Limit of 1212 PHP\"\n           \n                  },\n                  {\n                    \"description\": \"Deliver USD to home address\",\n                    \"terms\": \"Limit of 1,000 USD\"\n                  }\n              ]\n          },\n    \"opening_hours\": [{\n      \"day_of_week\": [\"Friday\"],\n      \"opens\": \"09:15\",\n      \"closes\": \"16:00\"\n    }]\n}\n\n\t\n}\n\n\n"
+				},
+				"url": {
+					"raw": "{{payout_url}}/v1/admin/payout",
+					"host": [
+						"{{payout_url}}"
+					],
+					"path": [
+						"v1",
+						"admin",
+						"payout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get payout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"participantId\":\"ccddcd\",\n\"userType\":\"cdcdc\"\n}"
+				},
+				"url": {
+					"raw": "{{payout_url}}/v1/client/payout?child=kNKWGRziWDSde38F0diF2rW9kZXfUP&name=bank c",
+					"host": [
+						"{{payout_url}}"
+					],
+					"path": [
+						"v1",
+						"client",
+						"payout"
+					],
+					"query": [
+						{
+							"key": "receive_mode",
+							"value": "cash_pickup",
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "hstf8VDjSQlaSzN0dLTxlpt50KsP4l",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "sg",
+							"disabled": true
+						},
+						{
+							"key": "parent",
+							"value": "mXTHWcdXY8VU9qhEr77oCyOFbKx3f0",
+							"disabled": true
+						},
+						{
+							"key": "child",
+							"value": "kNKWGRziWDSde38F0diF2rW9kZXfUP"
+						},
+						{
+							"key": "currency",
+							"value": "Twd",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "bank c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete payout Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{payout_url}}/v1/admin/payout?id=htVXUgGOcHtOmRzWnsIZnN2mO1XxyX",
+					"host": [
+						"{{payout_url}}"
+					],
+					"path": [
+						"v1",
+						"admin",
+						"payout"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "htVXUgGOcHtOmRzWnsIZnN2mO1XxyX"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

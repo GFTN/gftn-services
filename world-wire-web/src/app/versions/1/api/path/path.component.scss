@@ -1,0 +1,26 @@
+@import "~sass/ibm-style-override";
+
+.bdr-bottom {
+	border-bottom: 3px solid $inverse-02; // margin-bottom: 100px;
+}
+
+.header-route {
+	padding-bottom: 20px !important;
+	font-weight: bold;
+}
+
+.spacer {
+	min-height: 50px;
+}
+
+.operation {
+	// padding-bottom: 300px;
+	.bg-dark {
+		height: 300px;
+		width: 100%;
+	}
+}
+
+.schema {
+	padding-top: 50px;
+}

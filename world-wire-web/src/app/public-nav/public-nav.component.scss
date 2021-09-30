@@ -1,0 +1,17 @@
+@import "~sass/ibm-style-override";
+.bx--tabs__nav {
+    position: relative;
+}
+.bx--btn {
+    &.mobile {
+
+    }
+    &:not(.bx--btn--primary):not(.mobile) {
+        color: $text-01;
+        &:hover, &.active {
+            color: $brand-01;
+            padding-top: 3px;
+            border-bottom: 3px solid $brand-01;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+@import "~sass/ibm-style-override";
+
+.op-type {
+	padding: 10px;
+	background-color: $ui-05;
+	color: $inverse-01;
+}
+
+.route{
+	margin-left: 0;
+}
+
+.pad-left{
+	margin-left: 15px !important;
+}

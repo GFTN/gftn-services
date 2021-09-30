@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  namespace: kafka-topics
+  name: msk-burrow-vs
+spec:
+  hosts:
+  - "global.ww-dev.io"
+  gateways:
+  - worldwire-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /burrow/
+    route:
+    - destination:
+        port:
+          number: 8000
+        host: msk-burrow.kafka-topics.svc.cluster.local
+    rewrite:
+      uri: /
+---

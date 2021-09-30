@@ -1,0 +1,12 @@
+package-lock.json
+.idea/*
+*/node_modules/*
+.DS_Store
+*~
+glide.lock
+vendor/*
+log.log
+logs.txt
+known_hosts
+id_rsa.pub
+id_rsa

@@ -1,0 +1,14 @@
+{
+  "time_expire_ofi": 19230434222,
+  "limit_max_ofi": 90,
+  "limit_min_ofi": 20,
+  "source_asset": {"asset_code":"GBPDO",
+    "issuer_id": "ie.one.payments.worldwire.io",
+    "asset_type": "DO"
+  },
+  "target_asset": {"asset_code":"HKDDO",
+    "issuer_id": "hk.one.payments.worldwire.io",
+    "asset_type": "DO"
+  },
+  "ofi_id": "hk.one.payments.worldwire.io"
+}

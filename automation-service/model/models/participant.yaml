@@ -1,0 +1,44 @@
+title: participant
+description: Participant
+type: object
+required:
+- participantId
+- countryCode
+- callbackUrl
+- rdoClientUrl
+- role
+- bic
+properties:
+  participantId:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The participant domain for the participant
+  bic:
+    type: string
+    maxLength: 11
+    minLength: 11
+    pattern: '^[A-Z]{3}[A-Z]{3}[A-Z2-9]{1}[A-NP-Z0-9]{1}[A-Z0-9]{3}$'
+    description: The business identifier code of each participant
+  callbackUrl:
+    type: string
+    description: Callback url of the finiancial institute's backend system.
+  rdoClientUrl:
+    type: string
+    description: RDO client url of the finiancial institute's backend system.
+  countryCode:
+    type: string
+    description: Participant's country of residence
+  role:
+    type: string
+    maxLength: 2
+    minLength: 2
+    enum:
+    - MM
+    - IS
+    description: The Role of this registered participant, it can be MM for Market Maker and IS for Issuer or anchor
+
+externalDocs:
+  url: '#/definitions/participant'
+x-go-name: Participant

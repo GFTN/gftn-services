@@ -1,0 +1,27 @@
+title: paymentLogRecord
+description: FI to FI CCT payment log record for reporting
+type: object
+required:
+  - end-to-end-id
+  - payment_status
+  - time_stamp
+properties:
+  fitoficct_memo_data:
+    type: object
+    description: This is the FI to FI CCT Non-Pii Data that was in the original FI to FI Customer Credit Transfer Request
+    $ref: 'fitoFICCTMemoData.yaml'
+    externalDocs:
+      url: '#/definitions/fitoFICCTMemoData'
+    x-go-name: FItoFICCTMemoData
+  payment_status:
+    type: string
+    description: the status of this payment
+  end-to-end-id:
+    type: string
+    description: the client end-to-end-id for this payment
+  time_stamp:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: timestamp of the status change according to World Wire
+x-go-name: PaymentLogRecord

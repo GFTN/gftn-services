@@ -1,0 +1,22 @@
+title: SweepReceipt
+description: Sweep Receipt
+type: object
+required:
+  - transaction_hash
+properties:
+  time_executed:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: Timestamp when the exchange occurred.
+  transaction_hash:
+    type: string
+    description: Transacted hash.
+  balance_result:
+    type: array
+    description: Source account balances, after sweeping.
+    items:
+      $ref: 'sweep.yaml'
+externalDocs:
+  url: '#/definitions/sweepReceipt'
+x-go-name: SweepReceipt

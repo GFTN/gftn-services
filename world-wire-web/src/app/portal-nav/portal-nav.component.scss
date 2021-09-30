@@ -1,0 +1,45 @@
+@import "~sass/ibm-style-override";
+
+a {
+	color: $text-01
+}
+
+.avatar {
+	height: 30px;
+	width: 30px;
+	background-repeat: no-repeat;
+	background-size: contain
+}
+
+a.nav-link {
+	padding: $padding 2*$padding;
+	width: calc(100% - #{$padding});
+}
+
+#nav-container {
+	position: relative;
+}
+
+.menu {
+	background-color: $ui-01;
+	transition: display 2s linear;
+	padding-top: 10px;
+
+	button {
+		max-width: 100%;
+	}
+
+	&.absolute {
+		width: 200px;
+		position: absolute;
+		right: 0;
+		top: calc(100% + 6px);
+	}
+
+	.text {
+		width: 100%;
+		padding: 0.5rem 1rem;
+		margin: 0;
+		color: $text-02
+	}
+}

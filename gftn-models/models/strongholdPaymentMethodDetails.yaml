@@ -1,0 +1,29 @@
+title: strongholdPaymentMethodDetails
+description: strongholdPaymentMethodDetails
+type: object
+required:
+  - amount
+  - bank_routing_number
+  - bank_name
+  - bank_account_number
+  - bank_account_type
+  - initiator_ip
+properties:
+  amount:
+    type: string
+    description: DA amount to be returned
+  bank_name:
+    type: string
+    description: name of bank
+  bank_routing_number:
+    type: string
+    description: routing number
+  bank_account_number:
+    type: string
+  bank_account_type:
+    type: string
+  initiator_ip:
+    type: string
+externalDocs:
+  url: '#/definitions/strongholdPaymentMethodDetails'
+x-go-name: StrongholdPaymentMethodDetails

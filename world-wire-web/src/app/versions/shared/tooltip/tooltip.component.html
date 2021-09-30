@@ -1,0 +1,10 @@
+<span class="bx--tooltip--definition" ngClass.gt-sm="desktop">
+  <span [id]="termId + '-term'" class="bx--tooltip__trigger terminology" ng-class data-tooltip-trigger [attr.data-tooltip-target]="'#' + termId  + '-def'" role="tooltip" aria-describedby="definition-tooltip" (mouseenter)="toggleTooltip()" (mouseout)="toggleTooltip()">{{termName}}
+  </span>
+  <div class="tooltip-container {{ active ? 'active' : '' }}">
+    <div [id]="termId  + '-def'" role="tooltip" class="bx--tooltip--definition__top tooltip {{ overflow ? ' right' : '' }}">
+      <p>{{termDefinition}}</p>
+    </div>
+    <span class="bx--tooltip__caret"></span>
+  </div>
+</span>

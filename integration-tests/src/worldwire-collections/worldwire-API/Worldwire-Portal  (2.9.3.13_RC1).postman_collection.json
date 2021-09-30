@@ -1,0 +1,4365 @@
+{
+	"info": {
+		"_postman_id": "12280976-e971-48ea-8d22-90fa4e2c1ac2",
+		"name": "Worldwire-Portal  (2.9.3.13_RC1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0.Deploy service",
+			"item": [
+				{
+					"name": "maker",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "Deploy participant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0eadb753-fd84-4f5d-b324-554eb07ba9ee",
+												"exec": [
+													"// var reqBody = JSON.parse(pm.request);",
+													"// var resBody=request.data[\"participantId\"]",
+													"// var reqBody.participantId=request.data[\"participantId\"];",
+													"let reqBody=JSON.parse(request.data);",
+													"let env=pm.environment.get(\"env\");",
+													"postman.setEnvironmentVariable(\"participant1_id\",  reqBody.participantId)",
+													"postman.setEnvironmentVariable(\"participant1_bic\",  reqBody.bic)",
+													"postman.setEnvironmentVariable(\"participant1-callback-url\",  reqBody.callbackUrl)",
+													"postman.setEnvironmentVariable(\"participant1-rdo-client-url\",  reqBody.rdoClientUrl)",
+													"postman.setEnvironmentVariable(\"participant1_country_code\",  reqBody.countryCode)",
+													"",
+													"// postman.setEnvironmentVariable(\"participant1_role\",  reqBody.role)",
+													"postman.setEnvironmentVariable(\"participant1-whitelist-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/whitelist\")",
+													"postman.setEnvironmentVariable(\"participant1-quotes-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/quotes\")",
+													"postman.setEnvironmentVariable(\"participant1-payout-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/payout\")",
+													"postman.setEnvironmentVariable(\"participant1-fee-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/fee\")",
+													"postman.setEnvironmentVariable(\"participant1-anchor-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/anchor\")",
+													"",
+													"postman.setEnvironmentVariable(\"participant1-api-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/api\")",
+													"postman.setEnvironmentVariable(\"participant1-crypto-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/crypto\")",
+													"postman.setEnvironmentVariable(\"participant1-payment-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/payment\")",
+													"postman.setEnvironmentVariable(\"participant1-rdo-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/rdo\")",
+													"postman.setEnvironmentVariable(\"participant1-send-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/send\")",
+													"",
+													"",
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "1580ff8f-4b5e-4e71-a596-ee16921babe4",
+												"exec": [
+													"let env=pm.environment.get(\"env\")",
+													"postman.setEnvironmentVariable(\"deployment-url\",  \"deployment.worldwire-\"+env+\".io/global/deployment\")"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"type": "text",
+												"value": "{{p1-xiid}}"
+											},
+											{
+												"key": "x-fid",
+												"type": "text",
+												"value": "{{au_fid1}}"
+											},
+											{
+												"key": "x-pid",
+												"type": "text",
+												"value": "{{participant1_id}}"
+											},
+											{
+												"key": "x-permission",
+												"type": "text",
+												"value": "request"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"institutionId\": \"{{p1-xiid}}\",\n    \"bic\": \"{{participant1_bic}}\",\n    \"callbackUrl\": \"http://34.216.224.221:31002/v1/callback\",\n    \"rdoClientUrl\": \"http://34.216.224.221:11003/v1\",\n    \"countryCode\": \"{{participant1_country_code}}\",\n    \"participantId\": \"{{participant1_id}}\",\n    \"role\": \"MM\",\n    \"version\": \"latest\",\n    \"status\": \"pending\",\n    \"createPREntry\": true,\n    \"createNode\": true,\n    \"createAccount\": false\n}"
+										},
+										"url": {
+											"raw": "{{deployment-url}}/{{service-version}}/deploy/participant",
+											"host": [
+												"{{deployment-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"deploy",
+												"participant"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "Deploy participant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0eadb753-fd84-4f5d-b324-554eb07ba9ee",
+												"exec": [
+													"// var reqBody = JSON.parse(pm.request);",
+													"// var resBody=request.data[\"participantId\"]",
+													"// var reqBody.participantId=request.data[\"participantId\"];",
+													"let reqBody=JSON.parse(request.data);",
+													"let env=pm.environment.get(\"env\");",
+													"postman.setEnvironmentVariable(\"participant2_id\",  reqBody.participantId)",
+													"postman.setEnvironmentVariable(\"participant2_bic\",  reqBody.bic)",
+													"postman.setEnvironmentVariable(\"participant2-callback-url\",  reqBody.callbackUrl)",
+													"postman.setEnvironmentVariable(\"participant2-rdo-client-url\",  reqBody.rdoClientUrl)",
+													"postman.setEnvironmentVariable(\"participant2_country_code\",  reqBody.countryCode)",
+													"",
+													"// postman.setEnvironmentVariable(\"participant2_role\",  reqBody.role)",
+													"postman.setEnvironmentVariable(\"participant2-whitelist-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/whitelist\")",
+													"postman.setEnvironmentVariable(\"participant2-quotes-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/quotes\")",
+													"postman.setEnvironmentVariable(\"participant2-payout-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/payout\")",
+													"postman.setEnvironmentVariable(\"participant2-fee-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/fee\")",
+													"postman.setEnvironmentVariable(\"participant2-anchor-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/anchor\")",
+													"",
+													"postman.setEnvironmentVariable(\"participant2-api-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/api\")",
+													"postman.setEnvironmentVariable(\"participant2-crypto-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/crypto\")",
+													"postman.setEnvironmentVariable(\"participant2-payment-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/payment\")",
+													"postman.setEnvironmentVariable(\"participant2-rdo-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/rdo\")",
+													"postman.setEnvironmentVariable(\"participant2-send-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/send\")",
+													"",
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)",
+													"",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "1580ff8f-4b5e-4e71-a596-ee16921babe4",
+												"exec": [
+													"let env=pm.environment.get(\"env\")",
+													"postman.setEnvironmentVariable(\"deployment-url\",  \"deployment.worldwire-\"+env+\".io/global/deployment\")"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"type": "text",
+												"value": "{{p1-xiid}}"
+											},
+											{
+												"key": "X-Fid",
+												"type": "text",
+												"value": "{{au_fid1}}"
+											},
+											{
+												"key": "x-permission",
+												"type": "text",
+												"value": "request"
+											},
+											{
+												"key": "X-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "XX",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"institutionId\": \"{{p1-xiid}}\",\n    \"bic\": \"{{participant2_bic}}\",\n    \"callbackUrl\": \"http://34.216.224.221:41002/v1/callback\",\n    \"rdoClientUrl\": \"http://34.216.224.221:21003/v1\",\n    \"countryCode\": \"{{participant2_country_code}}\",\n    \"participantId\": \"{{participant2_id}}\",\n    \"role\": \"MM\",\n    \"version\": \"latest\",\n    \"status\": \"pending\",\n    \"createPREntry\": true,\n    \"createNode\": true,\n    \"createAccount\": false\n}"
+										},
+										"url": {
+											"raw": "{{deployment-url}}/{{service-version}}/deploy/participant",
+											"host": [
+												"{{deployment-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"deploy",
+												"participant"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "checker",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "Deploy participant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0eadb753-fd84-4f5d-b324-554eb07ba9ee",
+												"exec": [
+													"// var reqBody = JSON.parse(pm.request);",
+													"// var resBody=request.data[\"participantId\"]",
+													"// var reqBody.participantId=request.data[\"participantId\"];",
+													"let reqBody=JSON.parse(request.data);",
+													"let env=pm.environment.get(\"env\");",
+													"postman.setEnvironmentVariable(\"participant1_id\",  reqBody.participantId)",
+													"postman.setEnvironmentVariable(\"participant1_bic\",  reqBody.bic)",
+													"postman.setEnvironmentVariable(\"participant1-callback-url\",  reqBody.callbackUrl)",
+													"postman.setEnvironmentVariable(\"participant1-rdo-client-url\",  reqBody.rdoClientUrl)",
+													"postman.setEnvironmentVariable(\"participant1_country_code\",  reqBody.countryCode)",
+													"",
+													"// postman.setEnvironmentVariable(\"participant1_role\",  reqBody.role)",
+													"postman.setEnvironmentVariable(\"participant1-whitelist-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/whitelist\")",
+													"postman.setEnvironmentVariable(\"participant1-quotes-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/quotes\")",
+													"postman.setEnvironmentVariable(\"participant1-payout-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/payout\")",
+													"postman.setEnvironmentVariable(\"participant1-fee-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/fee\")",
+													"postman.setEnvironmentVariable(\"participant1-anchor-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/anchor\")",
+													"",
+													"postman.setEnvironmentVariable(\"participant1-api-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/api\")",
+													"postman.setEnvironmentVariable(\"participant1-crypto-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/crypto\")",
+													"postman.setEnvironmentVariable(\"participant1-payment-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/payment\")",
+													"postman.setEnvironmentVariable(\"participant1-rdo-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/rdo\")",
+													"postman.setEnvironmentVariable(\"participant1-send-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/send\")",
+													"",
+													"",
+													"",
+													"setTimeout(1000)",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "1580ff8f-4b5e-4e71-a596-ee16921babe4",
+												"exec": [
+													"let env=pm.environment.get(\"env\")",
+													"postman.setEnvironmentVariable(\"deployment-url\",  \"deployment.worldwire-\"+env+\".io/global/deployment\")"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"type": "text",
+												"value": "{{p1-xiid}}"
+											},
+											{
+												"key": "x-fid",
+												"type": "text",
+												"value": "{{au_fid2}}"
+											},
+											{
+												"key": "x-pid",
+												"type": "text",
+												"value": "{{participant1_id}}"
+											},
+											{
+												"key": "x-permission",
+												"type": "text",
+												"value": "approve"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"institutionId\": \"{{p1-xiid}}\",\n    \"bic\": \"{{participant1_bic}}\",\n    \"callbackUrl\": \"http://34.216.224.221:31002/v1/callback\",\n    \"rdoClientUrl\": \"http://34.216.224.221:11003/v1\",\n    \"countryCode\": \"{{participant1_country_code}}\",\n    \"participantId\": \"{{participant1_id}}\",\n    \"role\": \"MM\",\n    \"version\": \"latest\",\n    \"status\": \"pending\",\n    \"createPREntry\": true,\n    \"createNode\": true,\n    \"createAccount\": false\n}"
+										},
+										"url": {
+											"raw": "{{deployment-url}}/{{service-version}}/deploy/participant",
+											"host": [
+												"{{deployment-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"deploy",
+												"participant"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "Deploy participant",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0eadb753-fd84-4f5d-b324-554eb07ba9ee",
+												"exec": [
+													"// var reqBody = JSON.parse(pm.request);",
+													"// var resBody=request.data[\"participantId\"]",
+													"// var reqBody.participantId=request.data[\"participantId\"];",
+													"let reqBody=JSON.parse(request.data);",
+													"let env=pm.environment.get(\"env\");",
+													"postman.setEnvironmentVariable(\"participant2_id\",  reqBody.participantId)",
+													"postman.setEnvironmentVariable(\"participant2_bic\",  reqBody.bic)",
+													"postman.setEnvironmentVariable(\"participant2-callback-url\",  reqBody.callbackUrl)",
+													"postman.setEnvironmentVariable(\"participant2-rdo-client-url\",  reqBody.rdoClientUrl)",
+													"postman.setEnvironmentVariable(\"participant2_country_code\",  reqBody.countryCode)",
+													"",
+													"// postman.setEnvironmentVariable(\"participant2_role\",  reqBody.role)",
+													"postman.setEnvironmentVariable(\"participant2-whitelist-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/whitelist\")",
+													"postman.setEnvironmentVariable(\"participant2-quotes-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/quotes\")",
+													"postman.setEnvironmentVariable(\"participant2-payout-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/payout\")",
+													"postman.setEnvironmentVariable(\"participant2-fee-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/fee\")",
+													"postman.setEnvironmentVariable(\"participant2-anchor-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/global/anchor\")",
+													"",
+													"postman.setEnvironmentVariable(\"participant2-api-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/api\")",
+													"postman.setEnvironmentVariable(\"participant2-crypto-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/crypto\")",
+													"postman.setEnvironmentVariable(\"participant2-payment-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/payment\")",
+													"postman.setEnvironmentVariable(\"participant2-rdo-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/rdo\")",
+													"postman.setEnvironmentVariable(\"participant2-send-url\",  reqBody.participantId+\".worldwire-\"+env+\".io/local/send\")",
+													"",
+													"",
+													"setTimeout(1000)",
+													"",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "1580ff8f-4b5e-4e71-a596-ee16921babe4",
+												"exec": [
+													"let env=pm.environment.get(\"env\")",
+													"postman.setEnvironmentVariable(\"deployment-url\",  \"deployment.worldwire-\"+env+\".io/global/deployment\")"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"type": "text",
+												"value": "{{p1-xiid}}"
+											},
+											{
+												"key": "X-Fid",
+												"type": "text",
+												"value": "{{au_fid2}}"
+											},
+											{
+												"key": "x-permission",
+												"type": "text",
+												"value": "approve"
+											},
+											{
+												"key": "X-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"institutionId\": \"{{p1-xiid}}\",\n    \"bic\": \"{{participant2_bic}}\",\n    \"callbackUrl\": \"http://34.216.224.221:41002/v1/callback\",\n    \"rdoClientUrl\": \"http://34.216.224.221:21003/v1\",\n    \"countryCode\": \"{{participant2_country_code}}\",\n    \"participantId\": \"{{participant2_id}}\",\n    \"role\": \"MM\",\n    \"version\": \"latest\",\n    \"status\": \"pending\",\n    \"createPREntry\": true,\n    \"createNode\": true,\n    \"createAccount\": false\n}"
+										},
+										"url": {
+											"raw": "{{deployment-url}}/{{service-version}}/deploy/participant",
+											"host": [
+												"{{deployment-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"deploy",
+												"participant"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "- list all participants (rest get participant)",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "/client/participants",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{participant1-api-url}}/{{service-version}}/client/participants?",
+											"host": [
+												"{{participant1-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants"
+											],
+											"query": [
+												{
+													"key": "country_code",
+													"value": "{{participant1_country_code}}",
+													"disabled": true
+												},
+												{
+													"key": "asset_code",
+													"value": "NZDDO",
+													"disabled": true
+												},
+												{
+													"key": "issuer_id",
+													"value": "{{participant1_id}}",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "/client/participants",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p2-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{participant2-api-url}}/{{service-version}}/client/participants?country_code={{participant2_country_code}}&asset_code=FJDDO&issuer_id={{participant2_id}}",
+											"host": [
+												"{{participant2-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants"
+											],
+											"query": [
+												{
+													"key": "country_code",
+													"value": "{{participant2_country_code}}"
+												},
+												{
+													"key": "asset_code",
+													"value": "FJDDO"
+												},
+												{
+													"key": "issuer_id",
+													"value": "{{participant2_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "4. whitelist",
+			"item": [
+				{
+					"name": "maker",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "/client/participants/whitelist add participant2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "705c7565-4e7f-4aa2-9b52-792611613e8d",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant2_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist add anchor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "27b0b3f0-102a-4a3b-9872-652ec0d43632",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{anchor_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ab37cc49-1924-4b93-af30-7a89702f0f7f",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{participant1-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{participant1-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f52ae843-1ae8-452f-92a0-92cd5ed9ca54",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant2_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "/client/whitelist/participants",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "81637db3-ef54-411e-a176-56b463a271a2",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist add participant1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a85b78ce-2516-4d1b-8a3f-6a9e504415c7",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant1_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist add anchor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fc156428-8a39-4d93-a562-de13990cecf2",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{anchor_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "215fdf31-7b75-4c5b-8e56-7b20f047aec5",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant1_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "anchor",
+							"item": [
+								{
+									"name": "/client/participants/whitelist participant1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d490eac7-a401-4e4a-bcf4-214704df58d5",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{anchor_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant1_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist participant2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "42be9695-abf2-462b-a19e-e7dbf9d69ff8",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{anchor_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant2_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3236e193-22ea-4aeb-86fc-05cb872a7b17",
+												"exec": [
+													"",
+													"  var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+													"setTimeout(1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid1}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{anchor_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "request",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "checker",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "/client/participants/whitelist add participant2",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant2_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist add anchor",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{anchor_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant2_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "/client/whitelist/participants",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist add participant1",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p2-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant1_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist add anchor",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{anchor_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant2_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant1_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "anchor",
+							"item": [
+								{
+									"name": "/client/participants/whitelist participant1",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{anchor_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant1_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist participant2",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{anchor_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"participant_id\":\"{{participant2_id}}\"\n}"
+										},
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/participants/whitelist",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{anchor-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{anchore_id}}",
+												"type": "text"
+											},
+											{
+												"key": "x-permission",
+												"value": "approve",
+												"type": "text"
+											},
+											{
+												"key": "x-request",
+												"value": "{{x-request}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{global-whitelist-url}}/{{service-version}}/client/participants/whitelist",
+											"host": [
+												"{{global-whitelist-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"participants",
+												"whitelist"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "5. trust assets",
+			"item": [
+				{
+					"name": "macker",
+					"item": [
+						{
+							"name": "DO",
+							"item": [
+								{
+									"name": "request",
+									"item": [
+										{
+											"name": "participant1",
+											"item": [
+												{
+													"name": "/client/trust",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "d47a815f-1bc6-425f-97dd-c681e575c274",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{participant2-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant2_id}}\",\n    \"limit\": 9999\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2",
+											"item": [
+												{
+													"name": "/client/trust",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "286aab42-c447-4bdd-a4d5-c514a064ca36",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p2-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{participant1-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant1_id}}\",\n    \"limit\": 9999\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "allow",
+									"item": [
+										{
+											"name": "participant1",
+											"item": [
+												{
+													"name": "/client/trust",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "9f9a08a0-e352-4276-929f-c478254c099b",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"{{participant1-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant2_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2",
+											"item": [
+												{
+													"name": "/client/trust",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "d67be61f-08a9-4aea-a69e-4507a9d2acaf",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p2-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"{{participant2-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "DA",
+							"item": [
+								{
+									"name": "request",
+									"item": [
+										{
+											"name": "participant1 request trust to anchor",
+											"item": [
+												{
+													"name": "/client/trust USD DA default",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "83ea2685-39b4-45e7-a8ac-d5d6ab2d21be",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 5000\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "/client/trust USD DA issuing",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "0ac664c9-2260-4c30-af4f-37ca4f8cb7e0",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 4000\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2 request trust to anchor",
+											"item": [
+												{
+													"name": "/client/trust USD DA default",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "8c919b92-bb07-4889-b975-62a5919ab47d",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 5000\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "/client/trust USD DA issuing",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "0df15076-619a-4015-88c3-30a13b5580fb",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 4000\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "allow",
+									"item": [
+										{
+											"name": "participant1",
+											"item": [
+												{
+													"name": "allow trust USD DA participant1 issuing",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "8b7c80d7-a2af-4dd0-8636-ec71f747a75a",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "allow trust USD DA participant1 default",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "33a17037-04ba-41e1-8b40-d27eaa6e472a",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2",
+											"item": [
+												{
+													"name": "allow trust USD participant2 default",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "8fcf5d76-9286-47c0-b0fc-476156e693ff",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{participant2_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "allow trust USD participant2 issuing",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "141aaed1-6abd-44a6-b58d-f12492aca2e6",
+																"exec": [
+																	"",
+																	"  var jsonData = JSON.parse(responseBody);",
+																	"postman.setEnvironmentVariable(\"x-request\",  jsonData.msg)",
+																	"setTimeout(1000)"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid1}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "request",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant2_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "checker",
+					"item": [
+						{
+							"name": "DO",
+							"item": [
+								{
+									"name": "request",
+									"item": [
+										{
+											"name": "participant1",
+											"item": [
+												{
+													"name": "/client/trust",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{participant2-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant2_id}}\",\n    \"limit\": 9999\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2",
+											"item": [
+												{
+													"name": "/client/trust",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{participant1-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant1_id}}\",\n    \"limit\": 9999\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "allow",
+									"item": [
+										{
+											"name": "participant1",
+											"item": [
+												{
+													"name": "/client/trust",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"{{participant1-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant2_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2",
+											"item": [
+												{
+													"name": "/client/trust",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p2-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"{{participant2-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "DA",
+							"item": [
+								{
+									"name": "request",
+									"item": [
+										{
+											"name": "participant1 request trust to anchor",
+											"item": [
+												{
+													"name": "/client/trust USD DA default",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 5000\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "/client/trust USD DA issuing",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 4000\n}"
+														},
+														"url": {
+															"raw": "{{participant1-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant1-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2 request trust to anchor",
+											"item": [
+												{
+													"name": "/client/trust USD DA default",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 5000\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "/client/trust USD DA issuing",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"request\",\n    \"asset_code\": \"{{anchor-asset}}\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{anchor_id}}\",\n    \"limit\": 4000\n}"
+														},
+														"url": {
+															"raw": "{{participant2-api-url}}/{{service-version}}/client/trust",
+															"host": [
+																"{{participant2-api-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"client",
+																"trust"
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "allow",
+									"item": [
+										{
+											"name": "participant1",
+											"item": [
+												{
+													"name": "allow trust USD DA participant1 issuing",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "allow trust USD DA participant1 default",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant1_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{participant1_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "participant2",
+											"item": [
+												{
+													"name": "allow trust USD participant2 default",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"default\",\n    \"participant_id\": \"{{participant2_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "allow trust USD participant2 issuing",
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "x-iid",
+																"value": "{{p1-xiid}}",
+																"type": "text"
+															},
+															{
+																"key": "x-fid",
+																"value": "{{au_fid2}}",
+																"type": "text"
+															},
+															{
+																"key": "x-pid",
+																"value": "{{participant2_id}}",
+																"type": "text"
+															},
+															{
+																"key": "x-permission",
+																"value": "approve",
+																"type": "text"
+															},
+															{
+																"key": "x-request",
+																"value": "{{x-request}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"permission\": \"allow\",\n    \"asset_code\": \"USD\",\n    \"account_name\": \"issuing\",\n    \"participant_id\": \"{{participant2_id}}\"\n}"
+														},
+														"url": {
+															"raw": "{{global-anchor-url}}/{{service-version}}/anchor/trust/{{anchor_id}}?",
+															"host": [
+																"{{global-anchor-url}}"
+															],
+															"path": [
+																"{{service-version}}",
+																"anchor",
+																"trust",
+																"{{anchor_id}}"
+															],
+															"query": [
+																{
+																	"key": "permission",
+																	"value": "allow",
+																	"disabled": true
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"_postman_isSubFolder": true
+										}
+									],
+									"_postman_isSubFolder": true
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "6. get asset",
+			"item": [
+				{
+					"name": "- list all assets",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "/client/assets",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant1-api-url}}/{{service-version}}/client/assets",
+											"host": [
+												"{{participant1-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "/client/assets",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p2-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{participant2-api-url}}/{{service-version}}/client/assets",
+											"host": [
+												"{{participant2-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "- list trusted assets from a specific account",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "/client/assets/accounts/{account_name} issuing",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant1-api-url}}/{{service-version}}/client/assets/accounts/issuing",
+											"host": [
+												"{{participant1-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"accounts",
+												"issuing"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/assets/accounts/{account_name} default",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant1-api-url}}/{{service-version}}/client/assets/accounts/default",
+											"host": [
+												"{{participant1-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"accounts",
+												"default"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "/client/assets/accounts/{account_name} issuing",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p2-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant2-api-url}}/{{service-version}}/client/assets/accounts/issuing",
+											"host": [
+												"{{participant2-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"accounts",
+												"issuing"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/client/assets/accounts/{account_name} default",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p2-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant2-api-url}}/{{service-version}}/client/assets/accounts/default",
+											"host": [
+												"{{participant2-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"accounts",
+												"default"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "- list your issued assets",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "/client/assets/issued",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant1-api-url}}/{{service-version}}/client/assets/issued",
+											"host": [
+												"{{participant1-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"issued"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "/client/assets/issued",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p2-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant2-api-url}}/{{service-version}}/client/assets/issued",
+											"host": [
+												"{{participant2-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"issued"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "- list a participant's assets",
+					"item": [
+						{
+							"name": "participant1",
+							"item": [
+								{
+									"name": "/client/assets/participants/{participant_id}",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p1-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant1-api-url}}/{{service-version}}/client/assets/participants/{{participant1_id}}?type=issued",
+											"host": [
+												"{{participant1-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"participants",
+												"{{participant1_id}}"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "issued",
+													"description": "issued,both,trusted"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "participant2",
+							"item": [
+								{
+									"name": "/client/assets/participants/{participant_id}",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{p2-jwt-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-iid",
+												"value": "{{p1-xiid}}",
+												"type": "text"
+											},
+											{
+												"key": "x-fid",
+												"value": "{{au_fid2}}",
+												"type": "text"
+											},
+											{
+												"key": "x-pid",
+												"value": "{{participant1_id}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{participant2-api-url}}/{{service-version}}/client/assets/participants/{{participant2_id}}?type=both",
+											"host": [
+												"{{participant2-api-url}}"
+											],
+											"path": [
+												"{{service-version}}",
+												"client",
+												"assets",
+												"participants",
+												"{{participant2_id}}"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "both"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "admin.worldwire-qa.io/global/deployment/v1/deploy/participant\n",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-FID",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU0ODZkYTNlMWJmMjA5YzZmNzU2MjlkMWQ4MzRmNzEwY2EzMDlkNTAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY3NzIxODU4LCJ1c2VyX2lkIjoia2phdzlmQ0ZSU1hrS1p4bTcwZlJTa0puNjlvMSIsInN1YiI6ImtqYXc5ZkNGUlNYa0taeG03MGZSU2tKbjY5bzEiLCJpYXQiOjE1Njc3MjIzNTYsImV4cCI6MTU2NzcyNTk1NiwiZW1haWwiOiJydWJ5Y2hlbmcxMjFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInJ1YnljaGVuZzEyMUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.Xlq_Z42ONiu_CbDnHwr12uCPWE8XpHtcLyz8hSWYfAsCk_CgBXvhYvWZkNeXacYoGdNq-cXFe5q-c19xBm7U9aDZU20QJsFGwePSjJGd-TNkUG3n1J9e6NJ9HjgxFIPYok05rtOy_of4Viiw_vgfnLL__6eSEagKDjnRraHjdjkbgQlBb0-WGyJO4TBbK6yQpP3yOlh3aRnXR_wXUXLRrhkgoyN2vF-r4rakXJ-tPr2BKL0KUErPWp2j-QYD9WvcF5GNPZ2MKF51bzYwK5KYKrMc3jbfREaPaQXqi8hr_p1ghZMo31BMSxyMQ6rcT6i1CMzoHZyX2pImvQX8Atzmpw",
+						"type": "text"
+					},
+					{
+						"key": "X-IID",
+						"value": "-Lo2WQHlBccTISoMagOT",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "approve",
+						"type": "text"
+					},
+					{
+						"key": "X-pid",
+						"value": "laanchor926",
+						"type": "text"
+					},
+					{
+						"key": "x-request",
+						"value": "-Lo2YdoM4hXHCnDLqQkd",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-permission",
+						"value": "request",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU0ODZkYTNlMWJmMjA5YzZmNzU2MjlkMWQ4MzRmNzEwY2EzMDlkNTAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcWF0d28tMjUxMDA3IiwiYXVkIjoicWF0d28tMjUxMDA3IiwiYXV0aF90aW1lIjoxNTY3NzIyNjg4LCJ1c2VyX2lkIjoiVlc2dzlXRE9zTVNYeTEzcFRwejJQNXZDSHR4MSIsInN1YiI6IlZXNnc5V0RPc01TWHkxM3BUcHoyUDV2Q0h0eDEiLCJpYXQiOjE1Njc3MjI2ODgsImV4cCI6MTU2NzcyNjI4OCwiZW1haWwiOiJydWJ5Y2hAc2cuaWJtLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJydWJ5Y2hAc2cuaWJtLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.JSLXU0BJhxyB44cXfTZ2GURWsCTd8AywHe51xSWTTKCWzINbmr3fUcTvTwYirR8ZmJg94-ybi9R9qUEJEJFp-f8MYaIRl5H8hH0YG8PigNf-X1Q2yPnU1Zfjr_trJZ-2uvoULAd-Dyml4FYqpD9BS0yuoJJ9U6uvXDADYd-6EPr3V7ExYOX58zpcTmalZj_RzBtIYdUm2ZxF7LIL2tZIQIJ978PEskaf_kSyawjhE0EiXOIkkRgCsf2HcpSb5kgANxqWLFCTANAPGzsMYSJcLcvrPzN1NPEPL6X8zXY9i4V-T9fbCYTAgyHNlQkVmNv4SVtC51WEhq3GZTARGWyb6w",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\"bic\":\"USALAUSE916\",\n    \"version\": \"latest\",\n    \"callbackUrl\": \"http://34.216.224.221:31002/v1/callback\",\n    \"countryCode\": \"SGP\",\n    \"initialized\": false,\n    \"institutionId\": \"-Lo2WQHlBccTISoMagOT\",\n    \"participantId\": \"laanchor926\",\n    \"rdoClientUrl\": \"http://34.216.224.221:11003/v1\",\n    \"role\": \"IS\",\n    \"status\": [\n        \"configuring\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "admin.worldwire-qa.io/global/deployment/v1/deploy/participant",
+					"host": [
+						"admin",
+						"worldwire-qa",
+						"io"
+					],
+					"path": [
+						"global",
+						"deployment",
+						"v1",
+						"deploy",
+						"participant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/anchor/ibmtaiwan5/onboard/assets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ii1MbzhjQkY1cWxOT0h2am55VExyLjEtNyJ9.eyJhY2MiOlsiaXNzdWluZyIsImRlZmF1bHQiXSwidmVyIjoiMi45LjMuMTNfUkMxIiwiaXBzIjpbIjIwMi4xMzUuMjQ1LjM5IiwiMjAyLjEzNS4yNDUuNCIsIjIxOS43NC4xNS4yMDciLCIyMDIuMTM1LjI0NS4yIiwiMTI1LjE4LjkuMjAiLCIxNjkuNjMuMTQwLjEwNiIsIjIwMi4xMzUuMjQ1LjM1Il0sImVudiI6ImVrc3FhIiwiZW5wIjpbIi92MS9hZG1pbi9wciIsIi92MS9hZG1pbi9wci9kb21haW4iLCIvdjEvYW5jaG9yL2FkZHJlc3MiLCIvdjEvYW5jaG9yL2Fzc2V0cy9pc3N1ZWQiLCIvdjEvYW5jaG9yL2Z1bmRpbmdzL2luc3RydWN0aW9uIiwiL3YxL2FuY2hvci9mdW5kaW5ncy9zZW5kIiwiL3YxL2FuY2hvci90cnVzdCIsIi92MS9jbGllbnQvYWNjb3VudHMiLCIvdjEvY2xpZW50L2Fzc2V0cyIsIi92MS9jbGllbnQvYXNzZXRzL2FjY291bnRzIiwiL3YxL2NsaWVudC9hc3NldHMvaXNzdWVkIiwiL3YxL2NsaWVudC9hc3NldHMvcGFydGljaXBhbnRzIiwiL3YxL2NsaWVudC9iYWxhbmNlcy9hY2NvdW50cyIsIi92MS9jbGllbnQvYmFsYW5jZXMvZG8iLCIvdjEvY2xpZW50L2V4Y2hhbmdlIiwiL3YxL2NsaWVudC9mZWVzL3JlcXVlc3QiLCIvdjEvY2xpZW50L2ZlZXMvcmVzcG9uc2UiLCIvdjEvY2xpZW50L21lc3NhZ2UiLCIvdjEvY2xpZW50L3BhcnRpY2lwYW50cyIsIi92MS9jbGllbnQvcGFydGljaXBhbnRzL3doaXRlbGlzdCIsIi92MS9jbGllbnQvcGF5b3V0IiwiL3YxL2NsaWVudC9xdW90ZXMiLCIvdjEvY2xpZW50L3F1b3Rlcy9yZXF1ZXN0IiwiL3YxL2NsaWVudC9zaWduIiwiL3YxL2NsaWVudC90b2tlbi9yZWZyZXNoIiwiL3YxL2NsaWVudC90cmFuc2FjdGlvbnMiLCIvdjEvY2xpZW50L3RyYW5zYWN0aW9ucy9yZXBseSIsIi92MS9jbGllbnQvdHJhbnNhY3Rpb25zL3NlbmQiLCIvdjEvY2xpZW50L3RyYW5zYWN0aW9ucy9zZXR0bGUvZGEiLCIvdjEvY2xpZW50L3RydXN0IiwiL3YxL29uYm9hcmRpbmcvYWNjb3VudHMiXSwibiI6MCwiaWF0IjoxNTY3ODI0NTk0LCJuYmYiOjE1Njc4MjQ1OTksImV4cCI6MTU2ODA4Mzc5NCwiYXVkIjoiaWJtdGFpd2FuNSIsInN1YiI6Ii1MbzVzRmVJcnpnNjQxd3dqZmxQIiwianRpIjoiLUxvOGJyX3ZBdzhxZ0JBd05IZHQifQ.uJQYd7zFYKFKSzdQaSQrGPNHQPHWF2JcCC9WIlctXzE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU0ODZkYTNlMWJmMjA5YzZmNzU2MjlkMWQ4MzRmNzEwY2EzMDlkNTAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3QyMS0yNTExMDciLCJhdWQiOiJzdDIxLTI1MTEwNyIsImF1dGhfdGltZSI6MTU2NzkwNTQ4MiwidXNlcl9pZCI6ImF5WUVCM1lNaENYc3hkWXRjUjRDSHF4OVpvdjEiLCJzdWIiOiJheVlFQjNZTWhDWHN4ZFl0Y1I0Q0hxeDlab3YxIiwiaWF0IjoxNTY3OTA3NjYzLCJleHAiOjE1Njc5MTEyNjMsImVtYWlsIjoicnVieWNoQHNnLmlibS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicnVieWNoQHNnLmlibS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.hoj6udMI3iQI4rOgbTyTbUHD_XKS1mRqEfTgKy-DP_bRyMQZTRRbeP6ZoegZtiBl24xaRTy41ClEQg31WivFWYqIy440BPMHnGdgpdGQPSahX2sdk390Ywxg26S1rg0avad9mxslZElJrv2DtbtYLfcjqICNjU0ZEnajENFXcXqE9xmW5cwTwv1IKAtj2EXsjoxutIrFGp60GNm1NBPwPpKhp62qUHuQ1qkhEUf0AeV2554xefANwnKYq0Op22bLmNo8pq66WDuUolGWNbUBC0zveqrd-3YQ21g0hbpSQlfSIlb9QsEkDd_oSQvkt1PnQlwPxnyCbjUFV3uPzlzHzw",
+						"description": "ibm super user1 (/fid) ---1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-iid",
+						"value": "-LoDH40-xUF2TWosk4S6",
+						"description": "---1---2",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "request",
+						"description": "---1",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "x-request",
+						"value": "-LoD__o1wNUIsqKbVce1",
+						"description": "---2",
+						"type": "text"
+					},
+					{
+						"key": "X-fid",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU0ODZkYTNlMWJmMjA5YzZmNzU2MjlkMWQ4MzRmNzEwY2EzMDlkNTAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc3QyMS0yNTExMDciLCJhdWQiOiJzdDIxLTI1MTEwNyIsImF1dGhfdGltZSI6MTU2NzkwNjI0MiwidXNlcl9pZCI6IjBhWUN3UmI5S1JUYVN0eFhwejZqSFlZNjVSMTMiLCJzdWIiOiIwYVlDd1JiOUtSVGFTdHhYcHo2akhZWTY1UjEzIiwiaWF0IjoxNTY3OTA3NTIxLCJleHAiOjE1Njc5MTExMjEsImVtYWlsIjoicnVieWNoZW5nMTIxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJydWJ5Y2hlbmcxMjFAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiY3VzdG9tIn19.XnV6Bz99TMnRNOdgMymixAESDxNJhZGVFiySAug6fLCejbuXTPsnu4Qm9N0CXXpavOq5jTymQs8WqFFFJnvD1RxubqAEyjmdWYLMgSd7Kr31uaZehK8ffy8tY5j4k-dHaQejj5cNCJNA05Af8jCAGg3eMfjgimPitq4rWLW37qDI5NFDg4VsvkgPIr_VVA2tOfDvXtWH67qxK17Kd-ioI4XA2wiFTaHHcajA1-BVLJhWXNrc6yyFwQnzP4LcHD8F1LVc7neK5XomSHOGUKAS8mfH2Q6VzvWESqbQq2qkuy4XvdBDALGQNd2RQtMzK5uxSXxXqpry_ko2HrY3Q7XSSQ",
+						"description": "ibm super user2(/fid)---2",
+						"type": "text"
+					},
+					{
+						"key": "X-PERMISSION",
+						"value": "approve",
+						"description": "---2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "ibmanchor.worldwire-st.io/global/anchor/v1/admin/anchor/ibmanchor/onboard/assets?asset_code=USD&asset_type=DA",
+					"host": [
+						"ibmanchor",
+						"worldwire-st",
+						"io"
+					],
+					"path": [
+						"global",
+						"anchor",
+						"v1",
+						"admin",
+						"anchor",
+						"ibmanchor",
+						"onboard",
+						"assets"
+					],
+					"query": [
+						{
+							"key": "asset_code",
+							"value": "USD"
+						},
+						{
+							"key": "asset_type",
+							"value": "DA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/anchor/{anchor_domain}/onboard/assets EUR DA",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "ibmanchor.worldwire-st.io/global/anchor/v1/admin/anchor/ibmanchor/onboard/assets?asset_code=USA&asset_type=DA",
+					"host": [
+						"ibmanchor",
+						"worldwire-st",
+						"io"
+					],
+					"path": [
+						"global",
+						"anchor",
+						"v1",
+						"admin",
+						"anchor",
+						"ibmanchor",
+						"onboard",
+						"assets"
+					],
+					"query": [
+						{
+							"key": "asset_code",
+							"value": "USA"
+						},
+						{
+							"key": "asset_type",
+							"value": "DA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ibmtaiwan5.worldwire-qa.io/global/whitelist/v1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ii1MbzhjQkY1cWxOT0h2am55VExyLjEtNyJ9.eyJhY2MiOlsiaXNzdWluZyIsImRlZmF1bHQiXSwidmVyIjoiMi45LjMuMTNfUkMxIiwiaXBzIjpbIjIwMi4xMzUuMjQ1LjM5IiwiMjAyLjEzNS4yNDUuNCIsIjIxOS43NC4xNS4yMDciLCIyMDIuMTM1LjI0NS4yIiwiMTI1LjE4LjkuMjAiLCIxNjkuNjMuMTQwLjEwNiIsIjIwMi4xMzUuMjQ1LjM1Il0sImVudiI6ImVrc3FhIiwiZW5wIjpbIi92MS9hZG1pbi9wciIsIi92MS9hZG1pbi9wci9kb21haW4iLCIvdjEvYW5jaG9yL2FkZHJlc3MiLCIvdjEvYW5jaG9yL2Fzc2V0cy9pc3N1ZWQiLCIvdjEvYW5jaG9yL2Z1bmRpbmdzL2luc3RydWN0aW9uIiwiL3YxL2FuY2hvci9mdW5kaW5ncy9zZW5kIiwiL3YxL2FuY2hvci90cnVzdCIsIi92MS9jbGllbnQvYWNjb3VudHMiLCIvdjEvY2xpZW50L2Fzc2V0cyIsIi92MS9jbGllbnQvYXNzZXRzL2FjY291bnRzIiwiL3YxL2NsaWVudC9hc3NldHMvaXNzdWVkIiwiL3YxL2NsaWVudC9hc3NldHMvcGFydGljaXBhbnRzIiwiL3YxL2NsaWVudC9iYWxhbmNlcy9hY2NvdW50cyIsIi92MS9jbGllbnQvYmFsYW5jZXMvZG8iLCIvdjEvY2xpZW50L2V4Y2hhbmdlIiwiL3YxL2NsaWVudC9mZWVzL3JlcXVlc3QiLCIvdjEvY2xpZW50L2ZlZXMvcmVzcG9uc2UiLCIvdjEvY2xpZW50L21lc3NhZ2UiLCIvdjEvY2xpZW50L3BhcnRpY2lwYW50cyIsIi92MS9jbGllbnQvcGFydGljaXBhbnRzL3doaXRlbGlzdCIsIi92MS9jbGllbnQvcGF5b3V0IiwiL3YxL2NsaWVudC9xdW90ZXMiLCIvdjEvY2xpZW50L3F1b3Rlcy9yZXF1ZXN0IiwiL3YxL2NsaWVudC9zaWduIiwiL3YxL2NsaWVudC90b2tlbi9yZWZyZXNoIiwiL3YxL2NsaWVudC90cmFuc2FjdGlvbnMiLCIvdjEvY2xpZW50L3RyYW5zYWN0aW9ucy9yZXBseSIsIi92MS9jbGllbnQvdHJhbnNhY3Rpb25zL3NlbmQiLCIvdjEvY2xpZW50L3RyYW5zYWN0aW9ucy9zZXR0bGUvZGEiLCIvdjEvY2xpZW50L3RydXN0IiwiL3YxL29uYm9hcmRpbmcvYWNjb3VudHMiXSwibiI6MCwiaWF0IjoxNTY3ODI0NTk0LCJuYmYiOjE1Njc4MjQ1OTksImV4cCI6MTU2ODA4Mzc5NCwiYXVkIjoiaWJtdGFpd2FuNSIsInN1YiI6Ii1MbzVzRmVJcnpnNjQxd3dqZmxQIiwianRpIjoiLUxvOGJyX3ZBdzhxZ0JBd05IZHQifQ.uJQYd7zFYKFKSzdQaSQrGPNHQPHWF2JcCC9WIlctXzE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"participant_id\":\"ibmamerican3\"\n}"
+				},
+				"url": {
+					"raw": "ibmtaiwan5.worldwire-qa.io/global/whitelist/v1/client/participants/whitelist",
+					"host": [
+						"ibmtaiwan5",
+						"worldwire-qa",
+						"io"
+					],
+					"path": [
+						"global",
+						"whitelist",
+						"v1",
+						"client",
+						"participants",
+						"whitelist"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

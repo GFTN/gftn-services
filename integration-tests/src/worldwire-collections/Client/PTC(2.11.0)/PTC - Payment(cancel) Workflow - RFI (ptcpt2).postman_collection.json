@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "c7428bca-6c68-4d25-ae35-79888ef7e9d0",
+		"name": "PTC - Payment(cancel) Workflow - RFI (ptcpt2)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "participant-api",
+			"item": [
+				{
+					"name": "step 5 - receive incoming payment cancel request",
+					"item": [
+						{
+							"name": "/client/message",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ptcpt2-jwt-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "ptcpt2.worldwire-qa.io/local/gateway/v1/client/message?type=transactions",
+									"host": [
+										"ptcpt2",
+										"worldwire-qa",
+										"io"
+									],
+									"path": [
+										"local",
+										"gateway",
+										"v1",
+										"client",
+										"message"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "transactions"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "step 6 - submit cancel agree/reject reply to OFI",
+					"item": [
+						{
+							"name": "agree",
+							"item": [
+								{
+									"name": "- 0. sign agree message",
+									"item": [
+										{
+											"name": "/client/payload/sign",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "768dbc69-5980-4d15-8e8c-558423d29027",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"postman.setEnvironmentVariable(\"rfi_signed_msg\", jsonData.payload_with_signature)"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ptcpt2-jwt-token}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"account_name\": \"default\",\n    \"payload\": \"<step1: assemble pacs 004 xml file>\n\t\t\t\t<step2: base64 encode it>\n\t\t\t\t<step3: paste it here between quotes>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "ptcpt2.worldwire-qa.io/local/crypto/v1/client/payload/sign",
+													"host": [
+														"ptcpt2",
+														"worldwire-qa",
+														"io"
+													],
+													"path": [
+														"local",
+														"crypto",
+														"v1",
+														"client",
+														"payload",
+														"sign"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "- 1. submit signed agree message",
+									"item": [
+										{
+											"name": "/transactions/reply",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ptcpt2-jwt-token}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"message_type\": \"iso20022:pacs.004.001.09\",\n\t\"message\": \"{{rfi_signed_msg}}\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "ptcpt2.worldwire-qa.io/local/send/v1/client/transactions/reply",
+													"host": [
+														"ptcpt2",
+														"worldwire-qa",
+														"io"
+													],
+													"path": [
+														"local",
+														"send",
+														"v1",
+														"client",
+														"transactions",
+														"reply"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "reject",
+							"item": [
+								{
+									"name": "- 0. sign reject message",
+									"item": [
+										{
+											"name": "/client/payload/sign",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "768dbc69-5980-4d15-8e8c-558423d29027",
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"postman.setEnvironmentVariable(\"rfi_signed_msg\", jsonData.payload_with_signature)"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ptcpt2-jwt-token}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"account_name\": \"default\",\n    \"payload\":\"<step1: assemble camt 029 xml file>\n\t\t\t\t<step2: base64 encode it>\n\t\t\t\t<step3: paste it here between quotes>\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "ptcpt2.worldwire-qa.io/local/crypto/v1/client/payload/sign",
+													"host": [
+														"ptcpt2",
+														"worldwire-qa",
+														"io"
+													],
+													"path": [
+														"local",
+														"crypto",
+														"v1",
+														"client",
+														"payload",
+														"sign"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "- 1. submit signed reject message",
+									"item": [
+										{
+											"name": "/transactions/reply",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ptcpt2-jwt-token}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"message_type\": \"iso20022:camt.029.001.09\",\n\t\"message\": \"{{rfi_signed_msg}}\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "ptcpt2.worldwire-qa.io/local/send/v1/client/transactions/reply",
+													"host": [
+														"ptcpt2",
+														"worldwire-qa",
+														"io"
+													],
+													"path": [
+														"local",
+														"send",
+														"v1",
+														"client",
+														"transactions",
+														"reply"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

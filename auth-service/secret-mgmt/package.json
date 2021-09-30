@@ -1,0 +1,27 @@
+{
+  "name": "secret-mgmt",
+  "version": "1.0.0",
+  "description": "manages secrets for auth-service",
+  "main": "lib/index.js",
+  "scripts": {
+    "test-node": "node --nolazy --inspect-brk=9229 lib/index.spec.js",
+    "test": "mocha -r ts-node/register src/index.spec.ts"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.5",
+    "@types/chai-fs": "^2.0.2",
+    "mocha": "^6.2.1",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
+    "ts-node": "^8.4.1",
+    "box-node-sdk": "^1.29.1",
+    "chai": "^4.2.0",
+    "chai-fs": "^2.0.0"
+  }
+}

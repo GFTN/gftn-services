@@ -1,0 +1,42 @@
+title: quoteRequest
+description: Quote Request
+x-group-m: Models
+type: object
+required:
+  - asset_source
+  - asset_target
+  - time_expire
+  - ofi_id
+  - limit_max
+properties:
+  time_expire:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: End-time for this quote request to be valid
+  limit_min:
+    type: number
+    description: Minimum units of the target asset for which this quote is valid
+    x-nullable: true
+  limit_max:
+    type: number
+    description: Maximum units of the target asset for which this quote is valid
+  ofi_id:
+    type: string
+    maxLength: 32
+    minLength: 5
+    pattern: '^[a-zA-Z0-9-]{5,32}$'
+    description: The ID that identifies the OFI Participant on the WorldWire network (i.e. uk.yourbankintheUK.payments.ibm.com).
+  source_asset:
+    type: object
+    description: The source asset used for pricing this quote
+    $ref: 'asset.yaml'
+    x-go-name: Asset
+  target_asset:
+    type: object
+    description: The asset being purchased or exchanged using the source asset
+    $ref: 'asset.yaml'
+    x-go-name: Asset
+externalDocs:
+  url: '#/definitions/quoteRequest'
+x-go-name: QuoteRequest

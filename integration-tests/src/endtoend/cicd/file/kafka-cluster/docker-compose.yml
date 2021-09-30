@@ -1,0 +1,177 @@
+version: '3.5'
+
+networks:
+  wwcicdnet:
+    external: 
+      name: wwcicdnet
+
+services:
+
+
+  zookeeper-1:
+    image: confluentinc/cp-zookeeper:latest
+    hostname: zookeeper-1
+    ports:
+      - "12181:12181"
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 12181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: zookeeper-1:12888:13888;zookeeper-2:22888:23888;zookeeper-3:32888:33888
+    networks:
+      - wwcicdnet
+    volumes:
+      - ./zk/zk1-data:/var/lib/zookeeper/data
+      - ./zk/zk1-txn-logs:/var/lib/zookeeper/log
+
+  zookeeper-2:
+    image: confluentinc/cp-zookeeper:latest
+    hostname: zookeeper-2
+    ports:
+      - "22181:22181"
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 22181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: zookeeper-1:12888:13888;zookeeper-2:22888:23888;zookeeper-3:32888:33888
+    networks:
+      - wwcicdnet
+    volumes:
+      - ./zk/zk2-data:/var/lib/zookeeper/data
+      - ./zk/zk2-txn-logs:/var/lib/zookeeper/log
+
+  zookeeper-3:
+    image: confluentinc/cp-zookeeper:latest
+    hostname: zookeeper-3
+    ports:
+      - "32181:32181"
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: zookeeper-1:12888:13888;zookeeper-2:22888:23888;zookeeper-3:32888:33888
+    networks:
+      - wwcicdnet
+    volumes:
+      - ./zk/zk3-data:/var/lib/zookeeper/data
+      - ./zk/zk3-txn-logs:/var/lib/zookeeper/log
+
+  kafka-1:
+    image: confluentinc/cp-kafka:latest
+    hostname: kafka-1
+    container_name: kafka-1
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - 9091:9091
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:12181,zookeeper-2:22181,zookeeper-3:32181
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-1:19092,EXTERNAL://kafka-1:9091
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.1.2
+    networks:
+      - wwcicdnet
+    volumes:
+      - ./kafka/kafka1-data:/var/lib/kafka/data
+
+  kafka-2:
+    image: confluentinc/cp-kafka:latest
+    hostname: kafka-2
+    container_name: kafka-2
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:12181,zookeeper-2:22181,zookeeper-3:32181
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-2:39092,EXTERNAL://kafka-2:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.1.2
+    networks:
+      - wwcicdnet
+    volumes:
+      - ./kafka/kafka2-data:/var/lib/kafka/data
+
+  kafka-3:
+    image: confluentinc/cp-kafka:latest
+    hostname: kafka-3
+    container_name: kafka-3
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - 9093:9093
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:12181,zookeeper-2:22181,zookeeper-3:32181
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-3:59092,EXTERNAL://kafka-3:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.1.2
+    networks:
+      - wwcicdnet
+    volumes:
+      - ./kafka/kafka3-data:/var/lib/kafka/data
+  schema-registry:
+    image: confluentinc/cp-schema-registry:latest
+    logging:
+      driver: none
+    hostname: schema-registry
+    container_name: schema-registry
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper-1:12181,zookeeper-2:22181,zookeeper-3:32181
+    networks:
+      - wwcicdnet
+
+  rest-proxy:
+    image: confluentinc/cp-kafka-rest:latest
+    restart: unless-stopped
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+      - kafka-1
+      - kafka-2
+      - kafka-3
+      - schema-registry
+    ports:
+      - 8184:8184
+    hostname: rest-proxy
+    container_name: rest-proxy
+    environment:
+      KAFKA_REST_HOST_NAME: rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: kafka-1:9091,kafka-2:9092,kafka-3:9093
+      KAFKA_REST_LISTENERS: "http://0.0.0.0:8184"
+      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+      KAFKA_REST_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
+      KAFKA_REST_ACCESS_CONTROL_ALLOW_METHODS: GET,POST,PUT,DELETE,OPTIONS
+    networks:
+      - wwcicdnet

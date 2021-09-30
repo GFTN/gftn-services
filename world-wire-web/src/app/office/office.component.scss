@@ -1,0 +1,58 @@
+@import "~sass/portal-theme";
+@import "~sass/ibm-style-override";
+
+.side-nav {
+	.side-nav-inner {
+        background-color: $inverse-02;
+	}
+}
+
+.bx--modal-container {
+    background-color: $inverse-02;
+}
+
+svg {
+    fill: $text-03
+}
+
+:host ::ng-deep {
+    app-site-header {
+        nav {
+            color: $text-03;
+            background-color: $inverse-02;
+            border-bottom-color: $inverse-03;
+            p, div, button, a {
+                color: $text-03;
+            }
+            .menu {
+                background-color: $inverse-02;
+                .text {
+                    color: #cacaca!important
+                }
+            }
+
+            svg {
+                fill: $text-03
+            }
+        }
+    }
+
+    app-portal-nav {
+        p, div, button, a {
+            color: $text-03;
+        }
+        .menu {
+            background-color: $inverse-02;
+            .text {
+                color: #cacaca!important
+            }
+        }
+        svg {
+            fill: $text-03
+        }
+
+        hr {
+            color: #cacaca
+        }
+    }
+}

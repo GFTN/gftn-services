@@ -1,0 +1,90 @@
+{
+    "context": "http://schema.org",
+    "type": "FinancialInstitute",
+    "name": "CIMB Bank",
+    "currencies_accepted":["USD"],
+    "additional_type": "eligibleTransactionVolume",
+    "image": "https://www.cimbbank.com.sg/content/dam/cimbsingapore/logo/cimblogo.jpg",
+    "url": "",
+    "telephone": "07-418 6258 / 6276",
+    "member_of": ["BankC"],
+    "address": {
+      "type": "PostalAddress",
+      "street_address": "42B s mcpherson",
+      "address_locality": "Bendemeer",
+      "address_region": "downtown",
+      "postal_code": "320113",
+      "address_country": "SGA"
+    },
+    "geo": {
+      "type": "GeoCoordinates",
+      "latitude": 1.8482097,
+      "longitude": 102.93248110000002
+    },
+    "offer": {
+      "type": "OfferCatalog",
+      "name": "Cash cash_pickup",
+      "category": [
+         {
+              "type": "OfferCatalog",
+              "name": "Cash cash_pickup",
+              "list": [
+                  {
+                      "type": "Offer",
+                      "detail": {
+                          "type": "delivery",
+                          "name": "Deliver PHP to home address",
+                          "terms_of_service": "Limit of 52,000 PHP"
+                      }
+                  },
+                  {
+                      "type": "Offer",
+                      "detail": {
+                          "type": "delivery",
+                          "name": "Deliver USD to home address",
+                          "terms_of_service": "Limit of 1,000 USD"
+                      }
+                  }
+              ]
+          },
+          {
+              "type": "OfferCatalog",
+              "name": "Cash pick-up",
+              "list": [
+                  {
+                      "type": "Offer",
+                      "detail": {
+                          "type": "agency_pickup",
+                          "name": "Pick-up PHP from kiosk",
+                          "terms_of_service": "Limit of 52,000 PHP per day per identity verified"
+                      }
+                  },
+                  {
+                      "type": "Offer",
+                      "detail": {
+                          "type": "agency_pickup",
+                          "name": "Pick-up USD from kiosk",
+                          "terms_of_service": "Limit of 1,000 USD per day per identity verified"
+                      }
+                  }
+              ]
+          }
+      ]
+    },
+    "opening_hours": [{
+      "type": "OpeningHoursSpecification",
+      "day_of_week": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
+      "opens": "09:15",
+      "closes": "16:30"
+    },{
+      "type": "OpeningHoursSpecification",
+      "day_of_week": ["Friday"],
+      "opens": "09:15",
+      "closes": "16:00"
+    }]
+}

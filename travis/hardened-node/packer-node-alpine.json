@@ -1,0 +1,27 @@
+{
+    "builders": [{
+        "name": "node-alpine-image",
+        "type": "docker",
+        "image": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/alpine:latest",
+        "commit": true,
+        "changes": [],
+        "run_command": ["-d", "-i", "-t", "{{.Image}}", "/bin/sh"]
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+            "apk update && apk upgrade",
+            "apk add --update npm",
+            "sleep 30"
+        ],
+        "only": ["node-alpine-image"]
+    }],
+    "post-processors": [
+        [{
+                "type": "docker-tag",
+                "repository": "ip-team-worldwire-docker-local.artifactory.swg-devops.com/gftn/node-alpine",
+                "tag": "latest"
+            }
+        ]
+    ]
+}

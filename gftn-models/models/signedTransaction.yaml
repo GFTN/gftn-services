@@ -1,0 +1,17 @@
+title: signedTransaction
+description: signedTransaction
+x-group-m: Models
+type: object
+required:
+  - transaction_signed
+properties:
+  transaction_signed:
+    type: string
+    format: byte
+    description: signed transaction envelope which is signed by the participant
+  transaction_id:
+    type: string
+    description: reference transaction id, same as sent in the request
+externalDocs:
+  url: '#/definitions/signedTransaction'
+x-go-name: SignedTransaction

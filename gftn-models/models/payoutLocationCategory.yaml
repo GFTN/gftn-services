@@ -1,0 +1,25 @@
+title: payoutLocationCategory
+description: Details of each payout location offer category. Based on https://schema.org/hasOfferCatalog
+type: object
+required:
+  - name
+  - options
+properties:
+  name:
+    type: string
+    description: name of the category
+    enum:
+      - delivery
+      - cash_pickup
+      - agency_pickup
+      - mobile
+      - bank_account
+  options:
+    type: array
+    description: offer list of the category
+    items:
+      $ref: 'payoutLocationOption.yaml'
+
+externalDocs:
+  url: '#/definitions/payoutLocationCategory'
+x-go-name: PayoutLocationCategory

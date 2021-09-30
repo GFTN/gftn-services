@@ -1,0 +1,26 @@
+#support-btn {
+	position: fixed;
+	bottom: calc(30% + 50px);
+    right: 0;
+    padding: 0 0.65rem;
+
+    .button-text {
+        width: 0;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .bx--btn__icon {
+        margin-left: 0;
+    }
+
+    &:hover {
+        .bx--btn__icon {
+            margin-left: 0.5rem;
+        }
+        .button-text {
+            width: 58px;
+            transition: width 200ms;
+        }
+    }
+}

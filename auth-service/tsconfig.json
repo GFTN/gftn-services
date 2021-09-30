@@ -1,0 +1,6 @@
+{
+    // needed for development in vscode IDE
+    "compilerOptions": {
+        "experimentalDecorators": true
+    }
+}

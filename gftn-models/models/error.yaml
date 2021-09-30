@@ -1,0 +1,44 @@
+
+title: error
+description: Error
+x-group-m: Models
+type: object
+required:
+  - message
+  - details
+  - time_stamp
+properties:
+  service:
+    type: string
+    description: name of micro service
+  build_version:
+    type: string
+    description: build version string of micro service
+  url:
+    type: string
+    description: Url of endpoint that failed.
+  message:
+    type: string
+    description: Short message description about error.
+  code:
+    type: string
+    description: Error code reference.
+  details:
+    type: string
+    description: Detailed message description about error.
+  time_stamp:
+    type: number
+    format: int64
+    example: 1547092408123
+    description: The timestamp of the occurance.
+  type:
+#TODO: will to add description
+    type: string
+    description: Type is for query purposes, it an identifier to assist with troubleshooting where an error came from (eg, containing func name) tells us if it is originating from NotifyWWError vs. NotFound vs. some other spot
+  participant_id:
+    type: string
+    description: participant id, same as home domain as set by environment variables
+#TODO: will to add description
+externalDocs:
+  url: '#/definitions/error'
+x-go-name: WorldWireError

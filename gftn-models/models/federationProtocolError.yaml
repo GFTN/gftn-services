@@ -1,0 +1,14 @@
+
+title: federationProtocolError
+description: Federation protocol error response
+type: object
+required:
+  - detail
+properties:
+  detail:
+    type: string
+    description: The detail about the error with the federation protocol request
+externalDocs:
+  url: '#/definitions/federationProtocolError'
+x-go-name: FederationProtocolError
+

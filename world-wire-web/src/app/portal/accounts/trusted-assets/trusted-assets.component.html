@@ -1,0 +1,88 @@
+<!-- Spacing -->
+<div class="margin-height">
+	<app-notification-tile *ngIf="pendingRequests && pendingRequests.length > 0" fxFlexFill
+		[content]="notificationTemplate"
+		[link]="'/portal/' + sessionService.institution.info.slug + '/accounts/trustlines'">
+	</app-notification-tile>
+</div>
+
+<div class="margin-height margin-width">
+	<div fxLayout="row" class="row title" fxLayoutAlign="space-between center">
+		<h3 class="bx--type-gamma">Trusted Assets</h3>
+		<button ibmButton="primary" size="sm" (click)="addTrustLine()">
+        <span>Add New Trustline</span>
+        <svg class="bx--btn__icon"  width="16" height="16" viewBox="0 0 16 16">
+      <path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+      </svg>
+    </button>
+	</div>
+	<div fxLayout="row" class="row">
+		<!-- Filters for list of Trusted Assets -->
+		<section fxFlex="100%" fxHide.lt-md fxFlex.gt-sm="230px" class="filters column" fxLayout="column"
+			fxLayoutGap="20px" fxFlexOrder="0">
+			<ng-template [ngTemplateOutlet]="filtersTemplate"></ng-template>
+		</section>
+
+		<!-- Table list of Trusted Assets -->
+		<section fxFlex class="column" fxFlexOrder="1" #container id="container">
+			<div fxHide.gt-sm class="bx--table-toolbar">
+				<button ibmButton="primary" size="sm" [appPopover]="filtersTemplate" trigger="click" placement="left-bottom" [container]="containerRef">
+          <span>Filter</span>
+          <svg class="bx--btn__icon" width="16" height="12" viewBox="0 0 16 12" xmlns="http://www.w3.org/2000/svg">
+            <title>Filter Assets</title>
+            <path d="M8.05 2a2.5 2.5 0 0 1 4.9 0H16v1h-3.05a2.5 2.5 0 0 1-4.9 0H0V2h8.05zm2.45 2a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM3.05 9a2.5 2.5 0 0 1 4.9 0H16v1H7.95a2.5 2.5 0 0 1-4.9 0H0V9h3.05zm2.45 2a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+            </svg>
+        </button>
+			</div>
+
+			<div class="table-responsive-wrapper">
+				<ibm-table fxFlexFill [model]="model" [showSelectionColumn]="false" [striped]="false"
+					(sort)="customSort($event)">
+					<!-- Skeleton Loading Template -->
+					<tbody *ngIf="!loaded">
+						<tr class="static" *ngFor="let item of ' '.repeat(5).split('')">
+							<td [attr.colspan]="model.header.length">
+								<p class="loading"></p>
+							</td>
+						</tr>
+					</tbody>
+					<!-- Transactions are loading and show 0 results. -->
+					<tbody *ngIf="loaded && model.data[0].length == 0">
+						<tr id="not-found" class="static">
+							<td [attr.colspan]="model.header.length">
+								<p>No trusted assets found for this account.</p>
+							</td>
+						</tr>
+					</tbody>
+				</ibm-table>
+			</div>
+		</section>
+
+	</div>
+</div>
+
+<ng-template #filtersTemplate>
+	<div class="margin-width" ngClass.lt-md="margin-height" fxLayout="column">
+
+		<!-- Loading -->
+		<div fxLayout="column" class="margin-height margin-width" *ngIf="!loaded">
+			<div *ngFor="let item of ' '.repeat(2).split(''); let i = index;" class="bx--form-item bx--checkbox-wrapper"
+				fxLayout="row" fxLayoutAlign="start center">
+				<input type="checkbox" class="bx--checkbox" [id]="'loader-' + i"
+				name="loader-option" disabled />
+				<label fxFlex class="bx--checkbox-label" [for]="'asset-' + i"><p class="loading"></p></label>
+			</div>
+		</div>
+
+		<app-quick-filter *ngIf="loaded && this.currentAccount" [currentData]="currentAssetData"
+			[allData]="this.currentAccount.assets" [filters]="filters" [smLayout]="'row wrap'" (changed)="filterData()">
+		</app-quick-filter>
+	</div>
+</ng-template>
+
+<ng-template #notificationTemplate>
+	<div>
+		<div class="bx--inline-notification__title">{{pendingRequests.length + ' Pending Requests'}}</div>
+		<div>There is <span>{{pendingRequests.length}}</span> trustline request pending approval.</div>
+	</div>
+</ng-template>

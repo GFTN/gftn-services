@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message xmlns="urn:worldwire">
+    <AppHdr >
+        <Fr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+            <FIId>
+                <FinInstnId>
+                    <BICFI>IBMSTIBM001</BICFI>
+                    <Othr>
+                        <Id>ibm01</Id>
+                    </Othr>
+                </FinInstnId>
+            </FIId>
+        </Fr>
+        <To xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+            <FIId>
+                <FinInstnId>
+                    <BICFI>WORLDWIRE00</BICFI>
+                    <Othr>
+                        <Id>WW</Id>
+                    </Othr>
+                </FinInstnId>
+            </FIId>
+        </To>
+        <BizMsgIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">B20190924IBMSTIBM001BAA7600301</BizMsgIdr>
+        <MsgDefIdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">ibwf.002.001.01</MsgDefIdr>
+        <CreDt xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">2019-09-24T06:56:36Z</CreDt>
+    </AppHdr>
+    <DigOblSetNotif>
+        <GrpHdr xmlns="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01">
+            <MsgId>USDDO24092019IBMSTIBM00158456869592</MsgId>
+            <CreDtTm>2019-09-24T06:56:36</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <SttlmInf>
+                <SttlmMtd>WWDO</SttlmMtd>
+                <SttlmAcct>
+                    <Id>
+                        <Othr>
+                            <Id>ibm01</Id>
+                        </Othr>
+                    </Id>
+                    <Nm>issuing</Nm>
+                </SttlmAcct>
+            </SttlmInf>
+            <PmtTpInf>
+                <SvcLvl>
+                    <Prtry>ibm01</Prtry>
+                </SvcLvl>
+            </PmtTpInf>
+            <InstgAgt>
+                <FinInstnId>
+                    <BICFI>IBMSTIBM001</BICFI>
+                    <Othr>
+                        <Id>ibm01</Id>
+                    </Othr>
+                </FinInstnId>
+            </InstgAgt>
+            <InstdAgt>
+                <FinInstnId>
+                    <BICFI>IBMSTIBM002</BICFI>
+                    <Othr>
+                        <Id>ibm02</Id>
+                    </Othr>
+                </FinInstnId>
+            </InstdAgt>
+        </GrpHdr>
+        <SttlOblInf xmlns="urn:iso:std:iso:20022:tech:xsd:ibwf.002.001.01">
+            <OrgnlGrpInf>
+                <OrgnlMsgId>USDDO24092019IBMSTIBM00149731552428</OrgnlMsgId>
+                <OrgnlMsgNmId>pacs.008.001.07</OrgnlMsgNmId>
+                <OrgnlCreDtTm>2019-09-24T06:55:24</OrgnlCreDtTm>
+            </OrgnlGrpInf>
+            <TxInf>
+                <NtfId>USDDO24092019IBMSTIBM00149731552428</NtfId>
+                <OrgnlInstrId>USDDO20190924IBMSTIBM001B3087442350</OrgnlInstrId>
+                <OrgnlEndToEndId>USDDO24092019IBMSTIBM00149731552428</OrgnlEndToEndId>
+                <OrgnlTxId>USDDO24092019IBMSTIBM00149731552428</OrgnlTxId>
+                <ActSttldAmt Ccy="USDDO">50</ActSttldAmt>
+                <OrgnlTxRef>
+                    <IntrBkSttlmAmt Ccy="USDDO">50</IntrBkSttlmAmt>
+                    <Dbtr>
+                        <Nm>ABC Corporation</Nm>
+                        <PstlAdr>
+                            <StrtNm>Times Square</StrtNm>
+                            <BldgNb>7</BldgNb>
+                            <PstCd>168977</PstCd>
+                            <TwnNm>New York</TwnNm>
+                            <Ctry>US</Ctry>
+                        </PstlAdr>
+                    </Dbtr>
+                    <Cdtr>
+                        <Nm>DEF Electronics</Nm>
+                        <PstlAdr>
+                            <StrtNm>Mark Lane</StrtNm>
+                            <BldgNb>55</BldgNb>
+                            <PstCd>115876</PstCd>
+                            <TwnNm>London</TwnNm>
+                            <Ctry>SG</Ctry>
+                        </PstlAdr>
+                    </Cdtr>
+                </OrgnlTxRef>
+            </TxInf>
+        </SttlOblInf>
+    </DigOblSetNotif>
+</Message>

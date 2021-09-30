@@ -1,0 +1,47 @@
+@import "~sass/ibm-style-override";
+
+.bx--tile {
+	padding: 0;
+	min-height: 0;
+}
+
+.bx--inline-notification {
+	border-width: 0 0 0 6px;
+	// disable margins
+	margin-top: 0;
+	margin-bottom: 0;
+
+	&.bx--inline-notification--info {
+		border-left-color: $brand-03;
+
+		.bx--inline-notification__icon {
+			fill: $brand-03
+		}
+	}
+
+	.bx--inline-notification__title {
+		text-transform: capitalize
+	}
+
+	.bx--inline-notification__subtitle {
+        // need ng-deep to style HTML elements
+        // passed in from <ng-template>
+		::ng-deep {
+			.bx--label {
+				margin-bottom: 0;
+			}
+
+			p {
+				font-size: 0.9rem;
+			}
+		}
+	}
+}
+
+.tile-link {
+	padding-right: 20px;
+
+	svg {
+		fill: $brand-01
+	}
+}

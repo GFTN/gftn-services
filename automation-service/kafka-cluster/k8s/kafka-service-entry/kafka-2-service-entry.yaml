@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: kafka2-external
+spec:
+  hosts:
+  - kafka-2
+  ports:
+  - number: 9092
+    name: tcp
+    protocol: TCP
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: kafka2-internal
+spec:
+  hosts:
+  - kafka-2
+  ports:
+  - number: 19092
+    name: tcp
+    protocol: TCP
+  resolution: DNS
+  location: MESH_EXTERNAL
+---

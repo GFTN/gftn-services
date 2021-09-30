@@ -1,0 +1,50 @@
+@import "~sass/mixins";
+@import "~sass/ibm-style-override";
+@import "~sass/mixins";
+
+.nodes {
+    margin-bottom: 20px;
+}
+
+.bx--tile {
+    transition: 300ms all cubic-bezier(0.5, 0, 0.1, 1);
+
+    .bx--btn {
+        width: 100%;
+    }
+}
+#add-btn {
+    display: flex;
+    height: max-content;
+
+    &:active {
+        svg {
+            fill: $brand-01;
+        }
+    }
+    &:focus, &:hover {
+        svg {
+            fill: white;
+        }
+    }
+}
+
+.status {
+    margin: 5px 8px 5px 5px;
+    fill: $support-03;
+    &.complete {
+        fill: $support-02;
+    }
+    &.failed, &.deleted {
+        fill: $support-01;
+    }
+    &.pending {
+        animation: blinker 1.5s cubic-bezier(0.5, 0, 0.1, 1) infinite;
+    }
+}
+
+p.loading {
+    height: 25%;
+    display: inline-block;
+    @include loadingGradient();
+}

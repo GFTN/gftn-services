@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: zookeeper2
+spec:
+  hosts:
+  - zookeeper-2
+  ports:
+  - number: 32181
+    name: tcp
+    protocol: TCP
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: zookeeper2-internal-1
+spec:
+  hosts:
+  - zookeeper-2
+  ports:
+  - number: 2888
+    name: tcp
+    protocol: TCP
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: zookeeper2-internal-2
+spec:
+  hosts:
+  - zookeeper-2
+  ports:
+  - number: 3888
+    name: tcp
+    protocol: TCP
+  resolution: DNS
+  location: MESH_EXTERNAL

@@ -1,0 +1,74 @@
+// define custom dark theme here
+// IMPORTANT: Set the same color themes for 'dark_theme' in 'material-design-color-palette.ts'
+
+// do not use A*** palette for primary
+$primary-drk: mat-palette($mat-blue-grey, 800, 700, 900);
+
+// try to use A*** palette for accent
+// $accent-drk : mat-palette($mat-light-green, A200, A100, A400);
+$accent-drk: mat-palette($mat-green, A400, A200, A700);
+
+// warn use red, orange or yellow
+$warn-drk: mat-palette($mat-red);
+
+// set dark theme
+$theme-drk: mat-dark-theme($primary-drk, $accent-drk, $warn-drk);
+
+// dark theme will always be within class
+.dark-theme {
+    @include angular-material-theme($theme-drk);
+
+    // this way you can reference text color accent
+    // try to use sparingly
+    .text-accent {
+        color: map-get($accent-drk, default);
+    }
+
+}
+
+// Notes for using dark theme, see _theming.scss:
+// ================================================= 
+// "mat-dark-theme-foreground" is a constant and is 
+// the color of text, disabled buttons, icons, etc:
+// Foreground palette for dark themes.
+// $mat-dark-theme-foreground: (
+//   base:              white,
+//   divider:           $white-12-opacity,
+//   dividers:          $white-12-opacity,
+//   disabled:          rgba(white, 0.3),
+//   disabled-button:   rgba(white, 0.3),
+//   disabled-text:     rgba(white, 0.3),
+//   hint-text:         rgba(white, 0.3),
+//   secondary-text:    rgba(white, 0.7),
+//   icon:              white,
+//   icons:             white,
+//   text:              white,
+//   slider-min:        white,
+//   slider-off:        rgba(white, 0.3),
+//   slider-off-active: rgba(white, 0.3),
+// );
+// "mat-dark-theme-background" is a constant for colors related 
+// to all angular material components
+// $mat-dark-theme-background: (
+//   status-bar: black,
+//   app-bar:    map_get($mat-grey, 900),
+//   background: #303030,
+//   hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+//   card:       map_get($mat-grey, 800),
+//   dialog:     map_get($mat-grey, 800),
+//   disabled-button: $white-12-opacity,
+//   raised-button: map-get($mat-grey, 800),
+//   focused-button: $white-6-opacity,
+//   selected-button: map_get($mat-grey, 900),
+//   selected-disabled-button: map_get($mat-grey, 800),
+//   disabled-button-toggle: black,
+//   unselected-chip: map_get($mat-grey, 700),
+//   disabled-list-option: black,
+// );
+// to use any of the colors above simply:
+// 1) import the material themeing file to access the sass variables 
+//    @import '~sass/dark-theme.scss';
+// 2) then to access the appropriate using sass function "map-get($map, $value)"
+//    example: 
+//      background-color: map-get($mat-dark-theme-background, background );
+//      color: map-get($mat-dark-theme-foreground:, text );

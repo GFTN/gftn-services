@@ -1,0 +1,19 @@
+@import "~sass/grid";
+
+
+.side-column {
+	width: 25%;
+	max-width: 300px;
+}
+
+.actions {
+	button {
+		padding: 0 0.75rem;
+	}
+}
+
+.bx--structured-list {
+	min-width: 0;
+	width: calc(100% - 2px);
+	margin-left: 1px;
+}

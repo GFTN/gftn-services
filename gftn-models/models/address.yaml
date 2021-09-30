@@ -1,0 +1,37 @@
+
+title: address
+description: Address
+x-group-m: Models
+type: object
+required:
+  - building_number
+  - street
+  - city
+  - state
+  - postal_code
+  - country
+properties:
+  building_number:
+    type: string
+    description: The building number or identifier.
+    x-go-custom-tag: "bson:\"building_number\""
+  street:
+    type: string
+    description: The street name.
+  city:
+    type: string
+    description: Name of the city or town.
+  state:
+    type: string
+    description: Name of the state.
+  postal_code:
+    type: string
+    description: Postal code for the location.
+    x-go-custom-tag: "bson:\"postal_code\""
+  country:
+    type: string
+    description: Country code of the location.
+externalDocs:
+  url: '#/definitions/address'
+x-go-name: Address
+

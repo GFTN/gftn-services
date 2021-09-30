@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ PARTICIPANT_ID }}-add-acl-participant
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: {{ PARTICIPANT_ID }}-add-acl-participant
+    spec:
+      restartPolicy: "Never"
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: add-acl-participant-{{ PARTICIPANT_ID }}
+        image: {{ DOCKER_REGISTRY_URL }}/gftn/msk-cli:{{ VERSION }}
+        command: ["sh",  "add_part_acl.sh"]
+        imagePullPolicy: Always
+        env:
+        - name: PARTITIONS
+          value: "3"
+        - name: PARTICIPANT_ID
+          value: {{ PARTICIPANT_ID }}
+        - name: REPLICATION_FACTOR
+          value: "2"
+        - name: ZOOKEEPER
+          value: {{ ZOOKEEPER }}
+        - name: CONSUMER_GROUP
+          value: "G1"
+        - name: DN
+          value: {{ DN }}

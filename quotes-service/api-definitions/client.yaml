@@ -1,0 +1,36 @@
+swagger: "2.0"
+info:
+  title: World Wire API Service Callbacks
+  description: API endpoints clients are expected to implement in order to receive notifications of transactions
+  version: 1.0.0
+host: api.gftn.io
+basePath: /v1/client
+schemes:
+  - https
+tags:
+  - name: Quote
+    description: Callback APIs related to handling of quote request
+paths:
+  /quote:
+    post:
+      summary: Create a quote
+      description: >
+        Provides a quote in response to requests for a given target asset in exchange for a source asset, using the source asset as its price.
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: QuoteRequestNotification
+          required: true
+          description: >
+            Quote request to RFI detailing quoteID target asset, source asset, and amount desired to exchange.
+          schema:
+            $ref: '../../gftn-models/models/quoteRequestNotification.yaml'
+          x-go-name: QuoteRequestToRFI
+      responses:
+        200:
+          description: >
+            Successfully receive a valid quote request.
+        404:
+          description: >
+            Unsuccessfully receive a valid quote request.

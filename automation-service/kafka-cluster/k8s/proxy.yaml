@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-deployment
+  labels:
+    app: proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      volumes:
+      # - name: pvc-volume
+      #   persistentVolumeClaim:
+      #     claimName: participant1-pvc
+      # - name: kafka-1-claim0
+      #   persistentVolumeClaim:
+      #     claimName: kafka-1-claim0
+      # - name: kafka-2-claim0
+      #   persistentVolumeClaim:
+      #     claimName: kafka-2-claim0
+      # - name: kafka-3-claim0
+      #   persistentVolumeClaim:
+      #     claimName: kafka-3-claim0
+      - name: participant-id-test-pvc
+        persistentVolumeClaim:
+          claimName: participant-id-test-pvc
+      containers:
+      - name: proxy
+        image: gftn/aws-cli
+        command: ["sleep",  "999"]
+        volumeMounts:
+        # - mountPath: /store
+        #   name: pvc-volume
+        # - mountPath: /store/kafka-1
+        #   name: kafka-1-claim0
+        # - mountPath: /store/kafka-2
+        #   name: kafka-2-claim0
+        # - mountPath: /store/kafka-3
+        #   name: kafka-3-claim0
+        - mountPath: /store/participant
+          name: participant-id-test-pvc
+

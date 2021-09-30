@@ -1,0 +1,399 @@
+<div fxLayout="row" class="title-container full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width">
+		<h1 id="GettingStarted" class="bx--type-beta page-title">Getting Started</h1>
+	</div>
+</div>
+
+<div fxLayout="row" class="full-width" ngClass.gt-sm="content-gt-sm" fxLayoutAlign="center center">
+	<div class="full-width restrict-width margin-height" ngClass.gt-xs="margin-width" fxLayout="column">
+		<p>
+			This step-by-step guide walks you through some of the key routes and parameters of the World Wire API.
+		</p>
+		<br>
+		<p>
+			You will assume the role of "One-NZ," a New Zealand-based Participant on the World Wire network. You have a
+			customer that wants to send a payment to Fiji, but unfortunately you don't have any Fiji Dollar (FJD)
+			<app-tooltip [termName]="'stable coins'"
+				[termDefinition]="'a digital cryptocurrency that is pegged to another stable asset, like gold or a local currency dollar.'">
+			</app-tooltip>
+			to complete the transaction. You'll first need to exchange the New Zealand dollar (NZD) stable coins you
+			currently have with a willing Participant that holds FJD stable coins. Using the newly received FJD, you'll
+			finally send a cross-border payment on behalf of your customer.
+		</p>
+
+		<!-- THIS IS STEP 1 -->
+
+		<div class="full-width" fxLayout="column">
+			<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">1</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[1].title}}</span>
+			</h4>
+			<br>
+			<p>
+				The first step is to navigate to the API documentation, and in the left-hand side bar select
+				'participant-client-api'.
+			</p>
+			<br/>
+			<img width="350px"src="assets/images/8/select_participant_api.png" />
+			<br/>
+			<p>
+				In the upper right of the page, select the blue button to reveal the interactive API console we call the
+				Sandbox. You and all other Participants will use this console to test out different requests you can
+				make on the World Wire network.
+			</p>
+			<br/>
+			<img width="550px" src="assets/images/8/select_role.png" />
+			<br/>
+			<p>
+				Once open, a list of test Participants should become visible including "One-NZ", "One-SG", "One-FJ" and
+				"One-AU". You'll select "One-NZ" to act as the New Zealand Participant.
+			</p>
+		</div>
+
+		<!-- THIS IS STEP 2 -->
+
+		<div class="full-width" fxLayout="column">
+			<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">2</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[2].title}}</span>
+			</h4>
+			<br>
+			<p>
+				When you choose to transact with any Participant on the World Wire network, you'll need to complete
+				several steps to establish formal ties with them, starting with making sure you are both on eachother's
+				<a href="" routerLink="../concepts">Whitelist</a>
+				. This step is similar to adding a friend on a social network - after adding them, until they add you
+				back, you won't be able to interact with them fully. Even if Alice whitelists Bob, it does not mean that
+				Bob is compelled to interact with Alice. Later on we'll cover more steps that need to occur before you
+				can actually transact.
+			</p>
+			<br/>
+			<p>
+				Below, you can try executing a request to the
+				<a routerLink="../api/participant-client-api/" [queryParams]="{jump:'path_get_participants_whitelist'}">{{'/participants/whitelist'}}</a>
+				endpoint as the (One-NZ) Participant. You'll see that no Participants are whitelisted yet.
+			</p>
+			<div class="full-width" fxLayout="column">
+				<app-demo-sandbox [operationType]="paths[2].method" [requestRoute]="paths[2].url"
+					[requestBody]="paths[2].body"></app-demo-sandbox>
+			</div>
+		</div>
+
+		<!-- THIS IS STEP 3 -->
+		<!-- Probably need to add a step on how to get the "issuer_id" that we use in the step 3 below, before this-->
+
+		<div class="full-width" fxLayout="column">
+			<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">3</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[3].title}}</span>
+			</h4>
+			<br>
+			<p>
+				<!-- TODO: need to explain what a distribution account is (and why it differs from a issuing account) -->
+				On the World Wire network there are some Participants that have elevated privileges to issue new stable
+				coins, which we call
+				<app-tooltip [termName]="'Anchors'"
+					[termDefinition]="'a Participant on World Wire that can issue new stable coins'"></app-tooltip>
+				. In this guide our Participant (One-NZ) happens to be one.
+			</p>
+			<br/>
+			<p>
+				To recap, our customer wants to make a payment to a recipient in Fiji, and we currently only hold a
+				balance of New Zealand Dollar (NZD) stable coins. In order to exchange for Fiji Dollar (FJD) stable
+				coins, we'll need a list of Participants in Fiji that are willing to exchange for NZD stable coins,
+				specifically ones issued by us.
+			</p>
+			<br/>
+			<div class="container">
+				<div data-notification class="bx--inline-notification bx--inline-notification--info" aria-live="polite">
+					<div class="bx--inline-notification__details">
+						<svg class="bx--inline-notification__icon" width="16" height="16" viewBox="0 0 16 16"
+							xmlns="http://www.w3.org/2000/svg">
+							<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm1-3V7H7v6h2zM8 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+								fill-rule="evenodd" />
+						</svg>
+						<div class="bx--inline-notification__text-wrapper">
+							<p class="bx--inline-notification__title">Please Note</p>
+							<p class="bx--inline-notification__subtitle">
+								Stable coins will be issued by many Anchors on World Wire. Based on sanctions lists,
+								some Participants may not be able to accept stable coins from a specific Participant,
+								while able to accept the same stable coins from a different Participant.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<p>
+				Below, you can try executing a request to the
+				<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_get_participants'}">{{'/participants'}}</a>
+				endpoint as the (One-NZ) Participant. You'll retrieve the list of Participants in Fiji willing to accept
+				or hold NZD issued specifically by your One-NZ Participant, identified by "is-tn-one-nz".
+			</p>
+			<div class="full-width" fxLayout="column">
+				<app-demo-sandbox [operationType]="paths[3].method" [requestRoute]="paths[3].url"
+					[requestBody]="paths[3].body"></app-demo-sandbox>
+			</div>
+		</div>
+
+		<!-- THIS IS STEP 4 -->
+
+		<div class="full-width" fxLayout="column">
+			<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">4</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[4].title}}</span>
+			</h4>
+			<p>
+				So you've found a Participant that is willing to do an exchange their FJD stable coins for your NZD
+				stable coins. As we found out in Step 2 above, you'll need to make sure you put the other Participant on
+				your Whitelist, and they do the same.
+			</p>
+			<br/>
+			<p>
+				Below, you can try executing a POST request to the
+				<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_post_participants_whitelist'}">{{'/participants/whitelist'}}</a>
+				endpoint as the (One-NZ) Participant. You'll add the Participant in Fiji you specified to your
+				whitelist. Remember they will need to also whitelist you for the asset you want to exchange with them.
+			</p>
+			<div class="full-width" fxLayout="column">
+				<app-demo-sandbox [operationType]="paths[4].method" [requestRoute]="paths[4].url"
+					[requestBody]="paths[4].body"></app-demo-sandbox>
+			</div>
+			<br><br><br>
+		</div>
+
+			<!-- THIS IS STEP 5 -->
+
+			<div class="full-width" fxLayout="column">
+				<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">5</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[5].title}}</span>
+			</h4>
+				<p>
+					Now that both you and the Participant you want to to transact with in Fiji are mutually whitelisted,
+					you can setup
+					<a href="" routerLink="../concepts">Trust</a>
+					between your assets you plan to exchange in the coming steps. On your side, you'll need to allow the
+					holding of FJD stable coins into one of your operating
+					<a href="" routerLink="../concepts">Accounts</a>
+					, while on the other end, the Fiji Participant will need to allow the holding of your NZD stable
+					coins in one of their accounts.
+				</p>
+				<br/>
+				<p>
+					Below we use the
+					<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_post_trust'}">{{'/trust'}}</a>
+					endpoint as the (One-NZ) Participant. This request shows only your allowing of holding FJD stable
+					coins from the Fiji Participant to a certain limit, so the same request allowing them to hold your
+					NZD stable coins will need to occur before you can execute an exchange transaction.
+				</p>
+				<div class="full-width" fxLayout="column">
+					<app-demo-sandbox [operationType]="paths[5].method" [requestRoute]="paths[5].url"
+						[requestBody]="paths[5].body"></app-demo-sandbox>
+				</div>
+			</div>
+
+			<!-- THIS IS STEP 6 -->
+
+			<div class="full-width" fxLayout="column">
+				<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">6</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[6].title}}</span>
+			</h4>
+				<p>
+					So now that you've gotten all that setup out of the way, you can have some fun with the Fiji
+					Participant. You both have come this far so clearly the next step is to find out how much it will
+					cost you to exchange with them for their FJD stable coins.
+				</p>
+				<br/>
+				<p>
+					Below, you can try executing a request to the
+					<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_post_quotes_requests'}">{{'/quotes/requests'}}</a>
+					endpoint as the (One-NZ) Participant. You'll include details of what you're willing to exchange and
+					interested in receiving from the Fiji Participant, and you'll immediately receive a receipt that
+					contains a confirmation identifier for your request. You'll use it in the next step.
+				</p>
+				<div class="full-width" fxLayout="column">
+					<app-demo-sandbox [operationType]="paths[6].method" [requestRoute]="paths[6].url"
+						[requestBody]="paths[6].body"></app-demo-sandbox>
+				</div>
+			</div>
+
+			<!-- THIS IS STEP 7 -->
+
+			<div class="full-width" fxLayout="column">
+				<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">7</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[7].title}}</span>
+			</h4>
+				<br>
+				<p>
+					In the last step you received an identification number for your quote request. Now you'll supply
+					that to fetch all quotes that have come in from other Participants on the network who are willing
+					and able to do business with you.
+				</p>
+				<br/>
+				<p>
+					Below, you can try executing a request to the
+					<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_get_quotes_requests_{request_id}'}">{{'/quotes/requests/{request_id}'}}</a>
+					endpoint as the (One-NZ) Participant. You'll retrieve a list of quotes including their statuses
+					corresponding to your original quote request you supply. Participants on the World Wire network have
+					different response times, so check back at a later time to potentially see more quotes.
+				</p>
+				<div class="full-width" fxLayout="column">
+					<app-demo-sandbox [operationType]="paths[7].method" [requestRoute]="paths[7].url"
+						[requestBody]="paths[7].body"></app-demo-sandbox>
+				</div>
+			</div>
+
+			<!-- THIS IS STEP 8 -->
+
+			<div class="full-width" fxLayout="column">
+				<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">8</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[8].title}}</span>
+			</h4>
+				<br>
+				<p>
+					Now that you've received quotes, it's time to act on one! While straightforward, this involves two
+					steps. First you'll need to implement base 64 encoding so that you can transform the exchange object
+					into a string. To speed things up for you, we'll soon provide a javascript sample here for you to
+					use.
+					<!-- </p>
+			<br/>
+			<p> -->
+					<!-- show javascript from aaron's quote-service Readme here -->
+				</p>
+				<br/>
+				<p>
+					Then, to validate that the transaction is legitimate, you'll need to sign the string you generated
+					above with your private key by submitted it to the
+					<a href="" routerLink="../api/participant-client-api">/sign</a>
+					endpoint.
+					<!-- pretty sure we need to explain private keys and signing service in another step?? -->
+				</p>
+				<br/>
+				<p>
+					Below, you can try executing a request to the
+					<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_post_exchange'}">{{'/exchange'}}</a>
+					endpoint as the (One-NZ) Participant. You'll supply these two items we discussed and if you've done
+					everything right you'll receive a transaction receipt detailing the successful exchange of your NZD
+					stable coins for the FJD stable coins, the exchange rate, time, etc...
+				</p>
+				<div class="full-width" fxLayout="column">
+					<app-demo-sandbox [operationType]="paths[8].method" [requestRoute]="paths[8].url"
+						[requestBody]="paths[8].body"></app-demo-sandbox>
+				</div>
+			</div>
+
+			<!-- THIS IS STEP 9 -->
+
+			<div class="full-width" fxLayout="column">
+				<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">9</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[9].title}}</span>
+			</h4>
+				<br>
+				<p>
+					Prior to sending a payment to the Fiji Participant, you'd probably want to know how much it'll cost
+					you. You'll need to supply details about the settlement, and the desired payout to the Fiji
+					Participant. They'll calculate their fee and return it to you.
+				</p>
+				<br/>
+				<p>
+					Below, you can try executing a request to the
+					<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_get_fees_participants_{participant_id}'}">{{'/fees/participants/{participant_id}'}}</a>
+					endpoint as the (One-NZ) Participant. You'll receive the transaction fee the Fiji Participant will
+					charge you to make the payment, in the settlement asset currency.
+				</p>
+				<div class="full-width" fxLayout="column">
+					<app-demo-sandbox [operationType]="paths[9].method" [requestRoute]="paths[9].url"
+						[requestBody]="paths[9].body"></app-demo-sandbox>
+				</div>
+			</div>
+
+			<!-- THIS IS STEP 10 -->
+
+			<div class="full-width" fxLayout="column">
+				<h4 fxLayout="row" fxLayoutAlign="start center">
+				<div class="stylized-steps">
+					<div class="circle">
+						<span class="text" fxLayout="row" fxLayoutAlign="center center">10</span>
+					</div>
+				</div>
+				<span class="bx--type-delta step-title">{{paths[10].title}}</span>
+			</h4>
+				<br>
+				<p>
+					Pat yourself on the back, you've made it. You've learned what the Fiji Participant will charge you
+					to send the payment (on behalf of your customer to their recipient), so now you'll supply that fee
+					in this last step to finally send the customer's payment!
+				</p>
+				<br/>
+				<p>
+					We support financial industry standard formats that are familiar to use, specifically PACS008.
+					You'll need to transform the typical message you'd send to complete a transaction (from your legacy
+					financial systems in the PACS008 xml format), into a base 64 encoded string - similar to what you
+					did in Step 8. We'll soon provide a typical example of the XML file we're referring to below.
+					<!-- </p>
+				<br/>
+				<p> -->
+					<!-- show XML file from peter's send-service Readme here -->
+				</p>
+				<br/>
+				<p>
+					You'll also need to provide details about the proposed transaction, and this is where you'll supply
+					the fee information you retrieved in the last step.
+				</p>
+				<br/>
+				<p>
+					Below, you can try executing a request to the
+					<a routerLink="../api/participant-client-api" [queryParams]="{jump:'path_post_transactions_send'}">{{'/transactions/send'}}</a>
+					endpoint as the (One-NZ) Participant. You'll receive a confirmation that you're transfer has been
+					submitted in PACS002 format.
+				</p>
+				<div class="full-width" fxLayout="column">
+					<app-demo-sandbox [operationType]="paths[10].method" [requestRoute]="paths[10].url"
+						[requestBody]="paths[10].body"></app-demo-sandbox>
+				</div>
+				<br><br><br>
+		</div>
+
+			</div>
+		</div>

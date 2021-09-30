@@ -1,0 +1,113 @@
+@import "~sass/ibm-style-override";
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i');
+
+body {
+	font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.code {
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+.small {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.cap,
+.capitalize {
+	text-transform: capitalize;
+	a,
+	button {
+		text-transform: capitalize;
+	}
+}
+
+.italic {
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-style: italic;
+}
+
+.uppercase,
+.upper {
+	text-transform: uppercase;
+	a,
+	button {
+		text-transform: uppercase;
+	}
+
+	// override placeholder text so it doesn't get affected
+	&::placeholder, &::-webkit-input-placeholder {
+		text-transform: none;
+	}
+}
+
+.no-wrap {
+	// prevents words from wrapping to the next line
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.semibold {
+    font-weight: 600;
+}
+
+
+.super {
+	font-size: 0.7em;
+	vertical-align: super;
+}
+
+.strike {
+	text-decoration: line-through;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-danger {
+	color: $support-01;
+	svg {
+		fill: $support-01;
+	}
+}
+
+.text-ok {
+	color: $support-02;
+	svg {
+		fill: $support-02;
+	}
+}
+
+.text-warning {
+	color: $support-03;
+	svg {
+		fill: $support-03;
+	}
+}
+
+.text-info {
+	color: $support-04;
+	svg {
+		fill: $support-04;
+	}
+}
+
+// .text-twitter {
+// 	color: #5EA9DD;
+// }
+// .text-facebook {
+// 	color: #3A579D;
+// }
+// .text-google {
+// 	color: #D73D32;
+// }

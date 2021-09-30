@@ -1,0 +1,21 @@
+.bx--toast-notification {
+	position: fixed;
+    right: 0;
+    z-index: 10000;
+}
+
+.bx--toast-notification__close-button {
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 15px;
+    padding: 5px;
+}
+
+.notify-bottom{
+    bottom: 60px;
+}
+
+.notify-top{
+    top: 60px;
+}

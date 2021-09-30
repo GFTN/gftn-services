@@ -1,0 +1,132 @@
+<div class="bx--tile split" fxLayout="column">
+	<div class="bx--tile-header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+		<span class="bx--type-epsilon">{{account.name}}</span>
+		<ibm-overflow-menu fxHide fxShow.xs fxShow.md [flip]="true">
+			<ng-template [ngTemplateOutlet]="accountActions"
+				[ngTemplateOutletContext]="{ overflow: true, account: account }">
+			</ng-template>
+		</ibm-overflow-menu>
+	</div>
+	<div class="bx--tile-content" fxLayout="row" fxLayoutGap="10px">
+		<div fxFlex>
+			<div class="row table-responsive-wrapper">
+				<section *ngIf="view === 'list'" class="bx--structured-list" data-structured-list>
+					<div class="bx--structured-list-thead">
+						<div class="bx--structured-list-row bx--structured-list-row--header-row">
+							<div class="bx--structured-list-th">Issuer</div>
+							<div class="bx--structured-list-th">Asset Code</div>
+							<div class="bx--structured-list-th right">Balance</div>
+						</div>
+					</div>
+
+					<!-- list of trusted assets + balances (max 5 in list view) -->
+					<div class="bx--structured-list-tbody" *ngIf="account.loaded && account.assets.length > 0">
+						<div class="bx--structured-list-row" *ngFor="let asset of account.assets; let i=index;">
+							<ng-container *ngIf="i < 5">
+								<div class="bx--structured-list-td">{{ asset.issuer_id }}</div>
+								<div class="bx--structured-list-td">{{ asset.asset_code }}</div>
+								<div class="bx--structured-list-td right">{{ asset.balance.toFixed(2) }}</div>
+							</ng-container>
+						</div>
+					</div>
+
+					<!-- Loading rows -->
+					<div class="caption" *ngIf="!account.loaded">
+						<div class="loader-row">
+							<p class="loading"></p>
+						</div>
+						<div class="loader-row">
+							<p class="loading"></p>
+						</div>
+						<div class="loader-row">
+							<p class="loading"></p>
+						</div>
+					</div>
+
+					<!-- No trusted assets found. -->
+					<div class="caption" *ngIf="!(account.assets && account.assets.length > 0) && account.loaded">
+						<div class="loader-row">
+							<div class="center italic tall" fxLayout="column" fxLayoutAlign="center center">
+								<p *ngIf="participantAuthorized">No trusted assets found for this account.</p>
+								<p *ngIf="!participantAuthorized">Unauthorized to view.</p>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="space"></div>
+			<div class="space"></div>
+		</div>
+		<div fxHide.md fxHide.xs fxLayout="column" fxLayoutGap="10px">
+			<ng-template [ngTemplateOutlet]="accountActions" [ngTemplateOutletContext]="{ account: account }">
+			</ng-template>
+		</div>
+	</div>
+</div>
+
+<ng-template #accountActions let-account="account" let-overflow="overflow">
+
+	<li *ngIf="participantAuthorized" class="bx--overflow-menu-options__option">
+		<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--secondary'"
+          [routerLink]="'/portal/' + sessionService.institution.info.slug + '/accounts/' + account.name + '/assets'">
+          Manage Trusted Assets
+        </button>
+	</li>
+
+	<li *ngIf="superAuthorized" class="bx--overflow-menu-options__option">
+		<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--secondary'"
+			  (click)="viewAccountApproval(account.request)">
+			View Approval
+		</button>
+	</li>
+
+	<!-- Suspend/Reactivate only available for operating accounts -->
+	<!-- TODO: Enable for regular participant admins. For now, this is enabled only for IBM/super users. -->
+	<ng-container
+		*ngIf="superAuthorized && account.name !== 'issuing' && (!participantAccountService.suspendReactivateRequest || participantAccountService.suspendReactivateRequest?.loaded)">
+		<!-- Normal -->
+		<ng-container *ngIf="participantAccountService.getAccountStatus(account.address)==='normal'">
+			<li class=" bx--overflow-menu-options__option bx--overflow-menu-options__option--danger">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--danger'"
+              (click)="requestSuspendReactivateAccount(true)"
+              [disabled]='false || isSubmitting'>
+              Suspend
+            </button>
+			</li>
+		</ng-container>
+
+		<!-- Suspended -->
+		<ng-container *ngIf="participantAccountService.getAccountStatus(account.address) === 'suspended'">
+			<li class="bx--overflow-menu-options__option bx--overflow-menu-options__option--danger">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--danger'"
+              (click)="requestSuspendReactivateAccount(false)"
+              [disabled]='false || isSubmitting'>
+              Reactivate
+            </button>
+			</li>
+		</ng-container>
+
+		<!-- Request Exists. Needs approval/rejection -->
+		<ng-container
+			*ngIf="participantAccountService.getAccountStatus(account.address) === 'suspend_requested' || participantAccountService.getAccountStatus(account.address) === 'reactivate_requested'">
+			<p>{{ participantAccountService.getSuspendReactivate(account) }} requested by:
+				<br>{{ participantAccountService.getRequesterEmail(account) }}</p>
+			<li class="bx--overflow-menu-options__option">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--secondary'"
+              (click)="approveSuspendReactivateAccount()"
+              [disabled]='false || isSubmitting || getApproveRejectButton()'>
+              Approve
+            </button>
+			</li>
+			<li class="bx--overflow-menu-options__option bx--overflow-menu-options__option--danger">
+				<button [class]="overflow ? 'bx--overflow-menu-options__btn' : 'bx--btn bx--btn--danger'"
+              (click)="rejectSuspendReactivateAccount()"
+              [disabled]='false || isSubmitting || getApproveRejectButton()'>
+              Reject
+            </button>
+			</li>
+		</ng-container>
+	</ng-container>
+</ng-template>
+
+<ibm-loading *ngIf="isSubmitting" [overlay]="true"></ibm-loading>

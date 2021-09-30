@@ -1,0 +1,15 @@
+{
+    "TableName": "Whitelist",
+    "KeySchema": [
+      { "AttributeName": "participant", "KeyType": "HASH" },
+      { "AttributeName": "whitelist", "KeyType": "RANGE" }
+    ],
+    "AttributeDefinitions": [
+      { "AttributeName": "participant", "AttributeType": "S" },
+      { "AttributeName": "whitelist", "AttributeType": "S" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 5,
+      "WriteCapacityUnits": 5
+    }
+}

@@ -1,0 +1,37 @@
+<svg height="136" viewBox="0 0 230 136" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Blockchain Grid</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g transform="translate(-7.000000, -61.000000)">
+            <g id="Grid-1" transform="translate(122.000000, 129.000000) scale(-1, -1) translate(-122.000000, -129.000000) translate(8.000000, 61.000000)">
+                <path d="M83,105 L109,105" id="Line-2-Copy-42" stroke="#5FC8F1"></path>
+                <path d="M44,105 L70,105" id="Line-2-Copy-46" stroke="#5FC8F1"></path>
+                <path d="M6,105 L32,105" id="Line-2-Copy-48" stroke="#5FC8F1"></path>
+                <path d="M116.25,38.5 L116.25,64.5" id="Line-2-Copy" stroke="#5FC8F1"></path>
+                <path d="M116.25,75.5 L116.25,101.5" id="Line-2-Copy-2" stroke="#5FC8F1"></path>
+                <path d="M77.25,75.5 L77.25,101.5" id="Line-2-Copy-12" stroke="#5FC8F1"></path>
+                <path d="M116.25,109.5 L116.25,135.5" id="Line-2-Copy-43" stroke="#5FC8F1"></path>
+                <path d="M77.25,109.5 L77.25,135.5" id="Line-2-Copy-45" stroke="#5FC8F1"></path>
+                <path d="M38.25,109.5 L38.25,135.5" id="Line-2-Copy-47" stroke="#5FC8F1"></path>
+                <path d="M0.25,109.5 L0.25,135.5" id="Line-2-Copy-49" stroke="#5FC8F1"></path>
+                <path d="M156.25,109.5 L156.25,135.5" id="Line-2-Copy-44" stroke="#5FC8F1"></path>
+                <path d="M156.25,0.5 L156.25,26.5" id="Line-2-Copy-5" stroke="#5FC8F1"></path>
+                <path d="M123,33 L149,33" id="Line-2-Copy-6" stroke="#5FC8F1"></path>
+                <path d="M123,71 L149,71" id="Line-2-Copy-7" stroke="#5FC8F1"></path>
+                <path d="M84,71 L110,71" id="Line-2-Copy-13" stroke="#5FC8F1"></path>
+                <path d="M123,105 L149,105" id="Line-2-Copy-76" stroke="#5FC8F1"></path>
+                <path d="M156.25,38.5 L156.25,64.5" id="Line-2-Copy-8" stroke="#5FC8F1"></path>
+                <path d="M156.25,75.5 L156.25,101.5" id="Line-2-Copy-9" stroke="#FFFFFF" stroke-width="2"></path>
+                <path d="M196.25,0.5 L196.25,26.5" id="Line-2-Copy-5" stroke="#5FC8F1"></path>
+                <path d="M196.25,109.5 L196.25,135.5" id="Line-2-Copy-10" stroke="#5FC8F1"></path>
+                <path d="M163,33 L189,33" id="Line-2-Copy-6" stroke="#5FC8F1"></path>
+                <path d="M163,71 L189,71" id="Line-2-Copy-7" stroke="#FFFFFF" stroke-width="2"></path>
+                <path d="M163,105 L189,105" id="Line-2-Copy-78" stroke="#FFFFFF" stroke-width="2"></path>
+                <path d="M196.25,38.5 L196.25,64.5" id="Line-2-Copy-8" stroke="#5FC8F1"></path>
+                <path d="M196.25,75.5 L196.25,101.5" id="Line-2-Copy-9" stroke="#FFFFFF" stroke-width="2"></path>
+                <path d="M202,33 L228,33" id="Line-2-Copy-6" stroke="#5FC8F1"></path>
+                <path d="M202,71 L228,71" id="Line-2-Copy-7" stroke="#5FC8F1"></path>
+                <path d="M202,105 L228,105" id="Line-2-Copy-80" stroke="#5FC8F1"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+@import "~sass/helpers.scss";
+
+@import "~sass/ibm-style-override.scss";
+
+.stylized-steps {
+	width: 45px;
+	margin-right: 10px;
+}
+
+.step-title {
+	color: $brand-01;
+}

@@ -1,0 +1,66 @@
+# Crypto Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: participant_id_variable-crypto
+  labels:
+    app: participant_id_variable-crypto
+spec:
+  replicas: replica_variable
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: participant_id_variable-crypto
+  template:
+    metadata:
+      labels:
+        app: participant_id_variable-crypto
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - env:
+        - name: SERVICE_NAME
+          value: "crypto-service"
+        - name: HOME_DOMAIN_NAME
+          value: "participant_id_variable"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: participant_id_variable-crypto-service-aws-iam-key
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: participant_id_variable-crypto-service-aws-iam-key
+              key: aws-secret-access-key
+        - name: FIREBASE_CREDENTIALS
+          valueFrom:
+            secretKeyRef:
+              name: next-firebase-credential
+              key: next-firebase-credential
+        - name: WW_JWT_PEPPER_OBJ
+          valueFrom:
+            secretKeyRef:
+              name: jwtpepperobject
+              key: pepper-object
+        image: docker_registry_url/gftn/crypto_service_name_variable:docker_tag_variable
+        imagePullPolicy: Always
+        name: participant_id_variable-crypto
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "0.1"
+          limits:
+            memory: "128Mi"
+            cpu: "0.25"
+        ports:
+        - containerPort: 9999
+        - containerPort: 10042
+        envFrom:
+        - configMapRef:
+            name: env-config-global
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
