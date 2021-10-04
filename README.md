@@ -37,6 +37,3 @@ covers a lot of ground.
 The deployment scripts and yaml files are in the `automation-service` directory tree, especially `k8s`.
 
 
-
-[Archived Readme](README_ARCHIVED.md).
-
